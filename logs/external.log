@@ -1,0 +1,97 @@
+[04-Feb-2021 12:29:25 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.3.0". You are running 7.2.4. in C:\wamp64\www\PRJS\CRM\churchcrm\vendor\composer\platform_check.php on line 24
+[04-Feb-2021 12:29:25 UTC] PHP Stack trace:
+[04-Feb-2021 12:29:25 UTC] PHP   1. {main}() C:\wamp64\www\PRJS\CRM\churchcrm\setup\index.php:0
+[04-Feb-2021 12:29:25 UTC] PHP   2. require_once() C:\wamp64\www\PRJS\CRM\churchcrm\setup\index.php:13
+[04-Feb-2021 12:29:25 UTC] PHP   3. ComposerAutoloaderInit30237e9e595f9b45cd5be2a7269e0243::getLoader() C:\wamp64\www\PRJS\CRM\churchcrm\vendor\autoload.php:7
+[04-Feb-2021 12:29:25 UTC] PHP   4. require() C:\wamp64\www\PRJS\CRM\churchcrm\vendor\composer\autoload_real.php:25
+[04-Feb-2021 12:29:25 UTC] PHP   5. trigger_error() C:\wamp64\www\PRJS\CRM\churchcrm\vendor\composer\platform_check.php:24
+[16-Feb-2021 14:49:56 UTC] PHP Notice:  Undefined variable: _SESSION in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php on line 23
+[16-Feb-2021 14:49:56 UTC] PHP Stack trace:
+[16-Feb-2021 14:49:56 UTC] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\setup\index.php:0
+[16-Feb-2021 14:49:56 UTC] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\setup\index.php:29
+[16-Feb-2021 14:49:56 UTC] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[16-Feb-2021 14:49:56 UTC] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[16-Feb-2021 14:49:56 UTC] PHP   5. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:49:56 UTC] PHP   6. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[16-Feb-2021 14:49:56 UTC] PHP   7. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[16-Feb-2021 14:49:56 UTC] PHP   8. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:49:56 UTC] PHP   9. Slim\Handlers\Strategies\RequestResponse->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:281
+[16-Feb-2021 14:49:56 UTC] PHP  10. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:49:56 UTC] PHP  11. Slim\Container->{closure:C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:8-15}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:49:56 UTC] PHP  12. Slim\Views\PhpRenderer->render() C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:14
+[16-Feb-2021 14:49:56 UTC] PHP  13. Slim\Views\PhpRenderer->fetch() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:54
+[16-Feb-2021 14:49:56 UTC] PHP  14. Slim\Views\PhpRenderer->fetchTemplate() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:153
+[16-Feb-2021 14:49:56 UTC] PHP  15. Slim\Views\PhpRenderer->protectedIncludeScope() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:184
+[16-Feb-2021 14:49:56 UTC] PHP  16. include() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:203
+[16-Feb-2021 14:49:57 UTC] PHP  17. require() C:\wamp64\www\KC\churchcrm2021\setup\templates\setup-steps.php:238
+[16-Feb-2021 14:49:57 UTC] PHP  18. ChurchCRM\Bootstrapper::GetCurrentLocale() C:\wamp64\www\KC\churchcrm2021\Include\FooterNotLoggedIn.php:27
+[16-Feb-2021 14:49:57 UTC] PHP  19. ChurchCRM\Authentication\AuthenticationManager::GetCurrentUser() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:91
+[16-Feb-2021 14:49:57 UTC] PHP  20. ChurchCRM\Authentication\AuthenticationManager::GetAuthenticationProvider() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php:37
+[16-Feb-2021 14:49:57 UTC] PHP Warning:  key_exists() expects parameter 2 to be array, null given in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php on line 23
+[16-Feb-2021 14:49:57 UTC] PHP Stack trace:
+[16-Feb-2021 14:49:57 UTC] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\setup\index.php:0
+[16-Feb-2021 14:49:57 UTC] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\setup\index.php:29
+[16-Feb-2021 14:49:57 UTC] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[16-Feb-2021 14:49:57 UTC] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[16-Feb-2021 14:49:57 UTC] PHP   5. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:49:57 UTC] PHP   6. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[16-Feb-2021 14:49:57 UTC] PHP   7. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[16-Feb-2021 14:49:57 UTC] PHP   8. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:49:57 UTC] PHP   9. Slim\Handlers\Strategies\RequestResponse->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:281
+[16-Feb-2021 14:49:57 UTC] PHP  10. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:49:57 UTC] PHP  11. Slim\Container->{closure:C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:8-15}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:49:57 UTC] PHP  12. Slim\Views\PhpRenderer->render() C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:14
+[16-Feb-2021 14:49:57 UTC] PHP  13. Slim\Views\PhpRenderer->fetch() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:54
+[16-Feb-2021 14:49:57 UTC] PHP  14. Slim\Views\PhpRenderer->fetchTemplate() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:153
+[16-Feb-2021 14:49:57 UTC] PHP  15. Slim\Views\PhpRenderer->protectedIncludeScope() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:184
+[16-Feb-2021 14:49:57 UTC] PHP  16. include() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:203
+[16-Feb-2021 14:49:57 UTC] PHP  17. require() C:\wamp64\www\KC\churchcrm2021\setup\templates\setup-steps.php:238
+[16-Feb-2021 14:49:57 UTC] PHP  18. ChurchCRM\Bootstrapper::GetCurrentLocale() C:\wamp64\www\KC\churchcrm2021\Include\FooterNotLoggedIn.php:27
+[16-Feb-2021 14:49:57 UTC] PHP  19. ChurchCRM\Authentication\AuthenticationManager::GetCurrentUser() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:91
+[16-Feb-2021 14:49:57 UTC] PHP  20. ChurchCRM\Authentication\AuthenticationManager::GetAuthenticationProvider() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php:37
+[16-Feb-2021 14:49:57 UTC] PHP  21. key_exists() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php:23
+[16-Feb-2021 14:52:28 UTC] PHP Notice:  Undefined variable: _SESSION in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php on line 23
+[16-Feb-2021 14:52:29 UTC] PHP Stack trace:
+[16-Feb-2021 14:52:29 UTC] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\setup\index.php:0
+[16-Feb-2021 14:52:29 UTC] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\setup\index.php:29
+[16-Feb-2021 14:52:29 UTC] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[16-Feb-2021 14:52:29 UTC] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[16-Feb-2021 14:52:29 UTC] PHP   5. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:52:29 UTC] PHP   6. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[16-Feb-2021 14:52:29 UTC] PHP   7. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[16-Feb-2021 14:52:29 UTC] PHP   8. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:52:29 UTC] PHP   9. Slim\Handlers\Strategies\RequestResponse->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:281
+[16-Feb-2021 14:52:29 UTC] PHP  10. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:52:29 UTC] PHP  11. Slim\Container->{closure:C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:8-15}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:52:29 UTC] PHP  12. Slim\Views\PhpRenderer->render() C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:14
+[16-Feb-2021 14:52:29 UTC] PHP  13. Slim\Views\PhpRenderer->fetch() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:54
+[16-Feb-2021 14:52:29 UTC] PHP  14. Slim\Views\PhpRenderer->fetchTemplate() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:153
+[16-Feb-2021 14:52:29 UTC] PHP  15. Slim\Views\PhpRenderer->protectedIncludeScope() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:184
+[16-Feb-2021 14:52:29 UTC] PHP  16. include() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:203
+[16-Feb-2021 14:52:29 UTC] PHP  17. require() C:\wamp64\www\KC\churchcrm2021\setup\templates\setup-steps.php:238
+[16-Feb-2021 14:52:29 UTC] PHP  18. ChurchCRM\Bootstrapper::GetCurrentLocale() C:\wamp64\www\KC\churchcrm2021\Include\FooterNotLoggedIn.php:27
+[16-Feb-2021 14:52:29 UTC] PHP  19. ChurchCRM\Authentication\AuthenticationManager::GetCurrentUser() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:91
+[16-Feb-2021 14:52:29 UTC] PHP  20. ChurchCRM\Authentication\AuthenticationManager::GetAuthenticationProvider() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php:37
+[16-Feb-2021 14:52:29 UTC] PHP Warning:  key_exists() expects parameter 2 to be array, null given in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php on line 23
+[16-Feb-2021 14:52:29 UTC] PHP Stack trace:
+[16-Feb-2021 14:52:29 UTC] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\setup\index.php:0
+[16-Feb-2021 14:52:29 UTC] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\setup\index.php:29
+[16-Feb-2021 14:52:29 UTC] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[16-Feb-2021 14:52:29 UTC] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[16-Feb-2021 14:52:29 UTC] PHP   5. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:52:29 UTC] PHP   6. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[16-Feb-2021 14:52:29 UTC] PHP   7. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[16-Feb-2021 14:52:29 UTC] PHP   8. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[16-Feb-2021 14:52:29 UTC] PHP   9. Slim\Handlers\Strategies\RequestResponse->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:281
+[16-Feb-2021 14:52:29 UTC] PHP  10. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:52:29 UTC] PHP  11. Slim\Container->{closure:C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:8-15}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[16-Feb-2021 14:52:29 UTC] PHP  12. Slim\Views\PhpRenderer->render() C:\wamp64\www\KC\churchcrm2021\setup\routes\setup.php:14
+[16-Feb-2021 14:52:29 UTC] PHP  13. Slim\Views\PhpRenderer->fetch() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:54
+[16-Feb-2021 14:52:29 UTC] PHP  14. Slim\Views\PhpRenderer->fetchTemplate() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:153
+[16-Feb-2021 14:52:29 UTC] PHP  15. Slim\Views\PhpRenderer->protectedIncludeScope() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:184
+[16-Feb-2021 14:52:29 UTC] PHP  16. include() C:\wamp64\www\KC\churchcrm2021\vendor\slim\php-view\src\PhpRenderer.php:203
+[16-Feb-2021 14:52:29 UTC] PHP  17. require() C:\wamp64\www\KC\churchcrm2021\setup\templates\setup-steps.php:238
+[16-Feb-2021 14:52:29 UTC] PHP  18. ChurchCRM\Bootstrapper::GetCurrentLocale() C:\wamp64\www\KC\churchcrm2021\Include\FooterNotLoggedIn.php:27
+[16-Feb-2021 14:52:29 UTC] PHP  19. ChurchCRM\Authentication\AuthenticationManager::GetCurrentUser() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:91
+[16-Feb-2021 14:52:29 UTC] PHP  20. ChurchCRM\Authentication\AuthenticationManager::GetAuthenticationProvider() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php:37
+[16-Feb-2021 14:52:29 UTC] PHP  21. key_exists() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php:23
