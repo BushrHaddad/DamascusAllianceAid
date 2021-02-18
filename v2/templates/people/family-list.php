@@ -65,9 +65,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 <td> <?= $family->getHomePhone() ?></td>
                 <td> <?= $family->getCellPhone() ?></td>
                <!-- todo: Select custom list options from an array -->
-               <!-- todo: Select custom list for Address Additional Info -->
-               <!-- todo: Select custom list for Additional Info -->
-               <!-- todo: Select custom list for Team Info -->
                <!-- todo: Select custom list for Ref -->
                <!-- todo: Select custom list for Membership Status -->
                 <?php
@@ -90,9 +87,14 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
                             $item = new PeopleCustomField($customfield, $value);
                             ?>
-                            <td> <?= $item->getFormattedValue() ?></td>
+                            <td> <?= getCustomListOptionField($item->getDisplayValue(),$item->getFormattedValue()) ?></td>
                             <?php
                           }
+                        else{
+                          ?>
+                          <td> </td>
+                          <?php
+                        }
                   }
               }
 

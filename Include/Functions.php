@@ -907,6 +907,27 @@ function formCustomField($type, $fieldname, $data, $special, $bFirstPassFlag)
   }
 }
 
+// get an array to show the custom name for list options 
+function getCustomListOptionField($fieldname, $data)
+{
+    $sSQL = "SELECT family_custom_master.type_ID, family_custom_master.fam_custom_Special FROM family_custom_master where fam_custom_Name = '".$fieldname."'";
+    $rsListOptions = RunQuery($sSQL);
+
+    while ($aRow = mysqli_fetch_array($rsListOptions)) {
+        extract($aRow);
+        if ($type_ID != 12){
+           return $data;
+        }
+        else{
+            $sSQL1 = "SELECT lst_OptionName FROM list_lst where lst_ID = '".$fam_custom_Special."' and lst_OptionID = '".$data."' " ;
+            $rsListOptions1 = RunQuery($sSQL1);
+            $aRow1 = mysqli_fetch_array($rsListOptions1);
+            extract($aRow1);
+            return $lst_OptionName;
+        }
+    }
+
+}
 function assembleYearMonthDay($sYear, $sMonth, $sDay, $pasfut = 'future')
 {
     // This function takes a year, month and day from parseAndValidateDate.  On success this

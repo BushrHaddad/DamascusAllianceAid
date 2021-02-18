@@ -1,0 +1,65 @@
+[18-Feb-2021 21:59:04 UTC] Slim Application Error:
+Type: Error
+Message: Object of class mysqli_result could not be converted to string
+File: C:\xampp\htdocs\churchcrm\v2\templates\people\family-list.php
+Line: 94
+Trace: #0 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(203): include()
+#1 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(184): Slim\Views\PhpRenderer->protectedIncludeScope('templates/peopl...', Array)
+#2 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(153): Slim\Views\PhpRenderer->fetchTemplate('family-list.php', Array)
+#3 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(54): Slim\Views\PhpRenderer->fetch('family-list.php', Array, true)
+#4 C:\xampp\htdocs\churchcrm\v2\routes\family.php(53): Slim\Views\PhpRenderer->render(Object(Slim\Http\Response), 'family-list.php', Array)
+#5 [internal function]: listFamilies(Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#6 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(40): call_user_func('listFamilies', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#7 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(281): Slim\Handlers\Strategies\RequestResponse->__invoke('listFamilies', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#8 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\Route->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#9 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(268): Slim\Route->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#10 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(503): Slim\Route->run(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\VersionMiddleware.php(13): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#12 [internal function]: ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#13 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\VersionMiddleware), Array)
+#14 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#15 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#16 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\AuthMiddleware.php(34): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#17 [internal function]: ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#18 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\AuthMiddleware), Array)
+#19 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#20 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#21 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#22 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#23 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#24 C:\xampp\htdocs\churchcrm\v2\index.php(48): Slim\App->run()
+#25 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
+[18-Feb-2021 22:53:33 UTC] Slim Application Error:
+Type: ParseError
+Message: syntax error, unexpected '?&gt;'
+File: C:\xampp\htdocs\churchcrm\v2\templates\people\family-list.php
+Line: 95
+Trace: #0 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(184): Slim\Views\PhpRenderer->protectedIncludeScope('templates/peopl...', Array)
+#1 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(153): Slim\Views\PhpRenderer->fetchTemplate('family-list.php', Array)
+#2 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(54): Slim\Views\PhpRenderer->fetch('family-list.php', Array, true)
+#3 C:\xampp\htdocs\churchcrm\v2\routes\family.php(53): Slim\Views\PhpRenderer->render(Object(Slim\Http\Response), 'family-list.php', Array)
+#4 [internal function]: listFamilies(Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#5 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(40): call_user_func('listFamilies', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#6 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(281): Slim\Handlers\Strategies\RequestResponse->__invoke('listFamilies', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#7 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\Route->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#8 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(268): Slim\Route->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#9 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(503): Slim\Route->run(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#10 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\VersionMiddleware.php(13): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 [internal function]: ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#12 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\VersionMiddleware), Array)
+#13 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#14 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#15 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\AuthMiddleware.php(34): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#16 [internal function]: ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#17 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\AuthMiddleware), Array)
+#18 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#19 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#20 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#21 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#22 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#23 C:\xampp\htdocs\churchcrm\v2\index.php(48): Slim\App->run()
+#24 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+

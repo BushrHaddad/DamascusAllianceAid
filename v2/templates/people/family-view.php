@@ -566,7 +566,7 @@ $(document).ready(function() {
             location.reload();
         }
     });
-
+    
     $(".edit-family").click(function() {
         window.location.href = window.CRM.root + '/FamilyEditor.php?FamilyID=' + window.CRM
             .currentFamily;
