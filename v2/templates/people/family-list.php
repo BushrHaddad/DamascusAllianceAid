@@ -27,7 +27,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <p><br/><br/></p>
 <div class="box">
     <div class="box-body">
-        <table id="families" class="table table-striped table-bordered data-table" cellspacing="0" width="100%">
+        <table id="example" class="table table-striped table-bordered data-table" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <?php 
@@ -111,9 +111,29 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 </div>
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>" >
-  $(document).ready(function () {
-    $('#families').DataTable(window.CRM.plugin.dataTable);
-  });
+    $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    // $('#example').DataTable(window.CRM.plugin.dataTable);
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Filter '+title+'" />' );
+
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+    } );
 </script>
 
 <?php
