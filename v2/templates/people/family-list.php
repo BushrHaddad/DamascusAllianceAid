@@ -87,6 +87,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
                             $item = new PeopleCustomField($customfield, $value);
                             ?>
+                            <!-- Call the function responsible of showing corresponding values of indexes -->
                             <td> <?= getCustomListOptionField($item->getDisplayValue(),$item->getFormattedValue()) ?></td>
                             <?php
                           }
