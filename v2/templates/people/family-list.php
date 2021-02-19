@@ -113,12 +113,11 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <script nonce="<?= SystemURLs::getCSPNonce() ?>" >
     $(document).ready(function() {
     // Setup - add a text input to each footer cell
-    // $('#example').DataTable(window.CRM.plugin.dataTable);
+
     $('#example thead tr').clone(true).appendTo( '#example thead' );
     $('#example thead tr:eq(1) th').each( function (i) {
         var title = $(this).text();
         $(this).html( '<input type="text" placeholder="Filter '+title+'" />' );
-
         $( 'input', this ).on( 'keyup change', function () {
             if ( table.column(i).search() !== this.value ) {
                 table
@@ -131,7 +130,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
     var table = $('#example').DataTable( {
         orderCellsTop: true,
-        fixedHeader: true
+        // fixedHeader: true,
+        "scrollX": true
+        
     } );
     } );
 </script>
