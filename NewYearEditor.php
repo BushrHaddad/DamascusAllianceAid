@@ -102,7 +102,7 @@ for ($row = 1; $row <= $numRows; $row++) {
         <table class="table table-striped table-bordered data-table" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th><?= gettext('Id') ?></th>
+                    <th><?= gettext('Action') ?></th>
                     <th><?= gettext('Name') ?></th>
                     <th><?= gettext('Description') ?></th>
                 </tr>
@@ -110,35 +110,34 @@ for ($row = 1; $row <= $numRows; $row++) {
             <tbody>
 
                 <!--Populate the table with family details -->
-                <?php foreach ($years as $year) { ?>
+                
+                <?php $var=0; foreach ($years as $year) { ?>
                 <tr>
-                    <!-- Id -->
-                    <td> <?= $year[0] ?></td>
                     <!-- Name -->
+                    <td></td> 
                     <td> <?= $year[1] ?></td>
                     <!-- Year -->
-                    <td> <?= $year[2] ?></td>
+                    <td> <?= $year[2]?></td>
                 </tr>
+                
                 <?php } ?>
+                <tr>
+                    <td></td>
+                    <td><?= $years[0]->year_desc ?></td>
+                    <td><textarea name="Positive" rows='1' cols="30%"></textarea></td>
+                </tr>
+     
+             
             </tbody>
         </table>
     </div>
 </div>
-<form action="NewYearEditor.php" method="post">
-    <p>
-        <label for="Name">This will add a new year to your record: </label>
-    </p>
+<!-- <form action="NewYearEditor.php" method="post">
+
     <p>
         <label>Add a description for this year:</label>
         <input type="text" name="gpa" id="gpa">
     </p>
-    <input type="submit" name="submit" value="Add New Year:">
-    <?php
-    
+    <input type="submit" name="submit" value="Add New Year:"> -->
 
-// Construct the  data table containning the years and descriptions 
-
-?>
-
-
-    <?php require 'Include/Footer.php' ?>
+<?php require 'Include/Footer.php' ?>

@@ -74,3 +74,7 @@ Stack trace:
 #0 C:\xampp\htdocs\churchcrm\VolunteerOpportunityEditor.php(138): RunQuery('UPDATE voluntee...')
 #1 {main}
   thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[20-Feb-2021 20:21:10 UTC] PHP Fatal error:  Uncaught Error: Class 'SystemURLs' not found in C:\xampp\htdocs\churchcrm\NewYearEditor.php:117
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\churchcrm\NewYearEditor.php on line 117
