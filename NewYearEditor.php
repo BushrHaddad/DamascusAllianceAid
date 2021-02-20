@@ -101,11 +101,11 @@ for ($row = 1; $row <= $numRows; $row++) {
     <div class="box-body">
         <table class="table table-striped table-bordered data-table" cellspacing="0" width="100%">
             <thead>
-            <tr>
-                <th><?= gettext('Id') ?></th>
-                <th><?= gettext('Name') ?></th>
-                <th><?= gettext('Description') ?></th>
-            </tr>
+                <tr>
+                    <th><?= gettext('Id') ?></th>
+                    <th><?= gettext('Name') ?></th>
+                    <th><?= gettext('Description') ?></th>
+                </tr>
             </thead>
             <tbody>
 
@@ -118,25 +118,27 @@ for ($row = 1; $row <= $numRows; $row++) {
                     <td> <?= $year[1] ?></td>
                     <!-- Year -->
                     <td> <?= $year[2] ?></td>
-                </tr>   
-                <?php } ?>   
+                </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 </div>
-
-<?php
-
-
-
-
-
-exit;
-
+<form action="NewYearEditor.php" method="post">
+    <p>
+        <label for="Name">This will add a new year to your record: </label>
+    </p>
+    <p>
+        <label>Add a description for this year:</label>
+        <input type="text" name="gpa" id="gpa">
+    </p>
+    <input type="submit" name="submit" value="Add New Year:">
+    <?php
+    
 
 // Construct the  data table containning the years and descriptions 
 
 ?>
 
 
-<?php require 'Include/Footer.php' ?>
+    <?php require 'Include/Footer.php' ?>

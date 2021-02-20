@@ -69,21 +69,22 @@ if (($sAction == 'delete') && $iOpp > 0) {
 
     $sPageTitle = gettext('Volunteer Opportunity Delete Confirmation');
     require 'Include/Header.php'; ?>
-    <div class="box box-body">
+<div class="box box-body">
     <div class="callout callout-danger"><?= gettext('Please confirm deletion of') ?>:</div>
     <table class="table">
-        <tr><th>&nbsp;</th>
-        <th><?= gettext('Name') ?></th>
-        <th><?= gettext('Description') ?></th>
-    </tr>
-    <tr>
-        <td><b><?= $vol_Order ?></b></td>
-        <td><?= $vol_Name ?></td>
-        <td><?= $vol_Description ?></td>
-    </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <th><?= gettext('Name') ?></th>
+            <th><?= gettext('Description') ?></th>
+        </tr>
+        <tr>
+            <td><b><?= $vol_Order ?></b></td>
+            <td><?= $vol_Name ?></td>
+            <td><?= $vol_Description ?></td>
+        </tr>
     </table>
 
-<?php
+    <?php
     // Do some error checking before deleting this Opportunity.
     // Notify user if there are currently people assigned to this
     // Volunteer Opportunity.
@@ -273,16 +274,15 @@ if (isset($_POST['SaveChanges'])) {
 // Construct the form
 
 ?>
-<div class="box box-body">
-<form method="post" action="VolunteerOpportunityEditor.php" name="OppsEditor">
+    <div class="box box-body">
+        <form method="post" action="VolunteerOpportunityEditor.php" name="OppsEditor">
 
-<table class="table">
+            <table class="table">
 
-<?php
-if ($numRows == 0) {
-    ?>
-    <div class="callout callout-warning"><?= gettext('No volunteer opportunities have been added yet') ?></div>
-<?php
+                <?php if ($numRows == 0) {  ?>
+                <div class="callout callout-warning"><?= gettext('No volunteer opportunities have been added yet') ?>
+                </div>
+                <?php
 } else { // if an 'action' (up/down arrow clicked, or order was input)
         if ($iRowNum && $sAction != '') {
             // cast as int and couple with switch for sql injection prevention for $row_num
@@ -328,14 +328,16 @@ if ($numRows == 0) {
     } // end if GET
 
 ?>
-<tr>
-    <td colspan="5">
-        <div class="callout callout-info"><?= gettext("NOTE: ADD, Delete, and Ordering changes are immediate.  Changes to Name or Desc fields must be saved by pressing 'Save Changes'") ?></div>
-    </td>
-</tr>
-<tr>
-    <td colspan="5">
-        <?php
+                <tr>
+                    <td colspan="5">
+                        <div class="callout callout-info">
+                            <?= gettext("NOTE: ADD, Delete, and Ordering changes are immediate.  Changes to Name or Desc fields must be saved by pressing 'Save Changes'") ?>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <?php
         if ($bErrorFlag) {
             echo '<div class="callout callout-danger">';
             echo gettext('Invalid fields or selections. Changes not saved! Please correct and try again!');
@@ -347,16 +349,16 @@ if ($numRows == 0) {
             echo '</div>';
         }
         ?>
-    </td>
-</tr>
-<tr>
-<th></th>
-<th></th>
-<th><?= gettext('Name') ?></th>
-<th><?= gettext('Description') ?></th>
-</tr>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th><?= gettext('Name') ?></th>
+                    <th><?= gettext('Description') ?></th>
+                </tr>
 
-<?php
+                <?php
 
 for ($row = 1; $row <= $numRows; $row++) {
     if (array_key_exists($row, $aNameFields)) {
@@ -376,71 +378,84 @@ for ($row = 1; $row <= $numRows; $row++) {
 
         echo '<a href="VolunteerOpportunityEditor.php?act=delete&amp;Opp='.$aIDFields[$row]."\"> <i class='fa fa-times'></i></a></td>"; ?>
 
-	   <td class="TextColumn" align="center">
-	   <input type="text" name="<?= $row.'name' ?>" value="<?= htmlentities(stripslashes($aNameFields[$row]), ENT_NOQUOTES, 'UTF-8') ?>" class="form-control" size="20" maxlength="30">
-	   <?php
+                <td class="TextColumn" align="center">
+                    <input type="text" name="<?= $row.'name' ?>"
+                        value="<?= htmlentities(stripslashes($aNameFields[$row]), ENT_NOQUOTES, 'UTF-8') ?>"
+                        class="form-control" size="20" maxlength="30">
+                    <?php
 
        if (array_key_exists($row, $aNameErrors) && $aNameErrors[$row]) {
            echo '<span style="color: red;"><BR>'.gettext('You must enter a name').' </span>';
        } ?>
-	   </td>
+                </td>
 
-	   <td class="TextColumn">
-	   <input type="text" name="<?= $row ?>desc" value="<?= htmlentities(stripslashes($aDescFields[$row]), ENT_NOQUOTES, 'UTF-8') ?>" class="form-control" size="40" maxlength="100">
-	   </td>
+                <td class="TextColumn">
+                    <input type="text" name="<?= $row ?>desc"
+                        value="<?= htmlentities(stripslashes($aDescFields[$row]), ENT_NOQUOTES, 'UTF-8') ?>"
+                        class="form-control" size="40" maxlength="100">
+                </td>
 
-	   </tr>
-   <?php
+                </tr>
+                <?php
     }
 }
 ?>
 
-<tr>
-<td colspan="5">
-<table width="100%">
-<tr>
-<td width="30%"></td>
-<td width="40%" align="center" valign="bottom">
-<input type="submit" class="btn btn-primary" value="<?= gettext('Save Changes') ?>" Name="SaveChanges">
-&nbsp;
-<input type="button" class="btn btn-default" value="<?= gettext('Exit') ?>" Name="Exit" onclick="javascript:document.location='Menu.php'">
-</td>
-<td width="30%"></td>
-</tr>
-</table>
-</td>
-<td>
-</tr>
+                <tr>
+                    <td colspan="5">
+                        <table width="100%">
+                            <tr>
+                                <td width="30%"></td>
+                                <td width="40%" align="center" valign="bottom">
+                                    <input type="submit" class="btn btn-primary" value="<?= gettext('Save Changes') ?>"
+                                        Name="SaveChanges">
+                                    &nbsp;
+                                    <input type="button" class="btn btn-default" value="<?= gettext('Exit') ?>"
+                                        Name="Exit" onclick="javascript:document.location='Menu.php'">
+                                </td>
+                                <td width="30%"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                </tr>
 
-<tr><td colspan="5"><hr></td></tr>
-<tr>
-<td colspan="5">
-<table width="100%">
-<tr>
-<td width="15%"></td>
-<td valign="top">
-<div><?= gettext('Name') ?>:</div>
-<input type="text" name="newFieldName" size="30" maxlength="30" class="form-control">
-<?php if ($bNewNameError) {
+                <tr>
+                    <td colspan="5">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table width="100%">
+                            <tr>
+                                <td width="15%"></td>
+                                <td valign="top">
+                                    <div><?= gettext('Name') ?>:</div>
+                                    <input type="text" name="newFieldName" size="30" maxlength="30"
+                                        class="form-control">
+                                    <?php if ($bNewNameError) {
     echo '<div><span style="color: red;"><BR>'.gettext('You must enter a name').'</span></div>';
 } ?>
-&nbsp;
-</td>
-<td valign="top">
-<div><?= gettext('Description') ?>:</div>
-<input type="text" name="newFieldDesc" size="40" maxlength="100" class="form-control">
-&nbsp;
-</td>
-<td>
-<input type="submit" class="btn btn-primary" value="<?= gettext('Add New Opportunity') ?>" name="AddField">
-</td>
-<td width="15%"></td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</form>
-</div>
+                                    &nbsp;
+                                </td>
+                                <td valign="top">
+                                    <div><?= gettext('Description') ?>:</div>
+                                    <input type="text" name="newFieldDesc" size="40" maxlength="100"
+                                        class="form-control">
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    <input type="submit" class="btn btn-primary"
+                                        value="<?= gettext('Add New Opportunity') ?>" name="AddField">
+                                </td>
+                                <td width="15%"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
-<?php require 'Include/Footer.php' ?>
+    <?php require 'Include/Footer.php' ?>
