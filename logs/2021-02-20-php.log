@@ -1,0 +1,76 @@
+[20-Feb-2021 10:38:47 UTC] PHP Fatal error:  Uncaught Error: Call to a member function addSubMenu() on null in C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php:62
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php(37): ChurchCRM\Config\Menu\Menu::getPeopleMenu()
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php(21): ChurchCRM\Config\Menu\Menu::buildMenuItems()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\view\MenuRenderer.php(12): ChurchCRM\Config\Menu\Menu::init()
+#3 C:\xampp\htdocs\churchcrm\Include\Header.php(199): ChurchCRM\view\MenuRenderer::RenderMenu()
+#4 C:\xampp\htdocs\churchcrm\SystemSettings.php(88): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php on line 62
+[20-Feb-2021 10:38:54 UTC] PHP Fatal error:  Uncaught Error: Call to a member function addSubMenu() on null in C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php:62
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php(37): ChurchCRM\Config\Menu\Menu::getPeopleMenu()
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php(21): ChurchCRM\Config\Menu\Menu::buildMenuItems()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\view\MenuRenderer.php(12): ChurchCRM\Config\Menu\Menu::init()
+#3 C:\xampp\htdocs\churchcrm\Include\Header.php(199): ChurchCRM\view\MenuRenderer::RenderMenu()
+#4 C:\xampp\htdocs\churchcrm\SystemSettings.php(88): require('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php on line 62
+[20-Feb-2021 10:38:57 UTC] Slim Application Error:
+Type: Error
+Message: Call to a member function addSubMenu() on null
+File: C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php
+Line: 62
+Trace: #0 C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php(37): ChurchCRM\Config\Menu\Menu::getPeopleMenu()
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Config\Menu\Menu.php(21): ChurchCRM\Config\Menu\Menu::buildMenuItems()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\view\MenuRenderer.php(12): ChurchCRM\Config\Menu\Menu::init()
+#3 C:\xampp\htdocs\churchcrm\Include\Header.php(199): ChurchCRM\view\MenuRenderer::RenderMenu()
+#4 C:\xampp\htdocs\churchcrm\v2\templates\root\dashboard.php(8): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(203): include('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(184): Slim\Views\PhpRenderer->protectedIncludeScope('templates/root/...', Array)
+#7 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(153): Slim\Views\PhpRenderer->fetchTemplate('dashboard.php', Array)
+#8 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(54): Slim\Views\PhpRenderer->fetch('dashboard.php', Array, true)
+#9 C:\xampp\htdocs\churchcrm\v2\routes\root.php(60): Slim\Views\PhpRenderer->render(Object(Slim\Http\Response), 'dashboard.php', Array)
+#10 [internal function]: viewDashboard(Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#11 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(40): call_user_func('viewDashboard', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#12 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(281): Slim\Handlers\Strategies\RequestResponse->__invoke('viewDashboard', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#13 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\Route->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#14 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(268): Slim\Route->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#15 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(503): Slim\Route->run(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#16 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\VersionMiddleware.php(13): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#17 [internal function]: ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#18 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\VersionMiddleware), Array)
+#19 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#20 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#21 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\AuthMiddleware.php(34): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#22 [internal function]: ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#23 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\AuthMiddleware), Array)
+#24 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#25 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#26 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#27 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#28 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#29 C:\xampp\htdocs\churchcrm\v2\index.php(48): Slim\App->run()
+#30 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
+[20-Feb-2021 10:45:03 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\VolunteerOpportunityEditor.php(138): RunQuery('UPDATE voluntee...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[20-Feb-2021 11:30:37 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\VolunteerOpportunityEditor.php(138): RunQuery('UPDATE voluntee...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[20-Feb-2021 11:30:40 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\VolunteerOpportunityEditor.php(138): RunQuery('UPDATE voluntee...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[20-Feb-2021 11:30:42 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\VolunteerOpportunityEditor.php(138): RunQuery('UPDATE voluntee...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215

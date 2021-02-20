@@ -68,6 +68,7 @@ class Menu
         $peopleMenu->addSubMenu(new MenuItem(gettext("View Active Families"), "v2/family"));
         $peopleMenu->addSubMenu(new MenuItem(gettext("View Inactive Families"), "v2/family?mode=inactive"));
         $adminMenu = new MenuItem(gettext("Admin"), "", AuthenticationManager::GetCurrentUser()->isAdmin());
+        $adminMenu->addSubMenu(new MenuItem(gettext("Add New Year"), "NewYearEditor.php", AuthenticationManager::GetCurrentUser()->isAdmin()));
         $adminMenu->addSubMenu(new MenuItem(gettext("Classifications Manager"), "OptionManager.php?mode=classes", AuthenticationManager::GetCurrentUser()->isAdmin()));
         $adminMenu->addSubMenu(new MenuItem(gettext("Family Roles"), "OptionManager.php?mode=famroles", AuthenticationManager::GetCurrentUser()->isAdmin()));
         $adminMenu->addSubMenu(new MenuItem(gettext("Family Properties"), "PropertyList.php?Type=f", AuthenticationManager::GetCurrentUser()->isAdmin()));

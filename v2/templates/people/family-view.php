@@ -208,7 +208,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
 
                         </div>
                     </div>
-                    kjhjhjhk
                     <div class="box-body row row-flex row-flex-wrap">
                         <?php foreach ($family->getPeople() as $person) { ?>
                         <div class="col-sm-6">

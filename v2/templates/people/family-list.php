@@ -25,6 +25,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
   </a>
 </div>
 <p><br/><br/></p>
+
 <div class="box">
     <div class="box-body">
         <table id="example" class="table table-striped table-bordered data-table" cellspacing="0" width="100%">
