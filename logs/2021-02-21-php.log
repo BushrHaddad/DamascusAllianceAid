@@ -1,0 +1,15 @@
+[21-Feb-2021 12:29:43 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\NewYearEditor.php(51): RunQuery('INSERT INTO `da...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[21-Feb-2021 12:30:24 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\NewYearEditor.php(51): RunQuery('INSERT INTO `da...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[21-Feb-2021 12:30:34 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\NewYearEditor.php(51): RunQuery('INSERT INTO `da...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215

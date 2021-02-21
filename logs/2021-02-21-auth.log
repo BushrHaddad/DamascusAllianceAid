@@ -1,0 +1,1 @@
+[2021-02-21T11:52:53.080588+01:00] authLogger.INFO: User succefully logged in without 2FA: Admin [] {"url":"/churchcrm/session/begin","remote_ip":"127.0.0.1","correlation_id":"60323b8513ad9","context":{"ContextClass":"ChurchCRM\\Authentication\\AuthenticationManager","ContextMethod":"Authenticate"}}
