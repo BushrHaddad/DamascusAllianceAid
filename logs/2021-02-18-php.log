@@ -1,0 +1,70 @@
+[18-Feb-2021 02:14:25 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:19:40 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:19:48 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:20:12 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:20:26 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:21:02 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:21:16 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:22:16 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:22:25 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(222): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:24:49 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(223): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:32:51 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(223): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:36:17 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(225): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:42:55 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more.<br />UPDATE person_per SET per_FirstName='aasas', per_MiddleName='',per_LastName='',per_Suffix='',per_Gender='0',per_fmr_ID='0',per_BirthMonth='0',per_BirthDay='0', per_BirthYear=NULL, per_cls_ID='0' WHERE per_ID= in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(225): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[18-Feb-2021 02:54:45 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more.<br />UPDATE person_per SET per_FirstName='aasas', per_MiddleName='',per_LastName='',per_Suffix='',per_Gender='0',per_fmr_ID='0',per_BirthMonth='0',per_BirthDay='0', per_BirthYear=NULL, per_cls_ID='0' WHERE per_ID= in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(229): RunQuery('UPDATE person_p...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191

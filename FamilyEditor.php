@@ -600,9 +600,9 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
         $dWeddingDate = '';
         $nLatitude = 0.0;
         $nLongitude = 0.0;
-
         //Loop through the Family Member 'quick entry' form fields
         for ($iCount = 1; $iCount <= $iFamilyMemberRows; $iCount++) {
+            //echo $iFamilyMemberRows;;
             // Assign everything to arrays
             $aFirstNames[$iCount] = '';
             $aMiddleNames[$iCount] = '';
@@ -634,7 +634,6 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
 require 'Include/Header.php';
 
 ?>
-
 <form method="post" action="FamilyEditor.php?FamilyID=<?php echo $iFamilyID ?>" id="familyEditor">
 	<input type="hidden" name="iFamilyID" value="<?= $iFamilyID ?>">
 	<input type="hidden" name="FamCount" value="<?= $iFamilyMemberRows ?>">

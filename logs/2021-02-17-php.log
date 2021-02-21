@@ -276,3 +276,46 @@ View in rendered output by enabling the "displayErrorDetails" setting.
 [17-Feb-2021 04:29:48 America/New_York] PHP   7. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:54
 [17-Feb-2021 04:29:48 America/New_York] PHP   8. Composer\Autoload\ClassLoader->findFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:343
 [17-Feb-2021 04:29:49 America/New_York] PHP   9. Composer\Autoload\ClassLoader->findFileWithExtension() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:373
+[17-Feb-2021 08:45:58 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\Request\PersonAPIMiddleware.php on line 9
+[17-Feb-2021 08:45:58 America/New_York] PHP Stack trace:
+[17-Feb-2021 08:45:59 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[17-Feb-2021 08:45:59 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:46
+[17-Feb-2021 08:46:00 America/New_York] PHP   3. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\api\routes\people\people-person.php:64
+[17-Feb-2021 08:46:01 America/New_York] PHP   4. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\api\routes\people\people-person.php:64
+[17-Feb-2021 08:46:01 America/New_York] PHP   5. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[17-Feb-2021 08:46:02 America/New_York] PHP   6. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476
+[17-Feb-2021 08:47:16 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\Include\ReportFunctions.php on line 16
+[17-Feb-2021 08:47:16 America/New_York] PHP Stack trace:
+[17-Feb-2021 08:47:17 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[17-Feb-2021 08:47:18 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:31
+[17-Feb-2021 08:47:18 America/New_York] PHP   3. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\api\dependencies.php:15
+[17-Feb-2021 08:47:19 America/New_York] PHP   4. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\api\dependencies.php:15
+[17-Feb-2021 08:47:19 America/New_York] PHP   5. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[17-Feb-2021 08:47:20 America/New_York] PHP   6. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476
+[17-Feb-2021 08:47:20 America/New_York] PHP   7. require_once() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Service\FinancialService.php:5
+[17-Feb-2021 13:47:32 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Authentication\AuthenticationManager.php on line 16
+[17-Feb-2021 13:47:33 UTC] PHP Stack trace:
+[17-Feb-2021 13:47:34 UTC] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[17-Feb-2021 13:47:35 UTC] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:2
+[17-Feb-2021 13:47:35 UTC] PHP   3. require_once() C:\wamp64\www\KC\churchcrm2021\Include\Config.php:63
+[17-Feb-2021 13:47:36 UTC] PHP   4. ChurchCRM\Bootstrapper::init() C:\wamp64\www\KC\churchcrm2021\Include\LoadConfigs.php:22
+[17-Feb-2021 13:47:36 UTC] PHP   5. ChurchCRM\Bootstrapper::configureUserEnvironment() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:70
+[17-Feb-2021 13:47:37 UTC] PHP   6. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:273
+[17-Feb-2021 13:47:37 UTC] PHP   7. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:273
+[17-Feb-2021 13:47:38 UTC] PHP   8. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[17-Feb-2021 13:47:39 UTC] PHP   9. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476
+[17-Feb-2021 08:48:07 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Collection.php on line 20
+[17-Feb-2021 08:48:07 America/New_York] PHP Stack trace:
+[17-Feb-2021 08:48:09 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[17-Feb-2021 08:48:14 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:35
+[17-Feb-2021 08:48:15 America/New_York] PHP   3. Slim\App->group() C:\wamp64\www\KC\churchcrm2021\api\routes\calendar\events.php:34
+[17-Feb-2021 08:48:17 America/New_York] PHP   4. Slim\Container->get() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:267
+[17-Feb-2021 08:48:17 America/New_York] PHP   5. Slim\Container->offsetGet() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Container.php:109
+[17-Feb-2021 08:48:17 America/New_York] PHP   6. Slim\DefaultServicesProvider->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:82-94}() C:\wamp64\www\KC\churchcrm2021\vendor\pimple\pimple\src\Pimple\Container.php:118
+[17-Feb-2021 08:48:19 America/New_York] PHP   7. Slim\Container->get() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:84
+[17-Feb-2021 08:48:19 America/New_York] PHP   8. Slim\Container->offsetGet() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Container.php:109
+[17-Feb-2021 08:48:21 America/New_York] PHP   9. Slim\Container->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Container.php:82-84}() C:\wamp64\www\KC\churchcrm2021\vendor\pimple\pimple\src\Pimple\Container.php:118
+[17-Feb-2021 08:48:22 America/New_York] PHP  10. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Container.php:83
+[17-Feb-2021 08:48:23 America/New_York] PHP  11. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Container.php:83
+[17-Feb-2021 08:48:23 America/New_York] PHP  12. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[17-Feb-2021 08:48:23 America/New_York] PHP  13. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476

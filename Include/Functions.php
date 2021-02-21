@@ -179,7 +179,7 @@ function MakeFYString($iFYID)
 // By default stop on error, unless a second (optional) argument is passed as false.
 function RunQuery($sSQL, $bStopOnError = true)
 {
-    global $cnInfoCentral;
+    global $cnInfoCentral; //echo $cnInfoCentral.'dd' ; //exit;
     mysqli_query($cnInfoCentral, "SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     if ($result = mysqli_query($cnInfoCentral, $sSQL)) {
         return $result;
@@ -188,7 +188,7 @@ function RunQuery($sSQL, $bStopOnError = true)
         if (SystemConfig::getValue('sLogLevel') == "100") { // debug level
             throw new Exception(gettext('Cannot execute query.')."<p>$sSQL<p>".mysqli_error($cnInfoCentral));
         } else {
-            throw new Exception('Database error or invalid data, change sLogLevel to debug to see more.');
+            throw new Exception('Database error or invalid data, change sLogLevel to debug to see more.<br />'.$sSQL);
         }
     } else {
         return false;

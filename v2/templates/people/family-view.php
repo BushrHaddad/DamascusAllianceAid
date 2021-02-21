@@ -343,8 +343,38 @@ $mailchimp = new MailChimpService();
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
+<div class="row">
+    <div class="col-lg-12">
+<!-- Master Table -->
+        <div class="box">
+            <div class="box-header">
+                <i class="fa fa-history"></i>
+                <h3 class="box-title"><?= gettext("Master Table") ?></h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                            class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div>
+                    <a class="btn btn-app bg-green" style=";color: #fff;"
+                           href="<?= SystemURLs::getRootPath() ?>/FamilyMasterEditor.php?Add=Add&FamilyID=<?= $family->getId()?>">
+                           <i  class="fa fa-sticky-note"></i><?= gettext("Add Master") ?>
+                           
+                    </a>
+                
+                    <a class="btn btn-app" style="background-color: #03a9f4;color: #fff;"
+                           href="<?= SystemURLs::getRootPath() ?>/FamilyMasterEditor.php?FamilyID=<?= $family->getId()?>">
+                           <i  class="fa fa-sticky-note"></i><?= gettext("Edit Master") ?>
+                    </a>
+                </div>
+            </div>
+            <!-- the master table view -->
+            <iframe width="100%" src="<?= SystemURLs::getRootPath() ?>/FamilyMasterEditor.php?FamilyID=<?= $family->getId()?>"></iframe>
+        </div>
+        
+   <!-- End Master Table -->       
                 <div class="box">
                     <div class="box-header">
                         <i class="fa fa-map"></i>
@@ -458,37 +488,7 @@ $mailchimp = new MailChimpService();
                     <!-- END timeline item -->
                 </ul>
             </div>
-        </div>
-
-
-        <!-- Master Table -->
-        <div class="box">
-
-            <div class="box-header">
-                <i class="fa fa-history"></i>
-                <h3 class="box-title"><?= gettext("Master Table") ?></h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                            class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div>
-                    <a class="btn btn-app" style="background-color: #03a9f4;color: #fff;"
-                           href="<?= SystemURLs::getRootPath() ?>/FamilyMasterEditor.php?FamilyID=<?= $family->getId()?>"><i
-                                class="fa fa-sticky-note"></i><?= gettext("Edit Master") ?>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- End Master Table -->
-
-
-
-
-
-
+        </div>      
     </div>
 </div>
 

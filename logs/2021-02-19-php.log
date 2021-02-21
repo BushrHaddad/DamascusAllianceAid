@@ -1,0 +1,10 @@
+[19-Feb-2021 14:29:38 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more.<br />LOCK TABLES family_master WRITE  in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(142): RunQuery('LOCK TABLES fam...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[19-Feb-2021 14:29:55 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more.<br />LOCK TABLES family_master WRITE  in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(142): RunQuery('LOCK TABLES fam...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
