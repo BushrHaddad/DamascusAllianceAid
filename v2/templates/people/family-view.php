@@ -12,7 +12,6 @@ $sPageTitle =  $family->getName() . " - " . gettext("Family");
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 $curYear = (new DateTime)->format("Y");
-$familyAddress = $family->getAddress();
 $mailchimp = new MailChimpService();
 ?>
 
@@ -30,9 +29,10 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
 </div>
 
 <div class="row">
-    <div class="col-lg-6">
+
+    <div class="col-lg-5">
         <div class="row">
-            <div class="col-lg-4">
+            <div>
                 <div class="box box-primary">
                     <div class="box-header">
                         <i class="fa fa-info"></i>
@@ -69,7 +69,9 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+        </div>
+        <div class="row">
+            <div>
                 <div class="box">
                     <br />
                     <div class="text-center">
@@ -132,7 +134,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
+            <div>
                 <div class="box box-primary">
                     <div class="box-header">
                         <i class="fa fa-id-badge"></i>
@@ -144,10 +146,14 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     </div>
                     <div class="box-body">
                         <ul class="fa-ul">
-
-                            <?php 
-                            if (!empty($family->getHomePhone())) {
-                                ?>
+                            <?php if (!empty($family->getAddress())) { ?>
+                            <li> <i class="fa-li fa fa-map"></i><?= gettext("Address") ?>: <span> <a
+                                        href="http://maps.google.com/?q=<?= $family->getAddress() ?>"
+                                        target="_blank"><?= $family->getAddress() ?></a></span>
+                            </li>
+                            <?php
+                            }
+                            if (!empty($family->getHomePhone())) { ?>
                             <li><i class="fa-li fa fa-phone"></i><?= gettext("Home Phone") ?>: <span><a
                                         href="tel:<?= $family->getHomePhone() ?>"><?= $family->getHomePhone() ?></a></span>
                             </li>
@@ -196,7 +202,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
+            <div>
                 <div class="box">
                     <div class="box-header">
                         <i class="fa fa-group"></i>
@@ -295,7 +301,87 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
+
+    <div class="col-lg-7">
+
+        <!-- Master Table -->
+        <div class="box">
+
+            <div class="box-header">
+                <i class="fa fa-history"></i>
+                <h3 class="box-title"><?= gettext("Master Table") ?></h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group" id="year_status">
+                    <label>Choose a Year:</label>
+                    <select class="form-control" name="c5">
+                        <option selected="">2016</option>
+                        <option>2017</option>
+                        <option>2018</option>
+                        <option>2019</option>
+                        <option>2020</option>
+                    </select>
+                </div>
+                <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"
+                    style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Extn.</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Donna Snider</td>
+                            <td>Customer Support</td>
+                            <td>New York</td>
+                            <td>27</td>
+                            <td>2011/01/25</td>
+                            <td>$112,000</td>
+                         
+                        </tr>
+                        <tr>
+                            <td>Donna Snider</td>
+                            <td>Customer Support</td>
+                            <td>New York</td>
+                            <td>27</td>
+                            <td>2011/01/25</td>
+                            <td>$112,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Donna Snider</td>
+                            <td>Customer Support</td>
+                            <td>New York</td>
+                            <td>27</td>
+                            <td>2011/01/25</td>
+                            <td>$112,000</td>
+                           
+                        </tr>
+                        <tr>
+                            <td>Donna Snider</td>
+                            <td>Customer Support</td>
+                            <td>New York</td>
+                            <td>27</td>
+                            <td>2011/01/25</td>
+                            <td>$112,000</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <!-- End Master Table -->
+
+        <!-- Start Property Table  -->
         <div class="box">
             <div class="box-header">
                 <i class="fa fa-hashtag"></i>
@@ -324,7 +410,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                 </div>
 
                 <table id="family-property-table" class="table table-striped table-bordered data-table hidden"
-                    cellspacing="0" width="100%">
+                    cellspacing="0" width="80%">
                     <thead>
                         <tr>
                             <th width="50"></th>
@@ -333,55 +419,11 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                         </tr>
                     </thead>
                 </table>
-                <p />
             </div>
         </div>
+        <!-- End Property Table  -->
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="box">
-                    <div class="box-header">
-                        <i class="fa fa-map"></i>
-                        <h3 class="box-title"><?= gettext("Address") ?></h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool edit-family"><i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                    class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <a href="http://maps.google.com/?q=<?= $familyAddress ?>"
-                            target="_blank"><?= $familyAddress ?></a></span>
-                        <p />
-                        <!-- Maps Start -->
-                        <?php if (!empty($family->getLatitude())) : ?>
-                        <div class="border-right border-left">
-                            <section id="map">
-                                <div id="map1"></div>
-                            </section>
-                        </div>
-                        <!-- Map Scripts -->
-                        <script
-                            src="//maps.googleapis.com/maps/api/js?key=<?= SystemConfig::getValue("sGoogleMapsRenderKey") ?>&sensor=false">
-                        </script>
-                        <script>
-                        var LatLng = new google.maps.LatLng(<?= $family->getLatitude() ?>,
-                            <?= $family->getLongitude() ?>)
-                        </script>
-                        <script src="<?= SystemURLs::getRootPath() ?>/skin/js/Map.js"></script>
-                        <style>
-                        #map1 {
-                            height: 200px;
-                        }
-                        </style>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Maps End -->
+        <!-- Start Timeline Table -->
         <div class="box">
             <div class="box-header">
                 <i class="fa fa-history"></i>
@@ -457,27 +499,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
         </div>
 
 
-        <!-- Master Table -->
-        <div class="box">
-
-            <div class="box-header">
-                <i class="fa fa-history"></i>
-                <h3 class="box-title"><?= gettext("Master Table") ?></h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div>
-                    <a class="btn btn-app" style="background-color: #03a9f4;color: #fff;"
-                        href="<?= SystemURLs::getRootPath() ?>/FamilyMasterEditor.php?FamilyID=<?= $family->getId()?>"><i
-                            class="fa fa-sticky-note"></i><?= gettext("Edit Master") ?>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- End Master Table -->
 
     </div>
 </div>
@@ -566,7 +587,7 @@ $(document).ready(function() {
             location.reload();
         }
     });
-    
+
     $(".edit-family").click(function() {
         window.location.href = window.CRM.root + '/FamilyEditor.php?FamilyID=' + window.CRM
             .currentFamily;
@@ -617,5 +638,25 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
+<script>
+$('#year_status').on('change', function() {
+    var value = $(this).val();
+    var id = $(this).data('id');
+    $.ajax({
+        type: 'POST',
+        url: 'family-view.php', // this is your target page where post will go
+        // data: {update:value, hidden:id},
+        success: function(response) {
+            console.log(response); // here you can get response
+        }
 
+    });
+})
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "scrollX": true
+    } );
+} );
+
+</script>
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>

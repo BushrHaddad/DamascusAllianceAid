@@ -13,3 +13,36 @@ Stack trace:
 #0 C:\xampp\htdocs\churchcrm\NewYearEditor.php(51): RunQuery('INSERT INTO `da...')
 #1 {main}
   thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[21-Feb-2021 13:45:37 UTC] Slim Application Error:
+Type: Error
+Message: Call to a member function getAddress() on null
+File: C:\xampp\htdocs\churchcrm\v2\templates\people\family-view.php
+Line: 147
+Trace: #0 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(203): include()
+#1 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(184): Slim\Views\PhpRenderer->protectedIncludeScope('templates/peopl...', Array)
+#2 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(153): Slim\Views\PhpRenderer->fetchTemplate('family-view.php', Array)
+#3 C:\xampp\htdocs\churchcrm\vendor\slim\php-view\src\PhpRenderer.php(54): Slim\Views\PhpRenderer->fetch('family-view.php', Array, true)
+#4 C:\xampp\htdocs\churchcrm\v2\routes\family.php(114): Slim\Views\PhpRenderer->render(Object(Slim\Http\Response), 'family-view.php', Array)
+#5 [internal function]: viewFamily(Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#6 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(40): call_user_func('viewFamily', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#7 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(281): Slim\Handlers\Strategies\RequestResponse->__invoke('viewFamily', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#8 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\Route->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#9 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(268): Slim\Route->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#10 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(503): Slim\Route->run(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\VersionMiddleware.php(13): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#12 [internal function]: ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#13 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\VersionMiddleware), Array)
+#14 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#15 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#16 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\AuthMiddleware.php(34): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#17 [internal function]: ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#18 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\AuthMiddleware), Array)
+#19 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#20 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#21 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#22 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#23 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#24 C:\xampp\htdocs\churchcrm\v2\index.php(48): Slim\App->run()
+#25 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
