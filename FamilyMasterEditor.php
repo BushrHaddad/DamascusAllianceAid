@@ -62,7 +62,7 @@ while ($aRow = mysqli_fetch_array($rsSecurityGrp)) {
 $bErrorFlag = false;
 $sName = '';
 $UpdateBirthYear = 0;
-$selected_year=2021;
+//$selected_year=2021;
 
 $aYearNameError = [];
 $aBirthDateError = [];
@@ -78,25 +78,20 @@ if (isset($_POST['FamilyMasterSubmit']) || isset($_POST['FamilyMasterSubmitAndAd
     //Loop through the Family Member 'quick entry' form fields
     for ($iCount = 1; $iCount <= $iFamilyMasterMemberRows; $iCount++) {
         // Assign everything to arrays
-       /* year_id,  month_id,     visited_id,     team_id,    
+       /* year_id,  month_id,     visited_id,     team_id,       cash_id, bag_id, sup_id,  role_id,  created_date,    family_id,  user_id*/
+        $aYearNames[$iCount]    = InputUtils::LegacyFilterInput($_POST['YearName']);//.$iCount]);
 
-        cash_id, bag_id, sup_id,
-        
-        role_id,  created_date,    family_id,  user_id*/
-                
-        //$aYearNames[$iCount] = InputUtils::LegacyFilterInput($_POST['YearName'.$iCount]);
-        $aYearNames[$iCount] = InputUtils::LegacyFilterInput($_POST['YearName']);//.$iCount]);
-
-        $aDatesMonths[$iCount] = InputUtils::LegacyFilterInput($_POST['month_id'.$iCount], 'int');
-
-        $aVisited[$iCount] = InputUtils::LegacyFilterInput($_POST['Visited_id'.$iCount], 'int');
-        $aTeams[$iCount] = InputUtils::LegacyFilterInput($_POST['BirthYear'.$iCount], 'int');
-        $aRoles[$iCount] = InputUtils::LegacyFilterInput($_POST['Role'.$iCount], 'int');
-
+        $aDatesMonths[$iCount]  = InputUtils::LegacyFilterInput($_POST['month'.$iCount], 'int');
+        $aVisited[$iCount]      = InputUtils::LegacyFilterInput($_POST['Visit'.$iCount], 'int');
+        $aTeams[$iCount]        = InputUtils::LegacyFilterInput($_POST['Team'.$iCount], 'int');
+        $aCashes[$iCount]       = InputUtils::LegacyFilterInput($_POST['Cash'.$iCount], 'int');
+        $aBags[$iCount]         = InputUtils::LegacyFilterInput($_POST['Bag'.$iCount], 'int');
+        $aSups[$iCount]         = InputUtils::LegacyFilterInput($_POST['Sup'.$iCount], 'int');
+        $aRoles[$iCount]        = -1;//InputUtils::LegacyFilterInput($_POST['Role'.$iCount], 'int');
+        $aFamiliesMaster[$iCount]        = InputUtils::LegacyFilterInput($_POST['FamilyID'.$iCount], 'int');
         /*$aClassification[$iCount] = InputUtils::LegacyFilterInput($_POST['Classification'.$iCount], 'int');*/
-        $aPersonIDs[$iCount] = InputUtils::LegacyFilterInput($_POST['PersonID'.$iCount], 'int'); 
-        
-        $aUpdateBirthYear[$iCount] = InputUtils::LegacyFilterInput($_POST['UpdateBirthYear'], 'int');
+        //$aPersonIDs[$iCount] = InputUtils::LegacyFilterInput($_POST['PersonID'.$iCount], 'int');
+        //$aUpdateBirthYear[$iCount] = InputUtils::LegacyFilterInput($_POST['UpdateBirthYear'], 'int');
 
         // Make sure first names were entered if editing existing family
         if ($iFamilyID > 0) {
@@ -117,6 +112,9 @@ if (isset($_POST['FamilyMasterSubmit']) || isset($_POST['FamilyMasterSubmitAndAd
                 }
             }
         }*/
+        //print_r($aVisited);
+        //print_r($aTeams);
+        //print_r($_POST);
     }
     //If no errors, then let's update...
     if (!$bErrorFlag) {
@@ -126,32 +124,27 @@ if (isset($_POST['FamilyMasterSubmit']) || isset($_POST['FamilyMasterSubmitAndAd
             //Get the key back
             //Run through the family member arrays...
             for ($iCount = 1; $iCount <= $iFamilyMasterMemberRows; $iCount++) {
-                if (strlen($aFirstNames[$iCount]) > 0) {
-                    if (strlen($aTeams[$iCount]) < 4) {
+                //if (strlen($aFirstNames[$iCount]) > 0) 
+                {
+                    /*if (strlen($aTeams[$iCount]) < 4) {
                         $aTeams[$iCount] = 'NULL';
-                    }
+                    }*/
                     //If no last name is entered for a member, use the family name.
-                    if (strlen($aLastNames[$iCount]) && $aLastNames[$iCount] != $sName) {
+                    /*if (strlen($aLastNames[$iCount]) && $aLastNames[$iCount] != $sName) {
                         $sLastNameToEnter = $aLastNames[$iCount];
                     } else {
                         $sLastNameToEnter = $sName;
-                    }
+                    }*/
                   
                     RunQuery('LOCK TABLES master_family_master WRITE ');
                     $sSQL = "INSERT INTO master_family_master (
 								year_id, month_id, visited_id, team_id,
 								cash_id,bag_id,	sup_id,
-                                role_id, created_date,  family_id, user_id
+                                role_id, created_day,  family_id, user_id
 								)
 							VALUES (
-								$selected_year, $aDatesMonths[$iCount],
-                                $aVisited[$iCount],
-                                $aTeams[$iCount],
-
-                                $aCashes[$iCount],
-                                $aBags[$iCount],
-                                $aSups[$iCount],
-								
+								$aYearNames[$iCount], $aDatesMonths[$iCount], $aVisited[$iCount], $aTeams[$iCount],
+                                $aCashes[$iCount], $aBags[$iCount], $aSups[$iCount],
 								$aRoles[$iCount],
                                 '".date('YmdHis')."',
                                 $iFamilyID,
@@ -185,30 +178,45 @@ if (isset($_POST['FamilyMasterSubmit']) || isset($_POST['FamilyMasterSubmitAndAd
         } else {
             //here are the submit
             for ($iCount = 1; $iCount <= $iFamilyMasterMemberRows; $iCount++) {
-
-                if (strlen($aFirstNames[$iCount]) > 0) {
-                    if (strlen($aTeams[$iCount]) < 4) {
-                        $aTeams[$iCount] = 'NULL';
-                    }
+                //print_r($aYearNames); exit;
+                if (strlen($aYearNames[$iCount]) > 0) {
+                    //echo'ddd<br />';     //print_r($_POST); exit;
+                    /*if (strlen($aTeams[$iCount]) < 4) { $aTeams[$iCount] = 'NULL'; }*/
 
                     //If no last name is entered for a member, use the family name.
-                    if (strlen($aLastNames[$iCount]) && $aLastNames[$iCount] != $sName) {
+                    /*if (strlen($aLastNames[$iCount]) && $aLastNames[$iCount] != $sName) {
                         $sLastNameToEnter = $aLastNames[$iCount];
                     } else {
                         $sLastNameToEnter = $sName;
-                    }
-                    $sBirthYearScript = ($aUpdateBirthYear[$iCount] & 1) ? 'per_BirthYear='.$aTeams[$iCount].', ' : '';
+                    }*/
+                    //$sBirthYearScript = ($aUpdateBirthYear[$iCount] & 1) ? 'per_BirthYear='.$aTeams[$iCount].', ' : '';
                     //RunQuery("LOCK TABLES person_per WRITE, person_custom WRITE");
-                //if($_GET['Add'] !='Add')
-                    $sSQL = "UPDATE person_per SET per_FirstName='".$aFirstNames[$iCount]."', per_MiddleName='".$aMiddleNames[$iCount]."',per_LastName='".$aLastNames[$iCount]."',per_Suffix='".$aSuffix[$iCount]."',visited_id='".$aVisited[$iCount]."',per_fmr_ID='".$aRoles[$iCount]."',month_id='".$aDatesMonths[$iCount]."',per_BirthDay='".$aBirthDays[$iCount]."', ".$sBirthYearScript."per_cls_ID='".$aClassification[$iCount]."' WHERE per_ID=".$aPersonIDs[$iCount];
+                    //if($_GET['Add'] !='Add')
+                    $sSQL = "
+                    UPDATE master_family_master SET 
+                    year_id='".$aYearNames[$iCount].
+                    "',month_id='".$aDatesMonths[$iCount].
+                    "',visited_id='".$aVisited[$iCount].
+                    "',team_id='".$aTeams[$iCount].
+                    "',cash_id='".$aCashes[$iCount].
+                    "',bag_id='".$aBags[$iCount].
+                    "',sup_id='".$aSups[$iCount].
+                    "',role_id='".$aRoles[$iCount].
+                    "',created_day='".date('YmdHis').
+                    "',family_id='".$iFamilyID.
+                    "',user_id='".AuthenticationManager::GetCurrentUser()->getId().
+                    "' WHERE id=".$aFamiliesMaster[$iCount];
                 /*else
                     $sSQL = "UPDATE person_per SET per_FirstName='".$aFirstNames[$iCount]."', per_MiddleName='".$aMiddleNames[$iCount]."',per_LastName='".$aLastNames[$iCount]."',per_Suffix='".$aSuffix[$iCount]."',per_Gender='".$aVisited[$iCount]."',per_fmr_ID='".$aRoles[$iCount]."',per_BirthMonth='".$aDatesMonths[$iCount]."',per_BirthDay='".$aBirthDays[$iCount]."', ".$sBirthYearScript."per_cls_ID='".$aClassification[$iCount]."' WHERE per_ID=".$aPersonIDs[$iCount];*/
-
+                   // echo $aFamiliesMaster[$iCount].'<br />';
+            /*        print_r($aFamiliesMaster); echo '<br />';
+echo $aFamiliesMaster[$iCount];
+echo $sSQL; exit;*/
                     RunQuery($sSQL);
                     //RunQuery("UNLOCK TABLES");
 
                     $note = new Note();
-                    $note->setPerId($aPersonIDs[$iCount]);
+                    $note->setPerId($aFamiliesMaster[$iCount]);
                     $note->setText(gettext('Updated via Family'));
                     $note->setType('edit');
                     $note->setEntered(AuthenticationManager::GetCurrentUser()->getId());
@@ -230,7 +238,8 @@ if (isset($_POST['FamilyMasterSubmit']) || isset($_POST['FamilyMasterSubmitAndAd
             RedirectUtils::Redirect('FamilyMasterEditor.php?FamilyID='.$iFamilyID);
         }
     }
-} else {
+}
+else {
     //FirstPass
     //Are we editing or adding?
     if (($iFamilyID > 0)&($_GET['Add'] !='Add')) {
@@ -239,23 +248,25 @@ if (isset($_POST['FamilyMasterSubmit']) || isset($_POST['FamilyMasterSubmitAndAd
         $iCount = 0;
         $iFamilyMasterMemberRows = 0;
         while ($aRow = mysqli_fetch_array($rsMembers)) {
-            //print_r($aRow);
+           // print_r($aRow);
             extract($aRow);
             $iCount++;
             $iFamilyMasterMemberRows++;
             /*$aFirstNames[$iCount] = $per_FirstName; $aMiddleNames[$iCount] = $per_MiddleName; $aLastNames[$iCount] = $per_LastName; $aSuffix[$iCount] = $per_Suffix;*/
-            $selected_year=2021;
+            //$selected_year=2021;
+            $aYearNames[$iCount]=$year_id;
             $aDatesMonths[$iCount] = $month_id;
             $aVisited[$iCount] = $visited_id;
             $aTeams[$iCount] = $team_id;
             $aCashes[$iCount] = $cash_id;
             $aBags[$iCount]=$bag_id;
             $aSups[$iCount]=$sup_id;
-            $aRoles[$iCount] = $per_fmr_ID;
+            $aRoles[$iCount] = $role_id;
             $aCreatedDates[$iCount] = $created_day;
-            $aFamilies[$iCount] = $family_id;
+            $aFamiliesMaster[$iCount] = $id;
             $aUsers[$iCount] = $user_id;
         } 
+
 
     } 
     elseif (($iFamilyID > 0)&($_GET['Add'] =='Add')) {
@@ -264,8 +275,8 @@ if (isset($_POST['FamilyMasterSubmit']) || isset($_POST['FamilyMasterSubmitAndAd
         for ($iCount = 1; $iCount <= $iFamilyMasterMemberRows; $iCount++) { 
             // Assign everything to array
             $aDatesMonths[$iCount] = 0;
-            $aVisited[$iCount] = '';
-            $aTeams[$iCount] = '';
+            $aVisited[$iCount] = 0;
+            $aTeams[$iCount] = 0;
             $aCashes[$iCount] = 0;
             $aBags[$iCount] = 0;
             $aSups[$iCount] = 0; 
@@ -282,19 +293,19 @@ require 'Include/Header.php';
 <form method="post" action="FamilyMasterEditor.php?FamilyID=<?php echo $iFamilyID ?>" id="familyMasterEditor">
 	<input type="hidden" name="iFamilyID" value="<?= $iFamilyID ?>">
 	<input type="hidden" name="FamCount" value="<?= $iFamilyMasterMemberRows ?>">
-    <input type="hidden" id="stateType" name="stateType" value="">
+    <input type="hidden" id="YearName" name="YearName" value="2020">
 	<div class="box box-info clearfix">
 		
 	<div class="box box-info clearfix">
 		<div class="box-header">
-			<h3 class="box-title"><?= gettext('Family Members') ?></h3>
+			<h3 class="box-title"><?= gettext('Family Master Details') ?></h3>
 			<div class="pull-right"><br/>
 				<input type="submit" class="btn btn-primary" value="<?= gettext('Save') ?>" name="FamilyMasterSubmit">
 			</div>
 		</div><!-- /.box-header -->
 		<div class="box-body">
 
-	<?php if ($iFamilyMasterMemberRows > 0) 
+	<?php if ($iFamilyMasterMemberRows > 0)
     {
     ?>
 	<tr>
@@ -310,16 +321,58 @@ require 'Include/Header.php';
         <tr class='TableHeader' align='center'> 
             <th><?= gettext('Month') ?></th>
             <th><?= gettext('Visited') ?></th>
-
             <th><?= gettext('Team') ?></th>
             <th><?= gettext('Cash') ?></th>
             <th><?= gettext('Bags') ?></th>
             <th><?= gettext('Sup') ?></th>
-            <th><?= gettext('Role') ?></th>
+           <!--  <th><?= gettext('Role') ?></th> -->
         </tr>
         </thead>
         <?php
-        
+        //Get Cash
+        $sSQL = 'SELECT * FROM master_teams';// WHERE lst_ID = 2 ORDER BY lst_OptionSequence';
+        $rsteam = RunQuery($sSQL);
+        $numTeam = mysqli_num_rows($rsteam);
+        for ($c = 1; $c <= $numTeam; $c++) {
+            $aRow = mysqli_fetch_array($rsteam);
+            extract($aRow);
+            $aTeamNames[$c] = $aRow['name'];
+            $aTeamIDs[$c] = $aRow['id'];//$lst_OptionID;
+        }
+
+        //Get Cash
+        $sSQL = 'SELECT * FROM master_cash';// WHERE lst_ID = 2 ORDER BY lst_OptionSequence';
+        $rscash = RunQuery($sSQL);
+        $numCash = mysqli_num_rows($rscash);
+        for ($c = 1; $c <= $numCash; $c++) {
+            $aRow = mysqli_fetch_array($rscash);
+            extract($aRow);
+            $aCashNames[$c] = $aRow['name'];
+            $aCashIDs[$c] = $aRow['id'];//$lst_OptionID;
+        }
+
+        //Get Bags
+        $sSQL = 'SELECT * FROM master_bags';// WHERE lst_ID = 2 ORDER BY lst_OptionSequence';
+        $rsbag = RunQuery($sSQL);
+        $numBag = mysqli_num_rows($rsbag);
+        for ($c = 1; $c <= $numBag; $c++) {
+            $aRow = mysqli_fetch_array($rsbag);
+            extract($aRow);
+            $aBagNames[$c] = $aRow['name'];
+            $aBagIDs[$c] = $aRow['id'];//$lst_OptionID;
+        }
+
+        //Get Sups
+        $sSQL = 'SELECT * FROM master_suppliments';// WHERE lst_ID = 2 ORDER BY lst_OptionSequence';
+        $rssup = RunQuery($sSQL);
+        $numSup = mysqli_num_rows($rssup);
+        for ($c = 1; $c <= $numSup; $c++) {
+            $aRow = mysqli_fetch_array($rssup);
+            extract($aRow);
+            $aSupNames[$c] = $aRow['name'];
+            $aSupIDs[$c] = $aRow['id'];//$lst_OptionID;
+        }
+
         //Get family roles
         $sSQL = 'SELECT * FROM list_lst WHERE lst_ID = 2 ORDER BY lst_OptionSequence';
         $rsFamilyRoles = RunQuery($sSQL);
@@ -331,13 +384,13 @@ require 'Include/Header.php';
             $aFamilyRoleIDs[$c] = $lst_OptionID;
         }
 
-        for ($iCount = 1; $iCount <= $iFamilyMasterMemberRows; $iCount++) {
+        for ($iCount = 1; $iCount <= $iFamilyMasterMemberRows; $iCount++){
             ?>
-		<input style="text-align: center" type="hidden" name="PersonID<?= $iCount ?>" value="<?= $aPersonIDs[$iCount] ?>">
+		<input style="text-align: center" type="hidden" name="FamilyID<?= $iCount ?>" value="<?= $aFamiliesMaster[$iCount] ?>">
 		<tr>
             <!-- TD: Birth -->
             <td class="TextColumn">
-                <select name="BirthMonth<?php echo $iCount ?>">
+                <select name="month<?php echo $iCount ?>">
                     <option value="0" <?php if ($aDatesMonths[$iCount] == 0) {
                     echo 'selected';
                 } ?>><?= gettext('Unknown') ?></option>
@@ -395,40 +448,74 @@ require 'Include/Header.php';
             </td>
             <!--  -->
             <td class="TextColumn">
-                <select name="Role<?php echo $iCount ?>">
-                    <option value="0" <?php if ($aRoles[$iCount] == 0) {
+                <select name="Team<?php echo $iCount ?>">
+                    <option value="0" <?php if ($aTeams[$iCount] == 0) {
                 echo 'selected';
-            } ?> ><?= gettext('Select Role') ?></option>
+            } ?> ><?= gettext('Select Team') ?></option>
                 <?php
                 //Build the role select box
-                for ($c = 1; $c <= $numFamilyRoles; $c++) {
-                    echo '<option value="'.$aFamilyRoleIDs[$c].'"';
-                    if ($aRoles[$iCount] == $aFamilyRoleIDs[$c]) {
+                for ($c = 1; $c <= $numTeam; $c++) {
+                    echo '<option value="'.$aTeamIDs[$c].'"';
+                    if ($aTeams[$iCount] == $aTeamIDs[$c]) {
                         echo ' selected';
                     }
-                    echo '>'.$aFamilyRoleNames[$c].'</option>';
+                    echo '>'.$aTeamNames[$c].'</option>';
                 } ?>
                 </select>
             </td>
             <!--  -->
             <td class="TextColumn">
-                <select name="Role<?php echo $iCount ?>">
-                    <option value="0" <?php if ($aRoles[$iCount] == 0) {
+                <select name="Cash<?php echo $iCount ?>">
+                    <option value="0" <?php if ($aCashes[$iCount] == 0) {
                 echo 'selected';
-            } ?> ><?= gettext('Select Role') ?></option>
+            } ?> ><?= gettext('Select Cash') ?></option>
                 <?php
                 //Build the role select box
-                for ($c = 1; $c <= $numFamilyRoles; $c++) {
-                    echo '<option value="'.$aFamilyRoleIDs[$c].'"';
-                    if ($aRoles[$iCount] == $aFamilyRoleIDs[$c]) {
+                for ($c = 1; $c <= $numCash; $c++) {
+                    echo '<option value="'.$aCashIDs[$c].'"';
+                    if ($aCashes[$iCount] == $aCashIDs[$c]) {
                         echo ' selected';
                     }
-                    echo '>'.$aFamilyRoleNames[$c].'</option>';
+                    echo '>'.$aCashNames[$c].'</option>';
                 } ?>
                 </select>
             </td>
             <!--  -->
 			<td class="TextColumn">
+                <select name="Bag<?php echo $iCount ?>">
+                    <option value="0" <?php if ($aBags[$iCount] == 0) {
+                echo 'selected';
+            } ?> ><?= gettext('Select Bag') ?></option>
+                <?php
+                //Build the role select box
+                for ($c = 1; $c <= $numBag; $c++) {
+                    echo '<option value="'.$aBagIDs[$c].'"';
+                    if ($aBags[$iCount] == $aBagIDs[$c]) {
+                        echo ' selected';
+                    }
+                    echo '>'.$aBagNames[$c].'</option>';
+                } ?>
+                </select>
+            </td>
+
+			<td class="TextColumn">
+				<select name="Sup<?php echo $iCount ?>">
+					<option value="0" <?php if ($aSups[$iCount] == 0) {
+                echo 'selected';
+            } ?> ><?= gettext('Select Role') ?></option>
+				<?php
+                //Build the role select box
+                for ($c = 1; $c <= $numSup; $c++) {
+                    echo '<option value="'.$aSupIDs[$c].'"';
+                    if ($aSups[$iCount] == $aSupIDs[$c]) {
+                        echo ' selected';
+                    }
+                    echo '>'.$aSupNames[$c].'</option>';
+                } ?>
+				</select>
+			</td>
+<!-- 
+             <td class="TextColumn" style="display: none">
                 <select name="Role<?php echo $iCount ?>">
                     <option value="0" <?php if ($aRoles[$iCount] == 0) {
                 echo 'selected';
@@ -443,58 +530,25 @@ require 'Include/Header.php';
                     echo '>'.$aFamilyRoleNames[$c].'</option>';
                 } ?>
                 </select>
-            </td>
+            </td> -->
 
-			<td class="TextColumn">
-				<select name="Role<?php echo $iCount ?>">
-					<option value="0" <?php if ($aRoles[$iCount] == 0) {
-                echo 'selected';
-            } ?> ><?= gettext('Select Role') ?></option>
-				<?php
-                //Build the role select box
-                for ($c = 1; $c <= $numFamilyRoles; $c++) {
-                    echo '<option value="'.$aFamilyRoleIDs[$c].'"';
-                    if ($aRoles[$iCount] == $aFamilyRoleIDs[$c]) {
-                        echo ' selected';
-                    }
-                    echo '>'.$aFamilyRoleNames[$c].'</option>';
-                } ?>
-				</select>
-			</td>
-			
-			<td class="TextColumn">
-				<select name="BirthDay<?= $iCount ?>">
-					<option value="0"><?= gettext('Unk')?></option>
-					<?php for ($x = 1; $x < 32; $x++) {
-                    if ($x < 10) {
-                        $sDay = '0'.$x;
-                    } else {
-                        $sDay = $x;
-                    } ?>
-					<option value="<?= $sDay ?>" <?php if ($aBirthDays[$iCount] == $x) {
-                        echo 'selected';
-                    } ?>><?= $x ?></option>
-				<?php
-                } ?>
-				</select>
-			</td>			 
 			<?php
-                  
-
+           // for ($c = 1; $c <= $numFamilyRoles; $c++)
+             //   echo '<input type="text" Name="Role'.$iCount.'" value="'.$aFamilyRoleIDs[$c].'">';
             echo '</tr>';
         }
         echo '</table></div>';
 
         echo '</div></div>';
     }
-
     echo '<td colspan="2" align="center">';
-    echo '<input type="hidden" Name="UpdateBirthYear" value="'.$UpdateBirthYear.'">';
+    
+        
 
     //print($_GET);
-if ($add_method!=1)
+    if ($add_method!=1)
         echo '<input type="hidden" Name="edit_method" value="edit_method">';
-else
+    else
         echo '<input type="hidden" Name="add_method" value="add_method">';
 
     echo '<input type="submit" class="btn btn-primary" value="'.gettext('Save').'" Name="FamilyMasterSubmit" id="FamilyMasterSubmitBottom"> ';
@@ -522,10 +576,6 @@ function header_master(){
             <th><?= gettext('Suffix') ?></th>
             <th><?= gettext('Visited') ?></th>
             <th><?= gettext('Role') ?></th>
-            <th><?= gettext('Birth Month') ?></th>
-            <th><?= gettext('Birth Day') ?></th>
-            <th><?= gettext('Birth Year') ?></th>
-            <th><?= gettext('Classification') ?></th>
         </tr>
         </thead>";
 }

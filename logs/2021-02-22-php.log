@@ -1,0 +1,63 @@
+[22-Feb-2021 14:26:18 America/New_York] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more.<br />
+                    UPDATE person_per SET 
+                    year_id='2020',month_id='',visited_id='2',team_id='2',cash_id='2',bag_id='2',sup_id='2',role_id='2',created_day='20210222142618',family_id='1',user_id='1,' WHERE id= in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php:191
+Stack trace:
+#0 C:\wamp64\www\KC\churchcrm2021\FamilyMasterEditor.php(219): RunQuery('\n              ...')
+#1 {main}
+  thrown in C:\wamp64\www\KC\churchcrm2021\Include\Functions.php on line 191
+[22-Feb-2021 14:38:30 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\vendor\guzzlehttp\guzzle\src\Handler\CurlMultiHandler.php on line 160
+[22-Feb-2021 14:38:30 America/New_York] PHP Stack trace:
+[22-Feb-2021 14:38:31 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[22-Feb-2021 14:38:31 America/New_York] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\api\index.php:83
+[22-Feb-2021 14:38:31 America/New_York] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[22-Feb-2021 14:38:31 America/New_York] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[22-Feb-2021 14:38:31 America/New_York] PHP   5. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[22-Feb-2021 14:38:31 America/New_York] PHP   6. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[22-Feb-2021 14:38:31 America/New_York] PHP   7. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[22-Feb-2021 14:38:31 America/New_York] PHP   8. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[22-Feb-2021 14:38:31 America/New_York] PHP   9. ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[22-Feb-2021 14:38:31 America/New_York] PHP  10. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\AuthMiddleware.php:34
+[22-Feb-2021 14:38:31 America/New_York] PHP  11. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[22-Feb-2021 14:38:31 America/New_York] PHP  12. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[22-Feb-2021 14:38:31 America/New_York] PHP  13. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[22-Feb-2021 14:38:31 America/New_York] PHP  14. ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[22-Feb-2021 14:38:31 America/New_York] PHP  15. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\VersionMiddleware.php:13
+[22-Feb-2021 14:38:31 America/New_York] PHP  16. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[22-Feb-2021 14:38:31 America/New_York] PHP  17. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[22-Feb-2021 14:38:31 America/New_York] PHP  18. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[22-Feb-2021 14:38:31 America/New_York] PHP  19. Slim\Handlers\Strategies\RequestResponse->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:281
+[22-Feb-2021 14:38:31 America/New_York] PHP  20. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[22-Feb-2021 14:38:31 America/New_York] PHP  21. runTimerJobsAPI() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[22-Feb-2021 14:38:31 America/New_York] PHP  22. ChurchCRM\Service\SystemService::runTimerJobs() C:\wamp64\www\KC\churchcrm2021\api\routes\background.php:22
+[22-Feb-2021 14:38:31 America/New_York] PHP  23. ChurchCRM\Utils\ChurchCRMReleaseManager::checkForUpdates() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Service\SystemService.php:211
+[22-Feb-2021 14:38:31 America/New_York] PHP  24. ChurchCRM\Utils\ChurchCRMReleaseManager::populateReleases() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\dto\ChurchCRMReleaseManager.php:92
+[22-Feb-2021 14:38:31 America/New_York] PHP  25. Github\Api\Repository\Releases->all() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\dto\ChurchCRMReleaseManager.php:59
+[22-Feb-2021 14:38:31 America/New_York] PHP  26. Github\Api\Repository\Releases->get() C:\wamp64\www\KC\churchcrm2021\vendor\knplabs\github-api\lib\Github\Api\Repository\Releases.php:54
+[22-Feb-2021 14:38:31 America/New_York] PHP  27. Http\Client\Common\HttpMethodsClient->get() C:\wamp64\www\KC\churchcrm2021\vendor\knplabs\github-api\lib\Github\Api\AbstractApi.php:109
+[22-Feb-2021 14:38:31 America/New_York] PHP  28. Http\Client\Common\HttpMethodsClient->send() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\HttpMethodsClient.php:55
+[22-Feb-2021 14:38:31 America/New_York] PHP  29. Http\Client\Common\HttpMethodsClient->sendRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\HttpMethodsClient.php:108
+[22-Feb-2021 14:38:31 America/New_York] PHP  30. Http\Client\Common\PluginClient->sendRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\HttpMethodsClient.php:148
+[22-Feb-2021 14:38:31 America/New_York] PHP  31. Http\Client\Common\PluginChain->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginClient.php:90
+[22-Feb-2021 14:38:31 America/New_York] PHP  32. Http\Client\Common\PluginChain->Http\Client\Common\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:47-49}() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:63
+[22-Feb-2021 14:38:31 America/New_York] PHP  33. Github\HttpClient\Plugin\GithubExceptionThrower->handleRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:48
+[22-Feb-2021 14:38:31 America/New_York] PHP  34. Github\HttpClient\Plugin\GithubExceptionThrower->doHandleRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\Plugin\VersionBridgePlugin.php:22
+[22-Feb-2021 14:38:31 America/New_York] PHP  35. Http\Client\Common\PluginChain->Http\Client\Common\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:47-49}() C:\wamp64\www\KC\churchcrm2021\vendor\knplabs\github-api\lib\Github\HttpClient\Plugin\GithubExceptionThrower.php:30
+[22-Feb-2021 14:38:31 America/New_York] PHP  36. Http\Client\Common\Plugin\HistoryPlugin->handleRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:48
+[22-Feb-2021 14:38:31 America/New_York] PHP  37. Http\Client\Common\PluginChain->Http\Client\Common\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:47-49}() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\Plugin\HistoryPlugin.php:39
+[22-Feb-2021 14:38:31 America/New_York] PHP  38. Http\Client\Common\Plugin\RedirectPlugin->handleRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:48
+[22-Feb-2021 14:38:31 America/New_York] PHP  39. Http\Client\Common\PluginChain->Http\Client\Common\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:47-49}() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\Plugin\RedirectPlugin.php:147
+[22-Feb-2021 14:38:31 America/New_York] PHP  40. Http\Client\Common\Plugin\AddHostPlugin->handleRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:48
+[22-Feb-2021 14:38:31 America/New_York] PHP  41. Http\Client\Common\PluginChain->Http\Client\Common\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:47-49}() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\Plugin\AddHostPlugin.php:66
+[22-Feb-2021 14:38:31 America/New_York] PHP  42. Http\Client\Common\Plugin\HeaderDefaultsPlugin->handleRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:48
+[22-Feb-2021 14:38:31 America/New_York] PHP  43. Http\Client\Common\PluginChain->Http\Client\Common\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:47-49}() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\Plugin\HeaderDefaultsPlugin.php:44
+[22-Feb-2021 14:38:31 America/New_York] PHP  44. Http\Client\Common\Plugin\HeaderAppendPlugin->handleRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginChain.php:48
+[22-Feb-2021 14:38:31 America/New_York] PHP  45. Http\Client\Common\PluginClient->Http\Client\Common\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginClient.php:82-88}() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\Plugin\HeaderAppendPlugin.php:46
+[22-Feb-2021 14:38:31 America/New_York] PHP  46. Http\Adapter\Guzzle7\Client->sendRequest() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\client-common\src\PluginClient.php:84
+[22-Feb-2021 14:38:31 America/New_York] PHP  47. Http\Adapter\Guzzle7\Promise->wait() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\guzzle7-adapter\src\Client.php:51
+[22-Feb-2021 14:38:31 America/New_York] PHP  48. GuzzleHttp\Promise\Promise->wait() C:\wamp64\www\KC\churchcrm2021\vendor\php-http\guzzle7-adapter\src\Promise.php:94
+[22-Feb-2021 14:38:31 America/New_York] PHP  49. GuzzleHttp\Promise\Promise->waitIfPending() C:\wamp64\www\KC\churchcrm2021\vendor\guzzlehttp\promises\src\Promise.php:62
+[22-Feb-2021 14:38:31 America/New_York] PHP  50. GuzzleHttp\Promise\Promise->invokeWaitList() C:\wamp64\www\KC\churchcrm2021\vendor\guzzlehttp\promises\src\Promise.php:226
+[22-Feb-2021 14:38:31 America/New_York] PHP  51. GuzzleHttp\Promise\Promise->waitIfPending() C:\wamp64\www\KC\churchcrm2021\vendor\guzzlehttp\promises\src\Promise.php:269
+[22-Feb-2021 14:38:31 America/New_York] PHP  52. GuzzleHttp\Promise\Promise->invokeWaitFn() C:\wamp64\www\KC\churchcrm2021\vendor\guzzlehttp\promises\src\Promise.php:224
+[22-Feb-2021 14:38:31 America/New_York] PHP  53. GuzzleHttp\Handler\CurlMultiHandler->execute() C:\wamp64\www\KC\churchcrm2021\vendor\guzzlehttp\promises\src\Promise.php:248
+[22-Feb-2021 14:38:32 America/New_York] PHP  54. GuzzleHttp\Handler\CurlMultiHandler->tick() C:\wamp64\www\KC\churchcrm2021\vendor\guzzlehttp\guzzle\src\Handler\CurlMultiHandler.php:183

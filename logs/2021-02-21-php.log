@@ -1,0 +1,144 @@
+[21-Feb-2021 16:35:44 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php on line 416
+[21-Feb-2021 16:35:44 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:35:44 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:35:45 America/New_York] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\api\index.php:83
+[21-Feb-2021 16:35:45 America/New_York] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[21-Feb-2021 16:35:46 America/New_York] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[21-Feb-2021 16:35:46 America/New_York] PHP   5. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[21-Feb-2021 16:35:47 America/New_York] PHP   6. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 16:35:47 America/New_York] PHP   7. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 16:35:47 America/New_York] PHP   8. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 16:35:48 America/New_York] PHP   9. ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 16:35:48 America/New_York] PHP  10. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\AuthMiddleware.php:34
+[21-Feb-2021 16:35:48 America/New_York] PHP  11. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 16:35:49 America/New_York] PHP  12. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 16:35:49 America/New_York] PHP  13. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 16:35:50 America/New_York] PHP  14. ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 16:35:50 America/New_York] PHP  15. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\VersionMiddleware.php:13
+[21-Feb-2021 16:35:51 America/New_York] PHP  16. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[21-Feb-2021 16:35:51 America/New_York] PHP  17. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[21-Feb-2021 16:35:51 America/New_York] PHP  18. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[21-Feb-2021 16:35:51 America/New_York] PHP  19. Slim\Container->get() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:279
+[21-Feb-2021 16:35:52 America/New_York] PHP  20. Slim\Container->offsetGet() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Container.php:109
+[21-Feb-2021 16:35:52 America/New_York] PHP  21. Slim\DefaultServicesProvider->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:103-105}() C:\wamp64\www\KC\churchcrm2021\vendor\pimple\pimple\src\Pimple\Container.php:118
+[21-Feb-2021 16:35:52 America/New_York] PHP  22. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:104
+[21-Feb-2021 16:35:53 America/New_York] PHP  23. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:104
+[21-Feb-2021 16:35:53 America/New_York] PHP  24. Composer\Autoload\ClassLoader->findFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:343
+[21-Feb-2021 16:35:53 America/New_York] PHP  25. Composer\Autoload\ClassLoader->findFileWithExtension() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:373
+[21-Feb-2021 16:36:19 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php on line 416
+[21-Feb-2021 16:36:20 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:36:20 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:36:20 America/New_York] PHP   2. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\api\index.php:24
+[21-Feb-2021 16:36:21 America/New_York] PHP   3. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\api\index.php:24
+[21-Feb-2021 16:36:21 America/New_York] PHP   4. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[21-Feb-2021 16:36:21 America/New_York] PHP   5. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476
+[21-Feb-2021 16:36:22 America/New_York] PHP   6. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:37
+[21-Feb-2021 16:36:22 America/New_York] PHP   7. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:37
+[21-Feb-2021 16:36:22 America/New_York] PHP   8. Composer\Autoload\ClassLoader->findFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:343
+[21-Feb-2021 16:36:23 America/New_York] PHP   9. Composer\Autoload\ClassLoader->findFileWithExtension() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:373
+[21-Feb-2021 16:36:58 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\api\routes\public\public-calendar.php on line 11
+[21-Feb-2021 16:36:59 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:36:59 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:36:59 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:53
+[21-Feb-2021 16:37:41 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\api\routes\users\user.php on line 9
+[21-Feb-2021 16:37:42 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:37:42 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:37:43 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:77
+[21-Feb-2021 16:37:58 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\api\routes\calendar\calendar.php on line 13
+[21-Feb-2021 16:37:59 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:37:59 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:37:59 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:36
+[21-Feb-2021 16:38:27 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\api\routes\users\user.php on line 9
+[21-Feb-2021 16:38:28 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:38:28 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:38:29 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:77
+[21-Feb-2021 16:39:04 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php on line 416
+[21-Feb-2021 16:39:05 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:39:05 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:39:05 America/New_York] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\api\index.php:83
+[21-Feb-2021 16:39:05 America/New_York] PHP   3. Slim\Container->get() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[21-Feb-2021 16:39:06 America/New_York] PHP   4. Slim\Container->offsetGet() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Container.php:109
+[21-Feb-2021 16:39:06 America/New_York] PHP   5. Slim\DefaultServicesProvider->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:53-55}() C:\wamp64\www\KC\churchcrm2021\vendor\pimple\pimple\src\Pimple\Container.php:118
+[21-Feb-2021 16:39:06 America/New_York] PHP   6. Slim\Http\Request::createFromEnvironment() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DefaultServicesProvider.php:54
+[21-Feb-2021 16:39:07 America/New_York] PHP   7. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Http\Request.php:142
+[21-Feb-2021 16:39:07 America/New_York] PHP   8. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Http\Request.php:142
+[21-Feb-2021 16:39:07 America/New_York] PHP   9. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[21-Feb-2021 16:39:08 America/New_York] PHP  10. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476
+[21-Feb-2021 16:39:08 America/New_York] PHP  11. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Http\UploadedFile.php:21
+[21-Feb-2021 16:39:09 America/New_York] PHP  12. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Http\UploadedFile.php:21
+[21-Feb-2021 16:39:09 America/New_York] PHP  13. Composer\Autoload\ClassLoader->findFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:343
+[21-Feb-2021 16:39:10 America/New_York] PHP  14. Composer\Autoload\ClassLoader->findFileWithExtension() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:373
+[21-Feb-2021 16:39:46 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\api\routes\cart.php on line 5
+[21-Feb-2021 16:39:47 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:39:47 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:39:47 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:69
+[21-Feb-2021 16:40:03 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php on line 103
+[21-Feb-2021 16:40:03 America/New_York] PHP Stack trace:
+[21-Feb-2021 16:40:03 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 16:40:04 America/New_York] PHP   2. require() C:\wamp64\www\KC\churchcrm2021\api\index.php:2
+[21-Feb-2021 16:40:05 America/New_York] PHP   3. require_once() C:\wamp64\www\KC\churchcrm2021\Include\Config.php:63
+[21-Feb-2021 16:40:05 America/New_York] PHP   4. ChurchCRM\Bootstrapper::init() C:\wamp64\www\KC\churchcrm2021\Include\LoadConfigs.php:22
+[21-Feb-2021 16:40:06 America/New_York] PHP   5. ChurchCRM\Bootstrapper::isDBCurrent() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:72
+[21-Feb-2021 16:40:06 America/New_York] PHP   6. ChurchCRM\Service\SystemService::getDBVersion() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Bootstrapper.php:308
+[21-Feb-2021 16:40:06 America/New_York] PHP   7. Propel\Runtime\Connection\StatementWrapper->execute() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Service\SystemService.php:51
+[21-Feb-2021 16:40:07 America/New_York] PHP   8. Propel\Runtime\Connection\DebugPDO->log() C:\wamp64\www\KC\churchcrm2021\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php:204
+[21-Feb-2021 16:40:08 America/New_York] PHP   9. Monolog\Logger->info() C:\wamp64\www\KC\churchcrm2021\vendor\propel\propel\src\Propel\Runtime\Connection\ConnectionWrapper.php:682
+[21-Feb-2021 16:40:08 America/New_York] PHP  10. Monolog\Logger->addRecord() C:\wamp64\www\KC\churchcrm2021\vendor\monolog\monolog\src\Monolog\Logger.php:504
+[21-Feb-2021 16:40:09 America/New_York] PHP  11. Monolog\Handler\StreamHandler->handle() C:\wamp64\www\KC\churchcrm2021\vendor\monolog\monolog\src\Monolog\Logger.php:325
+[21-Feb-2021 16:40:09 America/New_York] PHP  12. Monolog\Handler\StreamHandler->write() C:\wamp64\www\KC\churchcrm2021\vendor\monolog\monolog\src\Monolog\Handler\AbstractProcessingHandler.php:42
+[21-Feb-2021 17:45:02 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Service\NewDashboardService.php on line 4
+[21-Feb-2021 17:45:05 America/New_York] PHP Stack trace:
+[21-Feb-2021 17:45:05 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 17:45:06 America/New_York] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\api\index.php:83
+[21-Feb-2021 17:45:07 America/New_York] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[21-Feb-2021 17:45:07 America/New_York] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[21-Feb-2021 17:45:07 America/New_York] PHP   5. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[21-Feb-2021 17:45:08 America/New_York] PHP   6. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:45:09 America/New_York] PHP   7. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:45:09 America/New_York] PHP   8. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:45:09 America/New_York] PHP   9. ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:45:10 America/New_York] PHP  10. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\AuthMiddleware.php:34
+[21-Feb-2021 17:45:10 America/New_York] PHP  11. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:45:11 America/New_York] PHP  12. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:45:11 America/New_York] PHP  13. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:45:11 America/New_York] PHP  14. ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:45:12 America/New_York] PHP  15. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\VersionMiddleware.php:13
+[21-Feb-2021 17:45:13 America/New_York] PHP  16. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[21-Feb-2021 17:45:14 America/New_York] PHP  17. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[21-Feb-2021 17:45:14 America/New_York] PHP  18. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[21-Feb-2021 17:45:15 America/New_York] PHP  19. Slim\Handlers\Strategies\RequestResponse->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:281
+[21-Feb-2021 17:45:15 America/New_York] PHP  20. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[21-Feb-2021 17:45:16 America/New_York] PHP  21. getPageCommonData() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[21-Feb-2021 17:45:17 America/New_York] PHP  22. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\api\routes\background.php:16
+[21-Feb-2021 17:45:17 America/New_York] PHP  23. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\api\routes\background.php:16
+[21-Feb-2021 17:45:17 America/New_York] PHP  24. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[21-Feb-2021 17:45:18 America/New_York] PHP  25. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476
+[21-Feb-2021 17:47:20 America/New_York] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Dashboard\EventsMenuItems.php on line 11
+[21-Feb-2021 17:47:21 America/New_York] PHP Stack trace:
+[21-Feb-2021 17:47:21 America/New_York] PHP   1. {main}() C:\wamp64\www\KC\churchcrm2021\api\index.php:0
+[21-Feb-2021 17:47:21 America/New_York] PHP   2. Slim\App->run() C:\wamp64\www\KC\churchcrm2021\api\index.php:83
+[21-Feb-2021 17:47:22 America/New_York] PHP   3. Slim\App->process() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:297
+[21-Feb-2021 17:47:23 America/New_York] PHP   4. Slim\App->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:392
+[21-Feb-2021 17:47:23 America/New_York] PHP   5. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[21-Feb-2021 17:47:24 America/New_York] PHP   6. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:47:24 America/New_York] PHP   7. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:47:24 America/New_York] PHP   8. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:47:25 America/New_York] PHP   9. ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:47:25 America/New_York] PHP  10. Slim\App->Slim\{closure:C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:63-78}() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\AuthMiddleware.php:34
+[21-Feb-2021 17:47:25 America/New_York] PHP  11. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:47:26 America/New_York] PHP  12. Slim\DeferredCallable->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:70
+[21-Feb-2021 17:47:27 America/New_York] PHP  13. call_user_func_array:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:47:27 America/New_York] PHP  14. ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\DeferredCallable.php:57
+[21-Feb-2021 17:47:27 America/New_York] PHP  15. Slim\App->__invoke() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Slim\Middleware\VersionMiddleware.php:13
+[21-Feb-2021 17:47:27 America/New_York] PHP  16. Slim\Route->run() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\App.php:503
+[21-Feb-2021 17:47:28 America/New_York] PHP  17. Slim\Route->callMiddlewareStack() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:268
+[21-Feb-2021 17:47:28 America/New_York] PHP  18. Slim\Route->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\MiddlewareAwareTrait.php:117
+[21-Feb-2021 17:47:28 America/New_York] PHP  19. Slim\Handlers\Strategies\RequestResponse->__invoke() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Route.php:281
+[21-Feb-2021 17:47:28 America/New_York] PHP  20. call_user_func:{C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40}() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[21-Feb-2021 17:47:29 America/New_York] PHP  21. getPageCommonData() C:\wamp64\www\KC\churchcrm2021\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:40
+[21-Feb-2021 17:47:29 America/New_York] PHP  22. ChurchCRM\Service\NewDashboardService::getValues() C:\wamp64\www\KC\churchcrm2021\api\routes\background.php:16
+[21-Feb-2021 17:47:29 America/New_York] PHP  23. ChurchCRM\Service\NewDashboardService::getDashboardItems() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Service\NewDashboardService.php:26
+[21-Feb-2021 17:47:29 America/New_York] PHP  24. spl_autoload_call() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Service\NewDashboardService.php:16
+[21-Feb-2021 17:47:30 America/New_York] PHP  25. Composer\Autoload\ClassLoader->loadClass() C:\wamp64\www\KC\churchcrm2021\ChurchCRM\Service\NewDashboardService.php:16
+[21-Feb-2021 17:47:30 America/New_York] PHP  26. Composer\Autoload\includeFile() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:344
+[21-Feb-2021 17:47:31 America/New_York] PHP  27. include() C:\wamp64\www\KC\churchcrm2021\vendor\composer\ClassLoader.php:476
