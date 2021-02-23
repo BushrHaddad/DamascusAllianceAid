@@ -18,7 +18,6 @@ $app->group('/family', function () {
     $this->get('','listFamilies');
     $this->get('/','listFamilies');
     $this->get('/not-found', 'viewFamilyNotFound');
-    $this->get('/ajax', 'ajax');
     $this->get('/{id}', 'viewFamily');
     
 });
@@ -54,10 +53,6 @@ function listFamilies(Request $request, Response $response, array $args)
     ];
 
   return $renderer->render($response, 'family-list.php', $pageArgs);
-}
-
-function ajax(Request $request, Response $response, array $args){
-    return $renderer->render($response, 'ajax.php', $args);
 }
 
 function viewFamilyNotFound(Request $request, Response $response, array $args)

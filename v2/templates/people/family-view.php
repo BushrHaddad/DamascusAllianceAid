@@ -316,10 +316,11 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                 </div>
             </div>
             <div class="box-body">
-                <div class="form-group" id="year_status">
+                <div class="form-group">
                     <label>Choose a Year:</label>
-                    <select class="form-control" name="c5">
-                        <option selected="">2016</option>
+                    <select id="year_status" class="form-control" name="c5">
+                        <option selected="">--------------------</option>
+                        <option >2016</option>
                         <option>2017</option>
                         <option>2018</option>
                         <option>2019</option>
@@ -328,6 +329,15 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                 </div>
                 <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"
                     style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th> Id </th>
+                            <th> Name </th>
+                            <th> Desc </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -594,23 +604,36 @@ $(document).ready(function() {
 $(document).ready(function() {
 
     $("#year_status").change(function() {
-        var value = $("#year_status").val()
+        var value = $("#year_status").val();
         $.ajax({
-            url: "ajax.php",
+            // url:  "/churchcrm/v2/templates/people/ajax.php",
+            url: "/churchcrm/PostRedirect.php",
             type: "POST",
-            crossDomain: true,
-            contentType: "application/json; charset=utf-8",
-            datatype: "text",
-            data:{
+            // datatype: "text",
+            data: {
                 val: value
+            },
+            success: function(obj) {
+                var json = JSON.parse(obj);//console.log(json);
+              //  alert(json[0]->year_id);
+                $('#example').DataTable({
+                    destroy: true,
+                    responsive: true,
+                    data: json,
+                    //  dataType: 'json',    
+                    columns: [
+                        { data: "year_id" },
+                        { data: "year_name"},
+                        { data: "year_desc"}
+                    ]
+                });
             }
 
-        }).done(function (returneddata){
+        }).done(function(returneddata) {
             console.log(returneddata);
         })
 
     });
 });
-
 </script>
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>
