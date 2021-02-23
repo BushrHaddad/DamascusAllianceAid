@@ -41,16 +41,6 @@ $aNameErrors = [];
 $bNewNameError = false;
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // collect value of input field
-  $year = $_POST['year'];
-  $desc = $_POST['desc'];
-  $sSQL = "INSERT INTO `dates_year` 
-  ( `year_name` , `year_desc` )
-  VALUES ( '".$year."', '".$desc."');";
-   RunQuery($sSQL);
-}
-
 $sPageTitle = gettext('New Year Editor');
 
 require 'Include/Header.php';
@@ -90,7 +80,7 @@ while($row = mysqli_fetch_array($rsOpps))
 
                 <?php } ?>
                 <tr>
-                    <form method="post" action="NewYearEditor.php" name="AddNewYear">
+                    <form method="post" action="PostRedirect.php" name="AddNewYear">
                         <td><input type="submit" class="btn btn-primary" value="<?= gettext('Add New Year') ?>"Name="add_year"></td>
                         <td><label> <?= end($years)[1]+1 ?></label></td>
                          <input type="hidden" name="year" value=<?= end($years)[1]+1 ?>></input>

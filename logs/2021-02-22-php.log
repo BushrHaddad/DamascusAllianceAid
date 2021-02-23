@@ -1,0 +1,2 @@
+[22-Feb-2021 20:49:13 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\ChurchCRM\Service\AppIntegrityService.php on line 84
+[22-Feb-2021 20:49:13 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\vendor\gettext\gettext\src\Loader\PoLoader.php on line 23

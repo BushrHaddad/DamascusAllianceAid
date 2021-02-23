@@ -328,54 +328,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                 </div>
                 <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"
                     style="width:100%;">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Extn.</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                            <td>2011/01/25</td>
-                            <td>$112,000</td>
-                         
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                            <td>2011/01/25</td>
-                            <td>$112,000</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                            <td>2011/01/25</td>
-                            <td>$112,000</td>
-                           
-                        </tr>
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                            <td>2011/01/25</td>
-                            <td>$112,000</td>
-                        </tr>
-                    </tbody>
-
                 </table>
             </div>
         </div>
@@ -639,24 +591,26 @@ $(document).ready(function() {
     </div>
 </div>
 <script>
-$('#year_status').on('change', function() {
-    var value = $(this).val();
-    var id = $(this).data('id');
-    $.ajax({
-        type: 'POST',
-        url: 'family-view.php', // this is your target page where post will go
-        // data: {update:value, hidden:id},
-        success: function(response) {
-            console.log(response); // here you can get response
-        }
+$(document).ready(function() {
+
+    $("#year_status").change(function() {
+        var value = $("#year_status").val()
+        $.ajax({
+            url: "ajax.php",
+            type: "POST",
+            crossDomain: true,
+            contentType: "application/json; charset=utf-8",
+            datatype: "text",
+            data:{
+                val: value
+            }
+
+        }).done(function (returneddata){
+            console.log(returneddata);
+        })
 
     });
-})
-$(document).ready(function() {
-    $('#example').DataTable( {
-        "scrollX": true
-    } );
-} );
+});
 
 </script>
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>
