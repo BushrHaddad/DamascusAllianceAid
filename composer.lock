@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8a544679e0e00486ee6e48eec1c741b",
+    "content-hash": "878301badfd0ced9b0f4d41d0cdb8fc1",
     "packages": [
         {
             "name": "azuyalabs/yasumi",
@@ -314,6 +314,55 @@
                 "source": "https://github.com/DASPRiD/Enum/tree/1.0.3"
             },
             "time": "2020-10-02T16:03:48+00:00"
+        },
+        {
+            "name": "datatables.net/editor-php",
+            "version": "1.9.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DataTables/Editor-PHP.git",
+                "reference": "62ad7bc9abb0f39631abc2aaf872fd780c8b9861"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DataTables/Editor-PHP/zipball/62ad7bc9abb0f39631abc2aaf872fd780c8b9861",
+                "reference": "62ad7bc9abb0f39631abc2aaf872fd780c8b9861",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DataTables\\": ""
+                },
+                "files": [
+                    "composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SpryMedia Ltd",
+                    "homepage": "https://datatables.net"
+                }
+            ],
+            "description": "PHP server-side libraries for Editor",
+            "homepage": "https://editor.datatables.net",
+            "keywords": [
+                "datatables",
+                "editor",
+                "jquery"
+            ],
+            "support": {
+                "issues": "https://github.com/DataTables/Editor-PHP/issues",
+                "source": "https://github.com/DataTables/Editor-PHP/tree/1.9.6"
+            },
+            "time": "2020-12-01T13:31:24+00:00"
         },
         {
             "name": "defuse/php-encryption",

@@ -601,7 +601,6 @@ $(document).ready(function() {
     </div>
 </div>
 <script>
-
 $(document).ready(function() {
 
     $("#year_status").change(function() {
@@ -616,25 +615,25 @@ $(document).ready(function() {
             },
             success: function(obj) {
                 var json = JSON.parse(obj);
-                var local_master= new Array();
-                var i,j=0;
+                var local_master = new Array();
+                var i, j = 0;
 
                 local_master.push(json[0]);
 
-                for (i=1;i<= 12;i++){
-                    // if(json[j].year_id==i && j<json.length){
-                        local_master.push({year_id: i+ "", year_name: "Name", year_desc: "year_desc"});
-                        // local_master.push(json);
-                        // j++;
-                    // }
-                    // else{
-                        // local_master.push(empty_json());
-                    // }
+                for (i = 1; i <= 12; i++) {
+                    if (json[j].year_id == i && j < json.length) {
+                        local_master.push(json[j]);
+                        j++;
+                    } else {
+                        local_master.push({
+                            year_id: "" + i,
+                            year_name: "" + i,
+                            year_desc: "" + i
+                        });
+                    }
                 }
 
-                // alert(local_master);
-
-                $('#example').DataTable({
+                var table = $('#example').DataTable({
                     destroy: true,
                     responsive: true,
                     data: local_master,
@@ -650,6 +649,15 @@ $(document).ready(function() {
                         }
                     ]
                 });
+
+
+                $("#example tbody").on('dblclick', 'tr', function() {
+                    var row = table.row(this).data();
+                    alert(row.year_name);
+                    // RoweditMode($(this).parent());
+                });
+
+
             }
 
         }).done(function(returneddata) {
@@ -657,94 +665,6 @@ $(document).ready(function() {
         })
 
     });
-
-
-    // $("#example tbody").on('click', 'tr td', function(e) {
-    //     RoweditMode($(this).parent());
-    // });
-
-    // function RoweditMode(rowid) {
-    //     var prevRow;
-    //     var rowIndexVlaue = parseInt(rowid.attr("indexv"));
-    //     alert(rowid);
-
-    //     if (editIndexTable == -1) {
-    //         saveRowIntoArray(rowid);
-    //         rowid.attr("editState", "editState");
-    //         editIndexTable = rowid.rowIndex;
-    //         setEditStateValue(rowid, rowIndexVlaue + 2);
-    //     } else {
-    //         prevRow = $("[editState=editState]");
-    //         prevRow.attr("editState", "");
-    //         rowid.attr("editState", "editState");
-    //         editIndexTable = rowIndexVlaue;
-    //         saveArrayIntoRow(prevRow);
-    //         saveRowIntoArray(rowid);
-    //         setEditStateValue(rowid, rowIndexVlaue + 2);
-    //     }
-
-    // }
-
-    // // function saveRowIntoArray(cureentCells) {
-    // //     $.each(ColumnData, function(index, element) {
-    // //         if (element.Editable == true) {
-    // //             var htmlVal = $($(cureentCells).children('.' + element.Name)[0]).html();
-    // //             EditRowData[element.Name] = htmlVal;
-    // //         }
-    // //     });
-    // // }
-
-    // // function setEditStateValue(td1, indexRow) {
-    // //     for (var k in EditRowData) {
-    // //         $($(td1).children('.' + k)[0]).html('<input value="' + EditRowData[k] +
-    // //             '" class="userinput"  style="width: 99% " />');
-    // //     }
-    // // }
-
-    // // $("#example tbody").on('keyup', 'input.userinput', function(e) {
-    // //     if (e.keyCode == 13) {
-    // //         updateRowData(this.parentNode.parentNode);
-    // //     }
-    // // });
-
-    // // function updateRowData(currentCells) {
-    // //     var table = $("#dtexample").DataTable();
-    // //     var row = table.row(currentCells);
-    // //     rowid = currentCells.getAttribute('id');
-    // //     var UpdateRowData = [];
-    // //     $.each(ColumnData, function(index, element) {
-    // //         if (element.Editable == true) {
-    // //             UpdateRowData.push({
-    // //                 'pname': element.Name,
-    // //                 'pvalue': $($($(currentCells).children('.' + element.Name)).children(
-    // //                     'input')[0]).val()
-    // //             });
-    // //         }
-    // //     });
-    // //     console.log(UpdateRowData);
-    // //     UpdateRowData.push({
-    // //         'pname': 'rowid',
-    // //         'pvalue': rowid
-    // //     });
-    // //     var parameter = "";
-    // //     for (i = 0; i < UpdateRowData.length; i++) {
-    // //         if (i == UpdateRowData.length - 1)
-    // //             parameter = parameter + UpdateRowData[i].pname + "=" + UpdateRowData[i].pvalue;
-    // //         else
-    // //             parameter = parameter + UpdateRowData[i].pname + "=" + UpdateRowData[i].pvalue + "&";
-    // //     }
-    // //     $.ajax({
-    // //         // alert(parameter);
-
-    // //         type: 'POST',
-    // //         url: '/churchcrm/PostRedirect.php',
-    // //         data: parameter,
-    // //         success: function(data) {
-    // //             var table = $('#example').DataTable();
-    // //             table.draw('page');
-    // //         }
-    // //     });
-    // // }
 
 });
 </script>

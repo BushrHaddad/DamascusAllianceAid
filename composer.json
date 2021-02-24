@@ -35,6 +35,7 @@
     },
     "require": {
         "azuyalabs/yasumi": "^2.3.0",
+        "datatables.net/editor-php": "^1.9",
         "defuse/php-encryption": "^2.2",
         "drewm/mailchimp-api": "^2.5",
         "endroid/qr-code": "^3.9",

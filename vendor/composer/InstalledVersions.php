@@ -89,6 +89,15 @@ private static $installed = array (
       ),
       'reference' => '5abf82f213618696dda8e3bf6f64dd042d8542b2',
     ),
+    'datatables.net/editor-php' => 
+    array (
+      'pretty_version' => '1.9.6',
+      'version' => '1.9.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '62ad7bc9abb0f39631abc2aaf872fd780c8b9861',
+    ),
     'defuse/php-encryption' => 
     array (
       'pretty_version' => 'v2.2.1',

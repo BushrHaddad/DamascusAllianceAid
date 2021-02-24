@@ -15,6 +15,8 @@ use ChurchCRM\Utils\RedirectUtils;
 use ChurchCRM\Authentication\AuthenticationManager;
 
 
+
+
 if (isset($_POST['val']) ) {
 
     $val = (int)$_POST['val'];

@@ -38,6 +38,7 @@ final class Versions
   'clue/stream-filter' => 'v1.5.0@aeb7d8ea49c7963d3b581378955dbf5bc49aa320',
   'composer/package-versions-deprecated' => '1.11.99.1@7413f0b55a051e89485c5cb9f765fe24bb02a7b6',
   'dasprid/enum' => '1.0.3@5abf82f213618696dda8e3bf6f64dd042d8542b2',
+  'datatables.net/editor-php' => '1.9.6@62ad7bc9abb0f39631abc2aaf872fd780c8b9861',
   'defuse/php-encryption' => 'v2.2.1@0f407c43b953d571421e0020ba92082ed5fb7620',
   'drewm/mailchimp-api' => 'v2.5.4@c6cdfab4ca6ddbc3b260913470bd0a4a5cb84c7a',
   'endroid/qr-code' => '3.9.6@9cdd4f5d609bfc8811ca4a62b4d23eb16976242f',
