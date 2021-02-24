@@ -651,10 +651,53 @@ $(document).ready(function() {
                 });
 
 
-                $("#example tbody").on('dblclick', 'tr', function() {
-                    var row = table.row(this).data();
-                    alert(row.year_name);
-                    // RoweditMode($(this).parent());
+                // $("#example tbody").on('dblclick', 'tr', function() {
+                //     var row = table.row(this).data();
+                //     alert(row.year_name);
+                //     // RoweditMode($(this).parent());
+                // });
+
+                var table = $('#example').DataTable();
+                table.MakeCellsEditable({
+                    "onUpdate": myCallbackFunction,
+                    "inputCss": 'my-input-class',
+                    "columns": [0, 1, 2],
+                    "confirmationButton": { // could also be true
+                        "confirmCss": 'my-confirm-class',
+                        "cancelCss": 'my-cancel-class'
+                    },
+                    "inputTypes": 
+                    [
+                        {
+                            "column": 0,
+                            "type": "text",
+                            "options": null
+                        },
+                        {
+                            "column": 1,
+                            "type": "list",
+                            "options": [{
+                                    "value": "1",
+                                    "display": "Beaty"
+                                },
+                                {
+                                    "value": "2",
+                                    "display": "Doe"
+                                },
+                                {
+                                    "value": "3",
+                                    "display": "Dirt"
+                                }
+                            ]
+                        },
+                        {
+                            "column": 2,
+                            "type": "text",
+                            "options": null
+                        }
+                        // Nothing specified for column 3 so it will default to text
+
+                    ]
                 });
 
 
@@ -667,5 +710,21 @@ $(document).ready(function() {
     });
 
 });
+
+
+function myCallbackFunction (updatedCell, updatedRow, oldValue) {
+    alert(""+updatedCell.data())
+    // console.log("The new value for the cell is: " + );
+    // console.log("The old value for that cell was: " + oldValue);
+    // console.log("The values for each cell in that row are: " + updatedRow.data());
+}
+
+function destroyTable() {
+    if ($.fn.DataTable.isDataTable('#example')) {
+        table.destroy();
+        table.MakeCellsEditable("destroy");
+    }
+}
+
 </script>
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>
