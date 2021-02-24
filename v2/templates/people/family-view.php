@@ -320,7 +320,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     <label>Choose a Year:</label>
                     <select id="year_status" class="form-control" name="c5">
                         <option selected="">--------------------</option>
-                        <option >2016</option>
+                        <option>2016</option>
                         <option>2017</option>
                         <option>2018</option>
                         <option>2019</option>
@@ -601,6 +601,7 @@ $(document).ready(function() {
     </div>
 </div>
 <script>
+
 $(document).ready(function() {
 
     $("#year_status").change(function() {
@@ -614,17 +615,39 @@ $(document).ready(function() {
                 val: value
             },
             success: function(obj) {
-                var json = JSON.parse(obj);//console.log(json);
-              //  alert(json[0]->year_id);
+                var json = JSON.parse(obj);
+                var local_master= new Array();
+                var i,j=0;
+
+                local_master.push(json[0]);
+
+                for (i=1;i<= 12;i++){
+                    // if(json[j].year_id==i && j<json.length){
+                        local_master.push({year_id: i+ "", year_name: "Name", year_desc: "year_desc"});
+                        // local_master.push(json);
+                        // j++;
+                    // }
+                    // else{
+                        // local_master.push(empty_json());
+                    // }
+                }
+
+                // alert(local_master);
+
                 $('#example').DataTable({
                     destroy: true,
                     responsive: true,
-                    data: json,
+                    data: local_master,
                     //  dataType: 'json',    
-                    columns: [
-                        { data: "year_id" },
-                        { data: "year_name"},
-                        { data: "year_desc"}
+                    columns: [{
+                            data: "year_id"
+                        },
+                        {
+                            data: "year_name"
+                        },
+                        {
+                            data: "year_desc"
+                        }
                     ]
                 });
             }
@@ -634,6 +657,95 @@ $(document).ready(function() {
         })
 
     });
+
+
+    // $("#example tbody").on('click', 'tr td', function(e) {
+    //     RoweditMode($(this).parent());
+    // });
+
+    // function RoweditMode(rowid) {
+    //     var prevRow;
+    //     var rowIndexVlaue = parseInt(rowid.attr("indexv"));
+    //     alert(rowid);
+
+    //     if (editIndexTable == -1) {
+    //         saveRowIntoArray(rowid);
+    //         rowid.attr("editState", "editState");
+    //         editIndexTable = rowid.rowIndex;
+    //         setEditStateValue(rowid, rowIndexVlaue + 2);
+    //     } else {
+    //         prevRow = $("[editState=editState]");
+    //         prevRow.attr("editState", "");
+    //         rowid.attr("editState", "editState");
+    //         editIndexTable = rowIndexVlaue;
+    //         saveArrayIntoRow(prevRow);
+    //         saveRowIntoArray(rowid);
+    //         setEditStateValue(rowid, rowIndexVlaue + 2);
+    //     }
+
+    // }
+
+    // // function saveRowIntoArray(cureentCells) {
+    // //     $.each(ColumnData, function(index, element) {
+    // //         if (element.Editable == true) {
+    // //             var htmlVal = $($(cureentCells).children('.' + element.Name)[0]).html();
+    // //             EditRowData[element.Name] = htmlVal;
+    // //         }
+    // //     });
+    // // }
+
+    // // function setEditStateValue(td1, indexRow) {
+    // //     for (var k in EditRowData) {
+    // //         $($(td1).children('.' + k)[0]).html('<input value="' + EditRowData[k] +
+    // //             '" class="userinput"  style="width: 99% " />');
+    // //     }
+    // // }
+
+    // // $("#example tbody").on('keyup', 'input.userinput', function(e) {
+    // //     if (e.keyCode == 13) {
+    // //         updateRowData(this.parentNode.parentNode);
+    // //     }
+    // // });
+
+    // // function updateRowData(currentCells) {
+    // //     var table = $("#dtexample").DataTable();
+    // //     var row = table.row(currentCells);
+    // //     rowid = currentCells.getAttribute('id');
+    // //     var UpdateRowData = [];
+    // //     $.each(ColumnData, function(index, element) {
+    // //         if (element.Editable == true) {
+    // //             UpdateRowData.push({
+    // //                 'pname': element.Name,
+    // //                 'pvalue': $($($(currentCells).children('.' + element.Name)).children(
+    // //                     'input')[0]).val()
+    // //             });
+    // //         }
+    // //     });
+    // //     console.log(UpdateRowData);
+    // //     UpdateRowData.push({
+    // //         'pname': 'rowid',
+    // //         'pvalue': rowid
+    // //     });
+    // //     var parameter = "";
+    // //     for (i = 0; i < UpdateRowData.length; i++) {
+    // //         if (i == UpdateRowData.length - 1)
+    // //             parameter = parameter + UpdateRowData[i].pname + "=" + UpdateRowData[i].pvalue;
+    // //         else
+    // //             parameter = parameter + UpdateRowData[i].pname + "=" + UpdateRowData[i].pvalue + "&";
+    // //     }
+    // //     $.ajax({
+    // //         // alert(parameter);
+
+    // //         type: 'POST',
+    // //         url: '/churchcrm/PostRedirect.php',
+    // //         data: parameter,
+    // //         success: function(data) {
+    // //             var table = $('#example').DataTable();
+    // //             table.draw('page');
+    // //         }
+    // //     });
+    // // }
+
 });
 </script>
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>
