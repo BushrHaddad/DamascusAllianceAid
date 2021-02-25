@@ -713,10 +713,10 @@ $(document).ready(function() {
 
 
 function myCallbackFunction (updatedCell, updatedRow, oldValue) {
-    alert(""+updatedCell.data())
+    // alert(""+updatedCell.data())
     // console.log("The new value for the cell is: " + );
-    // console.log("The old value for that cell was: " + oldValue);
-    // console.log("The values for each cell in that row are: " + updatedRow.data());
+    console.log("The old value for that cell was: " + oldValue);
+    console.log("The values for each cell in that row are: " + updatedRow.data());
 }
 
 function destroyTable() {
