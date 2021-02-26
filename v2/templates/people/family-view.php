@@ -601,19 +601,27 @@ $(document).ready(function() {
     </div>
 </div>
 <script>
+var table;
 $(document).ready(function() {
 
+
     $("#year_status").change(function() {
-        var value = $("#year_status").val();
+        var year_value = $("#year_status").val();
+
         $.ajax({
             // url:  "/churchcrm/v2/templates/people/ajax.php",
             url: "/churchcrm/PostRedirect.php",
             type: "POST",
             // datatype: "text",
             data: {
-                val: value
+                year_id: year_value,
+                post_name: "local_master",
+                family_id: window.CRM.currentFamily
             },
+
             success: function(obj) {
+                table = $('#example').DataTable()
+                destroyTable();
                 var json = JSON.parse(obj);
                 var local_master = new Array();
                 var i, j = 0;
@@ -621,21 +629,27 @@ $(document).ready(function() {
                 local_master.push(json[0]);
 
                 for (i = 1; i <= 12; i++) {
-                    if (json[j].year_id == i && j < json.length) {
-                        local_master.push(json[j]);
-                        j++;
-                    } else {
-                        local_master.push({
-                            year_id: "" + i,
-                            year_name: "" + i,
-                            year_desc: "" + i
-                        });
-                    }
+                    local_master.push({
+                        year_id: "" + i,
+                        year_name: "" + i,
+                        year_desc: "" + i
+                    });
+
+                    // if (json[j].year_id == i && j < json.length) {
+                    //     local_master.push(json[j]);
+                    //     j++;
+                    // } else {
+                    //     local_master.push({
+                    //         year_id: "" + i,
+                    //         year_name: "" + i,
+                    //         year_desc: "" + i
+                    //     });
+                    // }
                 }
 
-                var table = $('#example').DataTable({
+                table = $('#example').DataTable({
                     destroy: true,
-                    responsive: true,
+                    // responsive: true,
                     data: local_master,
                     //  dataType: 'json',    
                     columns: [{
@@ -649,15 +663,7 @@ $(document).ready(function() {
                         }
                     ]
                 });
-
-
-                // $("#example tbody").on('dblclick', 'tr', function() {
-                //     var row = table.row(this).data();
-                //     alert(row.year_name);
-                //     // RoweditMode($(this).parent());
-                // });
-
-                var table = $('#example').DataTable();
+                
                 table.MakeCellsEditable({
                     "onUpdate": myCallbackFunction,
                     "inputCss": 'my-input-class',
@@ -666,9 +672,7 @@ $(document).ready(function() {
                         "confirmCss": 'my-confirm-class',
                         "cancelCss": 'my-cancel-class'
                     },
-                    "inputTypes": 
-                    [
-                        {
+                    "inputTypes": [{
                             "column": 0,
                             "type": "text",
                             "options": null
@@ -700,23 +704,42 @@ $(document).ready(function() {
                     ]
                 });
 
+                
 
             }
 
-        }).done(function(returneddata) {
-            console.log(returneddata);
-        })
-
+        });
     });
+
 
 });
 
+function myCallbackFunction(updatedCell, updatedRow, oldValue) {
+    // $.ajax({
 
-function myCallbackFunction (updatedCell, updatedRow, oldValue) {
-    // alert(""+updatedCell.data())
-    // console.log("The new value for the cell is: " + );
+    //     url: "/churchcrm/PostRedirect.php",
+    //     type: "POST",
+    //     // datatype: "text",
+    //     data: {
+    //         post_name: "edit_local_master",
+    //         family_id: window.CRM.currentFamily,
+    //         year_id: updatedRow.data().year_id,
+    //         year_name: updatedRow.data().year_name,
+    //         year_desc: updatedRow.data().year_desc
+    //     },
+
+    //     success: function(response) {
+    //         // You will get response from your PHP page (what you echo or print)
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {
+    //         console.log(textStatus, errorThrown);
+    //     }
+    // });
+
     console.log("The old value for that cell was: " + oldValue);
-    console.log("The values for each cell in that row are: " + updatedRow.data());
+    console.log("The values for each cell in that row are: " + updatedRow
+        .data()
+        .year_id);
 }
 
 function destroyTable() {

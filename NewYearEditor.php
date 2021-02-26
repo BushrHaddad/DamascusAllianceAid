@@ -84,6 +84,7 @@ while($row = mysqli_fetch_array($rsOpps))
                         <td><input type="submit" class="btn btn-primary" value="<?= gettext('Add New Year') ?>"Name="add_year"></td>
                         <td><label> <?= end($years)[1]+1 ?></label></td>
                          <input type="hidden" name="year" value=<?= end($years)[1]+1 ?>></input>
+                         <input type="hidden" name="post_name" value="add_year"></input>
                         <td><textarea name="desc" rows='1' cols="30%"></textarea></td>
                     </form>
                 </tr>

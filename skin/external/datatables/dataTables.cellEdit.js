@@ -23,6 +23,7 @@
 
 jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     var table = this.table();
+    alert(table.rows().count());
 
    
     jQuery.fn.extend({
@@ -105,6 +106,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     if (table != null) {
         // On cell click
         $(table.body()).on('click', 'td', function () {
+            // alert(table.cell(this).index().column);
 
             var currentColumnIndex = table.cell(this).index().column;
 
