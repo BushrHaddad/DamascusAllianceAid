@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $val2 = (int)$_POST['family_id'];
 
             // Get data for the form as it now exists..
-            $sSQL = "SELECT * FROM `dates_year` WHERE `year_name`= '".$val1."' ;" ;
+            $sSQL = "SELECT * FROM `master_dates_year` WHERE `name`= '".$val1."' ;" ;
             $rsOpps = RunQuery($sSQL);
 
             $data= array();
@@ -45,8 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         case "add_year": 
             $year = $_POST['year'];
             $desc = $_POST['desc'];
-            $sSQL = "INSERT INTO `dates_year` 
-            ( `year_name` , `year_desc` )
+            $sSQL = "INSERT INTO `master_dates_year` 
+            ( `name` , `year_desc` )
             VALUES ( '".$year."', '".$desc."');";
             RunQuery($sSQL);
             header('Location: NewYearEditor.php'); // Either way, pass or fail, return to form.php
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $val3 = (int)$_POST['year_name'];
             $val4 = $_POST['year_desc'];
 
-            $sSQL = "UPDATE `dates_year` SET `year_name` = '".$val3."', `year_desc` = '".$val4."' WHERE `year_id` = '".$val2."' ;";
+            $sSQL = "UPDATE `master_dates_year` SET `name` = '".$val3."', `year_desc` = '".$val4."' WHERE `id` = '".$val2."' ;";
             RunQuery($sSQL);
             break;
 

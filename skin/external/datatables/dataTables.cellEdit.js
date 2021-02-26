@@ -23,9 +23,6 @@
 
 jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     var table = this.table();
-    alert(table.rows().count());
-
-   
     jQuery.fn.extend({
 
         
@@ -106,7 +103,6 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     if (table != null) {
         // On cell click
         $(table.body()).on('click', 'td', function () {
-            // alert(table.cell(this).index().column);
 
             var currentColumnIndex = table.cell(this).index().column;
 
@@ -134,16 +130,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     }
 
 });
-function edit(e, a) {
-    alert('one');
-    var charCode = (typeof e.which === "number") ? e.which : e.keyCode;
-    //ENTER KEY
-    if (charCode === 13)
-        $(this).updateEditableCell(a);
-    //ESC KEY
-    if (charCode === 27)
-        $(this).cancelEditableCell(a);
-}
+
 function getInputHtml(currentColumnIndex, settings, oldValue) {
     var inputSetting, inputType, input, inputCss, confirmCss, cancelCss, startWrapperHtml = '', endWrapperHtml = '', listenToKeys = true;
 

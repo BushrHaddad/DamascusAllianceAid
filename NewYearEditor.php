@@ -45,7 +45,7 @@ $sPageTitle = gettext('New Year Editor');
 
 require 'Include/Header.php';
 // Get data for the form as it now exists..
-$sSQL = 'SELECT * FROM `dates_year`';
+$sSQL = 'SELECT * FROM `master_dates_year`';
 $rsOpps = RunQuery($sSQL);
 $years= [];
 while($row = mysqli_fetch_array($rsOpps))

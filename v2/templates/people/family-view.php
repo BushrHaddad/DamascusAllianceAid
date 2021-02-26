@@ -609,7 +609,6 @@ $(document).ready(function() {
         var year_value = $("#year_status").val();
 
         $.ajax({
-            // url:  "/churchcrm/v2/templates/people/ajax.php",
             url: "/churchcrm/PostRedirect.php",
             type: "POST",
             // datatype: "text",
@@ -736,8 +735,8 @@ function myCallbackFunction(updatedCell, updatedRow, oldValue) {
     //     }
     // });
 
-    console.log("The old value for that cell was: " + oldValue);
-    console.log("The values for each cell in that row are: " + updatedRow.data().year_id);
+    // console.log("The old value for that cell was: " + oldValue);
+    // console.log("The values for each cell in that row are: " + updatedRow.data().year_id);
 }
 
 function destroyTable() {
