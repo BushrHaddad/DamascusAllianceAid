@@ -737,9 +737,7 @@ function myCallbackFunction(updatedCell, updatedRow, oldValue) {
     // });
 
     console.log("The old value for that cell was: " + oldValue);
-    console.log("The values for each cell in that row are: " + updatedRow
-        .data()
-        .year_id);
+    console.log("The values for each cell in that row are: " + updatedRow.data().year_id);
 }
 
 function destroyTable() {
