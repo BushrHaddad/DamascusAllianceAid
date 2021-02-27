@@ -1,0 +1,10 @@
+[26-Feb-2021 23:59:08 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(62): RunQuery(' SELECT `master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[26-Feb-2021 23:59:17 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(62): RunQuery(' SELECT `master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215

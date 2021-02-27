@@ -320,20 +320,27 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     <label>Choose a Year:</label>
                     <select id="year_status" class="form-control" name="c5">
                         <option selected="">--------------------</option>
-                        <option>2016</option>
-                        <option>2017</option>
-                        <option>2018</option>
-                        <option>2019</option>
-                        <option>2020</option>
+                        <?php
+                         foreach ($all_years as $year){
+                        ?>
+                        <option value=<?= $year['id'] ?>><?= $year['name'] ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"
                     style="width:100%;">
                     <thead>
                         <tr>
-                            <th> Id </th>
-                            <th> Name </th>
-                            <th> Desc </th>
+                            <th>Month ID</th>
+                            <th>Month</th>
+                            <th>Visited</th>
+                            <th>Team</th>
+                            <th>Bag</th>
+                            <th>Cash</th>
+                            <th>Suppliments</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -602,20 +609,57 @@ $(document).ready(function() {
 </div>
 <script>
 var table;
+
 $(document).ready(function() {
 
+    var team_options, bag_options, sup_options, visiting_options, cash_options;
+
+    function _parse(obj) {
+        parsed = [];
+        for(index = 0; index < obj.length; index++) {
+            parsed.push({
+                "value": obj [index] ['id'],
+                "display": obj [index] ['name']
+            })
+        }
+        return parsed;
+    }
+    $.ajax({
+
+        url: "/churchcrm/PostRedirect.php",
+        type: "POST",
+        // datatype: "text",
+        data: {
+            post_name: "get_vars",
+        },
+
+        success: function(response) {
+            var json = JSON.parse(response);
+            team_options = _parse(json['all_teams']);
+            bag_options = _parse(json['all_bags']);
+            sup_options = _parse(json['all_suppliments']);
+            visiting_options = _parse(json['all_visitings']);
+            cash_options = _parse(json['all_cash']);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Error on get Ajax request ");
+        }
+    });
+
+
+    // get ajax request to get bags, teams, cash, visiting;
 
     $("#year_status").change(function() {
         var year_value = $("#year_status").val();
-
         $.ajax({
             url: "/churchcrm/PostRedirect.php",
             type: "POST",
-            // datatype: "text",
             data: {
                 year_id: year_value,
                 post_name: "local_master",
-                family_id: window.CRM.currentFamily
+                // family_id: window.CRM.currentFamily,
+                family_id: 1
+
             },
 
             success: function(obj) {
@@ -625,25 +669,21 @@ $(document).ready(function() {
                 var local_master = new Array();
                 var i, j = 0;
 
-                local_master.push(json[0]);
-
                 for (i = 1; i <= 12; i++) {
-                    local_master.push({
-                        year_id: "" + i,
-                        year_name: "" + i,
-                        year_desc: "" + i
-                    });
-
-                    // if (json[j].year_id == i && j < json.length) {
-                    //     local_master.push(json[j]);
-                    //     j++;
-                    // } else {
-                    //     local_master.push({
-                    //         year_id: "" + i,
-                    //         year_name: "" + i,
-                    //         year_desc: "" + i
-                    //     });
-                    // }
+                    if (j < json.length && json[j].month_id == i) {
+                        local_master.push(json[j]);
+                        j++;
+                    } else {
+                        local_master.push({
+                            month_id: "" + i,
+                            month_name: "Month" + i,
+                            visiting_name: "",
+                            team_name: "",
+                            bag_name: "",
+                            cash_name: "",
+                            sup_name: "",
+                        });
+                    }
                 }
 
                 table = $('#example').DataTable({
@@ -652,21 +692,36 @@ $(document).ready(function() {
                     data: local_master,
                     //  dataType: 'json',    
                     columns: [{
-                            data: "year_id"
+                            data: "month_id",
+                            "visible": false,
                         },
                         {
-                            data: "year_name"
+                            data: "month_name"
                         },
                         {
-                            data: "year_desc"
+                            data: "visiting_name"
+                        },
+                        {
+                            data: "team_name"
+                        },
+                        {
+                            data: "bag_name"
+                        },
+                        {
+                            data: "cash_name"
+                        },
+                        {
+                            data: "sup_name"
                         }
+
                     ]
                 });
-                
+
+
                 table.MakeCellsEditable({
                     "onUpdate": myCallbackFunction,
                     "inputCss": 'my-input-class',
-                    "columns": [0, 1, 2],
+                    "columns": [0, 1, 2, 3, 4, 5, 6],
                     "confirmationButton": { // could also be true
                         "confirmCss": 'my-confirm-class',
                         "cancelCss": 'my-cancel-class'
@@ -678,65 +733,76 @@ $(document).ready(function() {
                         },
                         {
                             "column": 1,
-                            "type": "list",
-                            "options": [{
-                                    "value": "1",
-                                    "display": "Beaty"
-                                },
-                                {
-                                    "value": "2",
-                                    "display": "Doe"
-                                },
-                                {
-                                    "value": "3",
-                                    "display": "Dirt"
-                                }
-                            ]
+                            "type": "text",
+                            "options": null
                         },
                         {
                             "column": 2,
-                            "type": "text",
-                            "options": null
-                        }
+                            "type": "list",
+                            "options": visiting_options
+                        },
+                        {
+                            "column": 3,
+                            "type": "list",
+                            "options": team_options
+                        },
+                        {
+                            "column": 4,
+                            "type": "list",
+                            "options": bag_options
+                        },
+                        {
+                            "column": 5,
+                            "type": "list",
+                            "options": cash_options
+                        },
+                        {
+                            "column": 6,
+                            "type": "list",
+                            "options": sup_options
+                        },
                         // Nothing specified for column 3 so it will default to text
 
                     ]
                 });
 
-                
-
             }
 
         });
     });
-
-
 });
 
 function myCallbackFunction(updatedCell, updatedRow, oldValue) {
-    // $.ajax({
+    $.ajax({
 
-    //     url: "/churchcrm/PostRedirect.php",
-    //     type: "POST",
-    //     // datatype: "text",
-    //     data: {
-    //         post_name: "edit_local_master",
-    //         family_id: window.CRM.currentFamily,
-    //         year_id: updatedRow.data().year_id,
-    //         year_name: updatedRow.data().year_name,
-    //         year_desc: updatedRow.data().year_desc
-    //     },
+        url: "/churchcrm/PostRedirect.php",
+        type: "POST",
+        // datatype: "text",
+        data: {
+            post_name: "edit_local_master",
+            // family_id: window.CRM.currentFamily,
+            family_id: 1,
+            month_id: updatedRow.data().month_id,
+            visited_id: updatedRow.data().visiting_name,
+            team_id: updatedRow.data().team_name,
+            bag_id: updatedRow.data().bag_name,
+            cash_id: updatedRow.data().cash_name,
+            sup_id: updatedRow.data().sup_name,
 
-    //     success: function(response) {
-    //         // You will get response from your PHP page (what you echo or print)
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //         console.log(textStatus, errorThrown);
-    //     }
-    // });
+        },
 
-    // console.log("The old value for that cell was: " + oldValue);
-    // console.log("The values for each cell in that row are: " + updatedRow.data().year_id);
+        success: function(response) {
+            // You will get response from your PHP page (what you echo or print)
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+
+    console.log("The old value for that cell was: " + oldValue);
+
+    console.log("The values for each cell in that row are: " + updatedRow.data().month_name);
+
 }
 
 function destroyTable() {
@@ -745,6 +811,5 @@ function destroyTable() {
         table.MakeCellsEditable("destroy");
     }
 }
-
 </script>
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>

@@ -13,6 +13,14 @@ use Propel\Runtime\ActiveQuery\Criteria;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Views\PhpRenderer;
+use ChurchCRM\Utils\RedirectUtils;
+
+// require SystemURLs::getRootPath().'/../../Include/Config.php';
+// echo SystemURLs::getRootPath().'/Include/Config.php';
+// exit;
+
+// require SystemURLs::getRootPath().'/Include/Functions.php';
+
 
 $app->group('/family', function () {
     $this->get('','listFamilies');
@@ -21,6 +29,23 @@ $app->group('/family', function () {
     $this->get('/{id}', 'viewFamily');
     
 });
+
+function _get($table){
+ 
+    $sSQL = "SELECT  `id`, `name` FROM $table ";
+    $rsOpps = RunQuery($sSQL);
+
+    $data= array();
+    while($row = mysqli_fetch_array($rsOpps))
+    {
+        $row1 = array('id' => $row[0], 'name' => $row[1]);
+        $data[] = $row1;
+    }
+    // print_r($data);
+    // exit;
+    return $data;
+    
+}
 
 function listFamilies(Request $request, Response $response, array $args)
 {
@@ -104,15 +129,26 @@ function viewFamily(Request $request, Response $response, array $args)
             }
         }
     }
+    
+    // $_bags = _get('master_bags');
+    // $_cash = _get('master_cash');
+    $_years = _get('master_dates_year');
+    // $_suppliments = _get('master_suppliments');
+    // $_teams = _get('master_teams');
+    // $_visiting = _get('master_visiting');
+
 
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'family' => $family,
         'familyTimeline' => $timelineService->getForFamily($family->getId()),
         'allFamilyProperties' => $allFamilyProperties,
-        'familyCustom' => $familyCustom
-    ];
+        'familyCustom' => $familyCustom,
+        'all_years' => $_years,
 
+    ];
+    // print_r($_years[0]['name']);
+    // exit;
     return $renderer->render($response, 'family-view.php', $pageArgs);
 
 }
