@@ -330,9 +330,10 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     </select>
                 </div>
                 <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"
-                    style="width:100%;">
+                    style="width:100%;" data-page-length='25'>
                     <thead>
                         <tr>
+                            <th>Found</th>
                             <th>Month ID</th>
                             <th>Month</th>
                             <th>Visited</th>
@@ -340,7 +341,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             <th>Bag</th>
                             <th>Cash</th>
                             <th>Suppliments</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -607,209 +607,5 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
-<script>
-var table;
 
-$(document).ready(function() {
-
-    var team_options, bag_options, sup_options, visiting_options, cash_options;
-
-    function _parse(obj) {
-        parsed = [];
-        for(index = 0; index < obj.length; index++) {
-            parsed.push({
-                "value": obj [index] ['id'],
-                "display": obj [index] ['name']
-            })
-        }
-        return parsed;
-    }
-    $.ajax({
-
-        url: "/churchcrm/PostRedirect.php",
-        type: "POST",
-        // datatype: "text",
-        data: {
-            post_name: "get_vars",
-        },
-
-        success: function(response) {
-            var json = JSON.parse(response);
-            team_options = _parse(json['all_teams']);
-            bag_options = _parse(json['all_bags']);
-            sup_options = _parse(json['all_suppliments']);
-            visiting_options = _parse(json['all_visitings']);
-            cash_options = _parse(json['all_cash']);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("Error on get Ajax request ");
-        }
-    });
-
-
-    // get ajax request to get bags, teams, cash, visiting;
-
-    $("#year_status").change(function() {
-        var year_value = $("#year_status").val();
-        $.ajax({
-            url: "/churchcrm/PostRedirect.php",
-            type: "POST",
-            data: {
-                year_id: year_value,
-                post_name: "local_master",
-                // family_id: window.CRM.currentFamily,
-                family_id: 1
-
-            },
-
-            success: function(obj) {
-                table = $('#example').DataTable()
-                destroyTable();
-                var json = JSON.parse(obj);
-                var local_master = new Array();
-                var i, j = 0;
-
-                for (i = 1; i <= 12; i++) {
-                    if (j < json.length && json[j].month_id == i) {
-                        local_master.push(json[j]);
-                        j++;
-                    } else {
-                        local_master.push({
-                            month_id: "" + i,
-                            month_name: "Month" + i,
-                            visiting_name: "",
-                            team_name: "",
-                            bag_name: "",
-                            cash_name: "",
-                            sup_name: "",
-                        });
-                    }
-                }
-
-                table = $('#example').DataTable({
-                    destroy: true,
-                    // responsive: true,
-                    data: local_master,
-                    //  dataType: 'json',    
-                    columns: [{
-                            data: "month_id",
-                            "visible": false,
-                        },
-                        {
-                            data: "month_name"
-                        },
-                        {
-                            data: "visiting_name"
-                        },
-                        {
-                            data: "team_name"
-                        },
-                        {
-                            data: "bag_name"
-                        },
-                        {
-                            data: "cash_name"
-                        },
-                        {
-                            data: "sup_name"
-                        }
-
-                    ]
-                });
-
-
-                table.MakeCellsEditable({
-                    "onUpdate": myCallbackFunction,
-                    "inputCss": 'my-input-class',
-                    "columns": [0, 1, 2, 3, 4, 5, 6],
-                    "confirmationButton": { // could also be true
-                        "confirmCss": 'my-confirm-class',
-                        "cancelCss": 'my-cancel-class'
-                    },
-                    "inputTypes": [{
-                            "column": 0,
-                            "type": "text",
-                            "options": null
-                        },
-                        {
-                            "column": 1,
-                            "type": "text",
-                            "options": null
-                        },
-                        {
-                            "column": 2,
-                            "type": "list",
-                            "options": visiting_options
-                        },
-                        {
-                            "column": 3,
-                            "type": "list",
-                            "options": team_options
-                        },
-                        {
-                            "column": 4,
-                            "type": "list",
-                            "options": bag_options
-                        },
-                        {
-                            "column": 5,
-                            "type": "list",
-                            "options": cash_options
-                        },
-                        {
-                            "column": 6,
-                            "type": "list",
-                            "options": sup_options
-                        },
-                        // Nothing specified for column 3 so it will default to text
-
-                    ]
-                });
-
-            }
-
-        });
-    });
-});
-
-function myCallbackFunction(updatedCell, updatedRow, oldValue) {
-    $.ajax({
-
-        url: "/churchcrm/PostRedirect.php",
-        type: "POST",
-        // datatype: "text",
-        data: {
-            post_name: "edit_local_master",
-            // family_id: window.CRM.currentFamily,
-            family_id: 1,
-            month_id: updatedRow.data().month_id,
-            visited_id: updatedRow.data().visiting_name,
-            team_id: updatedRow.data().team_name,
-            bag_id: updatedRow.data().bag_name,
-            cash_id: updatedRow.data().cash_name,
-            sup_id: updatedRow.data().sup_name,
-
-        },
-
-        success: function(response) {
-            // You will get response from your PHP page (what you echo or print)
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
-        }
-    });
-
-    console.log("The old value for that cell was: " + oldValue);
-
-    console.log("The values for each cell in that row are: " + updatedRow.data().month_name);
-
-}
-
-function destroyTable() {
-    if ($.fn.DataTable.isDataTable('#example')) {
-        table.destroy();
-        table.MakeCellsEditable("destroy");
-    }
-}
-</script>
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>

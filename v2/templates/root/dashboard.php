@@ -49,29 +49,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </a>
         </div>
     </div><!-- ./col -->
-    <?php if ($sundaySchoolEnabled) {
-        ?>
-        <div class="col-lg-2 col-xs-4">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3 id="groupStatsSundaySchool">
-                        <?= $dashboardCounts["SundaySchool"] ?>
-                    </h3>
-                    <p>
-                        <?= gettext('Sunday School Classes') ?>
-                    </p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-child"></i>
-                </div>
-                <a href="<?= SystemURLs::getRootPath() ?>/sundayschool/SundaySchoolDashboard.php" class="small-box-footer">
-                    <?= gettext('More info') ?> <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div><!-- ./col -->
-        <?php
-    } ?>
+    <!-- Edited: remove sunday school tap here -->
+    <!-- Groups  -->
+
     <div class="col-lg-2 col-xs-4">
         <!-- small box -->
         <div class="small-box bg-red">
@@ -80,7 +60,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <?= $dashboardCounts["Groups"] ?>
                 </h3>
                 <p>
-                    <?= gettext('Groups') ?>
+                    <?= gettext('Global Master') ?>
                 </p>
             </div>
             <div class="icon">
@@ -91,6 +71,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </a>
         </div>
     </div><!-- ./col -->
+
+    <!-- Attendees Checked -->
     <div class="col-lg-2 col-xs-4">
         <!-- small box -->
         <div class="small-box bg-yellow">
@@ -110,6 +92,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </a>
         </div>
     </div><!-- ./col -->
+
 </div><!-- /.row -->
 
 <div class="box">

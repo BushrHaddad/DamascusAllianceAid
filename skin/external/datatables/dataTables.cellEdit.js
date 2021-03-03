@@ -162,12 +162,15 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
     }
     switch (inputType) {
         case "list":
-            input.html = startWrapperHtml + "<select class='" + inputCss + "' onchange='$(this).updateEditableCell(this);'>";
+            input.html = startWrapperHtml + "<select class='" + inputCss + "' onChange='$(this).updateEditableCell(this);'>";
+            input.html = input.html + "<option value='' > ==== </option>"
+
             $.each(inputSetting.options, function (index, option) {
                 if (oldValue == option.value) {
                    input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
                 } else {
                    input.html = input.html + "<option value='" + option.value + "' >" + option.display + "</option>"
+
                 }
             });
             input.html = input.html + "</select>" + endWrapperHtml;
@@ -175,11 +178,13 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
             break;
         case "list-confirm": // List w/ confirm
             input.html = startWrapperHtml + "<select onChange='$(this).updateEditableCell(this);' class='" + inputCss + "'>";
+            input.html = input.html + "<option value='' > ==== </option>"
             $.each(inputSetting.options, function (index, option) {
                 if (oldValue == option.value) {
                    input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
                 } else {
                    input.html = input.html + "<option value='" + option.value + "' >" + option.display + "</option>"
+
                 }
             });
             // edited

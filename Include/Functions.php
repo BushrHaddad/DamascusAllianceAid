@@ -928,6 +928,7 @@ function getCustomListOptionField($fieldname, $data)
     }
 
 }
+
 function assembleYearMonthDay($sYear, $sMonth, $sDay, $pasfut = 'future')
 {
     // This function takes a year, month and day from parseAndValidateDate.  On success this

@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             while($row = mysqli_fetch_array($rsOpps))
             {
                 $row = array('master_id' => $row[0], 'family_id' => $row[1], 'bag_name' =>  $row[2], 
-                            'cash_name' => $row[3], 'month_id' => $row[4], 'month_name' =>  $row[5],
+                            'cash_name' => $row[3], 'month_id' => $row[4],'found' => TRUE, 'month_name' =>  $row[5],
                              'year_id' => $row[6], 'year_name' => $row[7], 'sup_name' =>  $row[8],
                               'team_name' => $row[9], 'visiting_name' => $row[10]);
                 $data[] = $row;
@@ -99,17 +99,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             break;
         
         case "edit_local_master":
-            $val1 = (int)$_POST['family_id'];
-            $val2 = (int)$_POST['month_id'];
-            $val2 = (int)$_POST['visited_id'];
-            $val2 = (int)$_POST['team_id'];
-            $val2 = (int)$_POST['bag_id'];
-            $val2 = (int)$_POST['cash_id'];
-            $val2 = (int)$_POST['sup_id'];
+            // year id
+            // month id
+            // family id 
+            $found = $_POST['found']; // 
+            $family_id = (int)$_POST['family_id'];
+            $month_id = (int)$_POST['month_id'];
+            $year_id = (int)$_POST['year_id'];
+            // check to see if year selected is null means (==========)
+            if ($year_id<=0){
+                break;
+            }
+            $visited_id = (int)$_POST['visited_id']; 
+            $team_id = (int)$_POST['team_id']; 
+            $bag_id = (int)$_POST['bag_id'];  
+            $cash_id = (int)$_POST['cash_id'];
+            $sup_id = (int)$_POST['sup_id']; 
+            
+            // if this month is found for this family
+            if($found == "true"){
+                          
+                $sSQL = "UPDATE `master_family_master` SET 
+                        visited_id  =   $visited_id,
+                        team_id     =   $team_id,
+                        cash_id     =   $cash_id,
+                        bag_id      =   $bag_id,
+                        sup_id      =   $sup_id
+                        
+                         WHERE  year_id     = $year_id  AND 
+                                month_id    = $month_id AND
+                                family_id   = $family_id ;";
 
-            $sSQL = "UPDATE `master_family_master` SET `name` = '".$val3."', `year_desc` = '".$val4."' WHERE `id` = '".$val2."' ;";
-            RunQuery($sSQL);
-            break;
+                RunQuery($sSQL);
+
+                // echo $sSQL;
+                break;
+            }
+            else{ 
+                
+                $sSQL = "INSERT INTO `master_family_master` ( year_id, month_id, visited_id,
+                                                         team_id, cash_id, bag_id, sup_id, family_id )
+                        VALUES ($year_id, $month_id, $visited_id, $team_id,
+                             $cash_id, $bag_id, $sup_id, $family_id);";
+
+                RunQuery($sSQL);
+                // echo $sSQL;
+                break;    
+            }
 
         // get global master
         case "global_master":

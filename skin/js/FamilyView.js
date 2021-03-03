@@ -326,4 +326,260 @@ $(document).ready(function () {
             }
         });
     }
+
+
+/*******************************************************************************
+*
+* Author: Bushr Haddad
+* Task: Local master table
+* Description: New js code added to adjust year option and configure the local master table.
+* Date: 25-Feb-2021
+* Completed: 02-Mar-2021
+*
+******************************************************************************/
+var table;
+var team_options, bag_options, sup_options, visiting_options, cash_options;
+var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
+
+    function _parse(obj) {
+        parsed = [];
+        for (index = 0; index < obj.length; index++) {
+            parsed.push({
+                "value": obj[index]['name'],
+                "display": obj[index]['name']
+                // "value_id": obj[index]['id']
+            })
+
+        }
+        return parsed;
+    }
+
+    function _dic(obj) {
+        parsed = {};
+        for (index = 0; index < obj.length; index++) {
+            parsed[obj[index]['name']] = obj[index]['id'];
+        }
+        return parsed;
+    }
+
+    $.ajax({
+
+        url: "/churchcrm/PostRedirect.php",
+        type: "POST",
+        // datatype: "text",
+        data: {
+            post_name: "get_vars",
+        },
+
+        success: function(response) {
+            var json = JSON.parse(response);
+            team_options = _parse(json['all_teams']);
+            bag_options = _parse(json['all_bags']);
+            sup_options = _parse(json['all_suppliments']);
+            visiting_options = _parse(json['all_visitings']);
+            cash_options = _parse(json['all_cash']);
+
+            team_dic = _dic(json['all_teams']);
+            bag_dic = _dic(json['all_bags']);
+            sup_dic = _dic(json['all_suppliments']);
+            visiting_dic = _dic(json['all_visitings']);
+            cash_dic = _dic(json['all_cash']);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Error on get Ajax request ");
+        }
+    });
+
+    // 12 months
+    months={};
+    months[1] = 'January';
+    months[2] = 'February';
+    months[3] = 'March';
+    months[4] = 'April';
+    months[5] = 'May';
+    months[6] = 'June';
+    months[7] = 'July';
+    months[8] = 'August';
+    months[9] = 'September';
+    months[10] = 'October';
+    months[11] = 'November';
+    months[12] = 'December';
+
+    $("#year_status").change(function() {
+
+        var year_value = $("#year_status").val();
+        $.ajax({
+            url: "/churchcrm/PostRedirect.php",
+            type: "POST",
+            data: {
+                year_id: year_value,
+                post_name: "local_master",
+                // family_id: window.CRM.currentFamily,
+                family_id: 1
+
+            },
+
+            success: function(obj) {
+                table = $('#example').DataTable()
+                destroyTable();
+                var json = JSON.parse(obj);
+                var local_master = new Array();
+                var i, j = 0;
+
+                for (i = 1; i <= 12; i++) {
+                    if (j < json.length && json[j].month_id == i) {
+                        local_master.push(json[j]);
+                        j++;
+                    } else {
+                        local_master.push({
+                            found: false,
+                            month_id: "" + i,
+                            month_name: months[i],
+                            visiting_name: "",
+                            team_name: "",
+                            bag_name: "",
+                            cash_name: "",
+                            sup_name: "",
+                        });
+                    }
+                }
+
+                table = $('#example').DataTable({
+                    destroy: true,
+                    "bSort": false,
+                    // responsive: true,
+                    data: local_master,
+                    //  dataType: 'json',    
+                    columns: [{
+                            data: "found",
+                            "visible": false,
+                        },
+                        {
+                            data: "month_id",
+                            "visible": false,
+                        },
+                        {
+                            data: "month_name"
+                        },
+                        {
+                            data: "visiting_name"
+                        },
+                        {
+                            data: "team_name"
+                        },
+                        {
+                            data: "bag_name"
+                        },
+                        {
+                            data: "cash_name"
+                        },
+                        {
+                            data: "sup_name"
+                        }
+
+                    ]
+                });
+
+
+                table.MakeCellsEditable({
+                    "onUpdate": myCallbackFunction,
+                    "inputCss": 'my-input-class',
+                    "columns": [0, 1, 2, 3, 4, 5, 6, 7],
+                    "confirmationButton": { // could also be true
+                        "confirmCss": 'my-confirm-class',
+                        "cancelCss": 'my-cancel-class'
+                    },
+                    "inputTypes": [{
+                            "column": 0,
+                            "type": "text",
+                            "options": null
+                        },
+                        {
+                            "column": 1,
+                            "type": "text",
+                            "options": null
+                        },
+                        {
+                            "column": 2,
+                            "type": "text",
+                        },
+                        {
+                            "column": 3,
+                            "type": "list",
+                            "options": visiting_options
+                        },
+                        {
+                            "column": 4,
+                            "type": "list",
+                            "options": team_options
+                        },
+                        {
+                            "column": 5,
+                            "type": "list",
+                            "options": bag_options
+                        },
+                        {
+                            "column": 6,
+                            "type": "list",
+                            "options": cash_options
+                        },
+                        {
+                            "column": 7,
+                            "type": "list",
+                            "options": sup_options
+                        },
+                        // Nothing specified for column 3 so it will default to text
+
+                    ]
+                });
+
+            }
+
+        });
+    });
+
+    function myCallbackFunction(updatedCell, updatedRow, oldValue) {
+        $.ajax({
+
+            url: "/churchcrm/PostRedirect.php",
+            type: "POST",
+            // datatype: "text",
+            data: {
+                post_name: "edit_local_master",
+                // family_id: window.CRM.currentFamily,
+                family_id: 1,
+                found: updatedRow.data().found,
+                month_id: updatedRow.data().month_id,
+                year_id: $("#year_status").val(),
+
+                // visited_id: updatedRow.data().visiting_name,
+                // team_id: updatedRow.data().team_name,
+                // bag_id: updatedRow.data().bag_name,
+                // cash_id: updatedRow.data().cash_name,
+                // sup_id: updatedRow.data().sup_name
+                visited_id: visiting_dic[updatedRow.data().visiting_name],
+                team_id: team_dic[updatedRow.data().team_name],
+                bag_id: bag_dic[updatedRow.data().bag_name],
+                cash_id: cash_dic[updatedRow.data().cash_name],
+                sup_id: sup_dic[updatedRow.data().sup_name]
+            },
+
+            success: function(response) {
+                updatedRow.data().found = true;
+                console.log('Edited Correctly');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+
+    }
+
+    function destroyTable() {
+        if ($.fn.DataTable.isDataTable('#example')) {
+            table.destroy();
+            table.MakeCellsEditable("destroy");
+        }
+    }
+
 });

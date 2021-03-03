@@ -15,20 +15,55 @@ use Slim\Http\Response;
 use Slim\Views\PhpRenderer;
 use ChurchCRM\Utils\RedirectUtils;
 
-// require SystemURLs::getRootPath().'/../../Include/Config.php';
-// echo SystemURLs::getRootPath().'/Include/Config.php';
-// exit;
-
-// require SystemURLs::getRootPath().'/Include/Functions.php';
-
 
 $app->group('/family', function () {
     $this->get('','listFamilies');
     $this->get('/','listFamilies');
+    $this->get('/master','getGlobalMaster');
     $this->get('/not-found', 'viewFamilyNotFound');
     $this->get('/{id}', 'viewFamily');
     
 });
+
+
+function getGlobalMaster(Request $request, Response $response, array $args){
+
+    $renderer = new PhpRenderer('templates/people/');
+    $sMode = 'Active';
+    // Filter received user input as needed
+    if (isset($_GET['mode'])) {
+        $sMode = InputUtils::LegacyFilterInput($_GET['mode']);
+    }
+
+    if (strtolower($sMode) == 'inactive') {
+        $families = FamilyQuery::create()
+            ->filterByDateDeactivated(null, Criteria::ISNOTNULL)
+                ->orderByName()
+                ->find();
+    } else {
+        $sMode = 'Active';
+        $families = FamilyQuery::create()
+            ->filterByDateDeactivated(null)
+                ->orderByName()
+                ->find();
+    }
+  
+    $pageArgs = [
+        'sMode' => $sMode,
+        'sRootPath' => SystemURLs::getRootPath(),
+        'families' => $families,
+          //  todo: get family attributes from admin panel 
+        'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone',
+                             'Address Additional Info', 'Additional Info', 'Team Info',
+                              'Ref', 'Membership Status']     
+    
+      ];
+    print_r($families);
+    exit;
+    
+    return $renderer->render($response, 'master-list.php', $pageArgs);
+}
+
 
 function _get($table){
  
@@ -41,8 +76,7 @@ function _get($table){
         $row1 = array('id' => $row[0], 'name' => $row[1]);
         $data[] = $row1;
     }
-    // print_r($data);
-    // exit;
+
     return $data;
     
 }
@@ -72,7 +106,7 @@ function listFamilies(Request $request, Response $response, array $args)
       'sMode' => $sMode,
       'sRootPath' => SystemURLs::getRootPath(),
       'families' => $families,
-    //  todo: get family attributes from admin panel 
+        //  todo: get family attributes from admin panel 
       'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone', 'Address Additional Info', 'Additional Info', 'Team Info', 'Ref', 'Membership Status']     
   
     ];
@@ -147,9 +181,7 @@ function viewFamily(Request $request, Response $response, array $args)
         'all_years' => $_years,
 
     ];
-    // print_r($_years[0]['name']);
-    // exit;
+
     return $renderer->render($response, 'family-view.php', $pageArgs);
 
 }
-

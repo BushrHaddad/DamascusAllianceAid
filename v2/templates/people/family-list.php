@@ -70,6 +70,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <!-- todo: Select custom list for Ref -->
                     <!-- todo: Select custom list for Membership Status -->
                     <?php
+                    // New code Added
                     $allFamilyCustomFields = FamilyCustomMasterQuery::create()->find();
 
                   $rawQry =  FamilyCustomQuery::create();

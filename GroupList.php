@@ -29,57 +29,56 @@ $rsGroupTypes = ListOptionQuery::create()->filterById('3')->find();
 ?>
 
 <p>
-<label>
-<?= gettext("Show type of group:") ?>
-<select id="table-filter" class="form-control input-sm">
-<option value=""><?= gettext("All") ?></option>
-<?php
+    <label>
+        <?= gettext("Show type of group:") ?>
+        <select id="table-filter" class="form-control input-sm">
+            <option value=""><?= gettext("All") ?></option>
+            <?php
   echo '<option>'.gettext("Unassigned").'</option>';
   foreach ($rsGroupTypes as $groupType) {
       echo '<option>'.$groupType->getOptionName().'</option>';
   } ?>
-</select>
-</label>
+        </select>
+    </label>
 </p>
 
 
 
 <div class="box box-body">
-<table class="table" id="groupsTable">
-</table>
-<?php
+    <table class="table" id="groupsTable">
+    </table>
+    <?php
 if (AuthenticationManager::GetCurrentUser()->isManageGroupsEnabled()) {
       ?>
 
 
-<br>
-<form action="#" method="get" class="form">
-    <label for="addNewGroup"><?= gettext('Add New Group') ?> :</label>
-    <input class="form-control newGroup" name="groupName" id="groupName" style="width:100%">
     <br>
-    <div class="text-right">
-        <button type="button" class="btn btn-primary" id="addNewGroup"><?= gettext('Add New Group') ?></button>
-    </div>
-</form>
-<?php
+    <form action="#" method="get" class="form">
+        <label for="addNewGroup"><?= gettext('Add New Group') ?> :</label>
+        <input class="form-control newGroup" name="groupName" id="groupName" style="width:100%">
+        <br>
+        <div class="text-right">
+            <button type="button" class="btn btn-primary" id="addNewGroup"><?= gettext('Add New Group') ?></button>
+        </div>
+    </form>
+    <?php
   }
 ?>
 
 </div>
 
 <script src="skin/js/GroupList.js"></script>
+
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
-$( document).ready(function() {
+$(document).ready(function() {
     var gS = localStorage.getItem("groupSelect");
-	if (gS != null)
-	{
-		tf = document.getElementById("table-filter");
-		tf.selectedIndex = gS;
+    if (gS != null) {
+        tf = document.getElementById("table-filter");
+        tf.selectedIndex = gS;
 
-		window.groupSelect = tf.value;
-	}
+        window.groupSelect = tf.value;
+    }
 });
-
 </script>
 
 <?php
