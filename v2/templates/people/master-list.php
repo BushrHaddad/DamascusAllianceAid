@@ -1,4 +1,3 @@
-
 <?php
 
 /****************************************************************
@@ -124,7 +123,7 @@ $(document).ready(function() {
         var title = $(this).text();
         $(this).html('<input type="text" placeholder="Search ' + title + '" />');
     });
-    
+
 
     $('#example').DataTable({
         orderCellsTop: true,
@@ -157,11 +156,14 @@ $(document).ready(function() {
             this.api().columns().every(function() {
                 var that = this;
                 $('input', this.header()).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
+                    if (that.search() !== this.value){
+                        that.search(this.value).draw();
+
                     }
+                        // search on adding new character
+                        // that.search(this.value).draw();
+                    // Only searcg 
+                    // if (e.keyCode == 13) that.draw();
                 });
             });
         }

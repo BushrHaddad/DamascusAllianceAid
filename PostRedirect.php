@@ -100,19 +100,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $draw = $_POST['draw'];
             $start = $_POST['start'];
             $rowperpage = $_POST['length']; // Rows display per page
-            $columnIndex = $_POST['order'][0]['column']; // Column index
-            $columnName = $_POST['columns'][$columnIndex]['data']; // Column name
-            $columnSortOrder = $_POST['order'][0]['dir']; // asc or desc
-            $searchValue = $_POST['search']['value']; // Search value
-            // $searchValue = mysqli_real_escape_string($con,$_POST['search']['value']); // Search value
 
-            ## Search 
-            $searchQuery = " ";
-            if($searchValue != ''){
-                // search name of household name, the partner name, address
-            $searchQuery = " and (name like '%".$searchValue."%' or 
-                    note1 like '%".$searchValue."%' ) ";
+            // Overall Searching
+            $searchValue = $_POST['search']['value']; // Search value
+        
+            // Ordering 
+            $columnIndex = $_POST['order'][0]['column']; // The index
+            $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
+            $columnName = $_POST['columns'][0]['data']; // The name of the column 
+           
+            // Filtering Searching based on columns search value
+            $filtered_search = " (";
+            $searchQuery = " (";
+            for($i=0;$i<3;$i++){
+                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
+                // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
+                // if ($col_search_value != ''){
+                    $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
+                    // $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
+                    if ($i==0){
+                        $searchQuery = $searchQuery . "(". $col_name. " like '%".$searchValue."%' ) ";
+                        $filtered_search = $filtered_search . "(". $col_name. " like '%".$col_search_value."%' ) ";
+
+                    }
+                    else{
+                        $searchQuery = $searchQuery . " or (". $col_name. " like '%".$searchValue."%' ) ";
+                        $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
+
+                    }
+                // }
+              
             }
+            $filtered_search = $filtered_search." )";
+            $searchQuery = $searchQuery." )";
+            ## Search 
 
             ## Total number of records without filtering
             $sel = "select count(*) as allcount from master_dates_months; ";
@@ -123,16 +144,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             ## Total number of record with filtering
-            $sel = "select count(*) as allcount from master_dates_months WHERE 1 ".$searchQuery;
+            $sel = "select count(*) as allcount from master_dates_months WHERE 1 and ".$searchQuery. " and ".$filtered_search;
+
             $records = RunQuery($sel);
+
 
             while ($row = mysqli_fetch_array($records)) {
                 $totalRecordwithFilter = $row['allcount'];
             }
 
             ## Fetch records
-            $empQuery = "select * from master_dates_months WHERE 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$start.",".$rowperpage;
- 
+            $empQuery = "select * from master_dates_months WHERE 1 and ".$searchQuery. " and ".$filtered_search." order by ".$columnName." ".$columnSortOrder." limit ".$start.",".$rowperpage;
+            
             $empRecords = RunQuery($empQuery);
             $data = array();
 
