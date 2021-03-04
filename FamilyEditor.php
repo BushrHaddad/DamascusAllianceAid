@@ -350,7 +350,6 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
             $sSQL .= ' WHERE fam_ID = '.$iFamilyID;
             $bGetKeyBack = false;
         }
-
         //Execute the SQL
         RunQuery($sSQL);
 
@@ -490,6 +489,8 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
 
             //Execute the SQL
             RunQuery($sSQL);
+            // echo $sSQL;
+            // exit;
         }
 
         //Which submit button did they press?

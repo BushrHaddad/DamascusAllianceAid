@@ -1,0 +1,27 @@
+[03-Mar-2021 20:56:25 UTC] PHP Fatal error:  Uncaught Error: Cannot use object of type mysqli_result as array in C:\xampp\htdocs\churchcrm\PostRedirect.php:120
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 120
+[03-Mar-2021 20:57:43 UTC] PHP Fatal error:  Uncaught Error: Object of class mysqli_result could not be converted to string in C:\xampp\htdocs\churchcrm\PostRedirect.php:120
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 120
+[03-Mar-2021 20:57:54 UTC] PHP Fatal error:  Uncaught Error: Object of class mysqli_result could not be converted to string in C:\xampp\htdocs\churchcrm\PostRedirect.php:120
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 120
+[03-Mar-2021 21:05:06 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(135): RunQuery('select * from m...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[03-Mar-2021 21:05:20 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(135): RunQuery('select * from m...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[03-Mar-2021 21:06:09 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(136): RunQuery('select * from m...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215

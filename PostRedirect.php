@@ -1,10 +1,13 @@
 <?php
 /*******************************************************************************
  *
- *  filename    : NewYearEditor.php
- *  website     : http://www.churchcrm.io
- *  copyright   : Copyright 2005 Michael Wilt
- *
+ *  filename    : PostRedirect.php
+ *  Author      : Bushr Haddad
+ *  Description : Process the cusomized datatables configuration, this file is responsible of processing local_master and global_master databales
+ *                Process the inline editing of master tables.
+ *                Get the options for bags, Teams, Suppliments, etc.
+ * 
+ * 
 CREATE VIEW master_general_view
     AS 
     SELECT 
@@ -55,8 +58,7 @@ function _get($table){
         $row1 = array('id' => $row[0], 'name' => $row[1]);
         $data[] = $row1;
     }
-    // print_r($data);
-    // exit;
+
     return $data;
     
 }
@@ -85,6 +87,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
             echo json_encode($data);
             break;
+
+        //  Get global Master table
+        // Bushr: todo-added
+        case "global_master":
+
+
+            $month_id = $_POST['month_id'];
+            $year_id = $_POST['year_id'];
+            $months_back = $_POST['months_back'];
+            
+            $draw = $_POST['draw'];
+            $start = $_POST['start'];
+            $rowperpage = $_POST['length']; // Rows display per page
+            $columnIndex = $_POST['order'][0]['column']; // Column index
+            $columnName = $_POST['columns'][$columnIndex]['data']; // Column name
+            $columnSortOrder = $_POST['order'][0]['dir']; // asc or desc
+            $searchValue = $_POST['search']['value']; // Search value
+            // $searchValue = mysqli_real_escape_string($con,$_POST['search']['value']); // Search value
+
+            ## Search 
+            $searchQuery = " ";
+            if($searchValue != ''){
+                // search name of household name, the partner name, address
+            $searchQuery = " and (name like '%".$searchValue."%' or 
+                    note1 like '%".$searchValue."%' ) ";
+            }
+
+            ## Total number of records without filtering
+            $sel = "select count(*) as allcount from master_dates_months; ";
+            $records = RunQuery($sel);
+
+            while ($row = mysqli_fetch_array($records)) {
+                $totalRecords = $row['allcount'];
+            }
+
+            ## Total number of record with filtering
+            $sel = "select count(*) as allcount from master_dates_months WHERE 1 ".$searchQuery;
+            $records = RunQuery($sel);
+
+            while ($row = mysqli_fetch_array($records)) {
+                $totalRecordwithFilter = $row['allcount'];
+            }
+
+            ## Fetch records
+            $empQuery = "select * from master_dates_months WHERE 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$start.",".$rowperpage;
+ 
+            $empRecords = RunQuery($empQuery);
+            $data = array();
+
+            while ($row = mysqli_fetch_array($empRecords)) {
+                $data[] = array( 
+                    "id"=>$row['id'],
+                    "name"=>$row['name'],
+                    "note1"=>$row['note1']
+                );
+            }
+
+            ## Response
+            $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordwithFilter,
+            "aaData" => $data
+            );
+
+            echo json_encode($response);
+            break;
+
 
         // add new year using NewYearEditor.php
         case "add_year": 
@@ -147,11 +217,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 break;    
             }
 
-        // get global master
-        case "global_master":
-            break;
-
-        
+       
+        // get the option for teams, bags, suppliments and other.
         case "get_vars":
             $_bags = _get('master_bags');
             $_cash = _get('master_cash');

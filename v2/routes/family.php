@@ -26,6 +26,22 @@ $app->group('/family', function () {
 });
 
 
+function _get($table){
+ 
+    $sSQL = "SELECT  `id`, `name` FROM $table ";
+    $rsOpps = RunQuery($sSQL);
+
+    $data= array();
+    while($row = mysqli_fetch_array($rsOpps))
+    {
+        $row1 = array('id' => $row[0], 'name' => $row[1]);
+        $data[] = $row1;
+    }
+    
+    return $data;
+    
+}
+
 function getGlobalMaster(Request $request, Response $response, array $args){
 
     $renderer = new PhpRenderer('templates/people/');
@@ -47,39 +63,28 @@ function getGlobalMaster(Request $request, Response $response, array $args){
                 ->orderByName()
                 ->find();
     }
-  
+    $_years = _get('master_dates_year');
+    $_months = _get('master_dates_months');
     $pageArgs = [
         'sMode' => $sMode,
         'sRootPath' => SystemURLs::getRootPath(),
         'families' => $families,
-          //  todo: get family attributes from admin panel 
+        'all_years' => $_years,
+        'all_months' => $_months,
+
+          // Bushr-todo: get family attributes from admin panel 
         'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone',
                              'Address Additional Info', 'Additional Info', 'Team Info',
-                              'Ref', 'Membership Status']     
+                              'Ref', 'Membership Status','Home Phone', 'Cell Phone',
+                              'Address Additional Info', 'Additional Info', 'Team Info',
+                               'Ref', 'Membership Status']     
     
       ];
-    print_r($families);
-    exit;
-    
+
     return $renderer->render($response, 'master-list.php', $pageArgs);
 }
 
 
-function _get($table){
- 
-    $sSQL = "SELECT  `id`, `name` FROM $table ";
-    $rsOpps = RunQuery($sSQL);
-
-    $data= array();
-    while($row = mysqli_fetch_array($rsOpps))
-    {
-        $row1 = array('id' => $row[0], 'name' => $row[1]);
-        $data[] = $row1;
-    }
-
-    return $data;
-    
-}
 
 function listFamilies(Request $request, Response $response, array $args)
 {
@@ -107,8 +112,11 @@ function listFamilies(Request $request, Response $response, array $args)
       'sRootPath' => SystemURLs::getRootPath(),
       'families' => $families,
         //  todo: get family attributes from admin panel 
-      'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone', 'Address Additional Info', 'Additional Info', 'Team Info', 'Ref', 'Membership Status']     
-  
+        'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone',
+                             'Address Additional Info', 'Additional Info', 'Team Info',
+                              'Ref', 'Membership Status','Family Members', 'Children',
+                              'Poverty Rate', 'Main Name', 'Partner Name',
+                               'Main ID', 'Partner ID']       
     ];
 
   return $renderer->render($response, 'family-list.php', $pageArgs);
@@ -167,7 +175,7 @@ function viewFamily(Request $request, Response $response, array $args)
     // $_bags = _get('master_bags');
     // $_cash = _get('master_cash');
     $_years = _get('master_dates_year');
-    // $_suppliments = _get('master_suppliments');
+    // $_months = _get('master_dates_months');
     // $_teams = _get('master_teams');
     // $_visiting = _get('master_visiting');
 
@@ -179,7 +187,6 @@ function viewFamily(Request $request, Response $response, array $args)
         'allFamilyProperties' => $allFamilyProperties,
         'familyCustom' => $familyCustom,
         'all_years' => $_years,
-
     ];
 
     return $renderer->render($response, 'family-view.php', $pageArgs);
