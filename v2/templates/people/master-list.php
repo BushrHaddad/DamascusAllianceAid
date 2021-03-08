@@ -23,6 +23,12 @@
     REPLACE INTO family_custom SET c9 = 'test', c11 = 'test', c10 = 'test', c12 = 'test', c2 = 'test', c1 = 'test',
      c3 = 'test', c4 = '1', c7 = 'test', c6 = '7', c8 = 'test', c5 = NULL, fam_ID = 52
 
+    // Get the master view table
+    // for month_id, year_id
+    // for all user 
+
+    
+
 ******************************************************************/
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
@@ -47,8 +53,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     <div class="col-lg-5">
         <div class="form-group">
             <label>Choose a Year:</label>
-            <select id="years_option" class="form-control" name="c5">
-                <option selected="">--------------------</option>
+            <select id="year_option_id" class="form-control" name="c5">
+                <option selected="" value=1>>--------------------</option>
                 <?php
                          foreach ($all_years as $year){
                         ?>
@@ -63,8 +69,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     <div class="col-lg-4">
         <div class="form-group">
             <label>Choose a month:</label>
-            <select id="months_option" class="form-control" name="c5">
-                <option selected="">--------------------</option>
+            <select id="month_option_id" class="form-control" name="c5">
+                <option selected="" value=1>--------------------</option>
                 <?php
                          foreach ($all_months as $month){
                         ?>
@@ -77,21 +83,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     </div>
 
     <div class="col-lg-3">
-        <div class="form-group">
-            <label>Back</label>
-            <select id="months_back_option" class="form-control" name="c5">
-                <option selected="">--------------------</option>
-                <?php
-                         for ($i=1; $i<=12; $i++){
-                        ?>
-                <option value=<?= $i ?>><?= $i ?></option>
-                <?php
-                        }
-                        ?>
-            </select>
-        </div>
+        <a id="prev_month_id" class="btn btn-success" role="button">
+            <span class="fa fa-plus" aria-hidden="true"></span><?= gettext(' Previous Month') ?>
+        </a>
     </div>
-
 
 </div>
 
@@ -105,8 +100,12 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Note1</th>
+                    <th>Family ID</th>
+                    <th>Bag Name</th>
+                    <th>Cash Name</th>
+                    <th>Sup Name</th>
+                    <th>team Name</th>
+                    <th>visiting Name</th>
                 </tr>
             </thead>
             <tbody>
@@ -118,14 +117,17 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
 
-    // Bushr: Adding the ability to scroll horizaontally 
+    var x = 0; // the number of months that should be back
+    var table; // our datatable
+
+    
     $('#example thead th').each(function() {
         var title = $(this).text();
         $(this).html('<input type="text" placeholder="Search ' + title + '" />');
     });
 
-
-    $('#example').DataTable({
+    // get the data of the datatable
+    table = $('#example').DataTable({
         orderCellsTop: true,
         "scrollX": true,
         'processing': true,
@@ -135,34 +137,43 @@ $(document).ready(function() {
             'url': '/churchcrm/PostRedirect.php',
             'data': {
                 "post_name": "global_master",
-                "month_id": $("#months_option").val(),
-                "year_id": $("#years_option").val(),
-                "months_back": $("#months_back_option").val(),
+                "month_id": $("#month_option_id").val(),
+                "year_id": $("#year_option_id").val(),
             }
         },
         'columns': [{
-                data: 'id',
+                data: 'master_id',
             },
             {
-                data: 'name',
+                data: 'fam_id',
             },
             {
-                data: 'note1',
+                data: 'bag_name',
+            },
+            {
+                data: 'cash_name',
+            },
+            {
+                data: 'sup_name',
+            },
+            {
+                data: 'team_name',
+            },
+            {
+                data: 'visiting_name',
             },
         ],
 
+        // apply the search
         initComplete: function() {
-            // Apply the search
             this.api().columns().every(function() {
                 var that = this;
                 $('input', this.header()).on('keyup change clear', function() {
-                    if (that.search() !== this.value){
-                        that.search(this.value).draw();
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw(); // search on adding new character
 
                     }
-                        // search on adding new character
-                        // that.search(this.value).draw();
-                    // Only searcg 
+                    // Only Searching 
                     // if (e.keyCode == 13) that.draw();
                 });
             });
@@ -170,8 +181,123 @@ $(document).ready(function() {
 
     });
 
+    // $('#prev_month_id').click(function() {
+    //     x++;
+    //     destroyTable();
+
+    //     // get the data of the datatable
+    //     table = $('#example').DataTable({
+
+    //         orderCellsTop: true,
+    //         "scrollX": true,
+    //         'processing': true,
+    //         'serverSide': true,
+    //         'serverMethod': 'post',
+    //         'ajax': {
+    //             'url': '/churchcrm/PostRedirect.php',
+    //             'data': {
+    //                 "post_name": "global_master",
+    //                 "month_id": $("#months_option").val(),
+    //                 "year_id": $("#years_option").val(),
+    //                 "months_back": $("#months_back_option").val(),
+    //             }
+    //         },
+    //         'columns': [{
+    //                 data: 'id',
+    //             },
+    //             {
+    //                 data: 'fam_id',
+    //             },
+    //             {
+    //                 data: 'bag_id',
+    //             },
+    //             {
+    //                 data: 'cash_id',
+    //             },
+    //             {
+    //                 data: 'sup_id',
+    //             },
+    //             {
+    //                 data: 'team_id',
+    //             },
+    //         ],
+
+    //         initComplete: function() {
+    //             // Apply the search
+    //             this.api().columns().every(function() {
+    //                 var that = this;
+    //                 $('input', this.header()).on('keyup change clear', function() {
+    //                     if (that.search() !== this.value) {
+    //                         that.search(this.value).draw();
+
+    //                     }
+    //                     // search on adding new character
+    //                     // that.search(this.value).draw();
+    //                     // Only searcg 
+    //                     // if (e.keyCode == 13) that.draw();
+    //                 });
+    //             });
+    //         }
+
+    //     });
 
 
+    //     return false;
+    // });
+
+    // add the edit option for this datatable
+    table.MakeCellsEditable({
+        "onUpdate": myCallbackFunction,
+        "inputCss": 'my-input-class',
+        "columns": [0, 1, 2, 3, 4, 5,6],
+        "confirmationButton": { // could also be true
+            "confirmCss": 'my-confirm-class',
+            "cancelCss": 'my-cancel-class'
+        },
+        "inputTypes": [{
+                "column": 0,
+                "type": "text",
+            },
+            {
+                "column": 1,
+                "type": "text",
+            },
+            {
+                "column": 2,
+                "type": "text",
+            },
+            {
+                "column": 3,
+                "type": "text",
+            },
+            {
+                "column": 4,
+                "type": "text",
+            },
+            {
+                "column": 5,
+                "type": "text",
+            },
+            {
+                "column": 6,
+                "type": "text",
+            },
+            // Nothing specified for column 3 so it will default to text
+
+        ]
+    });
+
+    function myCallbackFunction(updatedCell, updatedRow, oldValue) {
+        console.log(updatedCell);
+        console.dir(updatedRow.data());
+    }
+
+    function destroyTable() {
+        if ($.fn.DataTable.isDataTable('#example')) {
+            table.destroy();
+            table.MakeCellsEditable("destroy");
+        }
+    }
 
 });
 </script>

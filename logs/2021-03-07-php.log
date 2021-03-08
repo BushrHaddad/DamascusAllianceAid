@@ -1,0 +1,55 @@
+[07-Mar-2021 00:19:25 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(97): RunQuery('INSERT into `ma...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(148): insert_into_global()
+#2 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 00:19:39 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(97): RunQuery('INSERT into `ma...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(148): insert_into_global()
+#2 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 00:20:17 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(97): RunQuery('INSERT into `ma...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(148): insert_into_global()
+#2 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 00:20:45 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(98): RunQuery('INSERT into `ma...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(149): insert_into_global()
+#2 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 00:20:49 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(98): RunQuery('INSERT into `ma...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(149): insert_into_global()
+#2 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 20:00:20 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(132): RunQuery('SELECT * FROM `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 20:00:41 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(132): RunQuery('SELECT * FROM `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 20:01:19 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(132): RunQuery('SELECT * FROM `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 20:01:41 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(133): RunQuery('SELECT * FROM `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[07-Mar-2021 20:01:55 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(133): RunQuery('SELECT * FROM `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215

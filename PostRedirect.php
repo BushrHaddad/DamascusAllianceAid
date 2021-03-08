@@ -38,6 +38,14 @@ CREATE VIEW master_general_view
         LEFT JOIN master_visiting
             ON master_visiting.id = master_family_master.visited_id
         ORDER BY master_family_master.id;
+
+
+        // Global master
+        select a.bag_id, a.team_id, a.cash_id, a.sup_id, a.bag_id, a.team_id, a.cash_id, a.sup_id FROM 
+        (select * from master_family_master where month_id=1 and year_id=1) as a 
+            INNER JOIN 
+        (select * from master_family_master where month_id=1 and year_id=1) as b
+            on (a.id=b.id) 
  ******************************************************************************/
 
 require 'Include/Config.php';
@@ -47,6 +55,53 @@ use ChurchCRM\Utils\InputUtils;
 use ChurchCRM\Utils\RedirectUtils;
 use ChurchCRM\Authentication\AuthenticationManager;
 
+function insert_into_global(){
+     
+    // get all years
+    $sSQL = "SELECT  `id` FROM `master_dates_year` ";
+    $rsOpps = RunQuery($sSQL);    
+    $data= array();
+    while($row = mysqli_fetch_array($rsOpps))
+    {
+        $year_id = (int)$row[0];
+        // get all families 
+        $sSQL1 = "SELECT  `fam_ID` FROM `family_fam` ";
+        $rsOpps1 = RunQuery($sSQL1);
+        while($row1 = mysqli_fetch_array($rsOpps1))
+        {
+            $fam_id = (int)$row1[0];
+            $result =[];
+            $insert_query = "INSERT into `master_global` ( fam_id";
+            for ($i=1;$i<=12;$i++){
+                $col_name="month_".$i;
+                $insert_query = $insert_query.", ".$col_name;
+        
+                $query = "SELECT `id` from `master_family_master` where `month_id` = $i and `year_id` = $year_id and `family_id` = $fam_id";
+                $rsOpps2 = RunQuery($query);
+
+                if(mysqli_num_rows($rsOpps2) > 0){
+                    while($row2 = mysqli_fetch_array($rsOpps2)){
+                        $result[$i] = $row2[0];
+                    }
+                }
+                else{
+                    $result[$i] = -1;
+                }
+      
+            }
+            $insert_query = $insert_query.", year_id) VALUES ( $fam_id";
+            for ($i=1;$i<=12;$i++){
+                $insert_query = $insert_query.", ".$result[$i];
+            }
+            $insert_query = $insert_query.", $year_id);";
+            echo $insert_query;
+            RunQuery($insert_query);
+        }
+    }
+    exit;
+
+
+}
 function _get($table){
  
     $sSQL = "SELECT  `id`, `name` FROM $table ";
@@ -60,42 +115,63 @@ function _get($table){
     }
 
     return $data;
-    
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $post_name = $_POST['post_name'];
+    $months= [];
+    $months[1]="January";
+    $months[2]="Febraury";
+    $months[3]="March";
+    $months[4]="April";
+    $months[5]="May";
+    $months[6]="June";
+    $months[7]="July";
+    $months[8]="August";
+    $months[9]="September";
+    $months[10]="October";
+    $months[11]="November";
+    $months[12]="December";
+
 
     switch($post_name){
+
         // get family local master using (family_id, year_id)
         case "local_master":
+            $data = [];
+            
             $val1 = (int)$_POST['year_id'];
             $val2 = (int)$_POST['family_id'];
+            $sSQL = "SELECT * FROM master_global WHERE year_id = $val1 AND  fam_id = $val2 ;" ;
+            $row = mysqli_fetch_array(RunQuery($sSQL));
+            for ($i=2;$i<14;$i++){
+                $mfm = (int)$row[$i];
+                $found = TRUE;
+                if($mfm == -1){
+                    $found = FALSE;
+                }
+                $q1 = "SELECT * FROM `master_general_view` WHERE `master_id` = $mfm ;" ;
+                $result =  mysqli_fetch_array(RunQuery($q1));
+                $data[] = array('master_id' => $result[0], 'family_id' => $result[1], 'bag_name' =>  $result[2], 
+                'cash_name' => $result[3], 'month_id' => ($i-1),'found' => $found, 'month_name' =>  $months[($i-1)],
+                'year_id' => $result[6], 'year_name' => $result[7], 'sup_name' =>  $result[8],
+                'team_name' => $result[9], 'visiting_name' => $result[10]);
 
-            // Get data for the form as it now exists..
-            $sSQL = "SELECT * FROM `master_general_view` WHERE `year_id`= '".$val1."' AND  `family_id`= '".$val2."';" ;
-            $rsOpps = RunQuery($sSQL);
-
-            $data= array();
-            while($row = mysqli_fetch_array($rsOpps))
-            {
-                $row = array('master_id' => $row[0], 'family_id' => $row[1], 'bag_name' =>  $row[2], 
-                            'cash_name' => $row[3], 'month_id' => $row[4],'found' => TRUE, 'month_name' =>  $row[5],
-                             'year_id' => $row[6], 'year_name' => $row[7], 'sup_name' =>  $row[8],
-                              'team_name' => $row[9], 'visiting_name' => $row[10]);
-                $data[] = $row;
             }
+            // Get data for the form as it now exists..
             echo json_encode($data);
             break;
 
-        //  Get global Master table
-        // Bushr: todo-added
+      
+        
         case "global_master":
+            // insert_into_global();
+            // break;
 
-
+            // get the options for all families  
             $month_id = $_POST['month_id'];
             $year_id = $_POST['year_id'];
-            $months_back = $_POST['months_back'];
             
             $draw = $_POST['draw'];
             $start = $_POST['start'];
@@ -109,10 +185,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
             $columnName = $_POST['columns'][0]['data']; // The name of the column 
            
+            $query = "SELECT v.master_id, t.fam_id, v.bag_name, v.cash_name, v.sup_name, v.team_name, v.visiting_name from 
+                            master_general_view as v
+                            INNER JOIN 
+                            master_global as t
+                            on t.month_$month_id = v.master_id
+                            where t.year_id = $year_id ";
+
             // Filtering Searching based on columns search value
             $filtered_search = " (";
             $searchQuery = " (";
-            for($i=0;$i<3;$i++){
+
+            for($i=0; $i<6; $i++){
                 $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
                 // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
                 // if ($col_search_value != ''){
@@ -121,9 +205,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     if ($i==0){
                         $searchQuery = $searchQuery . "(". $col_name. " like '%".$searchValue."%' ) ";
                         $filtered_search = $filtered_search . "(". $col_name. " like '%".$col_search_value."%' ) ";
-
                     }
-                    else{
+                    else{   
                         $searchQuery = $searchQuery . " or (". $col_name. " like '%".$searchValue."%' ) ";
                         $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
 
@@ -136,34 +219,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             ## Search 
 
             ## Total number of records without filtering
-            $sel = "select count(*) as allcount from master_dates_months; ";
-            $records = RunQuery($sel);
-
+            $sel = "SELECT count(*) as allcount from 
+                    master_general_view as v
+                    INNER JOIN 
+                    master_global as t
+                    on t.month_$month_id = v.master_id
+                    where t.year_id = $year_id; ";
+           
+           $records = RunQuery($sel);
+            
             while ($row = mysqli_fetch_array($records)) {
                 $totalRecords = $row['allcount'];
             }
 
             ## Total number of record with filtering
-            $sel = "select count(*) as allcount from master_dates_months WHERE 1 and ".$searchQuery. " and ".$filtered_search;
-
+            $sel = "SELECT count(*) as allcount from 
+            master_general_view as v
+            INNER JOIN 
+            master_global as t
+            on t.month_$month_id = v.master_id
+            where t.year_id = $year_id and ".$searchQuery. " and ".$filtered_search;
             $records = RunQuery($sel);
-
 
             while ($row = mysqli_fetch_array($records)) {
                 $totalRecordwithFilter = $row['allcount'];
             }
 
             ## Fetch records
-            $empQuery = "select * from master_dates_months WHERE 1 and ".$searchQuery. " and ".$filtered_search." order by ".$columnName." ".$columnSortOrder." limit ".$start.",".$rowperpage;
-            
+            $empQuery = $query." and ".$searchQuery. " and ".$filtered_search." order by ".$columnName." ".$columnSortOrder." limit ".$start.", ".$rowperpage;
+      
+
             $empRecords = RunQuery($empQuery);
             $data = array();
-
             while ($row = mysqli_fetch_array($empRecords)) {
                 $data[] = array( 
-                    "id"=>$row['id'],
-                    "name"=>$row['name'],
-                    "note1"=>$row['note1']
+                    "master_id"=>$row['master_id'],
+                    "fam_id"=>$row['fam_id'],
+                    "bag_name"=>$row['bag_name'],
+                    "cash_name"=>$row['cash_name'],
+                    "sup_name"=>$row['sup_name'],
+                    "team_name"=>$row['team_name'],
+                    "visiting_name"=>$row['visiting_name'],
                 );
             }
 
@@ -192,17 +288,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             break;
         
         case "edit_local_master":
-            // year id
-            // month id
-            // family id 
-            $found = $_POST['found']; // 
-            $family_id = (int)$_POST['family_id'];
-            $month_id = (int)$_POST['month_id'];
-            $year_id = (int)$_POST['year_id'];
+            $found = $_POST['found']; // this row exist in the database already or not(must be added now)
+            $family_id = (int)$_POST['family_id']; // the family id 
+            $month_id = (int)$_POST['month_id']; // the month id 
+            $year_id = (int)$_POST['year_id'];// the year id
+
             // check to see if year selected is null means (==========)
             if ($year_id<=0){
                 break;
             }
+
             $visited_id = (int)$_POST['visited_id']; 
             $team_id = (int)$_POST['team_id']; 
             $bag_id = (int)$_POST['bag_id'];  
@@ -211,7 +306,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // if this month is found for this family
             if($found == "true"){
-                          
                 $sSQL = "UPDATE `master_family_master` SET 
                         visited_id  =   $visited_id,
                         team_id     =   $team_id,
@@ -224,8 +318,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 family_id   = $family_id ;";
 
                 RunQuery($sSQL);
-
-                // echo $sSQL;
+                echo $sSQL;
                 break;
             }
             else{ 
@@ -236,7 +329,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                              $cash_id, $bag_id, $sup_id, $family_id);";
 
                 RunQuery($sSQL);
-                // echo $sSQL;
+                // get the mfm here
+                $q = "SELECT id FROM `master_family_master` WHERE `family_id` = $family_id and `year_id` = $year_id and `month_id`  = $month_id;" ;
+                $row = mysqli_fetch_array(RunQuery($q));
+                $mfm = $row[0];
+
+                // how to get the id of the new inserted row in master_family_master
+                $q = "UPDATE `master_global` SET 
+                        month_$month_id      =  $mfm
+                        WHERE  year_id       =  $year_id  AND 
+                                fam_id       =  $family_id ;";
+                                
+                RunQuery($q);
                 break;    
             }
 

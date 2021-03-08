@@ -390,21 +390,6 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
         }
     });
 
-    // 12 months
-    months={};
-    months[1] = 'January';
-    months[2] = 'February';
-    months[3] = 'March';
-    months[4] = 'April';
-    months[5] = 'May';
-    months[6] = 'June';
-    months[7] = 'July';
-    months[8] = 'August';
-    months[9] = 'September';
-    months[10] = 'October';
-    months[11] = 'November';
-    months[12] = 'December';
-
     $("#year_status").change(function() {
 
         var year_value = $("#year_status").val();
@@ -414,41 +399,19 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
             data: {
                 year_id: year_value,
                 post_name: "local_master",
-                // family_id: window.CRM.currentFamily,
-                family_id: 1
-
+                family_id: window.CRM.currentFamily
             },
 
             success: function(obj) {
                 table = $('#example').DataTable()
                 destroyTable();
                 var json = JSON.parse(obj);
-                var local_master = new Array();
-                var i, j = 0;
-
-                for (i = 1; i <= 12; i++) {
-                    if (j < json.length && json[j].month_id == i) {
-                        local_master.push(json[j]);
-                        j++;
-                    } else {
-                        local_master.push({
-                            found: false,
-                            month_id: "" + i,
-                            month_name: months[i],
-                            visiting_name: "",
-                            team_name: "",
-                            bag_name: "",
-                            cash_name: "",
-                            sup_name: "",
-                        });
-                    }
-                }
 
                 table = $('#example').DataTable({
                     destroy: true,
                     "bSort": false,
                     // responsive: true,
-                    data: local_master,
+                    data: json,
                     //  dataType: 'json',    
                     columns: [{
                             data: "found",
@@ -546,17 +509,10 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
             // datatype: "text",
             data: {
                 post_name: "edit_local_master",
-                // family_id: window.CRM.currentFamily,
-                family_id: 1,
+                family_id: window.CRM.currentFamily,
                 found: updatedRow.data().found,
                 month_id: updatedRow.data().month_id,
                 year_id: $("#year_status").val(),
-
-                // visited_id: updatedRow.data().visiting_name,
-                // team_id: updatedRow.data().team_name,
-                // bag_id: updatedRow.data().bag_name,
-                // cash_id: updatedRow.data().cash_name,
-                // sup_id: updatedRow.data().sup_name
                 visited_id: visiting_dic[updatedRow.data().visiting_name],
                 team_id: team_dic[updatedRow.data().team_name],
                 bag_id: bag_dic[updatedRow.data().bag_name],
