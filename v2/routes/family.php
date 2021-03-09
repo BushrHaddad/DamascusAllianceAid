@@ -63,15 +63,25 @@ function getGlobalMaster(Request $request, Response $response, array $args){
                 ->orderByName()
                 ->find();
     }
+
     $_years = _get('master_dates_year');
     $_months = _get('master_dates_months');
+    $_bags = _get('master_bags');
+    $_cash = _get('master_cash');
+    $_suppliments = _get('master_suppliments');
+    $_teams = _get('master_teams');
+    $_visiting = _get('master_visiting');
+
+    $data = Array('all_years' => $_years,'all_months' => $_months, 'all_bags' => $_bags, 'all_cash' => $_cash, 'all_suppliments' =>  $_suppliments, 
+    'all_teams' => $_teams, 'all_visitings' => $_visiting);
+
     $pageArgs = [
         'sMode' => $sMode,
         'sRootPath' => SystemURLs::getRootPath(),
         'families' => $families,
-        'all_years' => $_years,
         'all_months' => $_months,
-
+        'all_years' => $_years,
+        // 'vars' => $data,
           // Bushr-todo: get family attributes from admin panel 
         'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone',
                              'Address Additional Info', 'Additional Info', 'Team Info',
@@ -83,8 +93,6 @@ function getGlobalMaster(Request $request, Response $response, array $args){
 
     return $renderer->render($response, 'master-list.php', $pageArgs);
 }
-
-
 
 function listFamilies(Request $request, Response $response, array $args)
 {

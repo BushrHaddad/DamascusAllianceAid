@@ -96,7 +96,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <div class="box">
     <div class="box-body">
         <table id="example" class="table table-striped table-bordered data-table" cellspacing="0" style="width:100%;"
-            data-page-length='10'>
+            data-page-length='100'>
             <thead>
                 <tr>
                     <th>Id</th>
@@ -119,172 +119,174 @@ $(document).ready(function() {
 
     var x = 0; // the number of months that should be back
     var table; // our datatable
+    var team_options, bag_options, sup_options, visiting_options, cash_options;
+    var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
-    
-    $('#example thead th').each(function() {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-    });
+    function _parse(obj) {
+        parsed = [];
+        for (index = 0; index < obj.length; index++) {
+            parsed.push({
+                "value": obj[index]['name'],
+                "display": obj[index]['name']
+                // "value_id": obj[index]['id']
+            })
 
-    // get the data of the datatable
-    table = $('#example').DataTable({
-        orderCellsTop: true,
-        "scrollX": true,
-        'processing': true,
-        'serverSide': true,
-        'serverMethod': 'post',
-        'ajax': {
-            'url': '/churchcrm/PostRedirect.php',
-            'data': {
-                "post_name": "global_master",
-                "month_id": $("#month_option_id").val(),
-                "year_id": $("#year_option_id").val(),
-            }
-        },
-        'columns': [{
-                data: 'master_id',
-            },
-            {
-                data: 'fam_id',
-            },
-            {
-                data: 'bag_name',
-            },
-            {
-                data: 'cash_name',
-            },
-            {
-                data: 'sup_name',
-            },
-            {
-                data: 'team_name',
-            },
-            {
-                data: 'visiting_name',
-            },
-        ],
-
-        // apply the search
-        initComplete: function() {
-            this.api().columns().every(function() {
-                var that = this;
-                $('input', this.header()).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw(); // search on adding new character
-
-                    }
-                    // Only Searching 
-                    // if (e.keyCode == 13) that.draw();
-                });
-            });
         }
+        return parsed;
+    }
 
-    });
+    function _dic(obj) {
+        parsed = {};
+        for (index = 0; index < obj.length; index++) {
+            parsed[obj[index]['name']] = obj[index]['id'];
+        }
+        return parsed;
+    }
 
-    // $('#prev_month_id').click(function() {
-    //     x++;
-    //     destroyTable();
+    function getVarsCallBack(response) {
+        var json = JSON.parse(response);
+        team_options = _parse(json['all_teams']);
+        bag_options = _parse(json['all_bags']);
+        sup_options = _parse(json['all_suppliments']);
+        visiting_options = _parse(json['all_visitings']);
+        cash_options = _parse(json['all_cash']);
 
-    //     // get the data of the datatable
-    //     table = $('#example').DataTable({
+        team_dic = _dic(json['all_teams']);
+        bag_dic = _dic(json['all_bags']);
+        sup_dic = _dic(json['all_suppliments']);
+        visiting_dic = _dic(json['all_visitings']);
+        cash_dic = _dic(json['all_cash']);
+    }
 
-    //         orderCellsTop: true,
-    //         "scrollX": true,
-    //         'processing': true,
-    //         'serverSide': true,
-    //         'serverMethod': 'post',
-    //         'ajax': {
-    //             'url': '/churchcrm/PostRedirect.php',
-    //             'data': {
-    //                 "post_name": "global_master",
-    //                 "month_id": $("#months_option").val(),
-    //                 "year_id": $("#years_option").val(),
-    //                 "months_back": $("#months_back_option").val(),
-    //             }
-    //         },
-    //         'columns': [{
-    //                 data: 'id',
-    //             },
-    //             {
-    //                 data: 'fam_id',
-    //             },
-    //             {
-    //                 data: 'bag_id',
-    //             },
-    //             {
-    //                 data: 'cash_id',
-    //             },
-    //             {
-    //                 data: 'sup_id',
-    //             },
-    //             {
-    //                 data: 'team_id',
-    //             },
-    //         ],
+    // get options
+    $.ajax({
 
-    //         initComplete: function() {
-    //             // Apply the search
-    //             this.api().columns().every(function() {
-    //                 var that = this;
-    //                 $('input', this.header()).on('keyup change clear', function() {
-    //                     if (that.search() !== this.value) {
-    //                         that.search(this.value).draw();
-
-    //                     }
-    //                     // search on adding new character
-    //                     // that.search(this.value).draw();
-    //                     // Only searcg 
-    //                     // if (e.keyCode == 13) that.draw();
-    //                 });
-    //             });
-    //         }
-
-    //     });
-
-
-    //     return false;
-    // });
-
-    // add the edit option for this datatable
-    table.MakeCellsEditable({
-        "onUpdate": myCallbackFunction,
-        "inputCss": 'my-input-class',
-        "columns": [0, 1, 2, 3, 4, 5,6],
-        "confirmationButton": { // could also be true
-            "confirmCss": 'my-confirm-class',
-            "cancelCss": 'my-cancel-class'
+        url: "/churchcrm/PostRedirect.php",
+        type: "POST",
+        data: {
+            post_name: "get_vars",
         },
-        "inputTypes": [{
-                "column": 0,
-                "type": "text",
-            },
-            {
-                "column": 1,
-                "type": "text",
-            },
-            {
-                "column": 2,
-                "type": "text",
-            },
-            {
-                "column": 3,
-                "type": "text",
-            },
-            {
-                "column": 4,
-                "type": "text",
-            },
-            {
-                "column": 5,
-                "type": "text",
-            },
-            {
-                "column": 6,
-                "type": "text",
-            },
-            // Nothing specified for column 3 so it will default to text
+        success: function(response) {
 
-        ]
+            getVarsCallBack(response);
+
+            table = $('#example').DataTable();
+            destroyTable();
+            $('#example thead th').each(function() {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
+
+            // console.log('Bag options');
+            // console.log(bag_options);
+
+            table = $('#example').DataTable({
+                destroy: true,
+                // "bSort": false,
+                // responsive: true,
+                // data: json,
+                orderCellsTop: true,
+                "scrollX": true,
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                'ajax': {
+                    'url': '/churchcrm/PostRedirect.php',
+                    'data': {
+                        "post_name": "global_master",
+                        "month_id": $("#month_option_id").val(),
+                        "year_id": $("#year_option_id").val(),
+                    }
+                },
+                'columns': [{
+                        data: 'master_id',
+                        visible: false,
+                    },
+                    {
+                        data: 'fam_id',
+                    },
+                    {
+                        data: 'bag_name',
+                    },
+                    {
+                        data: 'cash_name',
+                    },
+                    {
+                        data: 'sup_name',
+                    },
+                    {
+                        data: 'team_name',
+                    },
+                    {
+                        data: 'visiting_name',
+                    },
+                ],
+
+                // apply the search
+                // initComplete: function() {
+                //     this.api().columns().every(function() {
+                //         var that = this;
+                //         $('input', this.header()).on('keyup change clear',
+                //             function() {
+                //                 if (that.search() !== this.value) {
+                //                     that.search(this.value)
+                //                         .draw(); // search on adding new character
+
+                //                 }
+                //                 // Only Searching 
+                //                 // if (e.keyCode == 13) that.draw();
+                //             });
+                //     });
+                // }
+            });
+
+            table.MakeCellsEditable({
+                "onUpdate": myCallbackFunction,
+                "inputCss": 'my-input-class',
+                "columns": [0, 1, 2, 3, 4, 5, 6],
+                "confirmationButton": { // could also be true
+                    "confirmCss": 'my-confirm-class',
+                    "cancelCss": 'my-cancel-class'
+                },
+                "inputTypes": [
+                    {
+                        "column": 1,
+                        "type": "text",
+                        "options": null,
+                    },
+                    {
+                        "column": 2,
+                        "type": "list",
+                        "options": bag_options
+                    },
+                    {
+                        "column": 3,
+                        "type": "list",
+                        "options": cash_options
+                    },
+                    {
+                        "column": 4,
+                        "type": "list",
+                        "options": sup_options
+                    },
+                    {
+                        "column": 5,
+                        "type": "list",
+                        "options": team_options
+                    },
+                    {
+                        "column": 6,
+                        "type": "list",
+                        "options": visiting_options
+                    },
+                    // Nothing specified for column 3 so it will default to text
+                ]
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Error on get Ajax request ");
+        }
     });
 
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {
@@ -298,7 +300,6 @@ $(document).ready(function() {
             table.MakeCellsEditable("destroy");
         }
     }
-
 });
 </script>
 

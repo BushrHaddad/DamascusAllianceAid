@@ -225,7 +225,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     master_global as t
                     on t.month_$month_id = v.master_id
                     where t.year_id = $year_id; ";
-           
+
            $records = RunQuery($sel);
             
             while ($row = mysqli_fetch_array($records)) {
@@ -248,7 +248,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             ## Fetch records
             $empQuery = $query." and ".$searchQuery. " and ".$filtered_search." order by ".$columnName." ".$columnSortOrder." limit ".$start.", ".$rowperpage;
       
-
             $empRecords = RunQuery($empQuery);
             $data = array();
             while ($row = mysqli_fetch_array($empRecords)) {
@@ -352,6 +351,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $_suppliments = _get('master_suppliments');
             $_teams = _get('master_teams');
             $_visiting = _get('master_visiting');
+            
             $data = Array('all_bags' => $_bags, 'all_cash' => $_cash, 'all_suppliments' =>  $_suppliments, 
             'all_teams' => $_teams, 'all_visitings' => $_visiting);
 
