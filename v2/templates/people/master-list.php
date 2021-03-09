@@ -117,11 +117,15 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
 
+
     var x = 0; // the number of months that should be back
     var table; // our datatable
     var team_options, bag_options, sup_options, visiting_options, cash_options;
     var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
-
+    
+    var month_= $("#month_option_id").val();
+    var year_ = $("#year_option_id").val();
+   
     function _parse(obj) {
         parsed = [];
         for (index = 0; index < obj.length; index++) {
@@ -192,10 +196,10 @@ $(document).ready(function() {
                 'serverMethod': 'post',
                 'ajax': {
                     'url': '/churchcrm/PostRedirect.php',
-                    'data': {
-                        "post_name": "global_master",
-                        "month_id": $("#month_option_id").val(),
-                        "year_id": $("#year_option_id").val(),
+                    'data': function(d) {
+                        d.post_name = "global_master",
+                        d.month_id = month_,
+                        d.year_id = year_
                     }
                 },
                 'columns': [{
@@ -223,21 +227,21 @@ $(document).ready(function() {
                 ],
 
                 // apply the search
-                // initComplete: function() {
-                //     this.api().columns().every(function() {
-                //         var that = this;
-                //         $('input', this.header()).on('keyup change clear',
-                //             function() {
-                //                 if (that.search() !== this.value) {
-                //                     that.search(this.value)
-                //                         .draw(); // search on adding new character
+                initComplete: function() {
+                    this.api().columns().every(function() {
+                        var that = this;
+                        $('input', this.header()).on('keyup change clear',
+                            function() {
+                                if (that.search() !== this.value) {
+                                    that.search(this.value)
+                                        .draw(); // search on adding new character
 
-                //                 }
-                //                 // Only Searching 
-                //                 // if (e.keyCode == 13) that.draw();
-                //             });
-                //     });
-                // }
+                                }
+                                // Only Searching 
+                                // if (e.keyCode == 13) that.draw();
+                            });
+                    });
+                }
             });
 
             table.MakeCellsEditable({
@@ -248,8 +252,7 @@ $(document).ready(function() {
                     "confirmCss": 'my-confirm-class',
                     "cancelCss": 'my-cancel-class'
                 },
-                "inputTypes": [
-                    {
+                "inputTypes": [{
                         "column": 1,
                         "type": "text",
                         "options": null,
@@ -282,12 +285,38 @@ $(document).ready(function() {
                     // Nothing specified for column 3 so it will default to text
                 ]
             });
-
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error on get Ajax request ");
         }
     });
+
+    $("#year_option_id").change(function() {
+        year_ = $("#year_option_id").val();
+        table.ajax.reload(null, false);
+
+    });
+
+    
+    $("#month_option_id").change(function() {
+        month_ = $("#month_option_id").val();
+        table.ajax.reload(null, false);
+    });
+
+
+    $('#prev_month_id').click(function() {
+        if(month_==1){
+            month_=12;
+            year_--;
+        }
+        else{
+            month_--;
+        }
+        
+        table.ajax.reload(null, false);
+
+    });
+
 
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {
         console.log(updatedCell);

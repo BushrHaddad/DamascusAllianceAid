@@ -538,4 +538,10 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
         }
     }
 
+    // on click next month 
+    // month_id and year_id 
+    // months_back
+    // get the months back and redraw the table
+    
+
 });

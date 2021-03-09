@@ -53,3 +53,8 @@ Stack trace:
 #0 C:\xampp\htdocs\churchcrm\PostRedirect.php(242): RunQuery('SELECT count(*)...')
 #1 {main}
   thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[09-Mar-2021 17:55:16 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(242): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
