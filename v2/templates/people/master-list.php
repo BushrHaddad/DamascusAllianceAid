@@ -122,6 +122,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             data-page-length='100'>
             <thead>
                 <tr>
+                    <th>Action</th>
                     <th>Id</th>
                     <th>Family ID</th>
                     <?php
@@ -172,9 +173,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
 
-
     var x = 0; // the number of months that should be back
     var table; // our datatable
+    var additional_fields = 2;
     var team_options, bag_options, sup_options, visiting_options, cash_options;
     var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
@@ -234,10 +235,22 @@ $(document).ready(function() {
 
             getVarsCallBack(response);
 
-            var columns = [{
+            var columns = [
+                {
+                    'data': null,
+                    title: 'Action',
+                    wrap: true,
+                    "render": function(item) {
+                        window.href = item.fam_id;
+                        var path_view = window.href;
+                        var path_edit = window.CRM.root+ '/FamilyEditor.php?FamilyID=' +item.fam_id+ '';
+                        return '<div> <a href=' +path_view+ '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +path_edit+ '><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a> </div>';
+                    },
+                },
+                {
                     data: 'master_id',
                     visible: false,
-                },
+                }, 
                 {
                     data: 'fam_id',
                 }
@@ -310,7 +323,6 @@ $(document).ready(function() {
                 }
             });
 
-
             // var edits = [{
             //     "column": 0,
             //     // "type": "text",
@@ -324,21 +336,21 @@ $(document).ready(function() {
             // var nums = [0, 1];
             var edits = [];
             var nums = [];
-            for (var i = 2; i < (prev_ * 5) + 2; i++) {
+            for (var i = additional_fields; i < (prev_ * 5) + additional_fields; i++) {
                 nums.push(i);
-                if (i % 5 == 2) {
+                if (i % 5 == additional_fields) {
                     edits.push({
                         "column": i,
                         "type": "list",
                         "options": bag_options,
                     });
-                } else if (i % 5 == 3) {
+                } else if (i % 5 == (additional_fields + 1)) {
                     edits.push({
                         "column": i,
                         "type": "list",
                         "options": cash_options,
                     });
-                } else if (i % 5 == 4) {
+                } else if (i % 5 == (additional_fields + 2)) {
                     edits.push({
                         "column": i,
                         "type": "list",
@@ -386,7 +398,7 @@ $(document).ready(function() {
         // todo: update individual cell instead of sending multiple value onUpdate() or onInsert() 
         var row = updatedCell[0][0]['row'];
         var col = updatedCell[0][0]['column'];
-        col = col - 2; // the number of added field for family (should be subtracted)
+        col = col - (additional_fields); // the number of added field for family (should be subtracted)
         var p = parseInt((col /
             5)); // 5 is the number of repeated fields in each month (bag, cash, team, sup, visiting)
 
@@ -404,11 +416,11 @@ $(document).ready(function() {
         }
         console.log(month_);
         console.log(year_);
-        var bag_col_idx = p * 5 + 2;
-        var cash_col_idx = p * 5 + 3;
-        var sup_col_idx = p * 5 + 4;
-        var team_col_idx = p * 5 + 5;
-        var visiting_col_idx = p * 5 + 6;
+        var bag_col_idx = p * 5 + (additional_fields);
+        var cash_col_idx = p * 5 + (additional_fields + 1);
+        var sup_col_idx = p * 5 + (additional_fields + 2);
+        var team_col_idx = p * 5 + (additional_fields + 3);
+        var visiting_col_idx = p * 5 + (additional_fields + 3);
 
         var bag_name = table.cell(row, bag_col_idx).data();
         var cash_name = table.cell(row, cash_col_idx).data();
