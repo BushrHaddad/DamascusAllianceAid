@@ -55,17 +55,26 @@ use ChurchCRM\Utils\InputUtils;
 use ChurchCRM\Utils\RedirectUtils;
 use ChurchCRM\Authentication\AuthenticationManager;
 
-function insert_into_global(){
-     
-    // get all years
-    $sSQL = "SELECT  `id` FROM `master_dates_year` ";
+function insert_into_global($criteria){
+
+    // get year 
+    $sSQL = "SELECT `id` FROM `master_dates_year` ";
+
+    if ($criteria == "new_year"){
+        $sSQL = "SELECT * from `master_dates_year` order by id DESC LIMIT 1";
+    }
+
     $rsOpps = RunQuery($sSQL);    
     $data= array();
     while($row = mysqli_fetch_array($rsOpps))
     {
         $year_id = (int)$row[0];
-        // get all families 
-        $sSQL1 = "SELECT  `fam_ID` FROM `family_fam` ";
+        // get family
+        $sSQL1 ="SELECT `fam_ID` FROM `family_fam` ;";
+        if($criteria == "new_family"){
+            $sSQL1 = "SELECT `fam_ID` from `family_fam` order by fam_ID DESC LIMIT 1";
+        }
+        
         $rsOpps1 = RunQuery($sSQL1);
         while($row1 = mysqli_fetch_array($rsOpps1))
         {
@@ -94,11 +103,11 @@ function insert_into_global(){
                 $insert_query = $insert_query.", ".$result[$i];
             }
             $insert_query = $insert_query.", $year_id);";
-            echo $insert_query;
+            // echo $insert_query;
             RunQuery($insert_query);
         }
     }
-    exit;
+    // exit;
 
 
 }
@@ -328,12 +337,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // add new year using NewYearEditor.php
         case "add_year": 
+            
             $year = $_POST['year'];
             $desc = $_POST['desc'];
             $sSQL = "INSERT INTO `master_dates_year` 
             ( `name` , `year_desc` )
             VALUES ( '".$year."', '".$desc."');";
             RunQuery($sSQL);
+            insert_into_global("new_year"); 
             header('Location: NewYearEditor.php'); // Either way, pass or fail, return to form.php
             exit();
             break;

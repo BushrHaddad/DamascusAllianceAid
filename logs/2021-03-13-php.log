@@ -1,0 +1,10 @@
+[13-Mar-2021 10:34:23 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(66): RunQuery('SELECT TOP 1 * ...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): insert_into_global('new_year')
+#2 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[13-Mar-2021 11:46:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function insertIntoGlobal() in C:\xampp\htdocs\churchcrm\FamilyEditor.php:384
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\churchcrm\FamilyEditor.php on line 384
