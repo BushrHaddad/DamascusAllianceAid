@@ -43,7 +43,7 @@ use ChurchCRM\FamilyCustomQuery;
 
 
 //Set the page title
-$sPageTitle = gettext(ucfirst($sMode)) . ' ' . gettext('Master List');
+$sPageTitle = "Master Table";
 $year_id=1;
 $month_id=1;
 $prev_month=1;
@@ -271,15 +271,18 @@ $(document).ready(function() {
 
             table = $('#example').DataTable({
                 destroy: true,
+                // data: json,
                 // "bSort": false,
                 // responsive: true,
-                // data: json,
-                orderCellsTop: true,
+                // orderCellsTop: true,
                 "scrollX": true,
-                'processing': true,
-                'serverSide': true,
-                'serverMethod': 'post',
+                //  dataType: 'json',  
+                // "type": "POST",
+                // 'processing': true,
+                // 'serverSide': true,
+                // 'serverMethod': 'post',
                 'ajax': {
+                    "type": "POST",
                     'url': '/churchcrm/PostRedirect.php',
                     'data': function(d) {
                         d.post_name = "global_master",
@@ -377,30 +380,6 @@ $(document).ready(function() {
     $('#prev_month_button_id').click(function() {
         var p = Number($("#prev_month_count_id").val());
         $("#prev_month_count_id").val(p + 1);
-
-
-        // console.log(Number());
-        // var p = Number($('#prev_month_count_id').val()) + 1
-        // $('#prev_month_count_id').val(p);
-        // console.log(($('#prev_month_count_id').val());
-
-
-        // if (month_ == 1) {
-        //     month_ = 12;
-        //     year_ = year_ - 1;
-        //     if (year_ == 0) {
-        //         year_ = 1;
-        //         month_ = 1;
-        //     }
-        // } else {
-        //     month_ = month_ - 1;
-        // }
-        // console.log(month_);
-        // console.log(year_);
-        // $("#month_option_id").val(month_).change();
-        // $("#year_option_id").val(year_).change();
-
-        // table.ajax.reload(null, false);
     });
 
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {
