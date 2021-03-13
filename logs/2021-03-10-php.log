@@ -1,0 +1,303 @@
+[10-Mar-2021 00:53:05 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(242): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 00:53:06 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(242): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:03:16 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:03:17 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:03:17 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:03:18 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:03:18 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:05:26 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:05:51 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:10:03 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:10:07 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:10:53 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(229): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:12:09 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:12:20 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 01:12:33 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 10:37:35 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 10:37:39 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:15:51 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:23:09 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:23:10 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:25:10 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:25:15 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:25:15 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:25:21 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:25:24 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:25:24 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 11:25:28 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:13:23 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:13:27 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:13:27 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:13:27 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:13:33 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:25:18 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:25:22 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:27:16 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:28:04 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:29:09 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:30:52 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:31:39 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:32:18 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:33:01 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:34:05 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:34:17 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:42:18 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:42:31 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:43:20 UTC] Slim Application Error:
+Type: Error
+Message: Object of class Slim\Http\Request could not be converted to string
+File: C:\xampp\htdocs\churchcrm\v2\routes\family.php
+Line: 98
+Trace: #0 [internal function]: postGlobalMaster(Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#1 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(40): call_user_func('postGlobalMaste...', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#2 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(281): Slim\Handlers\Strategies\RequestResponse->__invoke('postGlobalMaste...', Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#3 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\Route->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#4 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(268): Slim\Route->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#5 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(503): Slim\Route->run(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#6 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\VersionMiddleware.php(13): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#7 [internal function]: ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#8 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\VersionMiddleware), Array)
+#9 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#10 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#11 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\AuthMiddleware.php(34): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#12 [internal function]: ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#13 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\AuthMiddleware), Array)
+#14 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#15 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#16 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#17 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#18 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#19 C:\xampp\htdocs\churchcrm\v2\index.php(48): Slim\App->run()
+#20 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
+[10-Mar-2021 12:44:38 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:47:20 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 12:51:13 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 13:04:51 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 13:06:28 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 13:06:30 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 13:06:34 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 13:09:43 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(230): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 21:15:48 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(243): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215
+[10-Mar-2021 21:17:14 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:215
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(243): RunQuery('SELECT count(*)...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 215

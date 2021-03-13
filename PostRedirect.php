@@ -108,6 +108,7 @@ function _get($table){
     $rsOpps = RunQuery($sSQL);
 
     $data= array();
+    // $row = mysqli_fetch_array($rsOpps);
     while($row = mysqli_fetch_array($rsOpps))
     {
         $row1 = array('id' => $row[0], 'name' => $row[1]);
@@ -172,6 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             // get the options for all families  
             $month_id = $_POST['month_id'];
             $year_id = $_POST['year_id'];
+            $prev = $_POST['prev'];
             
             $draw = $_POST['draw'];
             $start = $_POST['start'];
@@ -184,38 +186,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $columnIndex = $_POST['order'][0]['column']; // The index
             $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
             $columnName = $_POST['columns'][0]['data']; // The name of the column 
-           
-            $query = "SELECT v.master_id, t.fam_id, v.bag_name, v.cash_name, v.sup_name, v.team_name, v.visiting_name from 
-                            master_general_view as v
-                            INNER JOIN 
-                            master_global as t
-                            on t.month_$month_id = v.master_id
-                            where t.year_id = $year_id ";
+
+
 
             // Filtering Searching based on columns search value
-            $filtered_search = " (";
-            $searchQuery = " (";
+            // $filtered_search = " (";
+            // $searchQuery = " (";
 
-            for($i=0; $i<6; $i++){
-                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
-                // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
-                // if ($col_search_value != ''){
-                    $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
-                    // $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
-                    if ($i==0){
-                        $searchQuery = $searchQuery . "(". $col_name. " like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . "(". $col_name. " like '%".$col_search_value."%' ) ";
-                    }
-                    else{   
-                        $searchQuery = $searchQuery . " or (". $col_name. " like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
+            // for($i=0; $i<6; $i++){
+            //     $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
+            //     // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
+            //     // if ($col_search_value != ''){
+            //         $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
+            //         // $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
+            //         if ($i==0){
+            //             $searchQuery = $searchQuery . "(". $col_name. " like '%".$searchValue."%' ) ";
+            //             $filtered_search = $filtered_search . "(". $col_name. " like '%".$col_search_value."%' ) ";
+            //         }
+            //         else{   
+            //             $searchQuery = $searchQuery . " or (". $col_name. " like '%".$searchValue."%' ) ";
+            //             $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
 
-                    }
-                // }
+            //         }
+            //     // }
               
-            }
-            $filtered_search = $filtered_search." )";
-            $searchQuery = $searchQuery." )";
+            // }
+            // $filtered_search = $filtered_search." )";
+            // $searchQuery = $searchQuery." )";
             ## Search 
 
             ## Total number of records without filtering
@@ -233,41 +230,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             ## Total number of record with filtering
+            // $sel = "SELECT count(*) as allcount from 
+            // master_general_view as v
+            // INNER JOIN 
+            // master_global as t
+            // on t.month_$month_id = v.master_id
+            // where t.year_id = $year_id and ".$searchQuery. " and ".$filtered_search;
+            
             $sel = "SELECT count(*) as allcount from 
             master_general_view as v
             INNER JOIN 
             master_global as t
             on t.month_$month_id = v.master_id
-            where t.year_id = $year_id and ".$searchQuery. " and ".$filtered_search;
+            where t.year_id = $year_id ";
             $records = RunQuery($sel);
 
             while ($row = mysqli_fetch_array($records)) {
                 $totalRecordwithFilter = $row['allcount'];
             }
 
-            ## Fetch records
-            $empQuery = $query." and ".$searchQuery. " and ".$filtered_search." order by ".$columnName." ".$columnSortOrder." limit ".$start.", ".$rowperpage;
-      
-            $empRecords = RunQuery($empQuery);
-            $data = array();
-            while ($row = mysqli_fetch_array($empRecords)) {
-                $data[] = array( 
+            $all_data = array();
+            $query = "SELECT v.master_id, t.fam_id, v.bag_name, v.cash_name, v.sup_name, v.team_name, v.visiting_name from 
+            master_general_view as v
+            INNER JOIN 
+            master_global as t
+            on t.month_$month_id = v.master_id
+            where t.year_id = $year_id ";
+
+            $empRecords = RunQuery($query);
+            while ($row = mysqli_fetch_array($empRecords) ) {
+                $all_data[] = array( 
                     "master_id"=>$row['master_id'],
                     "fam_id"=>$row['fam_id'],
-                    "bag_name"=>$row['bag_name'],
-                    "cash_name"=>$row['cash_name'],
-                    "sup_name"=>$row['sup_name'],
-                    "team_name"=>$row['team_name'],
-                    "visiting_name"=>$row['visiting_name'],
+                    "bag_name1"=>$row['bag_name'],
+                    "cash_name1"=>$row['cash_name'],
+                    "sup_name1"=>$row['sup_name'],
+                    "team_name1"=>$row['team_name'],
+                    "visiting_name1"=>$row['visiting_name'],
+
                 );
             }
+                
+            for($i=2;$i<=$prev;$i++){
 
+                if ($month_id == 1) {
+                    $month_id = 12;
+                    $year_id = $year_id - 1;
+                    if ($year_id == 0) {
+                        $year_id = 1;
+                        $month_id = 1;
+                    }
+                } else {
+                    $month_id = $month_id - 1;
+                }
+
+                $data = array();
+                $query = "SELECT v.master_id, t.fam_id, v.bag_name, v.cash_name, v.sup_name, v.team_name, v.visiting_name from 
+                master_general_view as v
+                INNER JOIN 
+                master_global as t
+                on t.month_$month_id = v.master_id
+                where t.year_id = $year_id ";
+    
+                $empRecords = RunQuery($query);
+                while ($row = mysqli_fetch_array($empRecords) ) {
+                    $data[] = array( 
+                        "bag_name$i"=>$row['bag_name'],
+                        "cash_name$i"=>$row['cash_name'],
+                        "sup_name$i"=>$row['sup_name'],
+                        "team_name$i"=>$row['team_name'],
+                        "visiting_name$i"=>$row['visiting_name'],
+
+                    );
+                }
+                $count=0;
+                $new=array();
+                foreach($all_data as $d){
+                    $new[] = array_merge($d,$data[$count]);
+                    $count++;
+                }
+                $all_data=$new;
+            }
+            
+            // print_r( $all_data);
+            // exit;
             ## Response
             $response = array(
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
             "iTotalDisplayRecords" => $totalRecordwithFilter,
-            "aaData" => $data
+            "aaData" => $all_data
             );
 
             echo json_encode($response);
@@ -287,12 +339,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             break;
         
         case "edit_local_master":
-            $found = $_POST['found']; // this row exist in the database already or not(must be added now)
+            // $found = $_POST['found']; // this row exist in the database already or not(must be added now)
             $family_id = (int)$_POST['family_id']; // the family id 
             $month_id = (int)$_POST['month_id']; // the month id 
             $year_id = (int)$_POST['year_id'];// the year id
 
-            // check to see if year selected is null means (==========)
+            $check_q= "SELECT month_$month_id from master_global where  year_id =  $year_id  AND fam_id =  $family_id ;";
+            $row = mysqli_fetch_array(RunQuery($check_q));
+            $found = $row[0];
+
             if ($year_id<=0){
                 break;
             }
@@ -304,7 +359,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $sup_id = (int)$_POST['sup_id']; 
             
             // if this month is found for this family
-            if($found == "true"){
+            if($found != -1){
                 $sSQL = "UPDATE `master_family_master` SET 
                         visited_id  =   $visited_id,
                         team_id     =   $team_id,

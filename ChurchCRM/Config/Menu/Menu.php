@@ -60,6 +60,7 @@ class Menu
     {
         $peopleMenu = new MenuItem(gettext("People"), "", true, 'fa-users');
         $peopleMenu->addSubMenu(new MenuItem(gettext("Dashboard"), "PeopleDashboard.php"));
+        $peopleMenu->addSubMenu(new MenuItem(gettext("Master Table"), "v2/family/master"));
         $peopleMenu->addSubMenu(new MenuItem(gettext("Add New Person"), "PersonEditor.php", AuthenticationManager::GetCurrentUser()->isAddRecordsEnabled()));
         $peopleMenu->addSubMenu(new MenuItem(gettext("View Active People"), "v2/people"));
         $peopleMenu->addSubMenu(new MenuItem(gettext("View Inactive People"), "v2/people?familyActiveStatus=inactive"));

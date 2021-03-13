@@ -11,7 +11,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <!-- Small boxes (Stat box) -->
 <div class="row">
-    <div class="col-lg-2 col-xs-4">
+    <div class="col-lg-3 col-xs-4">
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
@@ -30,7 +30,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </a>
         </div>
     </div><!-- ./col -->
-    <div class="col-lg-2 col-xs-4">
+    <div class="col-lg-3 col-xs-4">
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
@@ -49,49 +49,28 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </a>
         </div>
     </div><!-- ./col -->
-    <!-- Edited: remove sunday school tap here -->
-    <!-- Groups  -->
 
-    <div class="col-lg-2 col-xs-4">
-        <!-- small box -->
-        <div class="small-box bg-red">
-            <div class="inner">
-                <h3 id="groupsCountDashboard">
-                    <?= $dashboardCounts["Groups"] ?>
-                </h3>
-                <p>
-                    <?= gettext('Global Master') ?>
-                </p>
-            </div>
-            <div class="icon">
-                <i class="fa fa-gg"></i>
-            </div>
-            <a href="<?= SystemURLs::getRootPath() ?>/GroupList.php" class="small-box-footer">
-                <?= gettext('More info') ?>  <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div><!-- ./col -->
 
-    <!-- Attendees Checked -->
-    <div class="col-lg-2 col-xs-4">
-        <!-- small box -->
+    <!-- Global Master Table -->
+    <div class="col-lg-5 col-xs-4">
         <div class="small-box bg-yellow">
             <div class="inner">
                 <h3>
-                    <?= $dashboardCounts["events"] ?>
+                    Master Table
                 </h3>
                 <p>
-                    <?= gettext('Attendees Checked In') ?>
+                    فلترةالقوائم
                 </p>
             </div>
             <div class="icon">
                 <i class="fa fa-gg"></i>
             </div>
-            <a href="<?= SystemURLs::getRootPath() ?>/ListEvents.php" class="small-box-footer">
-                <?= gettext('More info') ?>  <i class="fa fa-arrow-circle-right"></i>
+            <a href="<?= SystemURLs::getRootPath() ?>/v2/family/master" class="small-box-footer">
+                <?= gettext('More info') ?> <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
-    </div><!-- ./col -->
+    </div>
+
 
 </div><!-- /.row -->
 
@@ -100,7 +79,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         <div class="row">
             <div class="col-md-6">
                 <div class="box box-solid">
-                    <h3 class="box-header"><h4><?= gettext("Today's Birthdays") ?></h4></h3>
+                    <h3 class="box-header">
+                        <h4><?= gettext("Today's Birthdays") ?></h4>
+                    </h3>
                     <div class="box-body">
                         <table class="table table-striped" width="100%" id="PersonBirthdayDashboardItem"></table>
                     </div>
@@ -108,9 +89,12 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </div>
             <div class="col-md-6">
                 <div class="box box-solid">
-                    <h3 class="box-header"><h4><?= gettext("Today's Wedding Anniversaries",) ?></h4></h3>
+                    <h3 class="box-header">
+                        <h4><?= gettext("Today's Wedding Anniversaries",) ?></h4>
+                    </h3>
                     <div class="box-body">
-                        <table class="table table-striped" width="100%" id="FamiliesWithAnniversariesDashboardItem"></table>
+                        <table class="table table-striped" width="100%" id="FamiliesWithAnniversariesDashboardItem">
+                        </table>
                     </div>
                 </div>
             </div>
@@ -123,23 +107,23 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <?php
 if ($depositEnabled) { // If the user has Finance permissions, then let's display the deposit line chart
     ?>
-    <div class="row" id="depositChartRow">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <i class="fa fa-money"></i>
-                    <h3 class="box-title"><?= gettext('Deposit Tracking') ?></h3>
-                    <div class="box-tools pull-right">
-                        <div id="deposit-graph" class="chart-legend"></div>
-                    </div>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <canvas id="deposit-lineGraph" style="height:125px; width:100%"></canvas>
+<div class="row" id="depositChartRow">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <i class="fa fa-money"></i>
+                <h3 class="box-title"><?= gettext('Deposit Tracking') ?></h3>
+                <div class="box-tools pull-right">
+                    <div id="deposit-graph" class="chart-legend"></div>
                 </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <canvas id="deposit-lineGraph" style="height:125px; width:100%"></canvas>
             </div>
         </div>
     </div>
-    <?php
+</div>
+<?php
 }  //END IF block for Finance permissions to include HTML for Deposit Chart
 ?>
 
@@ -151,8 +135,8 @@ if ($depositEnabled) { // If the user has Finance permissions, then let's displa
                 <a href="<?= SystemURLs::getRootPath() ?>/PersonEditor.php">
                     <button type="button" class="btn btn-success"><?= gettext('Add New Person') ?></button>
                 </a>
-                <a href="<?= SystemURLs::getRootPath() ?>/FamilyEditor.php"
-                <button type="button" class="btn btn-success"><?= gettext('Add New Family') ?></button>
+                <a href="<?= SystemURLs::getRootPath() ?>/FamilyEditor.php" <button type="button"
+                    class="btn btn-success"><?= gettext('Add New Family') ?></button>
                 </a>
             </div>
         </div>
@@ -163,7 +147,8 @@ if ($depositEnabled) { // If the user has Finance permissions, then let's displa
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#ppl-tab_1" data-toggle="tab"><?= gettext('Latest Families') ?></a></li>
+                        <li class="active"><a href="#ppl-tab_1" data-toggle="tab"><?= gettext('Latest Families') ?></a>
+                        </li>
                         <li><a href="#ppl-tab_2" data-toggle="tab"><?= gettext('Updated Families') ?></a></li>
                         <li><a href="#ppl-tab_3" data-toggle="tab"><?= gettext('Latest Persons') ?></a></li>
                         <li><a href="#ppl-tab_4" data-toggle="tab"><?= gettext('Updated Persons') ?></a></li>

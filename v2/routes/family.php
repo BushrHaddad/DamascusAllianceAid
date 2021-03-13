@@ -20,9 +20,9 @@ $app->group('/family', function () {
     $this->get('','listFamilies');
     $this->get('/','listFamilies');
     $this->get('/master','getGlobalMaster');
+    $this->post('/master','postGlobalMaster');
     $this->get('/not-found', 'viewFamilyNotFound');
     $this->get('/{id}', 'viewFamily');
-    
 });
 
 
@@ -81,6 +81,59 @@ function getGlobalMaster(Request $request, Response $response, array $args){
         'families' => $families,
         'all_months' => $_months,
         'all_years' => $_years,
+        // 'vars' => $data,
+          // Bushr-todo: get family attributes from admin panel 
+        'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone',
+                             'Address Additional Info', 'Additional Info', 'Team Info',
+                              'Ref', 'Membership Status','Home Phone', 'Cell Phone',
+                              'Address Additional Info', 'Additional Info', 'Team Info',
+                               'Ref', 'Membership Status']     
+    
+      ];
+
+    return $renderer->render($response, 'master-list.php', $pageArgs);
+}
+
+function postGlobalMaster(Request $request, Response $response, array $args){
+    // echo $request;
+    $renderer = new PhpRenderer('templates/people/');
+    $sMode = 'Active';
+    // Filter received user input as needed
+    if (isset($_GET['mode'])) {
+        $sMode = InputUtils::LegacyFilterInput($_GET['mode']);
+    }
+
+    if (strtolower($sMode) == 'inactive') {
+        $families = FamilyQuery::create()
+            ->filterByDateDeactivated(null, Criteria::ISNOTNULL)
+                ->orderByName()
+                ->find();
+    } else {
+        $sMode = 'Active';
+        $families = FamilyQuery::create()
+            ->filterByDateDeactivated(null)
+                ->orderByName()
+                ->find();
+    }
+
+    $_years = _get('master_dates_year');
+    $_months = _get('master_dates_months');
+    $_bags = _get('master_bags');
+    $_cash = _get('master_cash');
+    $_suppliments = _get('master_suppliments');
+    $_teams = _get('master_teams');
+    $_visiting = _get('master_visiting');
+
+    $data = Array('all_years' => $_years,'all_months' => $_months, 'all_bags' => $_bags, 'all_cash' => $_cash, 'all_suppliments' =>  $_suppliments, 
+    'all_teams' => $_teams, 'all_visitings' => $_visiting);
+
+    $pageArgs = [
+        'sMode' => $sMode,
+        'sRootPath' => SystemURLs::getRootPath(),
+        'families' => $families,
+        'all_months' => $_months,
+        'all_years' => $_years,
+        'request' => (object)$request->getParsedBody(),
         // 'vars' => $data,
           // Bushr-todo: get family attributes from admin panel 
         'familyAttributes' => ['Actions','Name','Address','Home Phone', 'Cell Phone',

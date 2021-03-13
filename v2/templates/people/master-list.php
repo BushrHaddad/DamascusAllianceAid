@@ -44,49 +44,72 @@ use ChurchCRM\FamilyCustomQuery;
 
 //Set the page title
 $sPageTitle = gettext(ucfirst($sMode)) . ' ' . gettext('Master List');
+$year_id=1;
+$month_id=1;
+$prev_month=1;
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $year_id = $request->year_id;
+    $month_id = $request->month_id;
+    $prev_month = $request->prev_month;    
+}
+
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 /* @var $families ObjectCollection */
 
 ?>
 
 <div class="row">
-    <div class="col-lg-5">
-        <div class="form-group">
-            <label>Choose a Year:</label>
-            <select id="year_option_id" class="form-control" name="c5">
-                <option selected="" value=1>>--------------------</option>
-                <?php
+    <form method="post" action="/churchcrm/v2/family/master">
+        <div class="col-lg-5">
+            <div class="form-group">
+                <label>Choose a Year:</label>
+                <select id="year_option_id" class="form-control" name="year_id" onchange="this.form.submit()">
+                    <?php
                          foreach ($all_years as $year){
-                        ?>
-                <option value=<?= $year['id'] ?>><?= $year['name'] ?></option>
-                <?php
+                            if($year['id']==$year_id){
+                    ?>
+                    <option value=<?= $year['id'] ?> selected=""><?= $year['name'] ?></option>
+                    <?php
+                             }
+                             else if($year['id']!=0){
+                    ?>
+                    <option value=<?= $year['id'] ?>><?= $year['name'] ?></option>
+                    <?php
+                             }
                         }
-                        ?>
-            </select>
+                    ?>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-4">
-        <div class="form-group">
-            <label>Choose a month:</label>
-            <select id="month_option_id" class="form-control" name="c5">
-                <option selected="" value=1>--------------------</option>
-                <?php
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label>Choose a month:</label>
+                <select id="month_option_id" class="form-control" name="month_id" onchange="this.form.submit()">
+                    <?php
                          foreach ($all_months as $month){
-                        ?>
-                <option value=<?= $month['id'] ?>><?= $month['name'] ?></option>
-                <?php
+                            if($month['id']==$month_id){
+                    ?>
+                    <option value=<?= $month['id'] ?> selected=""><?= $month['name'] ?></option>
+                    <?php
+                             }
+                             else if($month['id']!=0){
+                    ?>
+                    <option value=<?= $month['id'] ?>><?= $month['name'] ?></option>
+                    <?php
+                             }
                         }
-                        ?>
-            </select>
+                    ?>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-3">
-        <a id="prev_month_id" class="btn btn-success" role="button">
-            <span class="fa fa-plus" aria-hidden="true"></span><?= gettext(' Previous Month') ?>
-        </a>
-    </div>
+        <div class="col-lg-3">
+            <input id="prev_month_count_id" name="prev_month" value=<?= $prev_month ?>></input>
+            <input id="prev_month_button_id" type="submit" value="Previous Month" class="btn btn-primary"> </input>
+        </div>
+
+    </form>
 
 </div>
 
@@ -101,11 +124,43 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 <tr>
                     <th>Id</th>
                     <th>Family ID</th>
-                    <th>Bag Name</th>
-                    <th>Cash Name</th>
-                    <th>Sup Name</th>
-                    <th>team Name</th>
-                    <th>visiting Name</th>
+                    <?php
+                    // if($prev_month==1){
+                        $month_name = $all_months[$month_id]['name'];
+                        $year_name = $all_years[$year_id]['name'];
+                        ?>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Suppliments)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Visited)</th>
+                    <?php
+                    for($i=1;$i<$prev_month;$i++){
+                        // if $prev_month is only one 
+                        // one list and quit 
+                        if ($month_id == 1) {
+                            $month_id = 12;
+                            $year_id = $year_id - 1;
+                            if ($year_id == 0) {
+                                $year_id = 1;
+                                $month_id = 1;
+                            }
+
+                        } else {
+                            $month_id = $month_id - 1;
+                        }
+
+                        $month_name = $all_months[$month_id]['name'];
+                        $year_name = $all_years[$year_id]['name'];
+                    ?>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Suppliments)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Visited)</th>
+                    <?php
+                    }
+                    ?>
                 </tr>
             </thead>
             <tbody>
@@ -122,10 +177,12 @@ $(document).ready(function() {
     var table; // our datatable
     var team_options, bag_options, sup_options, visiting_options, cash_options;
     var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
-    
-    var month_= $("#month_option_id").val();
+
+    var month_ = $("#month_option_id").val();
     var year_ = $("#year_option_id").val();
-   
+
+    var prev_ = Number($("#prev_month_count_id").val());
+
     function _parse(obj) {
         parsed = [];
         for (index = 0; index < obj.length; index++) {
@@ -149,11 +206,14 @@ $(document).ready(function() {
 
     function getVarsCallBack(response) {
         var json = JSON.parse(response);
-        team_options = _parse(json['all_teams']);
+
         bag_options = _parse(json['all_bags']);
-        sup_options = _parse(json['all_suppliments']);
-        visiting_options = _parse(json['all_visitings']);
         cash_options = _parse(json['all_cash']);
+
+        sup_options = _parse(json['all_suppliments']);
+        team_options = _parse(json['all_teams']);
+        visiting_options = _parse(json['all_visitings']);
+
 
         team_dic = _dic(json['all_teams']);
         bag_dic = _dic(json['all_bags']);
@@ -174,15 +234,40 @@ $(document).ready(function() {
 
             getVarsCallBack(response);
 
+            var columns = [{
+                    data: 'master_id',
+                    visible: false,
+                },
+                {
+                    data: 'fam_id',
+                }
+            ];
+
+            for (var i = 1; i <= prev_; i++) {
+                columns.push({
+                    data: 'bag_name' + i,
+                });
+                columns.push({
+                    data: 'cash_name' + i,
+                });
+                columns.push({
+                    data: 'sup_name' + i,
+                });
+                columns.push({
+                    data: 'team_name' + i,
+                });
+                columns.push({
+                    data: 'visiting_name' + i,
+                });
+
+            }
+
             table = $('#example').DataTable();
             destroyTable();
             $('#example thead th').each(function() {
                 var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                $(this).html('<input type="text" placeholder="' + title + '" />');
             });
-
-            // console.log('Bag options');
-            // console.log(bag_options);
 
             table = $('#example').DataTable({
                 destroy: true,
@@ -198,34 +283,12 @@ $(document).ready(function() {
                     'url': '/churchcrm/PostRedirect.php',
                     'data': function(d) {
                         d.post_name = "global_master",
-                        d.month_id = month_,
-                        d.year_id = year_
+                            d.month_id = month_,
+                            d.year_id = year_,
+                            d.prev = prev_
                     }
                 },
-                'columns': [{
-                        data: 'master_id',
-                        visible: false,
-                    },
-                    {
-                        data: 'fam_id',
-                    },
-                    {
-                        data: 'bag_name',
-                    },
-                    {
-                        data: 'cash_name',
-                    },
-                    {
-                        data: 'sup_name',
-                    },
-                    {
-                        data: 'team_name',
-                    },
-                    {
-                        data: 'visiting_name',
-                    },
-                ],
-
+                'columns': columns,
                 // apply the search
                 initComplete: function() {
                     this.api().columns().every(function() {
@@ -244,46 +307,65 @@ $(document).ready(function() {
                 }
             });
 
+
+            // var edits = [{
+            //     "column": 0,
+            //     // "type": "text",
+            //     "options": null,
+            // }, {
+            //     "column": 1,
+            //     // "type": "text",
+            //     "options": null,
+            // }];
+
+            // var nums = [0, 1];
+            var edits = [];
+            var nums = [];
+            for (var i = 2; i < (prev_ * 5) + 2; i++) {
+                nums.push(i);
+                if (i % 5 == 2) {
+                    edits.push({
+                        "column": i,
+                        "type": "list",
+                        "options": bag_options,
+                    });
+                } else if (i % 5 == 3) {
+                    edits.push({
+                        "column": i,
+                        "type": "list",
+                        "options": cash_options,
+                    });
+                } else if (i % 5 == 4) {
+                    edits.push({
+                        "column": i,
+                        "type": "list",
+                        "options": sup_options,
+                    });
+                } else if (i % 5 == 0) {
+                    edits.push({
+                        "column": i,
+                        "type": "list",
+                        "options": team_options,
+                    });
+                } else {
+                    edits.push({
+                        "column": i,
+                        "type": "list",
+                        "options": visiting_options,
+                    });
+                }
+            }
+
             table.MakeCellsEditable({
                 "onUpdate": myCallbackFunction,
                 "inputCss": 'my-input-class',
-                "columns": [0, 1, 2, 3, 4, 5, 6],
+                "columns": nums,
                 "confirmationButton": { // could also be true
                     "confirmCss": 'my-confirm-class',
                     "cancelCss": 'my-cancel-class'
                 },
-                "inputTypes": [{
-                        "column": 1,
-                        "type": "text",
-                        "options": null,
-                    },
-                    {
-                        "column": 2,
-                        "type": "list",
-                        "options": bag_options
-                    },
-                    {
-                        "column": 3,
-                        "type": "list",
-                        "options": cash_options
-                    },
-                    {
-                        "column": 4,
-                        "type": "list",
-                        "options": sup_options
-                    },
-                    {
-                        "column": 5,
-                        "type": "list",
-                        "options": team_options
-                    },
-                    {
-                        "column": 6,
-                        "type": "list",
-                        "options": visiting_options
-                    },
-                    // Nothing specified for column 3 so it will default to text
-                ]
+                "inputTypes": edits
+
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -291,36 +373,95 @@ $(document).ready(function() {
         }
     });
 
-    $("#year_option_id").change(function() {
-        year_ = $("#year_option_id").val();
-        table.ajax.reload(null, false);
 
+    $('#prev_month_button_id').click(function() {
+        var p = Number($("#prev_month_count_id").val());
+        $("#prev_month_count_id").val(p + 1);
+
+
+        // console.log(Number());
+        // var p = Number($('#prev_month_count_id').val()) + 1
+        // $('#prev_month_count_id').val(p);
+        // console.log(($('#prev_month_count_id').val());
+
+
+        // if (month_ == 1) {
+        //     month_ = 12;
+        //     year_ = year_ - 1;
+        //     if (year_ == 0) {
+        //         year_ = 1;
+        //         month_ = 1;
+        //     }
+        // } else {
+        //     month_ = month_ - 1;
+        // }
+        // console.log(month_);
+        // console.log(year_);
+        // $("#month_option_id").val(month_).change();
+        // $("#year_option_id").val(year_).change();
+
+        // table.ajax.reload(null, false);
     });
-
-    
-    $("#month_option_id").change(function() {
-        month_ = $("#month_option_id").val();
-        table.ajax.reload(null, false);
-    });
-
-
-    $('#prev_month_id').click(function() {
-        if(month_==1){
-            month_=12;
-            year_--;
-        }
-        else{
-            month_--;
-        }
-        
-        table.ajax.reload(null, false);
-
-    });
-
 
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {
-        console.log(updatedCell);
-        console.dir(updatedRow.data());
+        // todo: update individual cell instead of sending multiple value onUpdate() or onInsert() 
+        var row = updatedCell[0][0]['row'];
+        var col = updatedCell[0][0]['column'];
+        col = col - 2; // the number of added field for family (should be subtracted)
+        var p = parseInt((col /
+            5)); // 5 is the number of repeated fields in each month (bag, cash, team, sup, visiting)
+
+        for (var i = 0; i < p; i++) {
+            if (month_ == 1) {
+                month_ = 12;
+                if (year_ == 1) {
+                    year_ = 1;
+                    month_ = 1;
+                }
+                year_--;
+            } else {
+                month_--;
+            }
+        }
+        console.log(month_);
+        console.log(year_);
+        var bag_col_idx = p * 5 + 2;
+        var cash_col_idx = p * 5 + 3;
+        var sup_col_idx = p * 5 + 4;
+        var team_col_idx = p * 5 + 5;
+        var visiting_col_idx = p * 5 + 6;
+
+        var bag_name = table.cell(row, bag_col_idx).data();
+        var cash_name = table.cell(row, cash_col_idx).data();
+        var sup_name = table.cell(row, sup_col_idx).data();
+        var team_name = table.cell(row, team_col_idx).data();
+        var visiting_name = table.cell(row, visiting_col_idx).data();
+
+        console.log(visiting_col_idx);
+        $.ajax({
+
+            url: "/churchcrm/PostRedirect.php",
+            type: "POST",
+            // datatype: "text",
+            data: {
+                post_name: "edit_local_master",
+                family_id: updatedRow.data().fam_id,
+                month_id: month_,
+                year_id: year_,
+                visited_id: visiting_dic[visiting_name],
+                team_id: team_dic[team_name],
+                bag_id: bag_dic[bag_name],
+                cash_id: cash_dic[cash_name],
+                sup_id: sup_dic[sup_name]
+            },
+
+            success: function(response) {
+                console.log('Edited Correctly');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
     }
 
     function destroyTable() {
