@@ -175,7 +175,7 @@ $(document).ready(function() {
 
     var x = 0; // the number of months that should be back
     var table; // our datatable
-    var additional_fields = 2;
+    var additional_fields = 3;
     var team_options, bag_options, sup_options, visiting_options, cash_options;
     var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
@@ -235,22 +235,25 @@ $(document).ready(function() {
 
             getVarsCallBack(response);
 
-            var columns = [
-                {
+            var columns = [{
                     'data': null,
                     title: 'Action',
                     wrap: true,
                     "render": function(item) {
                         window.href = item.fam_id;
                         var path_view = window.href;
-                        var path_edit = window.CRM.root+ '/FamilyEditor.php?FamilyID=' +item.fam_id+ '';
-                        return '<div> <a href=' +path_view+ '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +path_edit+ '><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a> </div>';
+                        var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
+                            item.fam_id + '';
+                        return '<div> <a href=' + path_view +
+                            '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +
+                            path_edit +
+                            '><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a> </div>';
                     },
                 },
                 {
                     data: 'master_id',
                     visible: false,
-                }, 
+                },
                 {
                     data: 'fam_id',
                 }
@@ -283,6 +286,7 @@ $(document).ready(function() {
             });
 
             table = $('#example').DataTable({
+
                 destroy: true,
                 // data: json,
                 // "bSort": false,
@@ -294,6 +298,9 @@ $(document).ready(function() {
                 // 'processing': true,
                 // 'serverSide': true,
                 // 'serverMethod': 'post',
+                // "bLengthChange": true,
+                // "iDisplayLength": 10,
+                // "sDom": 'T<"clear">lfrtip',
                 'ajax': {
                     "type": "POST",
                     'url': '/churchcrm/PostRedirect.php',
@@ -323,48 +330,40 @@ $(document).ready(function() {
                 }
             });
 
-            // var edits = [{
-            //     "column": 0,
-            //     // "type": "text",
-            //     "options": null,
-            // }, {
-            //     "column": 1,
-            //     // "type": "text",
-            //     "options": null,
-            // }];
 
-            // var nums = [0, 1];
             var edits = [];
             var nums = [];
-            for (var i = additional_fields; i < (prev_ * 5) + additional_fields; i++) {
-                nums.push(i);
-                if (i % 5 == additional_fields) {
+            var current_idx = 0;
+            for (var i = 0; i < (prev_ * 5); i++) {
+                current_idx = i + additional_fields;
+                nums.push(current_idx);
+                if (i % 5 == 0) {
                     edits.push({
-                        "column": i,
+                        "column": current_idx,
                         "type": "list",
                         "options": bag_options,
                     });
-                } else if (i % 5 == (additional_fields + 1)) {
+                } else if (i % 5 == 1) {
                     edits.push({
-                        "column": i,
+                        "column": current_idx,
                         "type": "list",
                         "options": cash_options,
                     });
-                } else if (i % 5 == (additional_fields + 2)) {
+                } else if (i % 5 == 2) {
                     edits.push({
-                        "column": i,
+                        "column": current_idx,
                         "type": "list",
                         "options": sup_options,
                     });
-                } else if (i % 5 == 0) {
+                } else if (i % 5 == 3) {
                     edits.push({
-                        "column": i,
+                        "column": current_idx,
                         "type": "list",
                         "options": team_options,
                     });
-                } else {
+                } else if ((i % 5 == 4)) {
                     edits.push({
-                        "column": i,
+                        "column": current_idx,
                         "type": "list",
                         "options": visiting_options,
                     });
@@ -389,6 +388,16 @@ $(document).ready(function() {
     });
 
 
+    $('a.toggle-vis').on('click', function(e) {
+        e.preventDefault();
+
+        // Get the column API object
+        var column = table.column($(this).attr('data-column'));
+
+        // Toggle the visibility
+        column.visible(!column.visible());
+    });
+
     $('#prev_month_button_id').click(function() {
         var p = Number($("#prev_month_count_id").val());
         $("#prev_month_count_id").val(p + 1);
@@ -399,8 +408,7 @@ $(document).ready(function() {
         var row = updatedCell[0][0]['row'];
         var col = updatedCell[0][0]['column'];
         col = col - (additional_fields); // the number of added field for family (should be subtracted)
-        var p = parseInt((col /
-            5)); // 5 is the number of repeated fields in each month (bag, cash, team, sup, visiting)
+        var p = parseInt((col / 5));
 
         for (var i = 0; i < p; i++) {
             if (month_ == 1) {
@@ -414,13 +422,12 @@ $(document).ready(function() {
                 month_--;
             }
         }
-        console.log(month_);
-        console.log(year_);
+
         var bag_col_idx = p * 5 + (additional_fields);
         var cash_col_idx = p * 5 + (additional_fields + 1);
         var sup_col_idx = p * 5 + (additional_fields + 2);
         var team_col_idx = p * 5 + (additional_fields + 3);
-        var visiting_col_idx = p * 5 + (additional_fields + 3);
+        var visiting_col_idx = p * 5 + (additional_fields + 4);
 
         var bag_name = table.cell(row, bag_col_idx).data();
         var cash_name = table.cell(row, cash_col_idx).data();
@@ -428,12 +435,10 @@ $(document).ready(function() {
         var team_name = table.cell(row, team_col_idx).data();
         var visiting_name = table.cell(row, visiting_col_idx).data();
 
-        console.log(visiting_col_idx);
         $.ajax({
 
             url: "/churchcrm/PostRedirect.php",
             type: "POST",
-            // datatype: "text",
             data: {
                 post_name: "edit_local_master",
                 family_id: updatedRow.data().fam_id,

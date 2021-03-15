@@ -7,6 +7,12 @@ use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
 use ChurchCRM\Service\MailChimpService;
 
+
+use ChurchCRM\dto\PeopleCustomField;
+use ChurchCRM\FamilyCustomMasterQuery;
+use ChurchCRM\FamilyCustomQuery;
+
+
 //Set the page title
 $sPageTitle =  $family->getName() . " - " . gettext("Family");
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
@@ -102,33 +108,17 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             ?>
                     <a class="btn btn-app bg-maroon"
                         href="<?= SystemURLs::getRootPath() ?>/SelectDelete.php?FamilyID=<?=$family->getId()?>"><i
-                            class="fa fa-trash-o"></i><?= gettext('Delete this Family') ?></a>
+                            class="fa fa-trash-o"></i>Delete This Family</a>
                     <?php
                         }
                         if (AuthenticationManager::GetCurrentUser()->isNotesEnabled()) {
                             ?>
                     <a class="btn btn-app"
                         href="<?= SystemURLs::getRootPath() ?>/NoteEditor.php?FamilyID=<?= $family->getId()?>"><i
-                            class="fa fa-sticky-note"></i><?= gettext("Add a Note") ?></a>
+                            class="fa fa-sticky-note"></i>Add a Note</a>
                     <?php
                         } ?>
-                    <a class="btn btn-app" id="AddFamilyToCart" data-familyid="<?= $family->getId() ?>"> <i
-                            class="fa fa-cart-plus"></i> <?= gettext("Add All Family Members to Cart") ?></a>
-                    <?php if (AuthenticationManager::GetCurrentUser()->isCanvasserEnabled()) { ?>
-                    <a class="btn btn-app"
-                        href="<?= SystemURLs::getRootPath()?>/CanvassEditor.php?FamilyID=<?= $family->getId() ?>&FYID=<?= MakeFYString($_SESSION['idefaultFY']) ?>&amp;linkBack=v2/family/<?= $family->getId() ?>">
-                        <i
-                            class="fa fa-refresh"></i><?= MakeFYString($_SESSION['idefaultFY']) . gettext(" Canvass Entry") ?></a>
-                    <?php } ?>
-
-                    <?php if (AuthenticationManager::GetCurrentUser()->isFinanceEnabled()) { ?>
-                    <a class="btn btn-app"
-                        href="<?= SystemURLs::getRootPath()?>/PledgeEditor.php?FamilyID=<?= $family->getId() ?>&amp;linkBack=v2/family/<?= $family->getId() ?>&amp;PledgeOrPayment=Pledge">
-                        <i class="fa fa-check-circle-o"></i><?= gettext("Add a new pledge") ?></a>
-                    <a class="btn btn-app"
-                        href="<?= SystemURLs::getRootPath()?>/PledgeEditor.php?FamilyID=<?= $family->getId() ?>&amp;linkBack=v2/family/<?= $family->getId() ?>&amp;PledgeOrPayment=Payment">
-                        <i class="fa fa-money"></i><?= gettext("Add a new payment") ?></a>
-                    <?php } ?>
+                  
                 </div>
             </div>
         </div>
@@ -138,7 +128,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                 <div class="box box-primary">
                     <div class="box-header">
                         <i class="fa fa-id-badge"></i>
-                        <h3 class="box-title"><?= gettext("Metadata") ?></h3>
+                        <h3 class="box-title">Family Info</h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool edit-family"><i class="fa fa-edit"></i>
                             </button>
@@ -147,51 +137,47 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     <div class="box-body">
                         <ul class="fa-ul">
                             <?php if (!empty($family->getAddress())) { ?>
-                            <li> <i class="fa-li fa fa-map"></i><?= gettext("Address") ?>: <span> <a
-                                        href="http://maps.google.com/?q=<?= $family->getAddress() ?>"
+                            <li> <i class="fa-li fa fa-map"></i>Address: <span> 
+                            <a href="http://maps.google.com/?q=<?= $family->getAddress() ?>"
                                         target="_blank"><?= $family->getAddress() ?></a></span>
                             </li>
                             <?php
                             }
                             if (!empty($family->getHomePhone())) { ?>
-                            <li><i class="fa-li fa fa-phone"></i><?= gettext("Home Phone") ?>: <span><a
+                            <li><i class="fa-li fa fa-phone"></i>Home Phone: <span><a
                                         href="tel:<?= $family->getHomePhone() ?>"><?= $family->getHomePhone() ?></a></span>
                             </li>
                             <?php
                             }
                             if ($family->getWorkPhone() != "") {
                                 ?>
-                            <li><i class="fa-li fa fa-building"></i><?= gettext("Work Phone") ?>: <span><a
+                            <li><i class="fa-li fa fa-building"></i>Work Phone: <span><a
                                         href="tel:<?= $family->getWorkPhone() ?>"><?= $family->getWorkPhone() ?></a></span>
                             </li>
                             <?php
                             }
                             if ($family->getCellPhone() != "") {
                                 ?>
-                            <li><i class="fa-li fa fa-mobile"></i><?= gettext("Mobile Phone") ?>: <span><a
+                            <li><i class="fa-li fa fa-mobile"></i>Mobile Phone: <span><a
                                         href="tel:<?= $family->getCellPhone() ?>"><?= $family->getCellPhone() ?></a></span>
                             </li>
                             <?php
                             }
                             if ($family->getEmail() != "") {
                                 ?>
-                            <li><i class="fa-li fa fa-envelope"></i><?= gettext("Email") ?>:<a
+                            <li><i class="fa-li fa fa-envelope"></i>Email: <a
                                     href="mailto:<?= $family->getEmail() ?>">
                                     <span><?= $family->getEmail() ?></span></a></li>
                             <?php if ($mailchimp->isActive()) { ?>
-                            <li><i class="fa-li fa fa-send"></i><?= gettext("Mailchimp") ?>:
-                                <span id="<?= md5($family->getEmail())?>">... <?= gettext("loading")?> ...</span></a>
+                            <li><i class="fa-li fa fa-send"></i>Mailchimp:
+                                <span id="<?= md5($family->getEmail())?>">... Loading ...</span></a>
                             </li>
                             <?php }
                             }
                             
                             foreach ($familyCustom as $customField) {
                                 echo '<li><i class="fa-li ' . $customField->getIcon() . '"></i>'. $customField->getDisplayValue().': <span>';
-                                if ($customField->getLink()) {
-                                    echo "<a href=\"" . $customField->getLink() . "\">" . $customField->getFormattedValue() . "</a>";
-                                } else {
-                                    echo $customField->getFormattedValue();
-                                }
+                                echo getCustomListOptionField($customField->getDisplayValue(),$customField->getFormattedValue());
                                 echo '</span></li>';
                             }  
                             ?>

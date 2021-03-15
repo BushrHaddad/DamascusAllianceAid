@@ -21,8 +21,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <div class="pull-right">
     <a class="btn btn-success" role="button" href="<?= SystemURLs::getRootPath()?>/FamilyEditor.php">
-        <span class="fa fa-plus" aria-hidden="true"></span><?= gettext('Add Family') ?>
-    </a>
+        <span class="fa fa-plus" aria-hidden="true"></span> Add Family</a>
 </div>
 <p><br /><br /></p>
 
@@ -30,24 +29,14 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     <div class="box-body">
         <table id="example" class="table table-striped table-bordered data-table" cellspacing="0" width="100%">
             <thead>
-                <tr>
-                    <?php 
-                    foreach ($familyAttributes as $attribute) {
-                    /* @var $familyAttributes ChurchCRM\family.php */
-                ?>
-                    <th><?= gettext($attribute) ?></th>
-                    <?php
-                }
-                ?>
-                </tr>
+                <td>
+                    <?php foreach ($familyAttributes as $attribute) { ?>
+                <th><?= $attribute ?></th>
+                <?php } ?>
+                </td>
             </thead>
             <tbody>
-
-                <!--Populate the table with family details -->
-                <?php 
-            foreach ($families as $family) {
-              /* @var $family ChurchCRM\Family */
-    ?>
+                <?php foreach ($families as $family) { ?>
                 <tr>
                     <td><a href='<?= SystemURLs::getRootPath()?>/v2/family/<?= $family->getId() ?>'>
                             <span class="fa-stack">
@@ -70,7 +59,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <!-- todo: Select custom list for Ref -->
                     <!-- todo: Select custom list for Membership Status -->
                     <?php
-                    // New code Added
+                    
                     $allFamilyCustomFields = FamilyCustomMasterQuery::create()->find();
 
                   $rawQry =  FamilyCustomQuery::create();
@@ -87,7 +76,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         $value = $thisFamilyCustomFields->getVirtualColumn($customfield->getField());
             
                         if (!empty($value)) {
-
                             $item = new PeopleCustomField($customfield, $value);
                             ?>
                     <!-- Call the function responsible of showing corresponding values of indexes -->
@@ -118,19 +106,19 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
 
-    $('#example thead tr').clone(true).appendTo('#example thead');
-    $('#example thead tr:eq(1) th').each(function(i) {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Filter ' + title + '" />');
-        $('input', this).on('keyup change', function() {
-            if (table.column(i).search() !== this.value) {
-                table
-                    .column(i)
-                    .search(this.value)
-                    .draw();
-            }
-        });
-    });
+    // $('#example thead tr').clone(true).appendTo('#example thead');
+    // $('#example thead tr:eq(1) th').each(function(i) {
+    //     var title = $(this).text();
+    //     $(this).html('<input type="text" placeholder="Filter ' + title + '" />');
+    //     $('input', this).on('keyup change', function() {
+    //         if (table.column(i).search() !== this.value) {
+    //             table
+    //                 .column(i)
+    //                 .search(this.value)
+    //                 .draw();
+    //         }
+    //     });
+    // });
 
     var table = $('#example').DataTable({
         orderCellsTop: true,
@@ -140,7 +128,6 @@ $(document).ready(function() {
     });
 
 });
-
 </script>
 
 <?php
