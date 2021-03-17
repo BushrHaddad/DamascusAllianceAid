@@ -308,7 +308,7 @@ $(document).ready(function() {
                 "scrollX": true,
                 "scrollY": 400,
                 keys: true,
-                // paging:  false,
+                paging:  false,
                 //  dataType: 'json',  
                 // "type": "POST",
                 // 'processing': true,

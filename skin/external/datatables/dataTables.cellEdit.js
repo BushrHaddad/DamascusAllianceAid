@@ -87,9 +87,9 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
         cancelEditableCell: function (callingElement) {
             var table = $(callingElement.closest("table")).DataTable().table();
             var cell = table.cell($(callingElement).parents('td, th'));
+
             // Set cell to it's original value
             cell.data(cell.data());
-
             // Redraw table
             table.draw();
         }
@@ -107,9 +107,12 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
         })
         .on( 'key-focus', function ( e, datatable, cell ) {
             if(cell!=null){
+                var myCell = cell.node(); 
+                $(myCell).addClass('selected');
                 var currentColumnIndex = cell.index().column;
                 if ((settings.columns && settings.columns.indexOf(currentColumnIndex) > -1) || (!settings.columns)) {
-                    var myCell = cell.node(); 
+                    console.log(myCell);
+                    // myCell.addClass('')
                     var oldValue = cell.data();
                     oldValue = sanitizeCellValue(oldValue);
 
@@ -124,6 +127,11 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                 }
             }
          })
+         .on( 'key-blur', function ( e, datatable, cell ) {
+                $(cell.node()).removeClass('selected');
+                cell.data(cell.data());
+                table.draw();
+        } );
     }
 
     if (table != null) {
