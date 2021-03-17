@@ -1,0 +1,6 @@
+[16-Mar-2021 07:03:16 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\ChurchCRM\Service\AppIntegrityService.php on line 85
+[16-Mar-2021 07:03:17 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\vendor\monolog\monolog\src\Monolog\Handler\StreamHandler.php on line 67
+[16-Mar-2021 07:58:05 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\ChurchCRM\Service\AppIntegrityService.php on line 85
+[16-Mar-2021 09:32:18 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\ChurchCRM\Service\AppIntegrityService.php on line 85
+[16-Mar-2021 11:26:28 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\ChurchCRM\Service\AppIntegrityService.php on line 85
+[16-Mar-2021 11:26:28 UTC] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\vendor\composer\ClassLoader.php on line 416

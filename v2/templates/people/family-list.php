@@ -59,7 +59,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <!-- todo: Select custom list for Ref -->
                     <!-- todo: Select custom list for Membership Status -->
                     <?php
-                    
+
                     $allFamilyCustomFields = FamilyCustomMasterQuery::create()->find();
 
                   $rawQry =  FamilyCustomQuery::create();
@@ -124,7 +124,6 @@ $(document).ready(function() {
         orderCellsTop: true,
         // fixedHeader: true,
         "scrollX": true
-
     });
 
 });

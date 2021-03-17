@@ -910,7 +910,8 @@ function formCustomField($type, $fieldname, $data, $special, $bFirstPassFlag)
 // get an array to show the custom name for list options 
 function getCustomListOptionField($fieldname, $data)
 {
-    $sSQL = "SELECT family_custom_master.type_ID, family_custom_master.fam_custom_Special FROM family_custom_master where fam_custom_Name = '".$fieldname."'";
+    $sSQL = "SELECT family_custom_master.type_ID, family_custom_master.fam_custom_Special FROM 
+            family_custom_master where fam_custom_Name = '".$fieldname."'";
     $rsListOptions = RunQuery($sSQL);
 
     while ($aRow = mysqli_fetch_array($rsListOptions)) {

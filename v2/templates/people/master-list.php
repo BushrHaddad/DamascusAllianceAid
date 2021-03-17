@@ -118,27 +118,14 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <div class="box">
     <div class="box-body">
-        <table id="example" class="table table-striped table-bordered data-table" cellspacing="0" style="width:100%;"
-            data-page-length='100'>
+        <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
+            style="width:100%;">
             <thead>
                 <tr>
                     <th>Action</th>
                     <th>Id</th>
                     <th>Family ID</th>
-                    <?php
-                    // if($prev_month==1){
-                        $month_name = $all_months[$month_id]['name'];
-                        $year_name = $all_years[$year_id]['name'];
-                        ?>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Suppliments)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Visited)</th>
-                    <?php
-                    for($i=1;$i<$prev_month;$i++){
-                        // if $prev_month is only one 
-                        // one list and quit 
+                    <?php for($i=0; $i < $prev_month; $i++){
                         if ($month_id == 1) {
                             $month_id = 12;
                             $year_id = $year_id - 1;
@@ -146,7 +133,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                                 $year_id = 1;
                                 $month_id = 1;
                             }
-
                         } else {
                             $month_id = $month_id - 1;
                         }
@@ -159,13 +145,38 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <th><?= $month_name ?>-<?= $year_name ?> (Suppliments)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Visited)</th>
-                    <?php
-                    }
-                    ?>
+                    <?php } ?>
                 </tr>
             </thead>
             <tbody>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>Action</th>
+                    <th>Id</th>
+                    <th>Family ID</th>
+                    <?php for($i=0;$i<$prev_month;$i++){
+                        if ($month_id == 1) {
+                            $month_id = 12;
+                            $year_id = $year_id - 1;
+                            if ($year_id == 0) {
+                                $year_id = 1;
+                                $month_id = 1;
+                            }
+                        } else {
+                            $month_id = $month_id - 1;
+                        }
+                        $month_name = $all_months[$month_id]['name'];
+                        $year_name = $all_years[$year_id]['name'];
+                    ?>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Suppliments)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Visited)</th>
+                    <?php } ?>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
@@ -174,7 +185,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 $(document).ready(function() {
 
     var x = 0; // the number of months that should be back
-    var table; // our datatable
+    var table;
     var additional_fields = 3;
     var team_options, bag_options, sup_options, visiting_options, cash_options;
     var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
@@ -278,12 +289,14 @@ $(document).ready(function() {
 
             }
 
+
             table = $('#example').DataTable();
             destroyTable();
-            $('#example thead th').each(function() {
+            $('#example tfoot th').each(function() {
                 var title = $(this).text();
                 $(this).html('<input type="text" placeholder="' + title + '" />');
             });
+
 
             table = $('#example').DataTable({
 
@@ -293,6 +306,9 @@ $(document).ready(function() {
                 // responsive: true,
                 // orderCellsTop: true,
                 "scrollX": true,
+                "scrollY": 400,
+                keys: true,
+                // paging:  false,
                 //  dataType: 'json',  
                 // "type": "POST",
                 // 'processing': true,
@@ -300,7 +316,6 @@ $(document).ready(function() {
                 // 'serverMethod': 'post',
                 // "bLengthChange": true,
                 // "iDisplayLength": 10,
-                // "sDom": 'T<"clear">lfrtip',
                 'ajax': {
                     "type": "POST",
                     'url': '/churchcrm/PostRedirect.php',
@@ -312,11 +327,17 @@ $(document).ready(function() {
                     }
                 },
                 'columns': columns,
+                "dom": 'C<"clear">lfrtip',
+                "colVis": {
+                    "label": function(index, title, th) {
+                        return (index + 1) + '. ' + title;
+                    }
+                },
                 // apply the search
                 initComplete: function() {
                     this.api().columns().every(function() {
                         var that = this;
-                        $('input', this.header()).on('keyup change clear',
+                        $('input', this.footer()).on('keyup change clear',
                             function() {
                                 if (that.search() !== this.value) {
                                     that.search(this.value)
@@ -329,7 +350,6 @@ $(document).ready(function() {
                     });
                 }
             });
-
 
             var edits = [];
             var nums = [];
@@ -387,16 +407,6 @@ $(document).ready(function() {
         }
     });
 
-
-    $('a.toggle-vis').on('click', function(e) {
-        e.preventDefault();
-
-        // Get the column API object
-        var column = table.column($(this).attr('data-column'));
-
-        // Toggle the visibility
-        column.visible(!column.visible());
-    });
 
     $('#prev_month_button_id').click(function() {
         var p = Number($("#prev_month_count_id").val());
@@ -466,6 +476,7 @@ $(document).ready(function() {
             table.MakeCellsEditable("destroy");
         }
     }
+
 });
 </script>
 

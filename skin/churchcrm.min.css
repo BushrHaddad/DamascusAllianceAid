@@ -1495,6 +1495,12 @@ html, body {
     text-decoration: none;
 }
 
+table.dataTable td.focus {
+  outline: 1px solid #ac1212;
+  outline-offset: -3px;
+  background-color: #f8e6e6 !important;
+}
+
 .my-cancel-class {
     padding: 3px 6px;
     font-size: 12px;
