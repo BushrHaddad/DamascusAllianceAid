@@ -411,6 +411,8 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
                     destroy: true,
                     "bSort": false,
                     // responsive: true,
+                    keys: true,
+
                     data: json,
                     //  dataType: 'json',    
                     columns: [{

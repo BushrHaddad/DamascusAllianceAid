@@ -1915,3 +1915,81 @@
 [2021-03-17T11:55:31.347724+01:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051e02354e58"}
 [2021-03-17T11:55:31.348303+01:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210316-112703 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051e02354e58"}
 [2021-03-17T11:55:31.348421+01:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051e02354e58"}
+[2021-03-17T12:06:58.783918+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/master","remote_ip":"127.0.0.1","correlation_id":"6051e2d2bf638"}
+[2021-03-17T12:59:02.311306+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/master","remote_ip":"127.0.0.1","correlation_id":"6051ef064c017"}
+[2021-03-17T12:59:03.620814+01:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051ef07979d6"}
+[2021-03-17T12:59:03.621470+01:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210316-112703 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051ef07979d6"}
+[2021-03-17T12:59:03.621556+01:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051ef07979d6"}
+[2021-03-17T12:59:08.462623+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051ef0c70f2c"}
+[2021-03-17T12:59:10.310029+01:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051ef0e4bb26"}
+[2021-03-17T12:59:10.310753+01:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210316-112703 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051ef0e4bb26"}
+[2021-03-17T12:59:10.310880+01:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051ef0e4bb26"}
+[2021-03-17T13:02:15.111843+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efc71b4f0"}
+[2021-03-17T13:02:17.385381+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efc95e16f"}
+[2021-03-17T13:02:19.431981+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efcb69779"}
+[2021-03-17T13:02:21.348681+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efcd5521a"}
+[2021-03-17T13:02:23.098265+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efcf17feb"}
+[2021-03-17T13:02:24.769697+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efd0bbead"}
+[2021-03-17T13:02:26.230122+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efd2382f6"}
+[2021-03-17T13:02:27.878165+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efd3d6668"}
+[2021-03-17T13:02:30.221394+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efd6360e4"}
+[2021-03-17T13:02:32.072419+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efd811af2"}
+[2021-03-17T13:02:33.756507+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efd9b8b2a"}
+[2021-03-17T13:02:35.642789+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efdb9cef3"}
+[2021-03-17T13:02:37.748938+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efddb6d9f"}
+[2021-03-17T13:02:40.216942+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efe034f77"}
+[2021-03-17T13:02:42.528491+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efe281078"}
+[2021-03-17T13:02:44.915455+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efe4df810"}
+[2021-03-17T13:02:46.699575+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efe6aacc4"}
+[2021-03-17T13:02:49.278532+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efe94400e"}
+[2021-03-17T13:02:51.527944+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efeb80e5a"}
+[2021-03-17T13:02:54.426616+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051efee6828a"}
+[2021-03-17T13:02:57.069318+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051eff110ed3"}
+[2021-03-17T13:03:00.307957+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051eff44b306"}
+[2021-03-17T13:03:03.082581+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051eff7142b2"}
+[2021-03-17T13:03:05.977131+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051eff9ee8f5"}
+[2021-03-17T13:03:08.286996+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051effc46122"}
+[2021-03-17T13:03:13.438925+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f0016b29d"}
+[2021-03-17T13:03:15.613368+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f00395c08"}
+[2021-03-17T13:03:18.842706+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f006cdbde"}
+[2021-03-17T13:03:23.120323+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f00b1d612"}
+[2021-03-17T13:03:26.646630+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f00e9ddf3"}
+[2021-03-17T13:03:29.694434+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f011a98b2"}
+[2021-03-17T13:03:33.416798+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f01565c28"}
+[2021-03-17T13:03:36.607922+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f018946be"}
+[2021-03-17T13:03:46.366984+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f02259991"}
+[2021-03-17T13:03:51.495595+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f02778ffc"}
+[2021-03-17T13:04:01.769023+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f031bbc08"}
+[2021-03-17T13:04:03.435688+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f0336a5f5"}
+[2021-03-17T13:04:04.470230+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f03472ceb"}
+[2021-03-17T13:04:05.563195+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/master","remote_ip":"127.0.0.1","correlation_id":"6051f03589808"}
+[2021-03-17T13:04:06.441646+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/master","remote_ip":"127.0.0.1","correlation_id":"6051f0366bd36"}
+[2021-03-17T13:04:06.890756+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f036d9796"}
+[2021-03-17T13:04:18.108522+01:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f0421a807"}
+[2021-03-17T13:04:18.109769+01:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210316-112703 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f0421a807"}
+[2021-03-17T13:04:18.110057+01:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f0421a807"}
+[2021-03-17T13:04:33.606567+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f05194173"}
+[2021-03-17T13:04:35.810653+01:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f053c5ea9"}
+[2021-03-17T13:04:35.811228+01:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210316-112703 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f053c5ea9"}
+[2021-03-17T13:04:35.811338+01:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f053c5ea9"}
+[2021-03-17T13:05:14.152671+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07a25467"}
+[2021-03-17T13:05:14.822639+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07ac8d7b"}
+[2021-03-17T13:05:15.181545+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07b2c535"}
+[2021-03-17T13:05:15.488690+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07b774fb"}
+[2021-03-17T13:05:15.858863+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07bd1af7"}
+[2021-03-17T13:05:16.155817+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07c260b3"}
+[2021-03-17T13:05:16.472542+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07c735e5"}
+[2021-03-17T13:05:16.929601+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07ce2f4d"}
+[2021-03-17T13:05:17.427889+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07d68788"}
+[2021-03-17T13:05:17.932463+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07de3a8d"}
+[2021-03-17T13:05:18.436781+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07e6aa39"}
+[2021-03-17T13:05:18.855276+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07ed0cf8"}
+[2021-03-17T13:05:19.261199+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07f3fc5a"}
+[2021-03-17T13:05:19.733039+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f07fb2f7b"}
+[2021-03-17T13:05:22.071127+01:00] defaultLogger.INFO: Next upgrade step for 4.3.1 is : 4.3.2 [] {"url":"/churchcrm/v2/family/49","remote_ip":"127.0.0.1","correlation_id":"6051f082115e3"}
+[2021-03-17T13:05:23.408753+01:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f08363cc2"}
+[2021-03-17T13:05:23.409486+01:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210316-112703 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f08363cc2"}
+[2021-03-17T13:05:23.409605+01:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f08363cc2"}
+[2021-03-17T13:05:24.869755+01:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f084d4585"}
+[2021-03-17T13:05:24.870333+01:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210316-112703 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f084d4585"}
+[2021-03-17T13:05:24.870446+01:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"6051f084d4585"}
