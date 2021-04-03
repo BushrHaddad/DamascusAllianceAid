@@ -56,7 +56,7 @@ $(document).ready(function() {
                 // console.log(item);
                 // console.log(item.old_id);
                 // window.href = item;
-                var path_view = window.CRM.root+ '/v2/family/'+ item;
+                var path_view = window.CRM.root + '/v2/family/' + item;
                 var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
                     item + '';
                 return '<div> <a href=' + path_view +
@@ -154,9 +154,13 @@ $(document).ready(function() {
         "serverSide": true,
         // processing: true,
         // responsive: true,
-        "scrollY": 450,
-        keys: true,
-        "scrollX": true,
+        // deferRender: true,
+        deferRender:    true,
+        scrollY:        300,
+        scrollCollapse: true,
+        scroller:       true,
+        keys:           true,
+        scrollX:        true,
         "ajax": {
             type: "POST",
             url: '/churchcrm/PostRedirect.php',
@@ -166,10 +170,8 @@ $(document).ready(function() {
         },
         "columns": columns,
         "dom": 'C<"clear">lfrtip',
-        "colVis": {
-            "label": function(index, title, th) {
-                return (index + 1) + '. ' + title;
-            }
+        colVis: {
+            exclude: [0]
         },
         // apply the search
         initComplete: function() {

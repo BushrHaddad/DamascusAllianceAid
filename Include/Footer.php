@@ -112,6 +112,8 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 <script src="<?= SystemURLs::getRootPath() ?>/skin/js/Footer.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/dataTables.colVis.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/jquery.dataTables.js"></script>
+<script src="<?= SystemURLs::getRootPath() ?>/skin/dataTables.scroller.min.js"></script>
+
 
 
 <?php if (isset($sGlobalMessage)) {
