@@ -1,0 +1,5 @@
+[01-Apr-2021 18:00:30 Europe/Berlin] PHP Notice:  Undefined variable: _SESSION in C:\xampp\htdocs\churchcrm\ChurchCRM\Authentication\AuthenticationManager.php on line 23
+[01-Apr-2021 18:00:30 Europe/Berlin] PHP Warning:  key_exists() expects parameter 2 to be array, null given in C:\xampp\htdocs\churchcrm\ChurchCRM\Authentication\AuthenticationManager.php on line 23
+[01-Apr-2021 18:02:33 Europe/Berlin] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in C:\xampp\htdocs\churchcrm\ChurchCRM\Service\AppIntegrityService.php on line 85
+[01-Apr-2021 18:03:08 Europe/Berlin] PHP Notice:  Undefined variable: _SESSION in C:\xampp\htdocs\churchcrm\ChurchCRM\Authentication\AuthenticationManager.php on line 23
+[01-Apr-2021 18:03:08 Europe/Berlin] PHP Warning:  key_exists() expects parameter 2 to be array, null given in C:\xampp\htdocs\churchcrm\ChurchCRM\Authentication\AuthenticationManager.php on line 23
