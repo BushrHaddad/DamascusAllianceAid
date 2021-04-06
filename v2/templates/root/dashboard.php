@@ -19,14 +19,14 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <?= $dashboardCounts["families"] ?>
                 </h3>
                 <p>
-                    <?= gettext('Families');?>
+                Active Families
                 </p>
             </div>
             <div class="icon">
                 <i class="fa fa-users"></i>
             </div>
             <a href="<?= SystemURLs::getRootPath() ?>/v2/family" class="small-box-footer">
-                <?= gettext('See all Families') ?> <i class="fa fa-arrow-circle-right"></i>
+               See all Families <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
     </div><!-- ./col -->
@@ -59,7 +59,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     Master Table
                 </h3>
                 <p>
-                    فلترةالقوائم
+                    فلترة القوائم
                 </p>
             </div>
             <div class="icon">

@@ -1,0 +1,15 @@
+[04-Apr-2021 22:31:02 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(306): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[05-Apr-2021 15:09:28 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function insert_into_global(), 0 passed in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 529 and exactly 1 expected in C:\xampp\htdocs\churchcrm\PostRedirect.php:59
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(529): insert_into_global()
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 59
+[05-Apr-2021 15:10:02 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function insert_into_global(), 0 passed in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 529 and exactly 1 expected in C:\xampp\htdocs\churchcrm\PostRedirect.php:59
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(529): insert_into_global()
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 59

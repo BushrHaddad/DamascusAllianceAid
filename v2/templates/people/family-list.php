@@ -132,13 +132,7 @@ $(document).ready(function() {
             data: "no_money"
         },
         {
-            data: "chose"
-        },
-        {
-            data: "shared_housing"
-        },
-        {
-            data: "household_member_shared_housing"
+            data: "other_notes"
         }
     ];
     // var table;

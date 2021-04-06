@@ -113,8 +113,7 @@ function listFamilies(Request $request, Response $response, array $args)
                             'address1', 'address2', 'city', 'state', 'home_phone',
                             'aid_phone', 'mobile_phone','status', 'aid_note',
                             'general_note', "team_note", "ref", "membership_status",
-                            "members_num", "children", "no_money", "chose",
-                            "shared_housing", "household_member_shared_housing"],
+                            "members_num", "children", "Without Money", "Other Notes"],
     ];
 
   return $renderer->render($response, 'family-list.php', $pageArgs);

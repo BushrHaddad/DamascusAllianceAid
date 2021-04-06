@@ -70,6 +70,11 @@ function insert_into_global($criteria){
     while($row = mysqli_fetch_array($rsOpps))
     {
         $year_id = (int)$row[0];
+        if($year_id == 0){
+            continue;
+        }
+        echo "Hello world!";
+
         // get family
         $sSQL1 ="SELECT `fam_ID` FROM `family_fam` ;";
         if($criteria == "new_family"){
@@ -86,17 +91,17 @@ function insert_into_global($criteria){
                 $col_name="month_".$i;
                 $insert_query = $insert_query.", ".$col_name;
         
-                $query = "SELECT `id` from `master_family_master` where `month_id` = $i and `year_id` = $year_id and `family_id` = $fam_id";
-                $rsOpps2 = RunQuery($query);
+                // $query = "SELECT `id` from `master_family_master` where `month_id` = $i and `year_id` = $year_id and `family_id` = $fam_id";
+                // $rsOpps2 = RunQuery($query);
 
-                if(mysqli_num_rows($rsOpps2) > 0){
-                    while($row2 = mysqli_fetch_array($rsOpps2)){
-                        $result[$i] = $row2[0];
-                    }
-                }
-                else{
+                // if(mysqli_num_rows($rsOpps2) > 0){
+                //     while($row2 = mysqli_fetch_array($rsOpps2)){
+                //         $result[$i] = $row2[0];
+                //     }
+                // }
+                // else{
                     $result[$i] = -1;
-                }
+                // }
             }
             $insert_query = $insert_query.", year_id) VALUES ( $fam_id";
             for ($i=1;$i<=12;$i++){
@@ -155,25 +160,26 @@ function move_data($family_id, $month_id, $year_id, $name){
 
 function move_data_global(){
 
-    for($i=1; $i<=12; $i++){
-        echo $i;
-        echo "\n";
-        
-        if($i<=9){
-            $query = "SELECT `Number Person`, `2020-M&D-0$i`    from `2020 master table` ";
-        }
-        else{
-            $query = "SELECT `Number Person`, `2020-M&D-$i`     from `2020 master table` ";
-        }
+    for($i=1; $i<=3; $i++){
+        // if($i<=9){
+        //     $query = "SELECT `Number Person`, `2020-M&D-0$i`    from `2020 master table` ";
+        // }
+        // else{
+        //     $query = "SELECT `Number Person`, `2020-M&D-$i`     from `2020 master table` ";
+        // }
+
+        $query = "SELECT `Number Person`, `2020-team-0$i` from `p1_2020_master` ";
+
         $rsOpps = RunQuery($query);
         while($row = mysqli_fetch_array($rsOpps))
         {
-            $id = $row[0];
-            $name = $row[1];
-            if($name!=NULL){
-                if($name == 1){
-                    move_data($id, $i, 5, 1);
-                }
+            $id = $row[0]; // id 
+            $name = $row[1]; //  value
+            if($name!=NULL){ // if there is a value here 
+                // if($name == 1){
+                    // fam_id, $month_id, $year_id, $value 
+                    move_data($id, $i, 6, $name);
+                // }
                 // if($name == 15000){
                 //     move_data($id, $i, 5, 4);
                 // }
@@ -332,9 +338,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     "main_id" => $row['main_id'],
                     "partner_id" => $row['partner_id'],
                     "no_money" => $row['no_money'],
-                    "chose" => $row['chose'],
-                    "shared_housing" => $row['shared_housing'],
-                    "household_member_shared_housing" => $row['household_member_shared_housing'],
+                    "other_notes" => $row['other_notes']
                 );
             }
             
@@ -522,6 +526,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         case "new_comp": // add New Component (New Year, Cash, Bag, or Visiting Team)
             // move_data_global(); 
+            insert_into_global("");
+            
+            exit;
+
             $table = $_POST['table']; // desired table
             $name = $_POST['name']; // name
             $desc = $_POST['desc']; // description for this new input

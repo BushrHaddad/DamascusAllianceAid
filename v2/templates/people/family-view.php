@@ -144,8 +144,8 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             <?php
                             }
                             if (!empty($family->getHomePhone())) { ?>
-                            <li><i class="fa-li fa fa-phone"></i>Home Phone: <span><a
-                                        href="tel:Home phone">Home phone</a></span>
+                            <li><i class="fa-li fa fa-building"></i>ِAid Phone: <span><a
+                                        href="tel:Home phone"><?= $family->getHomePhone()?></a></span>
                             </li>
                             <?php
                             }
@@ -154,14 +154,14 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                                 
                                 ?>
 
-                            <li><i class="fa-li fa fa-building"></i>Work Phone: <span><a
+                            <li><i class="fa-li fa fa-mobile"></i>Mobile Phone: <span><a
                                         href="tel:<?= $family->getWorkPhone() ?>"><?= $family->getWorkPhone() ?></a></span>
                             </li>
                             <?php
                             }
                             if (!empty($family->getCellPhone())) {
                                 ?>
-                            <li><i class="fa-li fa fa-mobile"></i>Mobile Phone: <span><a
+                            <li><i class="fa-li fa fa-phone"></i>Home Phone: <span><a
                                         href="tel:<?= $family->getCellPhone() ?>"><?= $family->getCellPhone() ?></a></span>
                             </li>
                             <?php
