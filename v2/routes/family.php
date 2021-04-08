@@ -109,11 +109,11 @@ function listFamilies(Request $request, Response $response, array $args)
   $pageArgs = [
     'sMode' => $sMode,
     'sRootPath' => SystemURLs::getRootPath(),
-    'familyAttributes' => ['Action','id','old_id','main_name', 'main_id', 'partner_name', 'partner_id',
-                            'address1', 'address2', 'city', 'state', 'home_phone',
-                            'aid_phone', 'mobile_phone','status', 'aid_note',
-                            'general_note', "team_note", "ref", "membership_status",
-                            "members_num", "children", "Without Money", "Other Notes"],
+    'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id',
+                            'Address', 'Address2', 'Region', 'State', 'Home Phone',
+                            'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
+                            'General Note', "Team Note", "Ref", "Membership status",
+                            "Members Number", "Children", "Without Money", "Other Notes"],
     ];
 
   return $renderer->render($response, 'family-list.php', $pageArgs);

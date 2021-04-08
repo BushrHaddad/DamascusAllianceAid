@@ -1,0 +1,26 @@
+[06-Apr-2021 12:29:24 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(312): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[06-Apr-2021 12:30:00 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(312): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[06-Apr-2021 12:30:07 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(312): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[06-Apr-2021 21:33:09 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(172): RunQuery('SELECT `Number ...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(528): move_data_global()
+#2 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[06-Apr-2021 21:59:28 UTC] PHP Fatal error:  Uncaught Error: Function name must be a string in C:\xampp\htdocs\churchcrm\PostRedirect.php:177
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(532): move_data_global()
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 177

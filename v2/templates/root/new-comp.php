@@ -103,10 +103,10 @@ while($row = mysqli_fetch_array($rsOpps))
                 <tr>
                     <form method="post"  action="<?= SystemURLs::getRootPath()?>/PostRedirect.php">
                         <td><input type="submit" class="btn btn-primary" value="Add New"></td>
-                        <td><textarea name="name" rows='1' cols="30%"></textarea></td>
+                        <td><textarea name="name" rows='1' cols="30%" value=" "></textarea></td>
                         <input type="hidden" name="post_name" value="new_comp"></input>
                         <input type="hidden" name="table" value=<?= $table ?>></input>
-                        <td><textarea name="desc" rows='1' cols="30%"></textarea></td>
+                        <td><textarea name="desc" rows='1' cols="30%" value=" "></textarea></td>
                     </form>
                 </tr>
             </tbody>

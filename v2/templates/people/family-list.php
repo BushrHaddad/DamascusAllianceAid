@@ -72,6 +72,9 @@ $(document).ready(function() {
             data: "old_id"
         },
         {
+            data: "p"
+        },
+        {
             data: "main_name"
         },
         {

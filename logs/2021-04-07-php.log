@@ -1,0 +1,17 @@
+[06-Apr-2021 22:03:54 UTC] PHP Fatal error:  Uncaught Error: Function name must be a string in C:\xampp\htdocs\churchcrm\PostRedirect.php:177
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(532): move_data_global()
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 177
+[06-Apr-2021 22:06:34 UTC] PHP Fatal error:  Uncaught Error: Function name must be a string in C:\xampp\htdocs\churchcrm\PostRedirect.php:177
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(532): move_data_global()
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\PostRedirect.php on line 177
+[07-Apr-2021 19:51:00 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(121): RunQuery('SELECT month_1 ...')
+#1 C:\xampp\htdocs\churchcrm\PostRedirect.php(185): move_data(NULL, 1, 5, 1744)
+#2 C:\xampp\htdocs\churchcrm\PostRedirect.php(536): move_data_global()
+#3 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193

@@ -73,7 +73,6 @@ function insert_into_global($criteria){
         if($year_id == 0){
             continue;
         }
-        echo "Hello world!";
 
         // get family
         $sSQL1 ="SELECT `fam_ID` FROM `family_fam` ;";
@@ -124,7 +123,7 @@ function move_data($family_id, $month_id, $year_id, $name){
     // if this month is found for this family
     if($found != -1){
         $sSQL = "UPDATE `master_family_master` SET 
-                    sup_id     =   $name
+                    cash_id             =   $name
                     WHERE   year_id     = $year_id  AND 
                             month_id    = $month_id AND
                             family_id   = $family_id ;";
@@ -137,7 +136,7 @@ function move_data($family_id, $month_id, $year_id, $name){
     else{ 
         
         $sSQL = "INSERT INTO `master_family_master` ( year_id, month_id,
-                                                    sup_id, family_id )
+                                                    cash_id, family_id )
                 VALUES ($year_id, $month_id, $name, $family_id);";
 
         RunQuery($sSQL);
@@ -149,7 +148,7 @@ function move_data($family_id, $month_id, $year_id, $name){
         // how to get the id of the new inserted row in master_family_master
         $q = "UPDATE `master_global` SET 
                 month_$month_id      =  $mfm
-                WHERE   year_id       =  $year_id  AND 
+                WHERE   year_id      =  $year_id  AND 
                         fam_id       =  $family_id ;";
                         
         RunQuery($q);
@@ -158,40 +157,54 @@ function move_data($family_id, $month_id, $year_id, $name){
 
 }
 
+
 function move_data_global(){
 
-    for($i=1; $i<=3; $i++){
-        // if($i<=9){
-        //     $query = "SELECT `Number Person`, `2020-M&D-0$i`    from `2020 master table` ";
-        // }
-        // else{
-        //     $query = "SELECT `Number Person`, `2020-M&D-$i`     from `2020 master table` ";
-        // }
-
-        $query = "SELECT `Number Person`, `2020-team-0$i` from `p1_2020_master` ";
+    for($i=1; $i<=12; $i++){
+        echo $i;
+        if($i<=9){
+            $query = "SELECT `ID Name`, `kash2014-0$i` from `p2_1` ";
+        }
+        else{
+            $query = "SELECT `ID Name`,  `kash2014-$i` from `p2_1` ";    
+        }
+        // $query = "SELECT `ID Name`,  `kash2014-$i` from `p2_1` ";    
 
         $rsOpps = RunQuery($query);
         while($row = mysqli_fetch_array($rsOpps))
         {
-            $id = $row[0]; // id 
+            $old_id = (int) $row[0]; // Old Id
+            $dd = "SELECT `fam_ID` from `family_fam` Where `old_id` = $old_id AND `imported_p` = 2 ";
+            $run = RunQuery($dd);
+            $xax = mysqli_fetch_array($run);
+            $id = $xax[0]; // fam_ID
             $name = $row[1]; //  value
-            if($name!=NULL){ // if there is a value here 
+            if($name!=NULL && $id!= NULL){ // if there is a value here 
                 // if($name == 1){
                     // fam_id, $month_id, $year_id, $value 
-                    move_data($id, $i, 6, $name);
+                    // $value = (int)$name + 42;
+                    // move_data($id, $i, 4, $value);
+                    // move_data($id, $i, 1, 1);
                 // }
-                // if($name == 15000){
-                //     move_data($id, $i, 5, 4);
-                // }
-                // elseif($name == 10000){
-                //     move_data($id, $i, 5, 3);
-                // }
-                // elseif($name == 8000){
-                //     move_data($id, $i, 5, 2);
-                // }   
-                // elseif($name == 5000){
-                //     move_data($id, $i, 5, 1);
-                // }
+                if($name == 20000){
+                    move_data($id, $i, 1, 5);
+                }
+                elseif($name == 15000){
+                    move_data($id, $i, 1, 4);
+                }
+                elseif($name == 10000){
+                    move_data($id, $i, 1, 3);
+                }
+                elseif($name == 8000){
+                    move_data($id, $i, 1, 2);
+                }   
+                elseif($name == 5000){
+                    move_data($id, $i, 1, 1);
+                }
+                else{
+                    echo " Cash: ";
+                    echo $name;
+                }
             }
         }
     }
@@ -525,10 +538,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
         case "new_comp": // add New Component (New Year, Cash, Bag, or Visiting Team)
-            // move_data_global(); 
-            insert_into_global("");
-            
-            exit;
+            // move_data_global();
 
             $table = $_POST['table']; // desired table
             $name = $_POST['name']; // name
@@ -536,11 +546,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             
             $sSQL = "INSERT INTO $table (`name`, `description`)
                 VALUES ( '$name', '$desc' );";
-
+   
             RunQuery($sSQL);
             if($table == "master_dates_year") // if this new component is year
             {
-            // insert_into_global("new_year");  // insert into master_global this year for all users
+                insert_into_global("new_year");  // insert into master_global this year for all users
             }
             header('Location: /churchcrm/v2/newcomponent'); // redirect to churchcrm/v2/newcomponent
             exit();
