@@ -8,13 +8,11 @@
     fam_WorkPhone='(456) 745-6756 x76767',fam_CellPhone='(345) 678-9345',fam_Email='',fam_WeddingDate=NULL,
     fam_Envelope='0',fam_DateLastEdited='20210303234156',fam_EditedBy = 1,fam_SendNewsLetter = 'FALSE',
     fam_OkToCanvass = 'TRUE', fam_Canvasser = '0' WHERE fam_ID = 7
-
     REPLACE INTO family_custom SET c9 = 'Main-Name', c11 = 'Main National Id', c10 = 'Partner Name',
     c12 = 'Partner Id', c2 = 'Additional Info', c1 = 'Address Additional Info', c3 = 'Team Info', c4 = '1',
     c7 = 'Children', c6 = '9', c8 = 'Poverty Rate hjhkhkhk', c5 = '1', fam_ID = 7
 ***************************************************************************
     // Insert New
-
     INSERT INTO family_fam ( fam_Name, fam_Address1, fam_Address2, fam_City, fam_State, fam_Zip, fam_Country,
     fam_HomePhone, fam_WorkPhone, fam_CellPhone, fam_Email, fam_WeddingDate, fam_DateEntered, fam_EnteredBy,
     fam_SendNewsLetter, fam_OkToCanvass, fam_Canvasser, fam_Latitude, fam_Longitude, fam_Envelope) 
@@ -22,13 +20,10 @@
       
     REPLACE INTO family_custom SET c9 = 'test', c11 = 'test', c10 = 'test', c12 = 'test', c2 = 'test', c1 = 'test',
      c3 = 'test', c4 = '1', c7 = 'test', c6 = '7', c8 = 'test', c5 = NULL, fam_ID = 52
-
     // Get the master view table
     // for month_id, year_id
     // for all user 
-
     
-
 ******************************************************************/
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
@@ -254,7 +249,7 @@ $(document).ready(function() {
             post_name: "get_vars",
         },
         success: function(response) {
-
+            console.log('hello world');
             getVarsCallBack(response);
 
             var columns = [{
@@ -338,12 +333,35 @@ $(document).ready(function() {
                     }
                 },
                 'columns': columns,
-                "dom": 'C<"clear">lfrtip',
-                "colVis": {
-                    "label": function(index, title, th) {
-                        return (index + 1) + '. ' + title;
-                    }
+                dom: 'Bfrtip',
+        buttons: [{
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [0, ':visible']
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
                 },
+                orientation: 'landscape'
+            },
+            'colvis'
+        ],
+       
                 // apply the search
                 initComplete: function() {
                     this.api().columns().every(function() {

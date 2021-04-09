@@ -11,7 +11,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <!-- Small boxes (Stat box) -->
 <div class="row">
-    <div class="col-lg-3 col-xs-4">
+    <div class="col-lg-3">
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
@@ -19,18 +19,18 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <?= $dashboardCounts["families"] ?>
                 </h3>
                 <p>
-                Active Families
+                    Active Families
                 </p>
             </div>
             <div class="icon">
                 <i class="fa fa-users"></i>
             </div>
             <a href="<?= SystemURLs::getRootPath() ?>/v2/family" class="small-box-footer">
-               See all Families <i class="fa fa-arrow-circle-right"></i>
+                See all Families <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
     </div><!-- ./col -->
-    <div class="col-lg-3 col-xs-4">
+    <div class="col-lg-3">
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
@@ -50,9 +50,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         </div>
     </div><!-- ./col -->
 
-
     <!-- Global Master Table -->
-    <div class="col-lg-5 col-xs-4">
+    <div class="col-lg-5">
         <div class="small-box bg-yellow">
             <div class="inner">
                 <h3>
@@ -75,27 +74,29 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 </div><!-- /.row -->
 
 <div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Reports</h3>
+    </div>
     <div class="box-body">
         <div class="row">
-            <div class="col-md-6">
-                <div class="box box-solid">
-                    <h3 class="box-header">
-                        <h4><?= gettext("Today's Birthdays") ?></h4>
-                    </h3>
-                    <div class="box-body">
-                        <table class="table table-striped" width="100%" id="PersonBirthdayDashboardItem"></table>
+            <div class="col-lg-4">
+                <div class="small-box bg-teal">
+                    <div class="inner">
+                        <h4> Cash Reports </h4>
                     </div>
+                    <a href="<?= SystemURLs::getRootPath() ?>/v2/family" class="small-box-footer">
+                        Generate Cash Reports <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="box box-solid">
-                    <h3 class="box-header">
-                        <h4><?= gettext("Today's Wedding Anniversaries",) ?></h4>
-                    </h3>
-                    <div class="box-body">
-                        <table class="table table-striped" width="100%" id="FamiliesWithAnniversariesDashboardItem">
-                        </table>
+            <div class="col-lg-5">
+                <div class="small-box bg-maroon">
+                    <div class="inner">
+                        <h4> Teams Reports </h4>
                     </div>
+                    <a href="<?= SystemURLs::getRootPath() ?>/v2/family" class="small-box-footer">
+                        Generate Teams Reports <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div>
             </div>
             <div class="col-md-6">

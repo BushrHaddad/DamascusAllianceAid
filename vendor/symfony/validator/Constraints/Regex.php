@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Exception\InvalidArgumentException;
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Regex extends Constraint
 {
-    const REGEX_FAILED_ERROR = 'de1e3db3-5ed4-4941-aae4-59f3667cc3a3';
+    public const REGEX_FAILED_ERROR = 'de1e3db3-5ed4-4941-aae4-59f3667cc3a3';
 
     protected static $errorNames = [
         self::REGEX_FAILED_ERROR => 'REGEX_FAILED_ERROR',
@@ -38,7 +38,7 @@ class Regex extends Constraint
     /**
      * {@inheritdoc}
      *
-     * @param string|array $pattern The pattern to evaluate or an array of options.
+     * @param string|array $pattern The pattern to evaluate or an array of options
      */
     public function __construct(
         $pattern,

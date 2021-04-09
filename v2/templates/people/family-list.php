@@ -15,6 +15,8 @@ $sPageTitle =ucfirst($sMode). ' ' . 'Family List';
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 /* @var $families ObjectCollection */
 ?>
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
 
 <div class="pull-right">
     <a class="btn btn-success" role="button" href="<?= SystemURLs::getRootPath()?>/FamilyEditor.php">
@@ -138,9 +140,7 @@ $(document).ready(function() {
             data: "other_notes"
         }
     ];
-    // var table;
-    // table = $('#example').DataTable();
-    // destroyTable();
+
     $('#example tfoot th').each(function() {
         var title = $(this).text();
         $(this).html('<input type="text" placeholder="' + title + '" />');
@@ -152,12 +152,12 @@ $(document).ready(function() {
         // processing: true,
         // responsive: true,
         // deferRender: true,
-        deferRender:    true,
-        scrollY:        300,
+        deferRender: true,
+        scrollY: 300,
         scrollCollapse: true,
-        scroller:       true,
-        keys:           true,
-        scrollX:        true,
+        scroller: true,
+        keys: true,
+        scrollX: true,
         "ajax": {
             type: "POST",
             url: '/churchcrm/PostRedirect.php',
@@ -165,11 +165,36 @@ $(document).ready(function() {
                 d.post_name = "all_families"
             }
         },
+        // "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [0, ':visible']
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                orientation: 'landscape'
+            },
+            'colvis'
+        ],
         "columns": columns,
-        "dom": 'C<"clear">lfrtip',
-        colVis: {
-            exclude: [0]
-        },
         // apply the search
         initComplete: function() {
             this.api().columns().every(function() {

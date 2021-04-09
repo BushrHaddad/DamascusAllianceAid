@@ -72,6 +72,11 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 </div><!-- ./wrapper -->
 
 <!-- Bootstrap 3.3.5 -->
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+ <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
+
 
 
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/bootstrap/bootstrap.min.js"></script>
@@ -87,8 +92,8 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/pdfmake.min.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/vfs_fonts.js"></script>
-<script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/datatables.min.js"></script>
-
+<!-- Here is a script the conflict with pdf make and other confiqurations above -->
+<!--  /skin/external/datatables/datatables.min.js-->
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/dataTables.cellEdit.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/dataTables.keyTable.min.js"></script>
 
