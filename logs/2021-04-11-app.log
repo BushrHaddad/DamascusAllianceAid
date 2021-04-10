@@ -1,0 +1,3 @@
+[2021-04-11T00:04:06.591377+02:00] defaultLogger.INFO: Starting background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"607220d69061b"}
+[2021-04-11T00:04:06.591975+02:00] defaultLogger.INFO: Not starting application integrity check.  Last application integrity check run: 20210408-213734 [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"607220d69061b"}
+[2021-04-11T00:04:06.592103+02:00] defaultLogger.INFO: Finished background job processing [] {"url":"/churchcrm/api/background/timerjobs","remote_ip":"127.0.0.1","correlation_id":"607220d69061b"}

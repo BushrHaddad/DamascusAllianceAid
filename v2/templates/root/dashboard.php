@@ -37,15 +37,12 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 <h3 id="peopleStatsDashboard">
                     <?= $dashboardCounts["People"] ?>
                 </h3>
-                <p>
-                    <?= gettext('People') ?>
-                </p>
+                <p>People</p>
             </div>
             <div class="icon">
                 <i class="fa fa-user"></i>
             </div>
-            <a href="<?= SystemURLs::getRootPath() ?>/v2/people" class="small-box-footer">
-                <?= gettext('See All People') ?> <i class="fa fa-arrow-circle-right"></i>
+            <a href="<?= SystemURLs::getRootPath() ?>/v2/people" class="small-box-footer">See All People <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
     </div><!-- ./col -->
@@ -64,8 +61,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             <div class="icon">
                 <i class="fa fa-gg"></i>
             </div>
-            <a href="<?= SystemURLs::getRootPath() ?>/v2/family/master" class="small-box-footer">
-                <?= gettext('More info') ?> <i class="fa fa-arrow-circle-right"></i>
+            <a href="<?= SystemURLs::getRootPath() ?>/v2/family/master" class="small-box-footer">More Info <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
@@ -79,25 +75,76 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     </div>
     <div class="box-body">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <div class="small-box bg-teal">
                     <div class="inner">
                         <h4> Cash Reports </h4>
+                        <div>
+                            <label>Choose a Year:</label>
+                            <select id="cash_year_option" >
+                            <?php foreach($report_years as $year){ ?>
+                            <option value='<?= $year['name'] ?>'><?= $year['name'] ?></option>
+                            <?php } ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Choose a Month:</label>
+                            <select id="cash_month_option" >
+                            <?php foreach($report_months as $month){ ?>
+                          
+                            <option value='<?= $month['name'] ?>' ><?= $month['name'] ?></option>
+                          
+                            <?php } ?>
+                            </select>
+                        </div>
+                       
                     </div>
-                    <a href="<?= SystemURLs::getRootPath() ?>/v2/family" class="small-box-footer">
-                        Generate Cash Reports <i class="fa fa-arrow-circle-right"></i>
-                    </a>
+                    <a id= "cash_reports_link" href="" class="small-box-footer">
+                    Generate Cash Report  <i class="fa fa-arrow-circle-right"></i>
+            </a>
                 </div>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="small-box bg-maroon">
                     <div class="inner">
                         <h4> Teams Reports </h4>
+                        <div>
+                            <label>Choose a Year:</label>
+                            <select id="team_year_option" >
+                            <?php
+                            foreach($report_years as $year){
+                            ?>
+                            <option value= '<?= $year['name'] ?>' ><?= $year['name'] ?></option>
+                            <?php
+                            }
+                            ?>
+                            </select>
+                            <label>Choose a Month:</label>
+                            <select id="team_month_option" >
+                            <?php
+                            foreach($report_months as $month){
+                            ?>
+                            <option value= '<?= $month['name'] ?>' ><?= $month['name'] ?></option>
+                            <?php
+                            }
+                            ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Choose a Team:</label>
+                            <select id="team_team_option" >
+                            <?php
+                            foreach($report_teams as $team){
+                            ?>
+                            <option value= '<?= $team['name'] ?>' ><?= $team['name'] ?></option>
+                            <?php
+                            }
+                            ?>
+                            </select>
+                        </div>
                     </div>
-                    <a href="<?= SystemURLs::getRootPath() ?>/v2/family" class="small-box-footer">
-                        Generate Teams Reports <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
+                    <a id= "team_reports_link" href="" class="small-box-footer">
+                    Generate Team Report  <i class="fa fa-arrow-circle-right"></i>                </div>
             </div>
             <div class="col-md-6">
             </div>
@@ -105,32 +152,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     </div>
 </div>
 
-<?php
-if ($depositEnabled) { // If the user has Finance permissions, then let's display the deposit line chart
-    ?>
-<div class="row" id="depositChartRow">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="box box-info">
-            <div class="box-header">
-                <i class="fa fa-money"></i>
-                <h3 class="box-title"><?= gettext('Deposit Tracking') ?></h3>
-                <div class="box-tools pull-right">
-                    <div id="deposit-graph" class="chart-legend"></div>
-                </div>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                <canvas id="deposit-lineGraph" style="height:125px; width:100%"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-<?php
-}  //END IF block for Finance permissions to include HTML for Deposit Chart
-?>
-
 <div class="box">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= gettext('People') ?></h3>
+        <h3 class="box-title">People</h3>
         <div class="pull-right">
             <div class="btn-group">
                 <a href="<?= SystemURLs::getRootPath() ?>/PersonEditor.php">
@@ -181,5 +205,52 @@ if ($depositEnabled) { // If the user has Finance permissions, then let's displa
 </div>
 
 <script src="<?= SystemURLs::getRootPath() ?>/skin/js/MainDashboard.js"></script>
+<script nonce="<?= SystemURLs::getCSPNonce() ?>">
+$(document).ready(function() {
+
+    var cash_month = $("#cash_month_option").val();
+    var cash_year = $("#cash_year_option").val();
+    var team_month = $("#team_month_option").val();
+    var team_year = $("#team_year_option").val();
+    var team_team =  $("#team_team_option").val();
+    change_link();
+
+    // Cash Reports
+    $('#cash_month_option').change(function() {
+        cash_month = $("#cash_month_option").val();
+        change_link();
+    });
+    $('#cash_year_option').change(function() {
+        cash_year = $("#cash_year_option").val();
+        change_link();
+    });
+
+    // Team Reports
+    $('#team_month_option').change(function() {
+        team_month = $("#team_month_option").val();
+        change_link();
+    });
+    $('#team_year_option').change(function() {
+        team_year = $("#team_year_option").val();
+        change_link();
+    });
+    $('#team_team_option').change(function() {
+        team_team = $("#team_team_option").val();
+        change_link();
+    });
+
+    function change_link(){
+        
+        var link = document.getElementById("cash_reports_link");
+        link.href = window.CRM.root+"/v2/reports/cash_report?month=" + cash_month + "&year="+cash_year;
+        var link1 = document.getElementById("team_reports_link");
+        link1.href = window.CRM.root+"/v2/reports/team_report?month=" + team_month + "&year="+team_year+ "&team="+team_team;
+
+    }
+
+
+
+});
+</script>
 
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>

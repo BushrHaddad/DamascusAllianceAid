@@ -8,6 +8,7 @@ use ChurchCRM\dto\SystemURLs;
 <link rel="stylesheet" href="<?= SystemURLs::getRootPath() ?>/skin/dataTables.colVis.css">
 <link rel="stylesheet" href="<?= SystemURLs::getRootPath() ?>/skin/jquery.dataTables.css">
 <link rel="stylesheet" href="<?= SystemURLs::getRootPath() ?>/skin/scroller.dataTables.min.css">
+<link rel="stylesheet" href="<?= SystemURLs::getRootPath() ?>/skin/fixedColumns.dataTables.min.css">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css"

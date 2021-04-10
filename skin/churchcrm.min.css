@@ -20,6 +20,8 @@
 @import 'external/fullcalendar/fullcalendar.print.css' print;
 @import url(external/react-datepicker/react-datepicker.min.css);
 @import url(external/flag-icon-css/css/flag-icon.css);
+
+
 @media (max-width: 767px) {
   .skin-blue .main-header .navbar .dropdown-menu li a {
     color: #000000; } }

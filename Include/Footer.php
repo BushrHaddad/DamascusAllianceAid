@@ -92,6 +92,7 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/pdfmake.min.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/vfs_fonts.js"></script>
+<script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/dataTables.fixedColumns.min.js"></script>
 <!-- Here is a script the conflict with pdf make and other confiqurations above -->
 <!--  /skin/external/datatables/datatables.min.js-->
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/dataTables.cellEdit.js"></script>

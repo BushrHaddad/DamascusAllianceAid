@@ -25,8 +25,8 @@ $app->group('/family', function () {
 });
 
 
-function _get($table){
- 
+function _get($table){ 
+
     $sSQL = "SELECT  `id`, `name` FROM $table ";
     $rsOpps = RunQuery($sSQL);
 
@@ -36,9 +36,7 @@ function _get($table){
         $row1 = array('id' => $row[0], 'name' => $row[1]);
         $data[] = $row1;
     }
-    
-    return $data;
-    
+    return $data;  
 }
 
 function getGlobalMaster(Request $request, Response $response, array $args){
