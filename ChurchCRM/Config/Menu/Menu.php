@@ -61,13 +61,15 @@ class Menu
         $peopleMenu = new MenuItem("People", "", true, 'fa-users');
         $peopleMenu->addSubMenu(new MenuItem("Dashboard", "PeopleDashboard.php"));
         $peopleMenu->addSubMenu(new MenuItem("Master Table", "v2/family/master"));
+        $peopleMenu->addSubMenu(new MenuItem("View All Families", "v2/family"));
+        $peopleMenu->addSubMenu(new MenuItem("View Active Families", "v2/family?mode=active"));
+        $peopleMenu->addSubMenu(new MenuItem("View Inactive Families", "v2/family?mode=inactive"));
+        $peopleMenu->addSubMenu(new MenuItem("Add New Family", "FamilyEditor.php", AuthenticationManager::GetCurrentUser()->isAddRecordsEnabled()));
+
         $peopleMenu->addSubMenu(new MenuItem("Add New Person", "PersonEditor.php", AuthenticationManager::GetCurrentUser()->isAddRecordsEnabled()));
         $peopleMenu->addSubMenu(new MenuItem("View Active People", "v2/people"));
         $peopleMenu->addSubMenu(new MenuItem("View Inactive People", "v2/people?familyActiveStatus=inactive"));
         $peopleMenu->addSubMenu(new MenuItem("View All People", "v2/people?familyActiveStatus=all"));
-        $peopleMenu->addSubMenu(new MenuItem("Add New Family", "FamilyEditor.php", AuthenticationManager::GetCurrentUser()->isAddRecordsEnabled()));
-        $peopleMenu->addSubMenu(new MenuItem("View Active Families", "v2/family"));
-        $peopleMenu->addSubMenu(new MenuItem("View Inactive Families", "v2/family?mode=inactive"));
         $adminMenu = new MenuItem("Admin", "", AuthenticationManager::GetCurrentUser()->isAdmin());
         $adminMenu->addSubMenu(new MenuItem("Add New Component", "v2/newcomponent", AuthenticationManager::GetCurrentUser()->isAdmin()));
         $adminMenu->addSubMenu(new MenuItem("Classifications Manager", "OptionManager.php?mode=classes", AuthenticationManager::GetCurrentUser()->isAdmin()));

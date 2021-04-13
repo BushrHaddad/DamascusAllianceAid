@@ -1,1 +1,0 @@
-The above example shows you how to create `GeoChart` using built-in Google Charts. GeoChart like any KoolReport's widget supports dataSource from DataStore, Process, DataSource or even from array.

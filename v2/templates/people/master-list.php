@@ -59,7 +59,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         <div class="col-lg-5">
             <div class="form-group">
                 <label>Choose a Year:</label>
-                <select id="year_option_id" class="form-control" name="year_id" onchange="this.form.submit()">
+                <select id="year_option_id" class="js-example-basic-single form-control" name="year_id"
+                    onchange="this.form.submit()">
                     <?php
                          foreach ($all_years as $year){
                             if($year['id']==$year_id){
@@ -81,7 +82,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         <div class="col-lg-4">
             <div class="form-group">
                 <label>Choose a month:</label>
-                <select id="month_option_id" class="form-control" name="month_id" onchange="this.form.submit()">
+                <select id="month_option_id" class="js-example-basic-single form-control" name="month_id"
+                    onchange="this.form.submit()">
                     <?php
                          foreach ($all_months as $month){
                             if($month['id']==$month_id){
@@ -110,17 +112,22 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 </div>
 
 <p><br /><br /></p>
-
 <div class="box">
     <div class="box-body">
         <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
             style="width:100%;">
             <thead>
                 <tr>
-                    <th>Action</th>
+                    <!-- Family Attributes  -->
+                    <?php foreach ($familyAttributes as $attribute) { ?>
+                    <th><?= $attribute ?></th>
+                    <?php } ?>
+
+                    <!-- <th>Action</th>
                     <th>Id</th>
-                    <th>Family ID</th>
-                
+                    <th>Family ID</th> -->
+
+
                     <?php 
                     for($i=0; $i < $prev_month; $i++){
                         $m_id = $month_id;
@@ -153,9 +160,13 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </tbody>
             <tfoot>
                 <tr>
-                    <th>Action</th>
+                    <!-- <th>Action</th>
                     <th>Id</th>
-                    <th>Family ID</th>
+                    <th>Family ID</th> -->
+                    <?php foreach ($familyAttributes as $attribute) { ?>
+                    <th><?= $attribute ?></th>
+                    <?php } ?>
+
                     <?php 
                     for($i=0;$i<$prev_month;$i++){
                         $m_id = $month_id;
@@ -192,13 +203,13 @@ $(document).ready(function() {
 
     var x = 0; // the number of months that should be back
     var table;
-    var additional_fields = 3;
+    var additional_fields = 25;
     var team_options, bag_options, sup_options, visiting_options, cash_options;
     var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
     var month_ = $("#month_option_id").val();
     var year_ = $("#year_option_id").val();
-    
+
     var prev_ = Number($("#prev_month_count_id").val());
 
     function _parse(obj) {
@@ -252,15 +263,40 @@ $(document).ready(function() {
             console.log('hello world');
             getVarsCallBack(response);
 
+            // var columns = [{
+            //         'data': null,
+            //         title: 'Action',
+            //         wrap: true,
+            //         "render": function(item) {
+            //             window.href = item.fam_id;
+            //             var path_view = window.href;
+            //             var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
+            //                 item.fam_id + '';
+            //             return '<div> <a href=' + path_view +
+            //                 '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +
+            //                 path_edit +
+            //                 '><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a> </div>';
+            //         },
+            //     },
+            //     {
+            //         data: 'master_id',
+            //         visible: false,
+            //     },
+            //     {
+            //         data: 'fam_id',
+            //     }
+            // ];
             var columns = [{
-                    'data': null,
+                    data: "id",
                     title: 'Action',
                     wrap: true,
                     "render": function(item) {
-                        window.href = item.fam_id;
-                        var path_view = window.href;
+                        // console.log(item);
+                        // console.log(item.old_id);
+                        // window.href = item;
+                        var path_view = window.CRM.root + '/v2/family/' + item;
                         var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
-                            item.fam_id + '';
+                            item + '';
                         return '<div> <a href=' + path_view +
                             '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +
                             path_edit +
@@ -268,11 +304,76 @@ $(document).ready(function() {
                     },
                 },
                 {
-                    data: 'master_id',
-                    visible: false,
+                    data: "id"
                 },
                 {
-                    data: 'fam_id',
+                    data: "old_id"
+                },
+                {
+                    data: "p"
+                },
+                {
+                    data: "main_name"
+                },
+                {
+                    data: "main_id"
+                },
+                {
+                    data: "partner_name"
+                },
+                {
+                    data: "partner_id"
+                },
+                {
+                    data: "address1"
+                },
+                {
+                    data: "address2"
+                },
+                {
+                    data: "city"
+                },
+                {
+                    data: "state"
+                },
+                {
+                    data: "home_phone"
+                },
+                {
+                    data: "aid_phone"
+                },
+                {
+                    data: "mobile_phone"
+                },
+                {
+                    data: "status"
+                },
+                {
+                    data: "aid_note"
+                },
+                {
+                    data: "general_note"
+                },
+                {
+                    data: "team_note"
+                },
+                {
+                    data: "ref"
+                },
+                {
+                    data: "membership_status"
+                },
+                {
+                    data: "members_num"
+                },
+                {
+                    data: "children"
+                },
+                {
+                    data: "no_money"
+                },
+                {
+                    data: "other_notes"
                 }
             ];
 
@@ -295,7 +396,7 @@ $(document).ready(function() {
 
             }
 
-
+            console.log(columns);
             table = $('#example').DataTable();
             destroyTable();
             $('#example tfoot th').each(function() {
@@ -312,7 +413,8 @@ $(document).ready(function() {
                 // responsive: true,
                 // orderCellsTop: true,
                 "scrollX": true,
-                // "scrollY": 500,
+                // paging: false,
+                // scrollY: 200,
                 keys: true,
                 // paging:  false,
                 //  dataType: 'json',  
@@ -334,34 +436,34 @@ $(document).ready(function() {
                 },
                 'columns': columns,
                 dom: 'Bfrtip',
-        buttons: [{
-                extend: 'copyHtml5',
-                exportOptions: {
-                    columns: [0, ':visible']
-                }
-            },
-            {
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                orientation: 'landscape'
-            },
-            'colvis'
-        ],
-       
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, ':visible']
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        orientation: 'landscape'
+                    },
+                    'colvis'
+                ],
+
                 // apply the search
                 initComplete: function() {
                     this.api().columns().every(function() {
@@ -421,7 +523,7 @@ $(document).ready(function() {
 
             table.MakeCellsEditable({
                 "onUpdate": myCallbackFunction,
-                "inputCss": 'my-input-class',
+                "inputCss": 'js-example-basic-single',
                 "columns": nums,
                 "confirmationButton": { // could also be true
                     "confirmCss": 'my-confirm-class',
@@ -505,6 +607,10 @@ $(document).ready(function() {
             table.MakeCellsEditable("destroy");
         }
     }
+
+
+    $('.js-example-basic-single').select2({    allowClear: true,
+    placeholder: "Search..",});
 
 });
 </script>

@@ -410,6 +410,7 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
                 table = $('#example').DataTable({
                     destroy: true,
                     "bSort": false,
+                    // processing: true,
                     // responsive: true,
                     keys: true,
 
@@ -448,7 +449,8 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
                 table.MakeCellsEditable({
                     "onUpdate": myCallbackFunction,
-                    "inputCss": 'my-input-class',
+                    // "inputCss": 'my-input-class',
+                    "inputCss": 'js-example-basic-single',
                     "columns": [0, 1, 2, 3, 4, 5, 6, 7],
                     "confirmationButton": { // could also be true
                         "confirmCss": 'my-confirm-class',
@@ -524,7 +526,6 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
             success: function(response) {
                 updatedRow.data().found = true;
-                console.log('Edited Correctly');
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -544,6 +545,14 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
     // month_id and year_id 
     // months_back
     // get the months back and redraw the table
-    
+    // console.log("family view document ready");
+
+    // $(document).on('click', 'select', function(e){
+    //     // my operation 
+    //     console.log('done');
+    //     $('.js-example-basic-single').select2();
+
+    // });
+    // $('.js-example-basic-single').select2();
 
 });

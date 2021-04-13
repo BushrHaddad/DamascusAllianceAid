@@ -1,1 +1,0 @@
-`PivotMatrix` is an awesome widget to let users construct their own pivot by customizing fields with drag and drop.

@@ -21,20 +21,14 @@ class MyReport extends \koolreport\KoolReport
         );
     }
 
-    protected function setup()
-    {
-        $qqq=$_GET['query']; //echo $qqq;
-        $this->src('churchcrm')->query($qqq)//SELECT family_name,fam_add FROM master_view")
-            ->pipe(new Filter(
-                array(
-                "family_name"=>"Name"
-                )
-            )
-        )
-        ->pipe(new Filter(array(
-            "fam_add"=>"Address",
-            //"sum"=>"famadd"
-        )))
-        ->pipe($this->dataStore('churchcrm2'));
-    } 
+    // protected function setup()
+    // {
+    //     $year = $_GET['year']; //echo $qqq;
+    //     $month = $_GET['month']; //echo $qqq;
+    //     $team = $_GET['team']; //echo $qqq;
+    //     $qqq = "SELECT * from master_family_master";
+        
+    //     $this->src('churchcrm')//SELECT family_name,fam_add FROM master_view")
+    //     ->pipe($this->dataStore('churchcrm2'));
+    // } 
 }

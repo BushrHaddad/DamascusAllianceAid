@@ -1,1 +1,0 @@
-The above example shows you how to create `Area` chart with Morris Chart pakage.

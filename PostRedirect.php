@@ -284,6 +284,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         case "all_families":
             
             $draw = $_POST['draw'];
+            $sMode = $_POST['sMode'];
+
             $start = $_POST['start'];
             $rowperpage = $_POST['length']; // Rows display per page
       
@@ -319,9 +321,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
             $filtered_search = $filtered_search." )";
             $searchQuery = $searchQuery." )";
+            // $rowperpage = 5;
             // where 1 and $searchQuery and $filtered_search 
             $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-         
+            
+            if($sMode == "active"){
+                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+
+            }elseif($sMode == "inactive"){
+                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+            }
+
             $d = RunQuery($all_fam_q);
        
             $all_data = array();
@@ -469,15 +479,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             where t.year_id = $year_id ";
 
             $empRecords = RunQuery($query);
-            while ($row = mysqli_fetch_array($empRecords) ) {
+            while ($master_row = mysqli_fetch_array($empRecords) ) {
+                $id = $master_row['fam_id'];
+                // family view query
+                $all_fam_q = "SELECT * from `families_view` where id=$id;";
+                $d = RunQuery($all_fam_q);
+                $row = mysqli_fetch_array($d);
+                // the end of family view query
+
                 $all_data[] = array( 
-                    "master_id"=>$row['master_id'],
-                    "fam_id"=>$row['fam_id'],
-                    "bag_name1"=>$row['bag_name'],
-                    "cash_name1"=>$row['cash_name'],
-                    "sup_name1"=>$row['sup_name'],
-                    "team_name1"=>$row['team_name'],
-                    "visiting_name1"=>$row['visiting_name'],
+                    "id" => $row['id'],
+                    "old_id" => $row['old_id'],
+                    "p" => $row['p'],
+                    "address1" => $row['address1'],
+                    "address2" => $row['address2'],
+                    "city" => $row['city'],
+                    "state" => $row['state'],
+                    "home_phone" => $row['home_phone'],
+                    "aid_phone" => $row['aid_phone'],
+                    "mobile_phone" => $row['mobile_phone'],
+                    "status" => $row['status'],
+                    "aid_note" => $row['aid_note'],
+                    "general_note" => $row['general_note'],
+                    "team_note" => $row['team_note'],
+                    "ref" => $row['ref'],
+                    "membership_status" => $row['membership_status'],
+                    "members_num" => $row['members_num'],
+                    "children" => $row['children'],
+                    "poverty_rate" => $row['poverty_rate'],
+                    "main_name" => $row['main_name'],
+                    "partner_name" => $row['partner_name'],
+                    "main_id" => $row['main_id'],
+                    "partner_id" => $row['partner_id'],
+                    "no_money" => $row['no_money'],
+                    "other_notes" => $row['other_notes'],
+                    "master_id"=>$master_row['master_id'],
+                    "fam_id"=>$master_row['fam_id'],
+                    "bag_name1"=>$master_row['bag_name'],
+                    "cash_name1"=>$master_row['cash_name'],
+                    "sup_name1"=>$master_row['sup_name'],
+                    "team_name1"=>$master_row['team_name'],
+                    "visiting_name1"=>$master_row['visiting_name'],
 
                 );
             }

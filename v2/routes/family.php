@@ -54,7 +54,12 @@ function getGlobalMaster(Request $request, Response $response, array $args){
         'sMode' => $sMode,
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
-        'all_years' => $_years
+        'all_years' => $_years,
+        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id',
+                                'Address', 'Address2', 'Region', 'State', 'Home Phone',
+                                'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
+                                'General Note', "Team Note", "Ref", "Membership status",
+                                "Members Number", "Children", "Without Money", "Other Notes"],
       ];
 
     return $renderer->render($response, 'master-list.php', $pageArgs);
@@ -76,6 +81,11 @@ function postGlobalMaster(Request $request, Response $response, array $args){
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
         'all_years' => $_years,
+        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id',
+                'Address', 'Address2', 'Region', 'State', 'Home Phone',
+                'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
+                'General Note', "Team Note", "Ref", "Membership status",
+                "Members Number", "Children", "Without Money", "Other Notes"],
         'request' => (object)$request->getParsedBody()
       ];
 
@@ -85,7 +95,7 @@ function postGlobalMaster(Request $request, Response $response, array $args){
 function listFamilies(Request $request, Response $response, array $args)
 {
   $renderer = new PhpRenderer('templates/people/');
-  $sMode = 'Active';
+//   $sMode = 'Active';
   // Filter received user input as needed
   if (isset($_GET['mode'])) {
       $sMode = InputUtils::LegacyFilterInput($_GET['mode']);

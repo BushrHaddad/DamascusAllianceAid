@@ -29,7 +29,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     jQuery.fn.extend({
         // UPDATE
         updateEditableCell: function (callingElement) {
-
+            console.log('update cell');
             // Need to redeclare table here for situations where we have more than one datatable on the page. See issue6 on github
             var table = $(callingElement).closest("table").DataTable().table();
             var row = table.row($(callingElement).parents('tr'));
@@ -41,6 +41,8 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             var newValue = inputField.val();
             if (!newValue && ((settings.allowNulls) && settings.allowNulls != true)) {
                 // If columns specified
+                console.log('inside if');
+
                 if (settings.allowNulls.columns) {
                     // If current column allows nulls
                     if (settings.allowNulls.columns.indexOf(columnIndex) > -1) {
@@ -85,9 +87,9 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
         },
         // CANCEL
         cancelEditableCell: function (callingElement) {
+            console.log('cancel editable cell');
             var table = $(callingElement.closest("table")).DataTable().table();
             var cell = table.cell($(callingElement).parents('td, th'));
-
             // Set cell to it's original value
             cell.data(cell.data());
             // Redraw table
@@ -104,10 +106,11 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
 
     if(table != null){
         table.on( 'key', function ( e, datatable, key, cell, originalEvent ) {
+            // console.log('inside key in');
         })
         .on( 'key-focus', function ( e, datatable, cell ) {
             if(cell!=null){
-                console.log("key focus");
+                // console.log("key focus");
 
                 var myCell = cell.node(); 
                 // $(myCell).addClass('selected');
@@ -121,7 +124,16 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                     if (!$(myCell).find('input').length && !$(myCell).find('select').length && !$(myCell).find('textarea').length) {
                         // Input CSS
                         var input = getInputHtml(currentColumnIndex, settings, oldValue);
+                        $('.js-example-basic-single').select2({ 
+                            allowClear: true,
+                            placeholder: "Search..",});
+                            var $example = $(".js-example-basic-single").select2();
+                            $example.select2("open");
                         $(myCell).html(input.html);
+                        $('.js-example-basic-single').select2({    allowClear: true,
+                            placeholder: "Search..",});
+                            var $example = $(".js-example-basic-single").select2();
+                            $example.select2("open");
                         if (input.focus) {
                             $('#ejbeatycelledit').focus();
                         }
@@ -130,20 +142,20 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             }
          })
          .on( 'key-blur', function ( e, datatable, cell ) {
-                // $(cell.node()).removeClass('selected');
+                $(cell.node()).removeClass('selected');
                 console.log("key blur");
                 cell.data(cell.data());
-                table.draw();
+                datatable.draw();
         } );
     }
 
     // if (table != null) {
     //     // On cell click
     //     $(table.body()).on('click', 'td', function () {
+    //         // table.draw();
     //         currentColumnIndex = table.cell(this).index().column;
     //         // DETERMINE WHAT COLUMNS CAN BE EDITED
     //         if ((settings.columns && settings.columns.indexOf(currentColumnIndex) > -1) || (!settings.columns)) {
-    //             console.log("cell clikc");
     //             var row = table.row($(this).parents('tr'));
     //             editableCellsRow = row;
 
@@ -152,16 +164,26 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     //             var oldValue = table.cell(this).data();
     //             // Sanitize value
     //             oldValue = sanitizeCellValue(oldValue);
-
+                
     //             // Show input
     //             if (!$(cell).find('input').length && !$(cell).find('select').length && !$(cell).find('textarea').length) {
     //                 // Input CSS
+    //                 // console.log('inside if');
+    //                 // $('.js-example-basic-single').select2({    allowClear: true,
+    //                 //     placeholder: "Search..",});
     //                 var input = getInputHtml(currentColumnIndex, settings, oldValue);
+    //                 $('.js-example-basic-single').select2({    allowClear: true,
+    //                     placeholder: "Search..",});
     //                 $(cell).html(input.html);
+    //                 $('.js-example-basic-single').select2({    allowClear: true,
+    //                     placeholder: "Search..",});
     //                 if (input.focus) {
+    //                     console.log('inside input.focus');
     //                     $('#ejbeatycelledit').focus();
     //                 }
     //             }
+    //             // console.log('Done');
+
     //         }
     //     });
     // }
@@ -199,7 +221,9 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
     }
     switch (inputType) {
         case "list":
-            input.html = startWrapperHtml + "<select class='" + inputCss + "' onChange='$(this).updateEditableCell(this);' >";
+            
+            console.log(inputSetting);
+            input.html = startWrapperHtml + "<select size='" + inputSetting.options.length + "' style='width: 80%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this)' onChange='$(this).updateEditableCell(this);' >";
             $.each(inputSetting.options, function (index, option) {
                 if (oldValue == option.value) {
                    input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
@@ -209,10 +233,16 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
                 }
             });
             input.html = input.html + "</select>" + endWrapperHtml;
+            $('.js-example-basic-single').select2({    allowClear: true,
+                placeholder: "Search..",});
+            var $example = $(".js-example-basic-single").select2();
+            $example.select2("open");
             input.focus = false;
             break;
+
         case "list-confirm": // List w/ confirm
-            input.html = startWrapperHtml + "<select onChange='$(this).updateEditableCell(this);' class='" + inputCss + "'>";
+            // console.log(inputSetting.options.length);
+            input.html = startWrapperHtml + "<select size='" + inputSetting.options.length + "' style='width: 80%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this)' onChange='$(this).updateEditableCell(this);' >";
             $.each(inputSetting.options, function (index, option) {
                 if (oldValue == option.value) {
                    input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
@@ -221,6 +251,11 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
 
                 }
             });
+            $('.js-example-basic-single').select2({    allowClear: true,
+                placeholder: "Search..",});
+            var $example = $(".js-example-basic-single").select2();
+            $example.select2("open");
+
             // edited
             // input.html = input.html + "</select>&nbsp;<a href='javascript:void(0); onkeyup='if(event.keyCode==37) {$(this).updateEditableCell(this);}' >Confirm</a> <a href='javascript:void(0);' class='" + cancelCss + "' onclick='$(this).cancelEditableCell(this)'>Cancel</a>" + endWrapperHtml;
             input.focus = false;
@@ -268,6 +303,7 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
                 input.html = startWrapperHtml + "<input id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this)' value='" + oldValue + "'></input>" + endWrapperHtml;
                 break;
     }
+
     return input;
 }
 

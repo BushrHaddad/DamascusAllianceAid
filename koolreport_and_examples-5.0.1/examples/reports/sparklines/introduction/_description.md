@@ -1,1 +1,0 @@
-We would like to introduce `Sparklines` package in this example. This package contains tiny charts which you can use in your report to show trend to get the feel or ovewview of data

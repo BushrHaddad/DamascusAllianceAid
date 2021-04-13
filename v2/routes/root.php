@@ -49,11 +49,6 @@ function viewDashboard(Request $request, Response $response, array $args)
     $years = getTable('master_dates_year');
     $teams = getTable('master_teams');
 
-    print_r($months);
-    print_r($years);
-    print_r($teams);
-    // exit;
-
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => gettext('Welcome to').' '. ChurchMetaData::getChurchName(),
@@ -94,12 +89,12 @@ function cashReport(Request $request, Response $response, array $args){
             $family_id,
             $row['cash_name'],
             $row['team_name'],
-            $fam_row['main_name'] . "<br />". $fam_row['partner_name'],
-            $fam_row['main_id'] . "<br />". $fam_row['partner_id'],
-            $fam_row['home_phone']. "<br />". $fam_row['aid_phone']. "<br />". $fam_row['mobile_phone'],
-            $fam_row['address2']."<br />".$fam_row['address1']."<br />".$fam_row['city']."<br />".$fam_row['state'],
-            $fam_row['poverty_rate']. "<br />".  $fam_row['ref'],
-            $fam_row['members_num']."<br />".$fam_row['children'],
+            $fam_row['main_name'] . " - <br />". $fam_row['partner_name'],
+            $fam_row['main_id'] . " - <br />". $fam_row['partner_id'],
+            $fam_row['home_phone']. " - <br />". $fam_row['aid_phone']. " - <br />". $fam_row['mobile_phone'],
+            $fam_row['address2']." - <br />".$fam_row['address1']." - <br />".$fam_row['city']." - <br />".$fam_row['state'],
+            $fam_row['poverty_rate']. " - <br />".  $fam_row['ref'],
+            $fam_row['members_num']." - <br />".$fam_row['children'],
             $fam_row['general_note'],
             $fam_row['team_note'],
         );
@@ -148,12 +143,12 @@ function teamReport(Request $request, Response $response, array $args){
             "<input type='checkbox'>",
             $family_id,
             $row['cash_name'],
-            $fam_row['main_name'] . "<br />". $fam_row['partner_name'],
-            $fam_row['main_id'] . "<br />". $fam_row['partner_id'],
-            $fam_row['home_phone']. "<br />". $fam_row['aid_phone']. "<br />". $fam_row['mobile_phone'],
-            $fam_row['address2']."<br />".$fam_row['address1']."<br />".$fam_row['city']."<br />".$fam_row['state'],
-            $fam_row['poverty_rate']. "<br />".  $fam_row['ref'],
-            $fam_row['members_num']."<br />".$fam_row['children'],
+            $fam_row['main_name'] . " - <br />". $fam_row['partner_name'],
+            $fam_row['main_id'] . " - <br />". $fam_row['partner_id'],
+            $fam_row['home_phone']. " - <br />". $fam_row['aid_phone']. " - <br />". $fam_row['mobile_phone'],
+            $fam_row['address2']." - <br />".$fam_row['address1']." - <br />".$fam_row['city']." - <br />".$fam_row['state'],
+            $fam_row['poverty_rate']. " - <br />".  $fam_row['ref'],
+            $fam_row['members_num']." - <br />".$fam_row['children'],
             $fam_row['general_note'],
             $fam_row['team_note'],
         );

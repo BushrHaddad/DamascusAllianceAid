@@ -308,7 +308,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     </select>
                 </div>
                 <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"
-                    style="width:100%;" data-page-length='25'>
+                    style="width:100%;" data-page-length='12'>
                     <thead>
                         <tr>
                             <th>Found</th>

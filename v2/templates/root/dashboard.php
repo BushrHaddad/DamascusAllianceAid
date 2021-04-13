@@ -81,15 +81,16 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         <h4> Cash Reports </h4>
                         <div>
                             <label>Choose a Year:</label>
-                            <select id="cash_year_option" >
+                            <select id="cash_year_option" class="js-example-basic-single" style="width: 50%">
                             <?php foreach($report_years as $year){ ?>
                             <option value='<?= $year['name'] ?>'><?= $year['name'] ?></option>
                             <?php } ?>
                             </select>
                         </div>
+                        </br>
                         <div>
                             <label>Choose a Month:</label>
-                            <select id="cash_month_option" >
+                            <select id="cash_month_option"  class="js-example-basic-single" style="width: 50%">
                             <?php foreach($report_months as $month){ ?>
                           
                             <option value='<?= $month['name'] ?>' ><?= $month['name'] ?></option>
@@ -104,13 +105,13 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </a>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="small-box bg-maroon">
                     <div class="inner">
                         <h4> Teams Reports </h4>
                         <div>
                             <label>Choose a Year:</label>
-                            <select id="team_year_option" >
+                            <select id="team_year_option" class="js-example-basic-single" style="width: 25%">
                             <?php
                             foreach($report_years as $year){
                             ?>
@@ -119,8 +120,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                             }
                             ?>
                             </select>
+                            
                             <label>Choose a Month:</label>
-                            <select id="team_month_option" >
+                            <select id="team_month_option" class="js-example-basic-single" style="width: 25%">
                             <?php
                             foreach($report_months as $month){
                             ?>
@@ -130,9 +132,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                             ?>
                             </select>
                         </div>
+                        </br>
                         <div>
                             <label>Choose a Team:</label>
-                            <select id="team_team_option" >
+                            <select id="team_team_option" class="js-example-basic-single" style="width: 50%">
                             <?php
                             foreach($report_teams as $team){
                             ?>
@@ -207,7 +210,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <script src="<?= SystemURLs::getRootPath() ?>/skin/js/MainDashboard.js"></script>
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
-
+    $('.js-example-basic-single').select2({    allowClear: true,
+    placeholder: "Search..",});
     var cash_month = $("#cash_month_option").val();
     var cash_year = $("#cash_year_option").val();
     var team_month = $("#team_month_option").val();

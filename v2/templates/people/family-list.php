@@ -12,6 +12,7 @@ use ChurchCRM\Service\MailChimpService;
 
 //Set the page title
 $sPageTitle =ucfirst($sMode). ' ' . 'Family List';
+// $mode = $sMode;
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 /* @var $families ObjectCollection */
 ?>
@@ -49,7 +50,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
-
+    var sMode = '<?php echo $sMode; ?>';
     var columns = [{
             data: "id",
             title: 'Action',
@@ -149,20 +150,22 @@ $(document).ready(function() {
     $('#example').DataTable({
         // destroy: true,
         "serverSide": true,
+        "pageLength": 5,
         // processing: true,
         // responsive: true,
         // deferRender: true,
-        deferRender: true,
-        scrollY: 300,
-        scrollCollapse: true,
-        scroller: true,
+        // deferRender: true,
+        // scrollY: 300,
+        // scrollCollapse: true,
+        // scroller: true,
         keys: true,
         scrollX: true,
         "ajax": {
             type: "POST",
             url: '/churchcrm/PostRedirect.php',
             data: function(d) {
-                d.post_name = "all_families"
+                d.post_name = "all_families",
+                d.sMode = sMode
             }
         },
         // "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],

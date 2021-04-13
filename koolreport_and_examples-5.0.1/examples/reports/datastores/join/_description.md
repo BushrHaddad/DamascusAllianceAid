@@ -1,1 +1,0 @@
-The `join()` method of DataStore can help to datastore to join with another on matching keys and produce a new datastore which is join of this two datastores.

@@ -14,10 +14,16 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <link rel="stylesheet" type="text/css"
     href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
 
+<div class="btn-group">
+    <a href="<?= SystemURLs::getRootPath() ?>/r2/koolreport_2021/examples/reports/ex_2/index.php?month=<?=$_GET['month']?>&year=<?=$_GET['year']?>&team=<?=$_GET['team']?>">
+        <button type="button" class="btn btn-success">Make Report</button>
+    </a>
+</div>
 <div class="box">
     <div class="box-body">
-        <table id="example" class="my_table display table table-striped table-bordered data-table" cellspacing="0"
+        <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
             style="width:100%;">
+            <!-- id="example" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%"> -->
             <thead>
                 <tr>
                     <?php foreach ($attributes as $attribute) { ?>
@@ -58,6 +64,94 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         direction: rtl;
     }
 
+    /* 1: استلام */
+    /* 2: تسلسل */
+    /* 3: مالية أو فريق الزيارة */
+    /* 4: الاسم */
+    /* 5: الرقم الوطني */
+    /* 6: الهاتف */
+    /* 7: العنوان */
+    /* 8: التقييم */
+    /* 9: عدد أفراد العائلة */
+    /* 10: ملاحظات عامة */
+    /* 11: ملاحظات الفريق */
+
+
+    table.dataTable th:nth-child(1),
+    th:nth-child(2) {
+        width: 10px;
+        max-width: 10px;
+        white-space: pre-line;
+    }
+
+    table.dataTable th:nth-child(3) {
+        width: 30px;
+        max-width: 30px;
+        word-break: break-all;
+        white-space: pre-line;
+    }
+
+    table.dataTable td:nth-child(4),
+    th:nth-child(4),
+    td:nth-child(5),
+    th:nth-child(5),
+    td:nth-child(6),
+    th:nth-child(6) {
+        width: 100px;
+        max-width: 100px;
+        word-break: break-all;
+        white-space: pre-line;
+    }
+
+    table.dataTable td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6),
+    td:nth-child(7),
+    td:nth-child(8),
+    td:nth-child(9) {
+        font-size: 13px;
+    }
+
+    table.dataTable td:nth-child(7),
+    th:nth-child(7) {
+        width: 110px;
+        max-width: 110px;
+        word-break: break-all;
+        white-space: pre-line;
+    }
+
+    table.dataTable td:nth-child(8),
+    th:nth-child(8) {
+        width: 110px;
+        max-width: 110px;
+        word-break: break-all;
+        white-space: pre-line;
+    }
+
+    table.dataTable td:nth-child(9),
+    th:nth-child(9) {
+        width: 90px;
+        max-width: 90px;
+        word-break: break-all;
+        white-space: pre-line;
+    }
+
+    table.dataTable th:nth-child(10),
+    th:nth-child(11) {
+        width: 140px;
+        max-width: 140px;
+        word-break: break-all;
+        white-space: pre-line;
+    }
+
+    table.dataTable td:nth-child(10),
+    td:nth-child(11) {
+        width: 140px;
+        max-width: 140px;
+        font-size: 12px;
+        word-break: break-all;
+        white-space: pre-line;
+    }
     </style>
 
     <script nonce="<?= SystemURLs::getCSPNonce() ?>">
@@ -128,6 +222,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 });
             }
         });
+
+
     });
     </script>
 
