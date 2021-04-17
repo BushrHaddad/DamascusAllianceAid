@@ -1,1 +1,0 @@
-The dataStore of KoolReport supports the most used aggregated functions  `count()`, `sum()`, `avg()`, `min()`, `max()`, `mode()`. Those methods take column name as its parameter.

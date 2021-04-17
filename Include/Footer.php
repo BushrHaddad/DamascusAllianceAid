@@ -73,8 +73,8 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 
 <!-- Bootstrap 3.3.5 -->
  
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script> -->
+ <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script> -->
  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 
@@ -90,7 +90,7 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-<script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/pdfmake.min.js"></script>
+<!-- <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/pdfmake.min.js"></script> -->
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/vfs_fonts.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/dataTables.fixedColumns.min.js"></script>
 <!-- Here is a script the conflict with pdf make and other confiqurations above -->
@@ -119,6 +119,10 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/dataTables.colVis.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/jquery.dataTables.js"></script>
 <script src="<?= SystemURLs::getRootPath() ?>/skin/dataTables.scroller.min.js"></script>
+
+<script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/print.button.js"></script>
+
+
 
 
 

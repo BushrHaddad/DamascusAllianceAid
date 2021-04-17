@@ -67,9 +67,9 @@ function cashReport(Request $request, Response $response, array $args){
     $month_name = $request->getParams()['month'];
     $year_name = $request->getParams()['year'];
 
-    $query = "SELECT family_id, cash_name FROM master_general_view where month_name = '$month_name' 
+    $query = "SELECT family_id, cash_name, team_name FROM master_general_view where month_name = '$month_name' 
         AND year_name = '$year_name'
-        AND cash_name is not NULL GROUP BY team_name ; ";
+        AND cash_name is not NULL ; ";
 
     $result = RunQuery($query);
     $data= array();
@@ -87,14 +87,14 @@ function cashReport(Request $request, Response $response, array $args){
 
         $row1 = array(
             $family_id,
-            $row['cash_name'],
-            $row['team_name'],
-            $fam_row['main_name'] . " - <br />". $fam_row['partner_name'],
-            $fam_row['main_id'] . " - <br />". $fam_row['partner_id'],
-            $fam_row['home_phone']. " - <br />". $fam_row['aid_phone']. " - <br />". $fam_row['mobile_phone'],
-            $fam_row['address2']." - <br />".$fam_row['address1']." - <br />".$fam_row['city']." - <br />".$fam_row['state'],
-            $fam_row['poverty_rate']. " - <br />".  $fam_row['ref'],
-            $fam_row['members_num']." - <br />".$fam_row['children'],
+            $row['cash_name']. "<hr style=' margin:0 !important;'>" .$row['team_name'],
+            $fam_row['main_name'] . " <br />". $fam_row['partner_name'],
+            $fam_row['main_id'] . " <br />". $fam_row['partner_id'],
+            $fam_row['home_phone']. " <br />". $fam_row['aid_phone']. " <br />". $fam_row['mobile_phone'],
+            $fam_row['address2']." <br />".$fam_row['address1']." <br />".$fam_row['city']." <br />".$fam_row['state'],
+            $fam_row['poverty_rate'],
+            $fam_row['ref'],
+            $fam_row['members_num']. "<hr style=' margin:0 !important;'>" .$fam_row['children'],
             $fam_row['general_note'],
             $fam_row['team_note'],
         );
@@ -105,9 +105,12 @@ function cashReport(Request $request, Response $response, array $args){
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => "Cash Report",
-        'attributes' => ['تسلسل','مالية','فريق الزيارة','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم', 'عدد الأفراد',
+        'attributes' => ['تسلسل','مالية','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة', 'عدد الأفراد',
                         'ملاحظات عامة', 'ملاحظات الفريق'],
         'results' => $data,
+        'team_name' => "تقرير مالية",
+        'year_name' => $year_name,
+        'month_name' => $month_name,
     ];
 
     return $renderer->render($response, 'report.php', $pageArgs);
@@ -120,6 +123,7 @@ function teamReport(Request $request, Response $response, array $args){
     $month_name = $request->getParams()['month'];
     $year_name = $request->getParams()['year'];
     $team_name = (String)$request->getParams()['team'];
+    
     $query = "SELECT family_id, cash_name FROM master_general_view where
              month_name = '$month_name' AND year_name = '$year_name' AND team_name = '$team_name';";
     
@@ -139,16 +143,33 @@ function teamReport(Request $request, Response $response, array $args){
         $fam_result = RunQuery($fam_detail_q);
         $fam_row=mysqli_fetch_array($fam_result);
 
+        $children = $fam_row['children'];
+        $address1 = $fam_row['address1'];
+        $address2 = $fam_row['address2'];
+
+        // children
+        if($children != NULL){
+            $children = "<hr style=' margin:0 !important;'>" .$fam_row['children'];
+        }
+        // address1
+        if($address1 != NULL){
+            $address1 = " <br />".$fam_row['address1'];
+        }
+        // city
+        if($address2 != NULL){
+            $address2 = " <br />".$fam_row['address2'];
+        }
+
         $row1 = array(
-            "<input type='checkbox'>",
-            $family_id,
-            $row['cash_name'],
-            $fam_row['main_name'] . " - <br />". $fam_row['partner_name'],
-            $fam_row['main_id'] . " - <br />". $fam_row['partner_id'],
-            $fam_row['home_phone']. " - <br />". $fam_row['aid_phone']. " - <br />". $fam_row['mobile_phone'],
-            $fam_row['address2']." - <br />".$fam_row['address1']." - <br />".$fam_row['city']." - <br />".$fam_row['state'],
-            $fam_row['poverty_rate']. " - <br />".  $fam_row['ref'],
-            $fam_row['members_num']." - <br />".$fam_row['children'],
+            $family_id. "<br /><br />". "مع.م <input type='checkbox'><br />بدون.م <input type='checkbox'>",
+            "",
+            $fam_row['main_name']. " <br />". $fam_row['partner_name'],
+            $fam_row['main_id']. " <br />". $fam_row['partner_id'],
+            $fam_row['home_phone']. " <br />". $fam_row['aid_phone']. " <br />". $fam_row['mobile_phone'],
+            $fam_row['city']. $address1 .$address2,
+            $fam_row['poverty_rate'],
+            $fam_row['ref'],
+            $fam_row['members_num']. $children,
             $fam_row['general_note'],
             $fam_row['team_note'],
         );
@@ -160,9 +181,13 @@ function teamReport(Request $request, Response $response, array $args){
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => "Team Report",
-        'attributes' => ['استلام','تسلسل','مالية','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم', 'عدد الأفراد',
+        'attributes' => ['استلام','استفسار','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة', 'عدد الأفراد',
                         'ملاحظات عامة', 'ملاحظات الفريق'],
         'results' => $data,
+        'team_name' => $team_name,
+        'year_name' => $year_name,
+        'month_name' => $month_name,
+
     ];
     return $renderer->render($response, 'report.php', $pageArgs);
 

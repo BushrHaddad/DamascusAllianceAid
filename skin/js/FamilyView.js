@@ -338,9 +338,9 @@ $(document).ready(function () {
 *
 ******************************************************************************/
 var table;
-var team_options, bag_options, sup_options, visiting_options, cash_options;
-var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
-
+var team_options, bag_options, sup_options, cash_options; // List options
+var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each option
+    // todo: make cellEdit accept (id, name) instead of (name, name)
     function _parse(obj) {
         parsed = [];
         for (index = 0; index < obj.length; index++) {
@@ -374,19 +374,18 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
         success: function(response) {
             var json = JSON.parse(response);
             team_options = _parse(json['all_teams']);
+            cash_options = _parse(json['all_cash']);
             bag_options = _parse(json['all_bags']);
             sup_options = _parse(json['all_suppliments']);
-            visiting_options = _parse(json['all_visitings']);
-            cash_options = _parse(json['all_cash']);
 
             team_dic = _dic(json['all_teams']);
+            cash_dic = _dic(json['all_cash']);
             bag_dic = _dic(json['all_bags']);
             sup_dic = _dic(json['all_suppliments']);
-            visiting_dic = _dic(json['all_visitings']);
-            cash_dic = _dic(json['all_cash']);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error on get Ajax request ");
+            alert("Error, Please reload the page!");
         }
     });
 
@@ -410,8 +409,6 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
                 table = $('#example').DataTable({
                     destroy: true,
                     "bSort": false,
-                    // processing: true,
-                    // responsive: true,
                     keys: true,
 
                     data: json,
@@ -428,16 +425,13 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
                             data: "month_name"
                         },
                         {
-                            data: "visiting_name"
-                        },
-                        {
                             data: "team_name"
                         },
                         {
-                            data: "bag_name"
+                            data: "cash_name"
                         },
                         {
-                            data: "cash_name"
+                            data: "bag_name"
                         },
                         {
                             data: "sup_name"
@@ -449,9 +443,8 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
                 table.MakeCellsEditable({
                     "onUpdate": myCallbackFunction,
-                    // "inputCss": 'my-input-class',
                     "inputCss": 'js-example-basic-single',
-                    "columns": [0, 1, 2, 3, 4, 5, 6, 7],
+                    "columns": [0, 1, 2, 3, 4, 5, 6],
                     "confirmationButton": { // could also be true
                         "confirmCss": 'my-confirm-class',
                         "cancelCss": 'my-cancel-class'
@@ -459,26 +452,25 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
                     "inputTypes": [{
                             "column": 0,
                             "type": "text",
-                            "options": null
                         },
                         {
                             "column": 1,
                             "type": "text",
-                            "options": null
                         },
                         {
                             "column": 2,
-                            "type": "text",
+                            "type": "list",
+                            "options": null
                         },
                         {
                             "column": 3,
                             "type": "list",
-                            "options": visiting_options
+                            "options": team_options
                         },
                         {
                             "column": 4,
                             "type": "list",
-                            "options": team_options
+                            "options": cash_options
                         },
                         {
                             "column": 5,
@@ -488,15 +480,8 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
                         {
                             "column": 6,
                             "type": "list",
-                            "options": cash_options
-                        },
-                        {
-                            "column": 7,
-                            "type": "list",
                             "options": sup_options
                         },
-                        // Nothing specified for column 3 so it will default to text
-
                     ]
                 });
 
@@ -510,17 +495,15 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
 
             url: "/churchcrm/PostRedirect.php",
             type: "POST",
-            // datatype: "text",
             data: {
                 post_name: "edit_local_master",
                 family_id: window.CRM.currentFamily,
                 found: updatedRow.data().found,
                 month_id: updatedRow.data().month_id,
                 year_id: $("#year_status").val(),
-                visited_id: visiting_dic[updatedRow.data().visiting_name],
                 team_id: team_dic[updatedRow.data().team_name],
-                bag_id: bag_dic[updatedRow.data().bag_name],
                 cash_id: cash_dic[updatedRow.data().cash_name],
+                bag_id: bag_dic[updatedRow.data().bag_name],
                 sup_id: sup_dic[updatedRow.data().sup_name]
             },
 
@@ -528,7 +511,9 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
                 updatedRow.data().found = true;
             },
             error: function(jqXHR, textStatus, errorThrown) {
+                // todo: show error alert
                 console.log(textStatus, errorThrown);
+                alert('Error, Please reload the page');
             }
         });
 
@@ -540,19 +525,5 @@ var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
             table.MakeCellsEditable("destroy");
         }
     }
-
-    // on click next month 
-    // month_id and year_id 
-    // months_back
-    // get the months back and redraw the table
-    // console.log("family view document ready");
-
-    // $(document).on('click', 'select', function(e){
-    //     // my operation 
-    //     console.log('done');
-    //     $('.js-example-basic-single').select2();
-
-    // });
-    // $('.js-example-basic-single').select2();
 
 });

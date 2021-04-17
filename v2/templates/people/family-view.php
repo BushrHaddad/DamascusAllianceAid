@@ -34,7 +34,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
     <strong><?= gettext("This Family is Deactivated") ?> </strong>
 </div>
 
-<div class="row">
+<div class="row family-info">
 
     <div class="col-lg-5">
         <div class="row">
@@ -118,7 +118,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             class="fa fa-sticky-note"></i>Add a Note</a>
                     <?php
                         } ?>
-                  
+
                 </div>
             </div>
         </div>
@@ -137,8 +137,8 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     <div class="box-body">
                         <ul class="fa-ul">
                             <?php if (!empty($family->getAddress())) { ?>
-                            <li> <i class="fa-li fa fa-map"></i>Address: <span> 
-                            <a href="http://maps.google.com/?q=<?= $family->getAddress() ?>"
+                            <li> <i class="fa-li fa fa-map"></i>Address: <span>
+                                    <a href="http://maps.google.com/?q=<?= $family->getAddress() ?>"
                                         target="_blank"><?= $family->getAddress() ?></a></span>
                             </li>
                             <?php
@@ -314,10 +314,9 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             <th>Found</th>
                             <th>Month ID</th>
                             <th>Month</th>
-                            <th>Visited</th>
                             <th>Team</th>
-                            <th>Bag</th>
                             <th>Cash</th>
+                            <th>Bag</th>
                             <th>Suppliments</th>
                         </tr>
                     </thead>
@@ -445,50 +444,26 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
             </div>
         </div>
 
-
-
     </div>
+
 </div>
-
-
-
-<?php if (AuthenticationManager::GetCurrentUser()->isFinanceEnabled()) {
-?>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="box">
-                    <div class="box-header">
-                        <i class="fa fa-map"></i>
-                        <h3 class="box-title"><?= gettext("Pledges and Payments") ?></h3>
-                        <div class="box-tools pull-right">
-                            <input type="checkbox" id="ShowPledges"
-                                <?= AuthenticationManager::GetCurrentUser()->isShowPledges() ? "checked" : "" ?>>
-                            <?= gettext("Show Pledges") ?>
-                            <input type="checkbox" id="ShowPayments"
-                                <?= AuthenticationManager::GetCurrentUser()->isShowPayments() ? "checked" : "" ?>>
-                            <?= gettext("Show Payments") ?>
-                            <label for="ShowSinceDate"><?= gettext("Since") ?>:</label>
-                            <input type="text" class="date-picker" id="ShowSinceDate"
-                                value="<?= AuthenticationManager::GetCurrentUser()->getShowSince() ?>" maxlength="10"
-                                id="ShowSinceDate" size="15">
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <table id="pledge-payment-v2-table"
-                            class="table table-striped table-bordered table-responsive data-table">
-                            <tbody></tbody>
-                        </table>
-                        <?php } ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+<style>
+    .family-info ul li {
+        /* direction: rtl; */
+        /* float: left; */
+        padding:7px 5px; margin:0;
+        font-size: 15px;
+        font-weight: bold;
+        /* direction: rtl; */
+    }
+    .family-info span{
+        float: right;
+        text-align: right;
+        font-weight: 500;
+        font-size: 14px;
+    }
+  
+</style>
 
 
 <script src="<?= SystemURLs::getRootPath() ?>/skin/js/MemberView.js"></script>

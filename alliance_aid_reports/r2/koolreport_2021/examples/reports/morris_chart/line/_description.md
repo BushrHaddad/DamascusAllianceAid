@@ -1,1 +1,0 @@
-The above example shows you how to create `Line` chart using Morris Chart package.

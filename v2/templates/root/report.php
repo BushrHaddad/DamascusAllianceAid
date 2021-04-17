@@ -6,16 +6,20 @@ use ChurchCRM\dto\SystemURLs;
 
 use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\dto\Classification;
-use ChurchCRM\Service\MailChimpService;
 
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
+
 /* @var $families ObjectCollection */
 ?>
+
+
 <link rel="stylesheet" type="text/css"
     href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
 
+
 <div class="btn-group">
-    <a href="<?= SystemURLs::getRootPath() ?>/r2/koolreport_2021/examples/reports/ex_2/index.php?month=<?=$_GET['month']?>&year=<?=$_GET['year']?>&team=<?=$_GET['team']?>">
+    <a
+        href="<?= SystemURLs::getRootPath() ?>/r2/koolreport_2021/examples/reports/ex_2/index.php?month=<?=$_GET['month']?>&year=<?=$_GET['year']?>&team=<?=$_GET['team']?>">
         <button type="button" class="btn btn-success">Make Report</button>
     </a>
 </div>
@@ -23,7 +27,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     <div class="box-body">
         <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
             style="width:100%;">
-            <!-- id="example" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%"> -->
             <thead>
                 <tr>
                     <?php foreach ($attributes as $attribute) { ?>
@@ -34,17 +37,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             <tbody>
                 <?php foreach ($results as $result) { ?>
                 <tr>
-                    <td><?= $result[0] ?></td>
-                    <td><?= $result[1] ?></td>
-                    <td><?= $result[2] ?></td>
-                    <td><?= $result[3] ?></td>
-                    <td><?= $result[4] ?></td>
-                    <td><?= $result[5] ?></td>
-                    <td><?= $result[6] ?></td>
-                    <td><?= $result[7] ?></td>
-                    <td><?= $result[8] ?></td>
-                    <td><?= $result[9] ?></td>
-                    <td><?= $result[10] ?></td>
+                    <?php for($j=0; $j<=10; $j++){ ?>
+                    <td><?= $result[$j] ?></td>
+                    <?php } ?>
                 </tr>
                 <?php } ?>
             </tbody>
@@ -58,113 +53,107 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         </table>
     </div>
     </div<>
-
     <style>
     div.dataTables_wrapper {
         direction: rtl;
     }
 
-    /* 1: استلام */
-    /* 2: تسلسل */
-    /* 3: مالية أو فريق الزيارة */
-    /* 4: الاسم */
-    /* 5: الرقم الوطني */
-    /* 6: الهاتف */
-    /* 7: العنوان */
-    /* 8: التقييم */
-    /* 9: عدد أفراد العائلة */
-    /* 10: ملاحظات عامة */
-    /* 11: ملاحظات الفريق */
-
-
-    table.dataTable th:nth-child(1),
-    th:nth-child(2) {
-        width: 10px;
-        max-width: 10px;
-        white-space: pre-line;
-    }
-
-    table.dataTable th:nth-child(3) {
-        width: 30px;
-        max-width: 30px;
-        word-break: break-all;
-        white-space: pre-line;
-    }
-
-    table.dataTable td:nth-child(4),
-    th:nth-child(4),
-    td:nth-child(5),
-    th:nth-child(5),
-    td:nth-child(6),
-    th:nth-child(6) {
-        width: 100px;
-        max-width: 100px;
-        word-break: break-all;
-        white-space: pre-line;
-    }
-
-    table.dataTable td:nth-child(4),
-    td:nth-child(5),
-    td:nth-child(6),
-    td:nth-child(7),
-    td:nth-child(8),
-    td:nth-child(9) {
+    table.dataTable td {
         font-size: 13px;
     }
 
-    table.dataTable td:nth-child(7),
-    th:nth-child(7) {
-        width: 110px;
-        max-width: 110px;
+    table.dataTable th {
+        font-size: 16px;
+        text-align: center;
+    }
+
+
+    table.dataTable th:nth-child(1),
+    td:nth-child(1),
+    th:nth-child(8),
+    td:nth-child(8) {
+        width: 35px;
+        max-width: 35px;
+        white-space: pre-line;
+    }
+
+    table.dataTable td:nth-child(7) {
+        width: 20px;
+        max-width: 20px;
+        white-space: pre-line;
+    }
+
+
+    table.dataTable td:nth-child(2) {
+        width: 80px;
+        max-width: 80px;
         word-break: break-all;
         white-space: pre-line;
     }
 
-    table.dataTable td:nth-child(8),
-    th:nth-child(8) {
-        width: 110px;
-        max-width: 110px;
+    table.dataTable th:nth-child(3),
+    td:nth-child(3) {
+        width: 190px;
+        max-width: 190px;
+
+    }
+
+    table.dataTable td:nth-child(4),
+    td:nth-child(5) {
+        width: 125px;
+        max-width: 125px;
         word-break: break-all;
         white-space: pre-line;
     }
 
-    table.dataTable td:nth-child(9),
-    th:nth-child(9) {
-        width: 90px;
-        max-width: 90px;
-        word-break: break-all;
-        white-space: pre-line;
-    }
-
-    table.dataTable th:nth-child(10),
-    th:nth-child(11) {
-        width: 140px;
-        max-width: 140px;
-        word-break: break-all;
-        white-space: pre-line;
-    }
-
-    table.dataTable td:nth-child(10),
+    table.dataTable td:nth-child(6),
+    td:nth-child(10),
     td:nth-child(11) {
-        width: 140px;
-        max-width: 140px;
+        width: 150px;
+        max-width: 150px;
         font-size: 12px;
-        word-break: break-all;
         white-space: pre-line;
+    }
+
+    table.dataTable td:nth-child(9) {
+        width: 80px;
+        max-width: 80px;
+        word-break: break-all;
+        font-size: 12px;
+    }
+
+    @media print {
+
+        html,
+        body {
+            height: auto;
+        }
+
+        .dt-print-table,
+        .dt-print-table thead,
+        .dt-print-table th,
+        .dt-print-table tr {
+            border: 0 none !important;
+        }
     }
     </style>
 
     <script nonce="<?= SystemURLs::getCSPNonce() ?>">
     $(document).ready(function() {
 
+        var year_name = '<?php echo $year_name; ?>';
+        var month_name = '<?php echo $month_name; ?>';
+        var team_name = '<?php echo $team_name; ?>';
+        var my_title = "<div class='row'><div class='col-md-6'><p>" + team_name +
+            "</p></div><div class='col-md-6'><p>" + month_name + " - " + year_name + "</p></div></div>";
+
         $('#example tfoot th').each(function() {
             var title = $(this).text();
             $(this).html('<input type="text" placeholder="' + title + '" />');
         });
 
-        $('#example').DataTable({
+        $('#example').dataTable({
             scrollX: true,
-            scrollY: 350,
             dom: 'Bfrtip',
             buttons: [{
                     extend: 'copyHtml5',
@@ -180,22 +169,34 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 },
                 {
                     extend: 'print',
-                    // autoPrint: true,
+                    // autoPrint: false,
                     exportOptions: {
                         columns: ':visible',
                         stripHtml: false
                     },
+                    title: '',
+                    exportOptions: {
+                        format: {
+                            header: function(data, row, column, node) {
+                                var newdata = data;
+
+                                newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                                newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
+                                return newdata;
+                            }
+                        }
+                    },
+                    // messageTop: 'This print was produced using the Print button for DataTables',
+                    repeatingHead: {
+                        // logo: 'https://www.google.co.in/logos/doodles/2018/world-cup-2018-day-22-5384495837478912-s.png',
+                        // logoStyle: '',
+                        title: my_title,
+                    },
                     customize: function(win) {
                         $(win.document.body).css('direction', 'rtl');
-                        $(win.document.body).find('th').addClass('display').css('text-align',
-                            'right');
-                        $(win.document.body).find('example').addClass('display').css(
-                            'font-size',
-                            '16px');
-                        $(win.document.body).find('example').addClass('display').css(
-                            'text-align',
-                            'right');
-                        $(win.document.body).find('tr:nth-child(odd) td').each(function(index) {
+                        $(win.document.body).find('tr:nth-child(odd) td').each(function(
+                            index) {
                             $(this).css('background-color', '#D0D0D0');
                         });
                         $(win.document.body).find('h1').css('text-align', 'center');
@@ -216,13 +217,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                                     .draw(); // search on adding new character
 
                             }
-                            // Only Searching 
-                            // if (e.keyCode == 13) that.draw();
                         });
                 });
             }
         });
-
 
     });
     </script>

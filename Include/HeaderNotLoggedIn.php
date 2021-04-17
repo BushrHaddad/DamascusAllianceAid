@@ -8,6 +8,7 @@ if (SystemConfig::debugEnabled()) {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,11 +28,12 @@ if (SystemConfig::debugEnabled()) {
     <title>ChurchCRM: <?= $sPageTitle ?></title>
 
 </head>
+
 <body class="hold-transition login-page">
 
-  <script nonce="<?= SystemURLs::getCSPNonce() ?>"  >
+    <script nonce="<?= SystemURLs::getCSPNonce() ?>">
     window.CRM = {
-      root: "<?= SystemURLs::getRootPath() ?>",
-      churchWebSite:"<?= SystemConfig::getValue('sChurchWebSite') ?>"
+        root: "<?= SystemURLs::getRootPath() ?>",
+        churchWebSite: "<?= SystemConfig::getValue('sChurchWebSite') ?>"
     };
-  </script>
+    </script>

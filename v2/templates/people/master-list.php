@@ -48,18 +48,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $month_id = $request->month_id;
     $prev_month = $request->prev_month;    
 }
-
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
-/* @var $families ObjectCollection */
-
 ?>
+<!-- Multi Select Filteration -->
+<!-- ================================================== -->
+<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/shCore.css" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/shThemeDefault.css" rel="stylesheet" type="text/css" /> -->
+<link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/main.css" rel="stylesheet" type="text/css" />
+<link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/chosen.min.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/fnReloadAjax.js"></script>
 
+<script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/jquery.dataTables.yadcf.0.9.2.js">
+</script>
+<!--  <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/="filter2/server_side_example.js"></script> -->
+<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shCore.js"></script> -->
+<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shBrushJScript.js"></script> -->
+<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shBrushJava.js"></script> -->
+<script type="text/javascript" charset="utf-8" language="javascript"
+    src="<?= SystemURLs::getRootPath() ?>/skin/filter2/chosen.jquery.min.js"></script>
+<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/jquery.dataTables.yadcf.0.9.2.css" rel="stylesheet"
+        type="text/css">
+    </link> -->
+<!-- End of Multi Select Filteration -->
+
+
+
+<!--Select Year and Month  -->
 <div class="row">
     <form method="post" action="/churchcrm/v2/family/master">
         <div class="col-lg-5">
             <div class="form-group">
                 <label>Choose a Year:</label>
-                <select id="year_option_id" class="js-example-basic-single form-control" name="year_id"
+                <select id="year_option_id" class="select2-master form-control" name="year_id"
                     onchange="this.form.submit()">
                     <?php
                          foreach ($all_years as $year){
@@ -82,7 +103,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         <div class="col-lg-4">
             <div class="form-group">
                 <label>Choose a month:</label>
-                <select id="month_option_id" class="js-example-basic-single form-control" name="month_id"
+                <select id="month_option_id" class="select2-master form-control" name="month_id"
                     onchange="this.form.submit()">
                     <?php
                          foreach ($all_months as $month){
@@ -122,12 +143,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <?php foreach ($familyAttributes as $attribute) { ?>
                     <th><?= $attribute ?></th>
                     <?php } ?>
-
-                    <!-- <th>Action</th>
-                    <th>Id</th>
-                    <th>Family ID</th> -->
-
-
+                    <!-- Aid Attributes -->
                     <?php 
                     for($i=0; $i < $prev_month; $i++){
                         $m_id = $month_id;
@@ -138,7 +154,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         if($x_m<=0){
                                 $x_y = intval(($x_m*-1)/12) + 1;
                                 $y_id = $y_id - $x_y;
-                                
                                 $m_id = 12 + ($x_m%12);
                         }
                         else{
@@ -148,11 +163,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         $month_name = $all_months[$m_id]['name'];
                         $year_name = $all_years[$y_id]['name'];
                     ?>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Suppliments)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Visited)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th>
                     <?php } ?>
                 </tr>
             </thead>
@@ -160,13 +174,11 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
             </tbody>
             <tfoot>
                 <tr>
-                    <!-- <th>Action</th>
-                    <th>Id</th>
-                    <th>Family ID</th> -->
+                    <!-- Family Attributes -->
                     <?php foreach ($familyAttributes as $attribute) { ?>
                     <th><?= $attribute ?></th>
                     <?php } ?>
-
+                    <!-- Aid Attributes -->
                     <?php 
                     for($i=0;$i<$prev_month;$i++){
                         $m_id = $month_id;
@@ -186,11 +198,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                         $month_name = $all_months[$m_id]['name'];
                         $year_name = $all_years[$y_id]['name'];
                     ?>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Suppliments)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Visited)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th>
                     <?php } ?>
                 </tr>
             </tfoot>
@@ -200,12 +211,13 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
+    var table = $('#example').DataTable({});
+    'use strict';
 
     var x = 0; // the number of months that should be back
-    var table;
-    var additional_fields = 25;
-    var team_options, bag_options, sup_options, visiting_options, cash_options;
-    var team_dic, bag_dic, sup_dic, visiting_dic, cash_dic;
+    var additional_fields = 25; // number of family attributes
+    var team_options, bag_options, sup_options, cash_options;
+    var team_dic, bag_dic, sup_dic, cash_dic;
 
     var month_ = $("#month_option_id").val();
     var year_ = $("#year_option_id").val();
@@ -236,20 +248,50 @@ $(document).ready(function() {
     function getVarsCallBack(response) {
         var json = JSON.parse(response);
 
-        bag_options = _parse(json['all_bags']);
-        cash_options = _parse(json['all_cash']);
-
-        sup_options = _parse(json['all_suppliments']);
         team_options = _parse(json['all_teams']);
-        visiting_options = _parse(json['all_visitings']);
-
+        cash_options = _parse(json['all_cash']);
+        bag_options = _parse(json['all_bags']);
+        sup_options = _parse(json['all_suppliments']);
 
         team_dic = _dic(json['all_teams']);
+        cash_dic = _dic(json['all_cash']);
         bag_dic = _dic(json['all_bags']);
         sup_dic = _dic(json['all_suppliments']);
-        visiting_dic = _dic(json['all_visitings']);
-        cash_dic = _dic(json['all_cash']);
     }
+
+    // get filteration columns description 
+    function get_filtering_options(total_num, multi_select_list) {
+        filtering_options = []
+        for (var i = 0; i < total_num; i++) {
+            if (multi_select_list.includes(i)) {
+                filtering_options.push({
+                    column_number: i,
+                    filter_type: 'multi_select',
+                    append_data_to_table_data: 'before',
+                    data: [{
+                        value: '^$',
+                        label: 'Empty'
+                    }],
+                    filter_match_mode: 'regex',
+                    select_type: 'select2',
+                    select_type_options: {
+                        width: '200px'
+                    }
+                });
+            } else {
+                filtering_options.push({
+                    column_number: i,
+                    filter_type: "text",
+                    select_type_options: {
+                        width: '150px'
+                    }
+                });
+            }
+        }
+        return filtering_options;
+    }
+    var filtering_options = get_filtering_options(20, [3, 10, 11]);
+    console.log(filtering_options);
 
     // get options
     $.ajax({
@@ -260,40 +302,12 @@ $(document).ready(function() {
             post_name: "get_vars",
         },
         success: function(response) {
-            console.log('hello world');
             getVarsCallBack(response);
-
-            // var columns = [{
-            //         'data': null,
-            //         title: 'Action',
-            //         wrap: true,
-            //         "render": function(item) {
-            //             window.href = item.fam_id;
-            //             var path_view = window.href;
-            //             var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
-            //                 item.fam_id + '';
-            //             return '<div> <a href=' + path_view +
-            //                 '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +
-            //                 path_edit +
-            //                 '><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a> </div>';
-            //         },
-            //     },
-            //     {
-            //         data: 'master_id',
-            //         visible: false,
-            //     },
-            //     {
-            //         data: 'fam_id',
-            //     }
-            // ];
             var columns = [{
                     data: "id",
                     title: 'Action',
                     wrap: true,
                     "render": function(item) {
-                        // console.log(item);
-                        // console.log(item.old_id);
-                        // window.href = item;
                         var path_view = window.CRM.root + '/v2/family/' + item;
                         var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
                             item + '';
@@ -379,36 +393,34 @@ $(document).ready(function() {
 
             for (var i = 1; i <= prev_; i++) {
                 columns.push({
-                    data: 'bag_name' + i,
+                    data: 'team_name' + i,
                 });
                 columns.push({
                     data: 'cash_name' + i,
                 });
                 columns.push({
+                    data: 'bag_name' + i,
+                });
+                columns.push({
                     data: 'sup_name' + i,
                 });
-                columns.push({
-                    data: 'team_name' + i,
-                });
-                columns.push({
-                    data: 'visiting_name' + i,
-                });
-
             }
 
-            console.log(columns);
-            table = $('#example').DataTable();
+            // var table = $('#example').DataTable({});
+
             destroyTable();
             $('#example tfoot th').each(function() {
                 var title = $(this).text();
                 $(this).html('<input type="text" placeholder="' + title + '" />');
             });
 
-
             table = $('#example').DataTable({
-
+                // "iDisplayLength": 10,
+                "bJQueryUI": true,
+                "bStateSave": true,
                 destroy: true,
-                // data: json,
+                // "bProcessing": true,
+                // "sAjaxSource": 'entrys_table_source',
                 // "bSort": false,
                 // responsive: true,
                 // orderCellsTop: true,
@@ -416,14 +428,13 @@ $(document).ready(function() {
                 // paging: false,
                 // scrollY: 200,
                 keys: true,
-                // paging:  false,
-                //  dataType: 'json',  
                 // "type": "POST",
                 // 'processing': true,
                 // 'serverSide': true,
                 // 'serverMethod': 'post',
                 // "bLengthChange": true,
                 // "iDisplayLength": 10,
+
                 'ajax': {
                     "type": "POST",
                     'url': '/churchcrm/PostRedirect.php',
@@ -439,32 +450,60 @@ $(document).ready(function() {
                 buttons: [{
                         extend: 'copyHtml5',
                         exportOptions: {
-                            columns: [0, ':visible']
+                            columns: [0, ':visible'],
+                            format: {
+                            header: function(data, row, column, node) {
+                                var newdata = data;
+
+                                newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                                newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
+                                return newdata;
+                            }
+                        }
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: ':visible'
+                            columns: ':visible',
+                            format: {
+                            header: function(data, row, column, node) {
+                                var newdata = data;
+
+                                newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                                newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
+                                return newdata;
+                            }
                         }
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                            columns: ':visible'
                         }
                     },
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: ':visible'
+                            columns: ':visible',
+                            format: {
+                                header: function(data, row, column, node) {
+                                    var newdata = data;
+
+                                    newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                    newdata = newdata.replace(/<div.*?<\/div>/gi,
+                                        '');
+                                    newdata = newdata.replace(/<\/div.*?<\/div>/gi,
+                                        '');
+                                    return newdata;
+                                }
+                            }
                         },
-                        orientation: 'landscape'
+                        orientation: 'landscape',
+
                     },
+
                     'colvis'
                 ],
 
-                // apply the search
+                // search filtering
                 initComplete: function() {
                     this.api().columns().every(function() {
                         var that = this;
@@ -482,56 +521,57 @@ $(document).ready(function() {
                 }
             });
 
+            yadcf.init(table, filtering_options);
+
             var edits = [];
             var nums = [];
             var current_idx = 0;
-            for (var i = 0; i < (prev_ * 5); i++) {
+            for (var i = 0; i < (prev_ * 4); i++) {
                 current_idx = i + additional_fields;
                 nums.push(current_idx);
-                if (i % 5 == 0) {
-                    edits.push({
-                        "column": current_idx,
-                        "type": "list",
-                        "options": bag_options,
-                    });
-                } else if (i % 5 == 1) {
-                    edits.push({
-                        "column": current_idx,
-                        "type": "list",
-                        "options": cash_options,
-                    });
-                } else if (i % 5 == 2) {
-                    edits.push({
-                        "column": current_idx,
-                        "type": "list",
-                        "options": sup_options,
-                    });
-                } else if (i % 5 == 3) {
+                if (i % 4 == 0) {
                     edits.push({
                         "column": current_idx,
                         "type": "list",
                         "options": team_options,
                     });
-                } else if ((i % 5 == 4)) {
+                } else if (i % 4 == 1) {
                     edits.push({
                         "column": current_idx,
                         "type": "list",
-                        "options": visiting_options,
+                        "options": cash_options,
+                    });
+                } else if (i % 4 == 2) {
+                    edits.push({
+                        "column": current_idx,
+                        "type": "list",
+                        "options": bag_options,
+                    });
+                } else if (i % 4 == 3) {
+                    edits.push({
+                        "column": current_idx,
+                        "type": "list",
+                        "options": sup_options,
                     });
                 }
             }
 
+            // inline editing
             table.MakeCellsEditable({
                 "onUpdate": myCallbackFunction,
                 "inputCss": 'js-example-basic-single',
                 "columns": nums,
-                "confirmationButton": { // could also be true
+                "confirmationButton": {
                     "confirmCss": 'my-confirm-class',
                     "cancelCss": 'my-cancel-class'
                 },
                 "inputTypes": edits
 
             });
+
+            // multi select filtering
+
+            // SyntaxHighlighter.all();
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error on get Ajax request ");
@@ -549,7 +589,7 @@ $(document).ready(function() {
         var row = updatedCell[0][0]['row'];
         var col = updatedCell[0][0]['column'];
         col = col - (additional_fields); // the number of added field for family (should be subtracted)
-        var p = parseInt((col / 5));
+        var p = parseInt((col / 4));
 
         for (var i = 0; i < p; i++) {
             if (month_ == 1) {
@@ -564,17 +604,15 @@ $(document).ready(function() {
             }
         }
 
-        var bag_col_idx = p * 5 + (additional_fields);
-        var cash_col_idx = p * 5 + (additional_fields + 1);
-        var sup_col_idx = p * 5 + (additional_fields + 2);
-        var team_col_idx = p * 5 + (additional_fields + 3);
-        var visiting_col_idx = p * 5 + (additional_fields + 4);
+        var team_col_idx = p * 4 + (additional_fields);
+        var cash_col_idx = p * 4 + (additional_fields + 1);
+        var bag_col_idx = p * 4 + (additional_fields + 2);
+        var sup_col_idx = p * 4 + (additional_fields + 3);
 
-        var bag_name = table.cell(row, bag_col_idx).data();
-        var cash_name = table.cell(row, cash_col_idx).data();
-        var sup_name = table.cell(row, sup_col_idx).data();
         var team_name = table.cell(row, team_col_idx).data();
-        var visiting_name = table.cell(row, visiting_col_idx).data();
+        var cash_name = table.cell(row, cash_col_idx).data();
+        var bag_name = table.cell(row, bag_col_idx).data();
+        var sup_name = table.cell(row, sup_col_idx).data();
 
         $.ajax({
 
@@ -585,10 +623,9 @@ $(document).ready(function() {
                 family_id: updatedRow.data().fam_id,
                 month_id: month_,
                 year_id: year_,
-                visited_id: visiting_dic[visiting_name],
                 team_id: team_dic[team_name],
-                bag_id: bag_dic[bag_name],
                 cash_id: cash_dic[cash_name],
+                bag_id: bag_dic[bag_name],
                 sup_id: sup_dic[sup_name]
             },
 
@@ -607,10 +644,7 @@ $(document).ready(function() {
             table.MakeCellsEditable("destroy");
         }
     }
-
-
-    $('.js-example-basic-single').select2({    allowClear: true,
-    placeholder: "Search..",});
+    $('.select2-master').select2();
 
 });
 </script>
