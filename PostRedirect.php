@@ -283,53 +283,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         case "all_families":
             
-            $draw = $_POST['draw'];
-            $sMode = $_POST['sMode'];
+            // $draw = $_POST['draw'];
+            // $sMode = $_POST['sMode'];
 
-            $start = $_POST['start'];
-            $rowperpage = $_POST['length']; // Rows display per page
+            // $start = $_POST['start'];
+            // $rowperpage = $_POST['length']; // Rows display per page
       
             // Overall Searching
-            $searchValue = $_POST['search']['value']; // Search value
+            // $searchValue = $_POST['search']['value']; // Search value
         
             // Ordering 
-            $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
-            $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
-            $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
+            // $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
+            // $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
+            // $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
             
             
             // Filtering Searching based on columns search value
-            $filtered_search = " (";
-            $searchQuery = " (";
+            // $filtered_search = " (";
+            // $searchQuery = " (";
 
-            for($i=1; $i<24; $i++){
-                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
-                // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
-                // if ($col_search_value != ''){
-                    $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
-                    // $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
-                    if ($i==1){
-                        $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
-                    }
-                    else{   
-                        $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
-                    }
-                // }
+            // for($i=1; $i<24; $i++){
+            //     $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
+            //     // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
+            //     // if ($col_search_value != ''){
+            //         $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
+            //         // $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
+            //         if ($i==1){
+            //             $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
+            //             $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
+            //         }
+            //         else{   
+            //             $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
+            //             $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
+            //         }
+            //     // }
               
-            }
-            $filtered_search = $filtered_search." )";
-            $searchQuery = $searchQuery." )";
+            // }
+            // $filtered_search = $filtered_search." )";
+            // $searchQuery = $searchQuery." )";
             // $rowperpage = 5;
             // where 1 and $searchQuery and $filtered_search 
-            $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+            // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+            $all_fam_q = "SELECT * from `families_view`; ";
             
             if($sMode == "active"){
-                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+                // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+                $all_fam_q = "SELECT * from `families_view`  where status='active'; ";
 
             }elseif($sMode == "inactive"){
-                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+                // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+                $all_fam_q = "SELECT * from `families_view`  where status='cancelled'; ";
             }
 
             $d = RunQuery($all_fam_q);
@@ -373,16 +376,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             ## Total number of records with filtering
-            $sel = "SELECT count(*) as allcount from `families_view`  where 1 and $searchQuery and $filtered_search  ;";
-            $records = RunQuery($sel);
-            while ($row = mysqli_fetch_array($records)) {
-                $totalRecordwithFilter = $row['allcount'];
-            }
+            // $sel = "SELECT count(*) as allcount from `families_view`  where 1 and $searchQuery and $filtered_search  ;";
+            // $records = RunQuery($sel);
+            // while ($row = mysqli_fetch_array($records)) {
+            //     $totalRecordwithFilter = $row['allcount'];
+            // }
             
             $response = array(
-                "draw" => intval($draw),
-                "iTotalRecords" => $totalRecords,
-                "iTotalDisplayRecords" => $totalRecordwithFilter,
+                // "draw" => intval($draw),
+                // "iTotalRecords" => $totalRecords,
+                // "iTotalDisplayRecords" => $totalRecords,
                 "aaData" => $all_data,
                 );
     

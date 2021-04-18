@@ -50,6 +50,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
+
+    var table = $('#example').DataTable({});
+    'use strict';
+
     var sMode = '<?php echo $sMode; ?>';
     var columns = [{
             data: "id",
@@ -142,14 +146,50 @@ $(document).ready(function() {
         }
     ];
 
-    $('#example tfoot th').each(function() {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="' + title + '" />');
-    });
+    // $('#example tfoot th').each(function() {
+    //     var title = $(this).text();
+    //     $(this).html('<input type="text" placeholder="' + title + '" />');
+    // });
 
-    $('#example').DataTable({
-        // destroy: true,
-        "serverSide": true,
+    // get filteration columns description 
+    function get_filtering_options(total_num, multi_select_list) {
+        filtering_options = []
+        for (var i = 1; i < total_num; i++) {
+            if (multi_select_list.includes(i) || i >= 25) {
+                filtering_options.push({
+                    column_number: i,
+                    filter_type: 'multi_select',
+                    append_data_to_table_data: 'before',
+                    data: [{
+                        value: '^$',
+                        label: 'Empty'
+                    }],
+                    filter_match_mode: 'regex',
+                    select_type: 'select2',
+                    select_type_options: {
+                        width: '200px'
+                    }
+                });
+            } else {
+                filtering_options.push({
+                    column_number: i,
+                    filter_type: "text",
+                    select_type_options: {
+                        width: '150px'
+                    }
+                });
+            }
+        }
+        return filtering_options;
+    }
+    var filtering_options = get_filtering_options(25, [3, 10, 11, 15, 19, 20, 23]);
+
+
+    var table = $('#example').DataTable({
+        "bJQueryUI": true,
+        "bStateSave": true,
+        destroy: true,
+        // "serverSide": true,
         "pageLength": 5,
         // processing: true,
         // responsive: true,
@@ -165,7 +205,7 @@ $(document).ready(function() {
             url: '/churchcrm/PostRedirect.php',
             data: function(d) {
                 d.post_name = "all_families",
-                d.sMode = sMode
+                    d.sMode = sMode
             }
         },
         // "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -173,55 +213,79 @@ $(document).ready(function() {
         buttons: [{
                 extend: 'copyHtml5',
                 exportOptions: {
-                    columns: [0, ':visible']
+                    columns: [0, ':visible'],
+                    format: {
+                        header: function(data, row, column, node) {
+                            var newdata = data;
+
+                            newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                            newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                            newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
+                            return newdata;
+                        }
+                    }
                 }
             },
             {
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: ':visible'
+                    columns: ':visible',
+                    format: {
+                        header: function(data, row, column, node) {
+                            var newdata = data;
+
+                            newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                            newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                            newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
+                            return newdata;
+                        }
+                    }
                 }
             },
             {
                 extend: 'print',
                 exportOptions: {
-                    columns: ':visible'
+                    columns: ':visible',
+                    format: {
+                        header: function(data, row, column, node) {
+                            var newdata = data;
+
+                            newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                            newdata = newdata.replace(/<div.*?<\/div>/gi,
+                                '');
+                            newdata = newdata.replace(/<\/div.*?<\/div>/gi,
+                                '');
+                            return newdata;
+                        }
+                    }
                 },
-                orientation: 'landscape'
+                orientation: 'landscape',
+
             },
+
             'colvis'
         ],
-        "columns": columns,
+        "columns": columns
         // apply the search
-        initComplete: function() {
-            this.api().columns().every(function() {
-                var that = this;
-                $('input', this.footer()).on('keyup change clear',
-                    function() {
-                        if (that.search() !== this.value) {
-                            that.search(this.value)
-                                .draw(); // search on adding new character
+        // initComplete: function() {
+        //     this.api().columns().every(function() {
+        //         var that = this;
+        //         $('input', this.footer()).on('keyup change clear',
+        //             function() {
+        //                 if (that.search() !== this.value) {
+        //                     that.search(this.value)
+        //                         .draw(); // search on adding new character
 
-                        }
-                        // Only Searching 
-                        // if (e.keyCode == 13) that.draw();
-                    });
-            });
-        }
+        //                 }
+        //                 // Only Searching 
+        //                 // if (e.keyCode == 13) that.draw();
+        //             });
+        //     });
+        // }
     });
 
-    // var table = $('#example').DataTable({
-    //     orderCellsTop: true,
-    //     // fixedHeader: true,
-    //     "scrollX": true,
-    //     keys: true
-    // });
+    // Multi select Filteration
+    yadcf.init(table, filtering_options);
 
 });
 </script>

@@ -87,7 +87,7 @@ require 'Include/Header.php';
           });
         }
         $("#restorestatus").css("color", "green");
-        $("#restorestatus").html("<?= gettext('Restore Complete')?>");
+        $("#restorestatus").html("<?= gettext('Restore Completes with Views built too')?>");
         $("#restoreNextStep").html('<a href="Logoff.php" class="btn btn-primary"><?= gettext('Login to restored Database')?></a>');
       }).fail(function () {
       $("#restorestatus").css("color", "red");

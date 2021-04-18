@@ -23,6 +23,8 @@ use Propel\Runtime\Propel;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+use ChurchCRM\SQLUtils;
+
 $app->group('/database', function () {
 
     $this->delete('/reset', 'resetDatabase');
@@ -55,7 +57,12 @@ $app->group('/database', function () {
     $this->post('/restore', function ($request, $response, $args) {
         $RestoreJob = new RestoreJob();
         $RestoreJob->Execute();
+        // rebuild the views 
+        
+        $connection = Propel::getConnection();
+        SQLUtils::sqlImport(SystemURLs::getDocumentRoot() . '/mysql/upgrade/rebuild_views.sql', $connection);
         return $response->withJSON($RestoreJob);
+
     });
 
     $this->get('/download/{filename}', function ($request, $response, $args) {

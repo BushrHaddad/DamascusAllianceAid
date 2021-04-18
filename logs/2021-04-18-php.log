@@ -1,0 +1,231 @@
+[18-Apr-2021 13:18:28 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:18:58 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:19:01 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:20:18 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:20:56 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:21:07 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:21:15 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:30:35 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(435): RunQuery('SELECT v.master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:30:49 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(435): RunQuery('SELECT v.master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:32:28 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(435): RunQuery('SELECT v.master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:34:00 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(435): RunQuery('SELECT v.master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:34:25 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(435): RunQuery('SELECT v.master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:37:46 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:37:53 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(435): RunQuery('SELECT v.master...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:38:12 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:38:58 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:39:31 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:39:54 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:42:29 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:43:15 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:44:32 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:49:10 UTC] PHP Fatal error:  Uncaught Exception: Cannot execute query.<p>SELECT  family_id, bag_name, cash_name, month_name, year_id, year_name, sup_name,
+                team_name FROM `master_general_view` WHERE `master_id` = 26232 ;<p>Table 'alliance_aid.master_general_view' doesn't exist in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 13:55:47 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'alliance_aid.version_ver' doesn't exist in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php:201
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php(201): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Service\SystemService.php(51): Propel\Runtime\Connection\StatementWrapper->execute()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(308): ChurchCRM\Service\SystemService::getDBVersion()
+#3 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(72): ChurchCRM\Bootstrapper::isDBCurrent()
+#4 C:\xampp\htdocs\churchcrm\Include\LoadConfigs.php(22): ChurchCRM\Bootstrapper::init('localhost', '3306', 'root', '', 'alliance_aid', '/churchcrm', false, Array)
+#5 C:\xampp\htdocs\churchcrm\Include\Config.php(63): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\churchcrm\api\index.php(2): require('C:\\xa in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php on line 201
+[18-Apr-2021 13:56:06 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'alliance_aid.version_ver' doesn't exist in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php:201
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php(201): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Service\SystemService.php(51): Propel\Runtime\Connection\StatementWrapper->execute()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(308): ChurchCRM\Service\SystemService::getDBVersion()
+#3 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(72): ChurchCRM\Bootstrapper::isDBCurrent()
+#4 C:\xampp\htdocs\churchcrm\Include\LoadConfigs.php(22): ChurchCRM\Bootstrapper::init('localhost', '3306', 'root', '', 'alliance_aid', '/churchcrm', false, Array)
+#5 C:\xampp\htdocs\churchcrm\Include\Config.php(63): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\churchcrm\api\index.php(2): require('C:\\xa in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php on line 201
+[18-Apr-2021 13:56:47 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'alliance_aid.version_ver' doesn't exist in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php:201
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php(201): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Service\SystemService.php(51): Propel\Runtime\Connection\StatementWrapper->execute()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(308): ChurchCRM\Service\SystemService::getDBVersion()
+#3 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(72): ChurchCRM\Bootstrapper::isDBCurrent()
+#4 C:\xampp\htdocs\churchcrm\Include\LoadConfigs.php(22): ChurchCRM\Bootstrapper::init('localhost', '3306', 'root', '', 'alliance_aid', '/churchcrm', false, Array)
+#5 C:\xampp\htdocs\churchcrm\Include\Config.php(63): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\churchcrm\api\index.php(2): require('C:\\xa in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php on line 201
+[18-Apr-2021 13:57:06 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'alliance_aid.version_ver' doesn't exist in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php:201
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php(201): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Service\SystemService.php(51): Propel\Runtime\Connection\StatementWrapper->execute()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(308): ChurchCRM\Service\SystemService::getDBVersion()
+#3 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(72): ChurchCRM\Bootstrapper::isDBCurrent()
+#4 C:\xampp\htdocs\churchcrm\Include\LoadConfigs.php(22): ChurchCRM\Bootstrapper::init('localhost', '3306', 'root', '', 'alliance_aid', '/churchcrm', false, Array)
+#5 C:\xampp\htdocs\churchcrm\Include\Config.php(63): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\churchcrm\api\index.php(2): require('C:\\xa in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php on line 201
+[18-Apr-2021 13:57:47 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'alliance_aid.version_ver' doesn't exist in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php:201
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php(201): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\churchcrm\ChurchCRM\Service\SystemService.php(51): Propel\Runtime\Connection\StatementWrapper->execute()
+#2 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(308): ChurchCRM\Service\SystemService::getDBVersion()
+#3 C:\xampp\htdocs\churchcrm\ChurchCRM\Bootstrapper.php(72): ChurchCRM\Bootstrapper::isDBCurrent()
+#4 C:\xampp\htdocs\churchcrm\Include\LoadConfigs.php(22): ChurchCRM\Bootstrapper::init('localhost', '3306', 'root', '', 'alliance_aid', '/churchcrm', false, Array)
+#5 C:\xampp\htdocs\churchcrm\Include\Config.php(63): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\churchcrm\api\index.php(2): require('C:\\xa in C:\xampp\htdocs\churchcrm\vendor\propel\propel\src\Propel\Runtime\Connection\StatementWrapper.php on line 201
+[18-Apr-2021 18:25:39 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 18:26:08 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 18:26:28 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 18:35:07 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 18:35:43 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 18:35:57 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 18:37:30 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(266): RunQuery('SELECT  family_...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193
+[18-Apr-2021 19:16:24 UTC] Slim Application Error:
+Type: Error
+Message: Call to a member function query() on null
+File: C:\xampp\htdocs\churchcrm\ChurchCRM\SQLUtils.php
+Line: 149
+Trace: #0 C:\xampp\htdocs\churchcrm\ChurchCRM\SQLUtils.php(56): ChurchCRM\SQLUtils::query('DROP VIEW IF EX...', NULL)
+#1 C:\xampp\htdocs\churchcrm\api\routes\system\system-database.php(60): ChurchCRM\SQLUtils::sqlImport('C:\\xampp\\htdocs...', NULL)
+#2 [internal function]: Closure->{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#3 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php(40): call_user_func(Object(Closure), Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#4 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(281): Slim\Handlers\Strategies\RequestResponse->__invoke(Object(Closure), Object(Slim\Http\Request), Object(Slim\Http\Response), Array)
+#5 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\Request\Auth\BaseAuthRoleMiddleware.php(28): Slim\Route->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#6 [internal function]: ChurchCRM\Slim\Middleware\Request\Auth\BaseAuthRoleMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\Route))
+#7 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\Request\Auth\AdminRoleAuthMiddleware), Array)
+#8 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\Route))
+#9 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\Route))
+#10 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\Route->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\Route.php(268): Slim\Route->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#12 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(503): Slim\Route->run(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#13 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\VersionMiddleware.php(13): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#14 [internal function]: ChurchCRM\Slim\Middleware\VersionMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#15 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\VersionMiddleware), Array)
+#16 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#17 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Slim\App))
+#18 C:\xampp\htdocs\churchcrm\ChurchCRM\Slim\Middleware\AuthMiddleware.php(34): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#19 [internal function]: ChurchCRM\Slim\Middleware\AuthMiddleware->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#20 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\DeferredCallable.php(57): call_user_func_array(Object(ChurchCRM\Slim\Middleware\AuthMiddleware), Array)
+#21 [internal function]: Slim\DeferredCallable->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#22 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(70): call_user_func(Object(Slim\DeferredCallable), Object(Slim\Http\Request), Object(Slim\Http\Response), Object(Closure))
+#23 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\MiddlewareAwareTrait.php(117): Slim\App->Slim\{closure}(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#24 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#25 C:\xampp\htdocs\churchcrm\vendor\slim\slim\Slim\App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#26 C:\xampp\htdocs\churchcrm\api\index.php(83): Slim\App->run()
+#27 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
+[18-Apr-2021 19:18:40 UTC] PHP Fatal error:  Uncaught Exception: Database error or invalid data, change sLogLevel to debug to see more. in C:\xampp\htdocs\churchcrm\Include\Functions.php:193
+Stack trace:
+#0 C:\xampp\htdocs\churchcrm\PostRedirect.php(338): RunQuery('SELECT * from `...')
+#1 {main}
+  thrown in C:\xampp\htdocs\churchcrm\Include\Functions.php on line 193

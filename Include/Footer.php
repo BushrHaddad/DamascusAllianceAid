@@ -122,6 +122,29 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/datatables/print.button.js"></script>
 
+<!-- Multi Select Filteration -->
+<!-- ================================================== -->
+<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/shCore.css" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/shThemeDefault.css" rel="stylesheet" type="text/css" /> -->
+<link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/main.css" rel="stylesheet" type="text/css" />
+<link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/chosen.min.css" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/fnReloadAjax.js"></script>
+
+<script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/jquery.dataTables.yadcf.0.9.2.js">
+</script>
+<!--  <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/="filter2/server_side_example.js"></script> -->
+<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shCore.js"></script> -->
+<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shBrushJScript.js"></script> -->
+<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shBrushJava.js"></script> -->
+<script type="text/javascript" charset="utf-8" language="javascript"
+    src="<?= SystemURLs::getRootPath() ?>/skin/filter2/chosen.jquery.min.js"></script>
+<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/jquery.dataTables.yadcf.0.9.2.css" rel="stylesheet"
+        type="text/css">
+    </link> -->
+<!-- End of Multi Select Filteration -->
+
+
 
 
 

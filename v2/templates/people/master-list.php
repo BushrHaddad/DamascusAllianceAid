@@ -50,29 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 ?>
-<!-- Multi Select Filteration -->
-<!-- ================================================== -->
-<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/shCore.css" rel="stylesheet" type="text/css" /> -->
-<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/shThemeDefault.css" rel="stylesheet" type="text/css" /> -->
-<link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/main.css" rel="stylesheet" type="text/css" />
-<link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/chosen.min.css" rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/fnReloadAjax.js"></script>
-
-<script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/jquery.dataTables.yadcf.0.9.2.js">
-</script>
-<!--  <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/="filter2/server_side_example.js"></script> -->
-<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shCore.js"></script> -->
-<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shBrushJScript.js"></script> -->
-<!-- <script type="text/javascript" src="<?= SystemURLs::getRootPath() ?>/skin/filter2/shBrushJava.js"></script> -->
-<script type="text/javascript" charset="utf-8" language="javascript"
-    src="<?= SystemURLs::getRootPath() ?>/skin/filter2/chosen.jquery.min.js"></script>
-<!-- <link href="<?= SystemURLs::getRootPath() ?>/skin/filter2/jquery.dataTables.yadcf.0.9.2.css" rel="stylesheet"
-        type="text/css">
-    </link> -->
-<!-- End of Multi Select Filteration -->
-
-
 
 <!--Select Year and Month  -->
 <div class="row">
@@ -262,8 +239,8 @@ $(document).ready(function() {
     // get filteration columns description 
     function get_filtering_options(total_num, multi_select_list) {
         filtering_options = []
-        for (var i = 0; i < total_num; i++) {
-            if (multi_select_list.includes(i)) {
+        for (var i = 1; i < total_num; i++) {
+            if (multi_select_list.includes(i) || i>=25) {
                 filtering_options.push({
                     column_number: i,
                     filter_type: 'multi_select',
@@ -290,8 +267,7 @@ $(document).ready(function() {
         }
         return filtering_options;
     }
-    var filtering_options = get_filtering_options(20, [3, 10, 11]);
-    console.log(filtering_options);
+    var filtering_options = get_filtering_options(25+(prev_*4), [3, 10, 11,15,19,20,23]);
 
     // get options
     $.ajax({
@@ -409,10 +385,10 @@ $(document).ready(function() {
             // var table = $('#example').DataTable({});
 
             destroyTable();
-            $('#example tfoot th').each(function() {
-                var title = $(this).text();
-                $(this).html('<input type="text" placeholder="' + title + '" />');
-            });
+            // $('#example tfoot th').each(function() {
+            //     var title = $(this).text();
+            //     $(this).html('<input type="text" placeholder="' + title + '" />');
+            // });
 
             table = $('#example').DataTable({
                 // "iDisplayLength": 10,
@@ -501,24 +477,24 @@ $(document).ready(function() {
                     },
 
                     'colvis'
-                ],
+                ]
 
                 // search filtering
-                initComplete: function() {
-                    this.api().columns().every(function() {
-                        var that = this;
-                        $('input', this.footer()).on('keyup change clear',
-                            function() {
-                                if (that.search() !== this.value) {
-                                    that.search(this.value)
-                                        .draw(); // search on adding new character
+                // initComplete: function() {
+                //     this.api().columns().every(function() {
+                //         var that = this;
+                //         $('input', this.footer()).on('keyup change clear',
+                //             function() {
+                //                 if (that.search() !== this.value) {
+                //                     that.search(this.value)
+                //                         .draw(); // search on adding new character
 
-                                }
-                                // Only Searching 
-                                // if (e.keyCode == 13) that.draw();
-                            });
-                    });
-                }
+                //                 }
+                //                 // Only Searching 
+                //                 // if (e.keyCode == 13) that.draw();
+                //             });
+                //     });
+                // }
             });
 
             yadcf.init(table, filtering_options);
