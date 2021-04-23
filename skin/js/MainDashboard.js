@@ -11,7 +11,7 @@ $(document).ready(function () {
             width: '15px',
             sortable: false,
             title: i18next.t('Edit'),
-            data: 'Id',
+            data: 'FamilyId',
             render: function (data, type, row) {
                 return '<a href="' + window.CRM.root + '/FamilyEditor.php?FamilyID=' + row.FamilyId + '"><button class="btn btn-default"><i class="fa fa-pencil"></i></button></a>';
             },
@@ -118,7 +118,7 @@ $(document).ready(function () {
             width: '15px',
             sortable: false,
             title: i18next.t('Action'),
-            data: 'Id',
+            data: 'PersonId',
             render: function (data, type, row) {
                 return '<a href="' + window.CRM.root + '/PersonView.php?PersonID=' + row.PersonId + '"><button class="btn btn-default"><i class="fa fa-search-plus"></i></button></a> ' +
                     '<a href="' + window.CRM.root + '/PersonView.php?PersonID=' + row.PersonId + '"><button class="btn btn-default"><i class="fa fa-pencil"></i></button></a>';
@@ -178,38 +178,6 @@ $(document).ready(function () {
             return "<a href='mailto:"+ email +"''>"+ email + "</a>";
         }
         return "";
-    }
-
-    if ($('#depositChartRow').length > 0) {
-        window.CRM.APIRequest({
-            method: 'GET',
-            path: 'deposits/dashboard'
-        }).done(function (data) {
-            let lineDataRaw = data;
-            let lineData = {
-                labels: [],
-                datasets: [
-                    {
-                        label: "Value",
-                        data: []
-                    }
-                ]
-            };
-            $.each(lineDataRaw, function (i, val) {
-                lineData.labels.push(moment(val.Date).format("MM-DD-YY"));
-                lineData.datasets[0].data.push(val.totalAmount);
-            });
-
-            new Chart($("#deposit-lineGraph").get(0).getContext("2d"), {
-                    type: 'line',
-                    data: lineData,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false
-                    }
-                }
-            );
-        });
     }
 
 });

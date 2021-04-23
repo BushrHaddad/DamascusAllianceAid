@@ -59,7 +59,7 @@ function getGlobalMaster(Request $request, Response $response, array $args){
                                 'Address', 'Address2', 'Region', 'State', 'Home Phone',
                                 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
                                 'General Note', "Team Note", "Ref", "Membership status",
-                                "Members Number", "Children", "Without Money", "Other Notes"],
+                                "Members Number", "Children", "Without Money", "Other Notes", "Question"],
       ];
 
     return $renderer->render($response, 'master-list.php', $pageArgs);
@@ -85,7 +85,7 @@ function postGlobalMaster(Request $request, Response $response, array $args){
                 'Address', 'Address2', 'Region', 'State', 'Home Phone',
                 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
                 'General Note', "Team Note", "Ref", "Membership status",
-                "Members Number", "Children", "Without Money", "Other Notes"],
+                "Members Number", "Children", "Without Money", "Other Notes", "Question"],
         'request' => (object)$request->getParsedBody()
       ];
 
@@ -101,19 +101,6 @@ function listFamilies(Request $request, Response $response, array $args)
       $sMode = InputUtils::LegacyFilterInput($_GET['mode']);
   }
 
-//   if (strtolower($sMode) == 'inactive') {
-//       $families = FamilyQuery::create()
-//           ->filterByDateDeactivated(null, Criteria::ISNOTNULL)
-//               ->orderByName()
-//               ->find();
-//   } else {
-//       $sMode = 'Active';
-//       $families = FamilyQuery::create()
-//           ->filterByDateDeactivated(null)
-//               ->orderByName()
-//               ->find();
-//   }
-
   $pageArgs = [
     'sMode' => $sMode,
     'sRootPath' => SystemURLs::getRootPath(),
@@ -121,7 +108,7 @@ function listFamilies(Request $request, Response $response, array $args)
                             'Address', 'Address2', 'Region', 'State', 'Home Phone',
                             'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
                             'General Note', "Team Note", "Ref", "Membership status",
-                            "Members Number", "Children", "Without Money", "Other Notes"],
+                            "Members Number", "Children", "Without Money", "Other Notes", "Question"],
     ];
 
   return $renderer->render($response, 'family-list.php', $pageArgs);

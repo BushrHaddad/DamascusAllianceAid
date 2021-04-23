@@ -118,6 +118,7 @@ function Header_body_scripts()
             PageName:"<?= $_SERVER['REQUEST_URI']; ?>"
         };
     </script>
+    <!-- Needed for global search -->
     <script src="<?= SystemURLs::getRootPath() ?>/skin/js/CRMJSOM.js"></script>
     <?php
 }

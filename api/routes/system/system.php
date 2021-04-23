@@ -21,6 +21,7 @@ function logCSPReportAPI(Request $request, Response $response, array $args)
 
 function getUiNotificationAPI(Request $request, Response $response, array $args)
 {
+    // return "yes";
     if (NotificationService::isUpdateRequired())
     {
         NotificationService::updateNotifications();

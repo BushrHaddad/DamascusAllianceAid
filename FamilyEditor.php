@@ -82,6 +82,61 @@ $aFirstNameError = [];
 $aBirthDateError = [];
 $aperFlags = [];
 
+function insert_into_global($criteria){
+
+    // get year 
+    $sSQL = "SELECT `id` FROM `master_dates_year` where id > 0";
+
+    if ($criteria == "new_year"){
+        $sSQL = "SELECT * from `master_dates_year` order by id DESC LIMIT 1";
+    }
+    $rsOpps = RunQuery($sSQL);    
+    $data= array();
+    while($row = mysqli_fetch_array($rsOpps))
+    {
+        $year_id = (int)$row[0];
+        // get family
+        $sSQL1 ="SELECT `fam_ID` FROM `family_fam` ;";
+        if($criteria == "new_family"){
+            $sSQL1 = "SELECT `fam_ID` from `family_fam` order by fam_ID DESC LIMIT 1";
+        }
+        
+        $rsOpps1 = RunQuery($sSQL1);
+        while($row1 = mysqli_fetch_array($rsOpps1))
+        {
+            $fam_id = (int)$row1[0];
+            $result =[];
+            $insert_query = "INSERT into `master_global` ( fam_id";
+            for ($i=1;$i<=12;$i++){
+                $col_name="month_".$i;
+                $insert_query = $insert_query.", ".$col_name;
+        
+                $query = "SELECT `id` from `master_family_master` where `month_id` = $i and `year_id` = $year_id and `family_id` = $fam_id";
+                $rsOpps2 = RunQuery($query);
+
+                if(mysqli_num_rows($rsOpps2) > 0){
+                    while($row2 = mysqli_fetch_array($rsOpps2)){
+                        $result[$i] = $row2[0];
+                    }
+                }
+                else{
+                    $result[$i] = -1;
+                }
+      
+            }
+            $insert_query = $insert_query.", year_id) VALUES ( $fam_id";
+            for ($i=1;$i<=12;$i++){
+                $insert_query = $insert_query.", ".$result[$i];
+            }
+            $insert_query = $insert_query.", $year_id);";
+            // echo $insert_query;
+            RunQuery($insert_query);
+        }
+    }
+    // exit;
+
+
+}
 //Is this the second pass?
 if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
     //Assign everything locally
@@ -353,7 +408,10 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
 
         //Execute the SQL
         RunQuery($sSQL);
-
+        if($iFamilyID < 1){
+            // insert new family ... insert this family for global_master
+            insert_into_global("new_family");
+        }
         //If the user added a new record, we need to key back to the route to the FamilyView page
         if ($bGetKeyBack) {
             //Get the key back
@@ -716,16 +774,6 @@ require 'Include/Header.php';
         <div class="box-body">
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label><?= gettext('Mobile Phone') ?>:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <input type="text" Name="HomePhone" value="<?= $sHomePhone ?>" size="30" maxlength="30"
-                            class="form-control">
-                    </div>
-                </div>
-                <div class="form-group col-md-6">
                     <label><?= gettext('Aid Phone') ?>:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -733,6 +781,16 @@ require 'Include/Header.php';
                         </div>
                         <input type="text" name="WorkPhone" value="<?= $sWorkPhone ?>" size="30" maxlength="30"
                             class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label><?= gettext('Mobile Phone') ?>:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" Name="HomePhone" value="<?= $sHomePhone ?>" size="30" maxlength="30"
+                            class="form-control">
                     </div>
                 </div>
             </div>

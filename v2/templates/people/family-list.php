@@ -12,16 +12,14 @@ use ChurchCRM\Service\MailChimpService;
 
 //Set the page title
 $sPageTitle =ucfirst($sMode). ' ' . 'Family List';
-// $mode = $sMode;
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
-/* @var $families ObjectCollection */
 ?>
-<link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
-
-<div class="pull-right">
-    <a class="btn btn-success" role="button" href="<?= SystemURLs::getRootPath()?>/FamilyEditor.php">
-        <span class="fa fa-plus" aria-hidden="true"></span> Add Family</a>
+<div class="container-fluid">
+    <div class="row">
+        <input id="ClearFilters" type="button" class="btn btn-default" value="Reset Filters"><BR><BR>
+        <a class="pull-right btn btn-success" role="button" href="<?= SystemURLs::getRootPath()?>/FamilyEditor.php">
+            <span class="fa fa-plus"></span> Add Family</a>
+    </div>
 </div>
 
 <div class="box">
@@ -60,9 +58,6 @@ $(document).ready(function() {
             title: 'Action',
             wrap: true,
             "render": function(item) {
-                // console.log(item);
-                // console.log(item.old_id);
-                // window.href = item;
                 var path_view = window.CRM.root + '/v2/family/' + item;
                 var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
                     item + '';
@@ -143,28 +138,31 @@ $(document).ready(function() {
         },
         {
             data: "other_notes"
+        },
+        {
+            data: "verifying_question"
         }
     ];
-
-    // $('#example tfoot th').each(function() {
-    //     var title = $(this).text();
-    //     $(this).html('<input type="text" placeholder="' + title + '" />');
-    // });
 
     // get filteration columns description 
     function get_filtering_options(total_num, multi_select_list) {
         filtering_options = []
         for (var i = 1; i < total_num; i++) {
-            if (multi_select_list.includes(i) || i >= 25) {
+            if (multi_select_list.includes(i)) {
                 filtering_options.push({
                     column_number: i,
                     filter_type: 'multi_select',
-                    append_data_to_table_data: 'before',
+                    filter_match_mode: 'regex',
                     data: [{
                         value: '^$',
-                        label: 'Empty'
+                        label: 'Blank'
+                    },{
+                        value: '1',
+                        label: '1'
+                    },{
+                        value: '2',
+                        label: '2'
                     }],
-                    filter_match_mode: 'regex',
                     select_type: 'select2',
                     select_type_options: {
                         width: '200px'
@@ -182,16 +180,18 @@ $(document).ready(function() {
         }
         return filtering_options;
     }
-    var filtering_options = get_filtering_options(25, [3, 10, 11, 15, 19, 20, 23]);
+    // var filtering_options = get_filtering_options(26, [3, 10, 11, 15, 19, 20, 23]);
+    var filtering_options = get_filtering_options(26, [3, 10, 11, 15, 19, 20, 23]);
 
 
     var table = $('#example').DataTable({
-        "bJQueryUI": true,
+        // "bJQueryUI": true,
         "bStateSave": true,
+        select: true,
         destroy: true,
-        // "serverSide": true,
+        "serverSide": true,
         "pageLength": 5,
-        // processing: true,
+        processing: true,
         // responsive: true,
         // deferRender: true,
         // deferRender: true,
@@ -208,22 +208,12 @@ $(document).ready(function() {
                     d.sMode = sMode
             }
         },
-        // "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "columns": columns,
         dom: 'Bfrtip',
         buttons: [{
                 extend: 'copyHtml5',
                 exportOptions: {
-                    columns: [0, ':visible'],
-                    format: {
-                        header: function(data, row, column, node) {
-                            var newdata = data;
-
-                            newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                            newdata = newdata.replace(/<div.*?<\/div>/gi, '');
-                            newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
-                            return newdata;
-                        }
-                    }
+                    columns: ':visible'
                 }
             },
             {
@@ -260,31 +250,16 @@ $(document).ready(function() {
                     }
                 },
                 orientation: 'landscape',
-
             },
-
             'colvis'
-        ],
-        "columns": columns
-        // apply the search
-        // initComplete: function() {
-        //     this.api().columns().every(function() {
-        //         var that = this;
-        //         $('input', this.footer()).on('keyup change clear',
-        //             function() {
-        //                 if (that.search() !== this.value) {
-        //                     that.search(this.value)
-        //                         .draw(); // search on adding new character
+        ]
 
-        //                 }
-        //                 // Only Searching 
-        //                 // if (e.keyCode == 13) that.draw();
-        //             });
-        //     });
-        // }
     });
 
-    // Multi select Filteration
+    $("#ClearFilters").click(function() {
+        yadcf.exResetAllFilters(table);
+    });
+
     yadcf.init(table, filtering_options);
 
 });

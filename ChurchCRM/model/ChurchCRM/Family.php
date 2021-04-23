@@ -301,7 +301,7 @@ class Family extends BaseFamily implements iPhoto
       }
       if (count($HoH) == 1)
       {
-         return $this->getName(). ": " . $HoH[0]->getFirstName() . " - " . $this->getAddress();
+         return "(".$this->getId(). ") ". $this->getName(). ": " . $HoH[0]->getFirstName() . " - " . $this->getAddress();
       }
       elseif (count($HoH) > 1)
       {
@@ -310,11 +310,11 @@ class Family extends BaseFamily implements iPhoto
           array_push($HoHs, $person->getFirstName());
         }
 
-        return $this->getName(). ": " . join(",", $HoHs) . " - " . $this->getAddress();
+        return  "(".$this->getId(). ") ". $this->getName(). ": " . join(",", $HoHs) . " - " . $this->getAddress();
       }
       else
       {
-        return $this->getName(). " " . $this->getAddress();
+        return  "(".$this->getId(). ") ". $this->getName(). " " . $this->getAddress();
       }
     }
 

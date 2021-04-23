@@ -1,0 +1,4 @@
+[20-Apr-2021 19:05:32 UTC] PHP Fatal error:  Uncaught Error: Call to a member function delete() on null in C:\xampp\htdocs\churchcrm\NoteDelete.php:51
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\churchcrm\NoteDelete.php on line 51

@@ -155,7 +155,7 @@ function getFamiliesWithAnniversaries(Request $request, Response $response, arra
 function getLatestFamilies(Request $request, Response $response, array $p_args)
 {
     $families = FamilyQuery::create()
-        ->filterByDateDeactivated(null)
+        // ->filterByDateDeactivated(null)
         ->orderByDateEntered('DESC')
         ->limit(10)
         ->find();
@@ -166,7 +166,7 @@ function getLatestFamilies(Request $request, Response $response, array $p_args)
 function getUpdatedFamilies(Request $request, Response $response, array $p_args)
 {
     $families = FamilyQuery::create()
-        ->filterByDateDeactivated(null)
+        // ->filterByDateDeactivated(null)
         ->orderByDateLastEdited('DESC')
         ->limit(10)
         ->find();

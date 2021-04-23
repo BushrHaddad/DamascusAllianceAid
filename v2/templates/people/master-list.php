@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 ?>
 
+
 <!--Select Year and Month  -->
 <div class="row">
     <form method="post" action="/churchcrm/v2/family/master">
@@ -109,7 +110,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 </div>
 
-<p><br /><br /></p>
+<div class="container-fluid">
+    <input id="ClearFilters" type="button" class="btn btn-default" value="Reset Filters"><BR><BR>
+</div>
 <div class="box">
     <div class="box-body">
         <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
@@ -142,8 +145,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     ?>
                     <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th>
+                    <!-- <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th> -->
                     <?php } ?>
                 </tr>
             </thead>
@@ -177,8 +180,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     ?>
                     <th><?= $month_name ?>-<?= $year_name ?> (Team)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
-                    <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th>
+                    <!-- <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
+                    <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th> -->
                     <?php } ?>
                 </tr>
             </tfoot>
@@ -192,7 +195,8 @@ $(document).ready(function() {
     'use strict';
 
     var x = 0; // the number of months that should be back
-    var additional_fields = 25; // number of family attributes
+    var additional_fields = 26; // number of family attributes
+    var aid_fields = 2; // number of aid fileds (team_name, cash_name)
     var team_options, bag_options, sup_options, cash_options;
     var team_dic, bag_dic, sup_dic, cash_dic;
 
@@ -227,20 +231,20 @@ $(document).ready(function() {
 
         team_options = _parse(json['all_teams']);
         cash_options = _parse(json['all_cash']);
-        bag_options = _parse(json['all_bags']);
-        sup_options = _parse(json['all_suppliments']);
+        // bag_options = _parse(json['all_bags']);
+        // sup_options = _parse(json['all_suppliments']);
 
         team_dic = _dic(json['all_teams']);
         cash_dic = _dic(json['all_cash']);
-        bag_dic = _dic(json['all_bags']);
-        sup_dic = _dic(json['all_suppliments']);
+        // bag_dic = _dic(json['all_bags']);
+        // sup_dic = _dic(json['all_suppliments']);
     }
 
     // get filteration columns description 
     function get_filtering_options(total_num, multi_select_list) {
         filtering_options = []
         for (var i = 1; i < total_num; i++) {
-            if (multi_select_list.includes(i) || i>=25) {
+            if (multi_select_list.includes(i) || i >= additional_fields) {
                 filtering_options.push({
                     column_number: i,
                     filter_type: 'multi_select',
@@ -267,7 +271,9 @@ $(document).ready(function() {
         }
         return filtering_options;
     }
-    var filtering_options = get_filtering_options(25+(prev_*4), [3, 10, 11,15,19,20,23]);
+    var filtering_options = get_filtering_options(additional_fields + (prev_ * aid_fields), [3, 10, 11, 15, 19,
+        20, 23
+    ]);
 
     // get options
     $.ajax({
@@ -364,6 +370,9 @@ $(document).ready(function() {
                 },
                 {
                     data: "other_notes"
+                },
+                {
+                    data: "question"
                 }
             ];
 
@@ -374,24 +383,11 @@ $(document).ready(function() {
                 columns.push({
                     data: 'cash_name' + i,
                 });
-                columns.push({
-                    data: 'bag_name' + i,
-                });
-                columns.push({
-                    data: 'sup_name' + i,
-                });
             }
 
-            // var table = $('#example').DataTable({});
-
             destroyTable();
-            // $('#example tfoot th').each(function() {
-            //     var title = $(this).text();
-            //     $(this).html('<input type="text" placeholder="' + title + '" />');
-            // });
-
             table = $('#example').DataTable({
-                // "iDisplayLength": 10,
+                // "iDisplayLength": 5,
                 "bJQueryUI": true,
                 "bStateSave": true,
                 destroy: true,
@@ -427,16 +423,6 @@ $(document).ready(function() {
                         extend: 'copyHtml5',
                         exportOptions: {
                             columns: [0, ':visible'],
-                            format: {
-                            header: function(data, row, column, node) {
-                                var newdata = data;
-
-                                newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                newdata = newdata.replace(/<div.*?<\/div>/gi, '');
-                                newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
-                                return newdata;
-                            }
-                        }
                         }
                     },
                     {
@@ -444,15 +430,17 @@ $(document).ready(function() {
                         exportOptions: {
                             columns: ':visible',
                             format: {
-                            header: function(data, row, column, node) {
-                                var newdata = data;
+                                header: function(data, row, column, node) {
+                                    var newdata = data;
 
-                                newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                newdata = newdata.replace(/<div.*?<\/div>/gi, '');
-                                newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
-                                return newdata;
+                                    newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                    newdata = newdata.replace(/<div.*?<\/div>/gi,
+                                        '');
+                                    newdata = newdata.replace(/<\/div.*?<\/div>/gi,
+                                        '');
+                                    return newdata;
+                                }
                             }
-                        }
                         }
                     },
                     {
@@ -478,23 +466,11 @@ $(document).ready(function() {
 
                     'colvis'
                 ]
+            });
 
-                // search filtering
-                // initComplete: function() {
-                //     this.api().columns().every(function() {
-                //         var that = this;
-                //         $('input', this.footer()).on('keyup change clear',
-                //             function() {
-                //                 if (that.search() !== this.value) {
-                //                     that.search(this.value)
-                //                         .draw(); // search on adding new character
-
-                //                 }
-                //                 // Only Searching 
-                //                 // if (e.keyCode == 13) that.draw();
-                //             });
-                //     });
-                // }
+            // reset all filters  
+            $("#ClearFilters").click(function() {
+                yadcf.exResetAllFilters(table);
             });
 
             yadcf.init(table, filtering_options);
@@ -502,34 +478,35 @@ $(document).ready(function() {
             var edits = [];
             var nums = [];
             var current_idx = 0;
-            for (var i = 0; i < (prev_ * 4); i++) {
+            for (var i = 0; i < (prev_ * aid_fields); i++) {
                 current_idx = i + additional_fields;
                 nums.push(current_idx);
-                if (i % 4 == 0) {
+                if (i % aid_fields == 0) {
                     edits.push({
                         "column": current_idx,
                         "type": "list",
                         "options": team_options,
                     });
-                } else if (i % 4 == 1) {
+                } else if (i % aid_fields == 1) {
                     edits.push({
                         "column": current_idx,
                         "type": "list",
                         "options": cash_options,
                     });
-                } else if (i % 4 == 2) {
-                    edits.push({
-                        "column": current_idx,
-                        "type": "list",
-                        "options": bag_options,
-                    });
-                } else if (i % 4 == 3) {
-                    edits.push({
-                        "column": current_idx,
-                        "type": "list",
-                        "options": sup_options,
-                    });
                 }
+                // else if (i % aid_fields == 2) {
+                //     edits.push({
+                //         "column": current_idx,
+                //         "type": "list",
+                //         "options": bag_options,
+                //     });
+                // } else if (i % aid_fields == 3) {
+                //     edits.push({
+                //         "column": current_idx,
+                //         "type": "list",
+                //         "options": sup_options,
+                //     });
+                // }
             }
 
             // inline editing
@@ -545,9 +522,6 @@ $(document).ready(function() {
 
             });
 
-            // multi select filtering
-
-            // SyntaxHighlighter.all();
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error on get Ajax request ");
@@ -560,12 +534,13 @@ $(document).ready(function() {
         $("#prev_month_count_id").val(p + 1);
     });
 
+
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {
         // todo: update individual cell instead of sending multiple value onUpdate() or onInsert() 
         var row = updatedCell[0][0]['row'];
         var col = updatedCell[0][0]['column'];
         col = col - (additional_fields); // the number of added field for family (should be subtracted)
-        var p = parseInt((col / 4));
+        var p = parseInt((col / aid_fields));
 
         for (var i = 0; i < p; i++) {
             if (month_ == 1) {
@@ -580,29 +555,23 @@ $(document).ready(function() {
             }
         }
 
-        var team_col_idx = p * 4 + (additional_fields);
-        var cash_col_idx = p * 4 + (additional_fields + 1);
-        var bag_col_idx = p * 4 + (additional_fields + 2);
-        var sup_col_idx = p * 4 + (additional_fields + 3);
+        var team_col_idx = p * aid_fields + (additional_fields);
+        var cash_col_idx = p * aid_fields + (additional_fields + 1);
 
         var team_name = table.cell(row, team_col_idx).data();
         var cash_name = table.cell(row, cash_col_idx).data();
-        var bag_name = table.cell(row, bag_col_idx).data();
-        var sup_name = table.cell(row, sup_col_idx).data();
 
         $.ajax({
 
             url: "/churchcrm/PostRedirect.php",
             type: "POST",
             data: {
-                post_name: "edit_local_master",
+                post_name: "edit_global_master",
                 family_id: updatedRow.data().fam_id,
                 month_id: month_,
                 year_id: year_,
                 team_id: team_dic[team_name],
-                cash_id: cash_dic[cash_name],
-                bag_id: bag_dic[bag_name],
-                sup_id: sup_dic[sup_name]
+                cash_id: cash_dic[cash_name]
             },
 
             success: function(response) {
@@ -620,6 +589,7 @@ $(document).ready(function() {
             table.MakeCellsEditable("destroy");
         }
     }
+
     $('.select2-master').select2();
 
 });

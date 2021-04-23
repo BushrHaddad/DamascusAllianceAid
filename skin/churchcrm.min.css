@@ -5,8 +5,8 @@
     sass --watch src/skin/churchcrm.scss:src/skin/churchcrm.min.css --style compressed
 
 */
-@import url(external/bootstrap-datepicker/bootstrap-datepicker.standalone.min.css);
-@import url(external/bootstrap-daterangepicker/daterangepicker.css);
+/* @import url(external/bootstrap-datepicker/bootstrap-datepicker.standalone.min.css); */
+/* @import url(external/bootstrap-daterangepicker/daterangepicker.css); */
 @import url(external/datatables/datatables.min.css);
 @import url(external/select2/select2.min.css);
 @import url(external/adminlte/AdminLTE.min.css);
@@ -15,11 +15,11 @@
 @import url(external/bootstrap-toggle/bootstrap-toggle.css);
 @import url(external/font-awesome/css/font-awesome.min.css);
 @import url(external/jquery.steps/jquery.steps.css);
-@import url(external/jquery-photo-uploader/PhotoUploader.css);
-@import url(external/fullcalendar/fullcalendar.min.css);
-@import 'external/fullcalendar/fullcalendar.print.css' print;
-@import url(external/react-datepicker/react-datepicker.min.css);
-@import url(external/flag-icon-css/css/flag-icon.css);
+/* @import url(external/jquery-photo-uploader/PhotoUploader.css); */
+/* @import url(external/fullcalendar/fullcalendar.min.css); */
+/* @import 'external/fullcalendar/fullcalendar.print.css' print; */
+/* @import url(external/react-datepicker/react-datepicker.min.css); */
+/* @import url(external/flag-icon-css/css/flag-icon.css); */
 
 
 @media (max-width: 767px) {

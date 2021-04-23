@@ -157,7 +157,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <div class="box">
     <div class="box-header with-border">
-        <h3 class="box-title">People</h3>
+        <h3 class="box-title">Updates</h3>
         <div class="pull-right">
             <div class="btn-group">
                 <a href="<?= SystemURLs::getRootPath() ?>/PersonEditor.php">
@@ -172,36 +172,34 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     <div class="box-body">
         <div class="row">
             <div class="col-md-12">
-                <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#ppl-tab_1" data-toggle="tab"><?= gettext('Latest Families') ?></a>
-                        </li>
-                        <li><a href="#ppl-tab_2" data-toggle="tab"><?= gettext('Updated Families') ?></a></li>
-                        <li><a href="#ppl-tab_3" data-toggle="tab"><?= gettext('Latest Persons') ?></a></li>
-                        <li><a href="#ppl-tab_4" data-toggle="tab"><?= gettext('Updated Persons') ?></a></li>
+                        <li class="active"><a href="#ppl-tab_1" data-toggle="tab">Latest Families</a></li>
+                        <li><a href="#ppl-tab_2" data-toggle="tab">Updated Families</a></li>
+                        <li><a href="#ppl-tab_3" data-toggle="tab">Latest Persons</a></li>
+                        <li><a href="#ppl-tab_4" data-toggle="tab">Updated Persons</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="ppl-tab_1">
                             <table class="table table-striped" width="100%" id="latestFamiliesDashboardItem"></table>
                         </div>
-                        <!-- /.tab-pane -->
+
                         <div class="tab-pane" id="ppl-tab_2">
                             <table class="table table-striped" width="100%" id="updatedFamiliesDashboardItem"></table>
                         </div>
-                        <!-- /.tab-pane -->
+
                         <div class="tab-pane" id="ppl-tab_3">
                             <table class="table table-striped" width="100%" id="latestPersonDashboardItem"></table>
                         </div>
-                        <!-- /.tab-pane -->
+
                         <div class="tab-pane" id="ppl-tab_4">
                             <table class="table table-striped" width="100%" id="updatedPersonDashboardItem"></table>
                         </div>
-                        <!-- /.tab-pane -->
+
                     </div>
-                    <!-- /.tab-content -->
+
                 </div>
-                <!-- nav-tabs-custom -->
+
             </div>
         </div>
     </div>
@@ -249,10 +247,7 @@ $(document).ready(function() {
         link.href = window.CRM.root+"/v2/reports/cash_report?month=" + cash_month + "&year="+cash_year;
         var link1 = document.getElementById("team_reports_link");
         link1.href = window.CRM.root+"/v2/reports/team_report?month=" + team_month + "&year="+team_year+ "&team="+team_team;
-
     }
-
-
 
 });
 </script>

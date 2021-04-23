@@ -32,7 +32,7 @@ $("document").ready(function(){
             {
              jqXHR.url = settings.url;
             },
-            error:  window.CRM.system.handlejQAJAXError
+            // error:  window.CRM.system.handlejQAJAXError
         }
     });
     $(".multiSearch").on("select2:select",function (e) { window.location.href= e.params.data.uri;});
@@ -44,73 +44,73 @@ $("document").ready(function(){
       }
     };
 
-    window.CRM.system.runTimerJobs();
+    // window.CRM.system.runTimerJobs();
 
-    $(".date-picker").datepicker({format:window.CRM.datePickerformat, language: window.CRM.lang});
+    // $(".date-picker").datepicker({format:window.CRM.datePickerformat, language: window.CRM.lang});
 
     $(".maxUploadSize").text(window.CRM.maxUploadSize);
 
-    $(document).on("click", ".emptyCart", function (e) {
-      window.CRM.cart.empty(function(data){
-        console.log(data.cartPeople);
-        $(data.cartPeople).each(function(index,data){
-          personButton = $("a[data-cartpersonid='" + data + "']");
-          $(personButton).addClass("AddToPeopleCart");
-          $(personButton).removeClass("RemoveFromPeopleCart");
-          $('span i:nth-child(2)',personButton).removeClass("fa-remove");
-          $('span i:nth-child(2)',personButton).addClass("fa-cart-plus");
-        });
-      });
-    });
+    // $(document).on("click", ".emptyCart", function (e) {
+    //   window.CRM.cart.empty(function(data){
+    //     console.log(data.cartPeople);
+    //     $(data.cartPeople).each(function(index,data){
+    //       personButton = $("a[data-cartpersonid='" + data + "']");
+    //       $(personButton).addClass("AddToPeopleCart");
+    //       $(personButton).removeClass("RemoveFromPeopleCart");
+    //       $('span i:nth-child(2)',personButton).removeClass("fa-remove");
+    //       $('span i:nth-child(2)',personButton).addClass("fa-cart-plus");
+    //     });
+    //   });
+    // });
 
-    $(document).on("click", "#emptyCartToGroup", function (e) {
-      window.CRM.cart.emptyToGroup();
-    });
+    // $(document).on("click", "#emptyCartToGroup", function (e) {
+    //   window.CRM.cart.emptyToGroup();
+    // });
 
-    $(document).on("click",".RemoveFromPeopleCart", function(){
-      clickedButton = $(this);
-      window.CRM.cart.removePerson([clickedButton.data("cartpersonid")],function()
-      {
-        $(clickedButton).addClass("AddToPeopleCart");
-        $(clickedButton).removeClass("RemoveFromPeopleCart");
-        $('span i:nth-child(2)',clickedButton).removeClass("fa-remove");
-        $('span i:nth-child(2)',clickedButton).addClass("fa-cart-plus");
-      });
-    });
+    // $(document).on("click",".RemoveFromPeopleCart", function(){
+    //   clickedButton = $(this);
+    //   window.CRM.cart.removePerson([clickedButton.data("cartpersonid")],function()
+    //   {
+    //     $(clickedButton).addClass("AddToPeopleCart");
+    //     $(clickedButton).removeClass("RemoveFromPeopleCart");
+    //     $('span i:nth-child(2)',clickedButton).removeClass("fa-remove");
+    //     $('span i:nth-child(2)',clickedButton).addClass("fa-cart-plus");
+    //   });
+    // });
 
-    $(document).on("click",".AddToPeopleCart", function(){
-      clickedButton = $(this);
-      window.CRM.cart.addPerson([clickedButton.data("cartpersonid")],function()
-      {
-        $(clickedButton).addClass("RemoveFromPeopleCart");
-        $(clickedButton).removeClass("AddToPeopleCart");
-        $('span i:nth-child(2)',clickedButton).addClass("fa-remove");
-        $('span i:nth-child(2)',clickedButton).removeClass("fa-cart-plus");
-      });
-    });
+    // $(document).on("click",".AddToPeopleCart", function(){
+    //   clickedButton = $(this);
+    //   window.CRM.cart.addPerson([clickedButton.data("cartpersonid")],function()
+    //   {
+    //     $(clickedButton).addClass("RemoveFromPeopleCart");
+    //     $(clickedButton).removeClass("AddToPeopleCart");
+    //     $('span i:nth-child(2)',clickedButton).addClass("fa-remove");
+    //     $('span i:nth-child(2)',clickedButton).removeClass("fa-cart-plus");
+    //   });
+    // });
 
-    window.CRM.cart.refresh();
-    window.CRM.dashboard.refresh();
-    DashboardRefreshTimer=setInterval(window.CRM.dashboard.refresh, window.CRM.iDashboardServiceIntervalTime * 1000);
+    // window.CRM.cart.refresh();
+    // window.CRM.dashboard.refresh();
+    // DashboardRefreshTimer=setInterval(window.CRM.dashboard.refresh, window.CRM.iDashboardServiceIntervalTime * 1000);
 
-    window.CRM.APIRequest({
-        path: 'system/notification',
-    }).done(function (data) {
-        data.notifications.forEach(function (item) {
-            $.notify({
-                icon: 'fa fa-'+item.icon,
-                message: item.title,
-                url: item.url
-            }, {
-                delay: item.delay,
-                type: item.type,
-                placement: {
-                    from: item.placement,
-                    align: item.align
-                }
-            });
-        });
-    });
+    // window.CRM.APIRequest({
+    //     path: 'system/notification',
+    // }).done(function (data) {
+    //     data.notifications.forEach(function (item) {
+    //         $.notify({
+    //             icon: 'fa fa-'+item.icon,
+    //             message: item.title,
+    //             url: item.url
+    //         }, {
+    //             delay: item.delay,
+    //             type: item.type,
+    //             placement: {
+    //                 from: item.placement,
+    //                 align: item.align
+    //             }
+    //         });
+    //     });
+    // });
 });
 
 function showGlobalMessage(message, callOutClass) {

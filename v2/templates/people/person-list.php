@@ -81,9 +81,9 @@ foreach ($ListItem as $element) {
 
             <div class= "col-lg-6">
                 <a class="btn btn-success" role="button" href="<?= SystemURLs::getRootPath()?>/PersonEditor.php"><span class="fa fa-plus" aria-hidden="true"></span><?= gettext('Add Person') ?></a>
-                <a id="AddAllToCart" class="btn btn-primary" ><?= gettext('Add All to Cart') ?></a>
+                <!-- <a id="AddAllToCart" class="btn btn-primary" ><?= gettext('Add All to Cart') ?></a> -->
                 <!-- <input name="IntersectCart" type="submit" class="btn btn-warning" value="< ?= gettext('Intersect with Cart') ?>">&nbsp; -->
-                <a id="RemoveAllFromCart" class="btn btn-danger" ><?= gettext('Remove All from Cart') ?></a>
+                <!-- <a id="RemoveAllFromCart" class="btn btn-danger" ><?= gettext('Remove All from Cart') ?></a> -->
             </div>
         </div>
     </div>
@@ -113,32 +113,10 @@ foreach ($ListItem as $element) {
                         </span>
                     </a>
 
-                    <?php if (!isset($_SESSION['aPeopleCart']) || !in_array($per_ID, $_SESSION['aPeopleCart'], false)) {
-                            ?>
-                          <a class="AddToPeopleCart" data-cartpersonid="<?= $person->getId() ?>">
-                        <span class="fa-stack">
-                                    <i class="fa fa-square fa-stack-2x"></i>
-                                    <i class="fa fa-cart-plus fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </td>
-                      <?php
-                        } else {
-                            ?>
-                        <a class="RemoveFromPeopleCart" data-cartpersonid="<?= $person->getId() ?>">
-                        <span class="fa-stack">
-                                    <i class="fa fa-square fa-stack-2x"></i>
-                                    <i class="fa fa-remove fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                            <?php
-                        }
-                            ?>
                 <td><?= $person->getId() ?></td>
                 <td><?= $person->getFirstName()?></td>
                 <td><?= $person->getMiddleName()?></td>
                 <td><?= $person->getLastName()?></td>
-                <td><?= $person->getNationalId()?></td>
                 <td><?= $person->getAddress() ?></td>
                 <td><?= $person->getHomePhone() ?></td>
                 <td><?= $person->getCellPhone() ?></td>
@@ -195,11 +173,6 @@ foreach ($ListItem as $element) {
                 {
                     title:i18next.t('Last Name'),
                 },
-
-                {
-                    title:i18next.t('National Id'),
-                },
-
                 {
                     title:i18next.t('Address'),
                 },
@@ -378,28 +351,6 @@ foreach ($ListItem as $element) {
             $('.filter-Group').val([]).trigger('change')
         });
     }); // end document ready
-
-    $("#AddAllToCart").click(function(){
-        var listPeople = [];
-        var table = $('#members').DataTable().rows( { filter: 'applied' } ).every( function () {
-        // fill array
-        var row = this.data();
-        listPeople.push(row[1]);
-    });
-        // bypass SelectList.js
-        window.CRM.cart.addPerson(listPeople);
-    });
-
-    $("#RemoveAllFromCart").click(function(){
-        var listPeople = [];
-        var table = $('#members').DataTable().rows( { filter: 'applied' } ).every( function () {
-        // fill array
-        var row = this.data();
-        listPeople.push(row[1]);
-    });
-        // bypass SelectList.js
-        window.CRM.cart.removePerson(listPeople);
-    });
 
 </script>
 

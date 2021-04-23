@@ -22,7 +22,9 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         href="<?= SystemURLs::getRootPath() ?>/r2/koolreport_2021/examples/reports/ex_2/index.php?month=<?=$_GET['month']?>&year=<?=$_GET['year']?>&team=<?=$_GET['team']?>">
         <button type="button" class="btn btn-success">Make Report</button>
     </a>
+
 </div>
+
 <div class="box">
     <div class="box-body">
         <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
@@ -169,24 +171,23 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 },
                 {
                     extend: 'print',
-                    // autoPrint: false,
+                    autoPrint: false,
                     exportOptions: {
                         columns: ':visible',
                         stripHtml: false
                     },
-                    title: '',
-                    exportOptions: {
-                        format: {
-                            header: function(data, row, column, node) {
-                                var newdata = data;
-
-                                newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                newdata = newdata.replace(/<div.*?<\/div>/gi, '');
-                                newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
-                                return newdata;
-                            }
-                        }
-                    },
+                    title: 'كنيسة الاتحاد المسيحي الإنجيلية - توزيع قوائم الفرق',
+                    // exportOptions: {
+                    //     format: {
+                    //         header: function(data, row, column, node) {
+                    //             var newdata = data;
+                    //             newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                    //             newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                    //             newdata = newdata.replace(/<\/div.*?<\/div>/gi, '');
+                    //             return newdata;
+                    //         }
+                    //     }
+                    // },
                     // messageTop: 'This print was produced using the Print button for DataTables',
                     repeatingHead: {
                         // logo: 'https://www.google.co.in/logos/doodles/2018/world-cup-2018-day-22-5384495837478912-s.png',
@@ -224,6 +225,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
     });
     </script>
+
 
     <?php
 require SystemURLs::getDocumentRoot() .  '/Include/Footer.php';

@@ -5,49 +5,9 @@
  *  Author      : Bushr Haddad
  *  Description : Process the cusomized datatables configuration, this file is responsible of processing local_master and global_master databales
  *                Process the inline editing of master tables.
- *                Get the options for bags, Teams, Suppliments, etc.
+ *                Get the options for bags, Teams, Suppliments, etc. 
  * 
- * 
-CREATE VIEW master_general_view
-    AS 
-    SELECT 
-        master_family_master.id as master_id,
-        master_family_master.family_id as family_id,
-        master_bags.name AS bag_name,
-        master_cash.name AS cash_name,
-        master_dates_months.name AS month_id,
-        master_dates_months.note1 AS month_name,
-        master_dates_year.id as year_id,
-        master_dates_year.name as year_name,
-        master_suppliments.name AS sup_name,
-        master_teams.name AS team_name,
-        master_visiting.name as visiting_name
-        FROM master_family_master
-        LEFT JOIN master_bags
-            ON master_bags.id = master_family_master.bag_id
-        LEFT JOIN master_cash
-            ON master_cash.id = master_family_master.cash_id
-        LEFT JOIN master_dates_months 
-            ON master_dates_months.id = master_family_master.month_id
-        LEFT JOIN master_dates_year
-            ON master_dates_year.id = master_family_master.year_id
-        LEFT JOIN master_suppliments
-            ON master_suppliments.id = master_family_master.sup_id
-        LEFT JOIN master_teams
-            ON master_teams.id = master_family_master.team_id
-        LEFT JOIN master_visiting
-            ON master_visiting.id = master_family_master.visited_id
-        ORDER BY master_family_master.id;
-
-
-        // Global master
-        select a.bag_id, a.team_id, a.cash_id, a.sup_id, a.bag_id, a.team_id, a.cash_id, a.sup_id FROM 
-        (select * from master_family_master where month_id=1 and year_id=1) as a 
-            INNER JOIN 
-        (select * from master_family_master where month_id=1 and year_id=1) as b
-            on (a.id=b.id) 
- ******************************************************************************/
-
+*/
 require 'Include/Config.php';
 require 'Include/Functions.php';
 
@@ -246,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     switch($post_name){
 
-        case "local_master":     // get family local master using (family_id, year_id)
+        case "local_master":    // get family local master using (family_id, year_id)
             
             $data = [];
             $val1 = (int)$_POST['year_id'];
@@ -281,58 +241,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             echo json_encode($data);
             break;
 
-        case "all_families":
-            
-            // $draw = $_POST['draw'];
-            // $sMode = $_POST['sMode'];
+        case "all_families":    // get all families data    
 
-            // $start = $_POST['start'];
-            // $rowperpage = $_POST['length']; // Rows display per page
+            $sMode = $_POST['sMode'];
+            $draw = $_POST['draw'];
+
+            $start = $_POST['start'];
+            $rowperpage = $_POST['length']; // Rows display per page
       
             // Overall Searching
-            // $searchValue = $_POST['search']['value']; // Search value
+            $searchValue = $_POST['search']['value']; // Search value
         
             // Ordering 
-            // $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
-            // $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
-            // $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
+            $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
+            $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
+            $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
             
             
             // Filtering Searching based on columns search value
-            // $filtered_search = " (";
-            // $searchQuery = " (";
+            $filtered_search = " (";
+            $searchQuery = " (";
 
-            // for($i=1; $i<24; $i++){
-            //     $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
-            //     // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
-            //     // if ($col_search_value != ''){
-            //         $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
-            //         // $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
-            //         if ($i==1){
-            //             $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
-            //             $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
-            //         }
-            //         else{   
-            //             $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-            //             $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
-            //         }
-            //     // }
-              
-            // }
-            // $filtered_search = $filtered_search." )";
-            // $searchQuery = $searchQuery." )";
-            // $rowperpage = 5;
-            // where 1 and $searchQuery and $filtered_search 
-            // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-            $all_fam_q = "SELECT * from `families_view`; ";
+            for($i=1; $i<26; $i++){
+                $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
+                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
+                $col_search_regex = $_POST['columns'][$i]['search']['regex'];
+                if($col_search_regex == "true"){
+                    $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
+                    $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '$col_search_value' ) ";
+                }
+                else{
+                    if ($i==1){
+                        $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
+                        $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
+                    }
+                    else{
+                        $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
+                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
+                    }
+                }
+            }
+
+            $filtered_search = $filtered_search." )";
+            $searchQuery = $searchQuery." )";
+
+            $rowperpage = 5;
+            $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
             
-            if($sMode == "active"){
-                // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-                $all_fam_q = "SELECT * from `families_view`  where status='active'; ";
+            // echo $all_fam_q;
+            // // exit;
 
+            if($sMode == "active"){
+            
+                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+            
             }elseif($sMode == "inactive"){
-                // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-                $all_fam_q = "SELECT * from `families_view`  where status='cancelled'; ";
+            
+                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+            
             }
 
             $d = RunQuery($all_fam_q);
@@ -364,10 +330,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     "main_id" => $row['main_id'],
                     "partner_id" => $row['partner_id'],
                     "no_money" => $row['no_money'],
-                    "other_notes" => $row['other_notes']
+                    "other_notes" => $row['other_notes'],
+                    "verifying_question" => $row['verifying_question']  
                 );
             }
             
+
+
             ## Total number of records without filtering
             $sel = "SELECT count(*) as allcount from `families_view`;";
             $records = RunQuery($sel);
@@ -376,16 +345,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             ## Total number of records with filtering
-            // $sel = "SELECT count(*) as allcount from `families_view`  where 1 and $searchQuery and $filtered_search  ;";
-            // $records = RunQuery($sel);
-            // while ($row = mysqli_fetch_array($records)) {
-            //     $totalRecordwithFilter = $row['allcount'];
-            // }
+            $sel = "SELECT count(*) as allcount from `families_view`  where 1 and $searchQuery and $filtered_search  ;";
+            $records = RunQuery($sel);
+            while ($row = mysqli_fetch_array($records)) {
+                $totalRecordwithFilter = $row['allcount'];
+            }
             
             $response = array(
-                // "draw" => intval($draw),
-                // "iTotalRecords" => $totalRecords,
-                // "iTotalDisplayRecords" => $totalRecords,
+                "draw" => intval($draw),
+                "iTotalRecords" => $totalRecords,
+                "iTotalDisplayRecords" => $totalRecordwithFilter,
                 "aaData" => $all_data,
                 );
     
@@ -467,12 +436,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     "partner_id" => $row['partner_id'],
                     "no_money" => $row['no_money'],
                     "other_notes" => $row['other_notes'],
+                    "question" => $row['verifying_question'],
                     "master_id"=>$master_row['master_id'],
                     "fam_id"=>$master_row['fam_id'],
-                    "bag_name1"=>$master_row['bag_name'],
                     "cash_name1"=>$master_row['cash_name'],
-                    "sup_name1"=>$master_row['sup_name'],
                     "team_name1"=>$master_row['team_name'],
+                    // "sup_name1"=>$master_row['sup_name'],
+                    // "bag_name1"=>$master_row['bag_name'],
+
                 );
             }
             
@@ -499,11 +470,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     
                 $empRecords = RunQuery($query);
                 while ($row = mysqli_fetch_array($empRecords) ) {
-                    $data[] = array( 
-                        "bag_name$i"=>$row['bag_name'],
-                        "cash_name$i"=>$row['cash_name'],
-                        "sup_name$i"=>$row['sup_name'],
+                    $data[] = array(
                         "team_name$i"=>$row['team_name'],
+                        "cash_name$i"=>$row['cash_name'],
+                        // "bag_name$i"=>$row['bag_name'],
+                        // "sup_name$i"=>$row['sup_name'],
                     );
                 }
                 $count=0;
@@ -603,6 +574,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 break;    
             }
        
+        case "edit_global_master": 
+
+            $family_id = (int)$_POST['family_id']; // the family id 
+            $month_id = (int)$_POST['month_id']; // the month id 
+            $year_id = (int)$_POST['year_id'];// the year id
+
+            $check_q= "SELECT month_$month_id from master_global where  year_id =  $year_id  AND fam_id =  $family_id ;";
+            $row = mysqli_fetch_array(RunQuery($check_q));
+            $found = $row[0];
+
+            if ($year_id<=0){
+                break;
+            }
+            // Updated values 
+            $team_id = (int)$_POST['team_id']; 
+            $cash_id = (int)$_POST['cash_id'];
+            
+            // if this month is found for this family
+            if($found != -1){
+                $sSQL = "UPDATE `master_family_master` SET 
+                        team_id     =   $team_id,
+                        cash_id     =   $cash_id
+                            WHERE  year_id     = $year_id  AND 
+                                month_id    = $month_id AND
+                                family_id   = $family_id ;";
+
+                RunQuery($sSQL);
+                echo $sSQL;
+                break;
+            }
+            else{ 
+                
+                $sSQL = "INSERT INTO `master_family_master` ( year_id, month_id,
+                                                            team_id, cash_id, family_id )
+                        VALUES ($year_id, $month_id, $team_id, $cash_id, $family_id);";
+
+                RunQuery($sSQL);
+                // get the mfm here
+                $q = "SELECT id FROM `master_family_master` WHERE `family_id` = $family_id and `year_id` = $year_id and `month_id`  = $month_id;" ;
+                $row = mysqli_fetch_array(RunQuery($q));
+                $mfm = $row[0];
+
+                // how to get the id of the new inserted row in master_family_master
+                $q = "UPDATE `master_global` SET 
+                        month_$month_id      =  $mfm
+                        WHERE  year_id       =  $year_id  AND 
+                                fam_id       =  $family_id ;";
+                                
+                RunQuery($q);
+                break;    
+            }
+          
         case "get_vars":  // get the option for teams, bags, suppliments and other.
             $_teams = _get('master_teams');
             $_cash = _get('master_cash');

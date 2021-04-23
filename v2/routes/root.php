@@ -87,7 +87,8 @@ function cashReport(Request $request, Response $response, array $args){
 
         $row1 = array(
             $family_id,
-            $row['cash_name']. "<hr style=' margin:0 !important;'>" .$row['team_name'],
+            $row['cash_name'],
+            $row['team_name'],
             $fam_row['main_name'] . " <br />". $fam_row['partner_name'],
             $fam_row['main_id'] . " <br />". $fam_row['partner_id'],
             $fam_row['home_phone']. " <br />". $fam_row['aid_phone']. " <br />". $fam_row['mobile_phone'],
@@ -95,7 +96,6 @@ function cashReport(Request $request, Response $response, array $args){
             $fam_row['poverty_rate'],
             $fam_row['ref'],
             $fam_row['members_num']. "<hr style=' margin:0 !important;'>" .$fam_row['children'],
-            $fam_row['general_note'],
             $fam_row['team_note'],
         );
 
@@ -105,8 +105,8 @@ function cashReport(Request $request, Response $response, array $args){
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => "Cash Report",
-        'attributes' => ['تسلسل','مالية','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة', 'عدد الأفراد',
-                        'ملاحظات عامة', 'ملاحظات الفريق'],
+        'attributes' => ['تسلسل','مالية','فريق الزيارة','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة', 'عدد الأفراد',
+                        'ملاحظات الفريق'],
         'results' => $data,
         'team_name' => "تقرير مالية",
         'year_name' => $year_name,
@@ -136,7 +136,7 @@ function teamReport(Request $request, Response $response, array $args){
     while ($row = mysqli_fetch_array($result))
     {
         $family_id = $row['family_id']; // this family id 
-        $fam_detail_q = "SELECT main_name, partner_name, main_id, partner_id,
+        $fam_detail_q = "SELECT main_name, verifying_question, partner_name, main_id, partner_id,
                             members_num, children, home_phone, aid_phone, mobile_phone,
                             address1, address2, city, state, poverty_rate, ref, general_note, team_note FROM families_view
                             WHERE id = $family_id;";
@@ -162,7 +162,7 @@ function teamReport(Request $request, Response $response, array $args){
 
         $row1 = array(
             $family_id. "<br /><br />". "مع.م <input type='checkbox'><br />بدون.م <input type='checkbox'>",
-            "",
+            $fam_row['verifying_question'],
             $fam_row['main_name']. " <br />". $fam_row['partner_name'],
             $fam_row['main_id']. " <br />". $fam_row['partner_id'],
             $fam_row['home_phone']. " <br />". $fam_row['aid_phone']. " <br />". $fam_row['mobile_phone'],

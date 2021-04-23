@@ -117,18 +117,18 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                     oldValue = sanitizeCellValue(oldValue);
 
                     if (!$(myCell).find('input').length && !$(myCell).find('select').length && !$(myCell).find('textarea').length) {
-                        // Input CSS
                         var input = getInputHtml(currentColumnIndex, settings, oldValue);
-                        $('.js-example-basic-single').select2({ 
+                        // Edited here
+                        // var $example = $(".js-example-basic-single").select2({ 
+                        //     allowClear: true,
+                        //     placeholder: "Search..",});
+                        // $example.select2("open");
+                        $(myCell).html(input.html);
+                        // necessary for showing js-example-basic-single
+                        var $example = $(".js-example-basic-single").select2({    
                             allowClear: true,
                             placeholder: "Search..",});
-                            var $example = $(".js-example-basic-single").select2();
-                            $example.select2("open");
-                        $(myCell).html(input.html);
-                        $('.js-example-basic-single').select2({    allowClear: true,
-                            placeholder: "Search..",});
-                            var $example = $(".js-example-basic-single").select2();
-                            $example.select2("open");
+                        $example.select2("open");
                         if (input.focus) {
                             $('#ejbeatycelledit').focus();
                         }
@@ -137,21 +137,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             }
          })
          .on( 'key-blur', function ( e, datatable, cell ) {
-
-            // $(cell.node()).removeClass('selected');
-            // var myCell = cell.node(); 
-            // var myCell = cell.node();
             cell.data(cell.data());
-
-            // $(myCell).html(myCell.html);
-            // var myCell = cell.node(); 
-            // settings.onUpdate(cell, row, oldValue);
-            // Get current page
-            // var currentPageIndex = table.page.info().page;
-            // //Redraw table
-            // table.page(currentPageIndex).draw(true);
-            // cell.data(cell.data());
-            // datatable.draw();
         } );
     }
 
@@ -227,8 +213,7 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
     }
     switch (inputType) {
         case "list":
-            
-            input.html = startWrapperHtml + "<select size='" + inputSetting.options.length + "' style='width: 80%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this)' onChange='$(this).updateEditableCell(this);' >";
+            input.html = startWrapperHtml + "<select style='width: 80%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this)' onChange='$(this).updateEditableCell(this);' >";
             $.each(inputSetting.options, function (index, option) {
                 if (oldValue == option.value) {
                    input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
@@ -238,16 +223,17 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
                 }
             });
             input.html = input.html + "</select>" + endWrapperHtml;
-            $('.js-example-basic-single').select2({    allowClear: true,
-                placeholder: "Search..",});
-            var $example = $(".js-example-basic-single").select2();
-            $example.select2("open");
+            // Edited
+            // var $example = $(".js-example-basic-single").select2({    allowClear: true,
+            //     placeholder: "Search..",});
+            // $example.select2("open");
+            console.log('list');
             input.focus = false;
             break;
 
         case "list-confirm": // List w/ confirm
             // console.log(inputSetting.options.length);
-            input.html = startWrapperHtml + "<select size='" + inputSetting.options.length + "' style='width: 80%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this);' onChange='$(this).updateEditableCell(this);' >";
+            input.html = startWrapperHtml + "<select style='width: 100%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this);' onChange='$(this).updateEditableCell(this);' >";
             $.each(inputSetting.options, function (index, option) {
                 if (oldValue == option.value) {
                    input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
@@ -256,11 +242,10 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
 
                 }
             });
-            $('.js-example-basic-single').select2({    allowClear: true, placeholder: "Search..",});
-            var $example = $(".js-example-basic-single").select2();
-            $example.select2("open");
-
-            // edited
+            // edited   
+            // var $example = $(".js-example-basic-single").select2({    allowClear: true, placeholder: "Search..",});
+            // $example.select2("open");
+            console.log('List confirm');
             // input.html = input.html + "</select>&nbsp;<a href='javascript:void(0); onkeyup='if(event.keyCode==37) {$(this).updateEditableCell(this);}' >Confirm</a> <a href='javascript:void(0);' class='" + cancelCss + "' onclick='$(this).cancelEditableCell(this)'>Cancel</a>" + endWrapperHtml;
             input.focus = false;
             break;

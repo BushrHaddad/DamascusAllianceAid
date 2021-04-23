@@ -14,7 +14,7 @@ use ChurchCRM\FamilyCustomQuery;
 
 
 //Set the page title
-$sPageTitle =  $family->getName() . " - " . gettext("Family");
+$sPageTitle =  "عائلة: ". $family->getName() ;
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 $curYear = (new DateTime)->format("Y");
@@ -92,11 +92,9 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                                 class="fa fa-hand-o-right"></i><?= gettext('Next Family') ?> </a>
                     </div>
                     <hr />
-                    <a class="btn btn-app" href="#" data-toggle="modal" data-target="#confirm-verify"><i
-                            class="fa fa-check-square"></i> <?= gettext("Verify Info") ?></a>
                     <a class="btn btn-app bg-olive"
                         href="<?= SystemURLs::getRootPath() ?>/PersonEditor.php?FamilyID=<?=$family->getId()?>"><i
-                            class="fa fa-plus-square"></i> <?= gettext('Add New Member') ?></a>
+                            class="fa fa-plus-square"></i> Add Member</a>
 
                     <?php if (AuthenticationManager::GetCurrentUser()->isEditRecordsEnabled()) { ?>
                     <button class="btn btn-app bg-orange" id="activateDeactivate">
@@ -108,7 +106,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             ?>
                     <a class="btn btn-app bg-maroon"
                         href="<?= SystemURLs::getRootPath() ?>/SelectDelete.php?FamilyID=<?=$family->getId()?>"><i
-                            class="fa fa-trash-o"></i>Delete This Family</a>
+                            class="fa fa-trash-o"></i>Delete Family</a>
                     <?php
                         }
                         if (AuthenticationManager::GetCurrentUser()->isNotesEnabled()) {
@@ -136,7 +134,17 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     </div>
                     <div class="box-body">
                         <ul class="fa-ul">
-                            <?php if (!empty($family->getAddress())) { ?>
+                            <?php 
+                            foreach ($familyCustom as $customField) {
+                                echo '<li><i class="fa-li ' . $customField->getIcon() . '"></i>'. $customField->getDisplayValue().': <span>';
+                                echo getCustomListOptionField($customField->getDisplayValue(),$customField->getFormattedValue());
+                                echo '</span></li>';
+                            }  
+                            ?>
+                            </br>
+                            </br>
+                            <?php                       
+                            if (!empty($family->getAddress())) { ?>
                             <li> <i class="fa-li fa fa-map"></i>Address: <span>
                                     <a href="http://maps.google.com/?q=<?= $family->getAddress() ?>"
                                         target="_blank"><?= $family->getAddress() ?></a></span>
@@ -167,11 +175,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             <?php
                             }
 
-                            foreach ($familyCustom as $customField) {
-                                echo '<li><i class="fa-li ' . $customField->getIcon() . '"></i>'. $customField->getDisplayValue().': <span>';
-                                echo getCustomListOptionField($customField->getDisplayValue(),$customField->getFormattedValue());
-                                echo '</span></li>';
-                            }  
+
                             ?>
                         </ul>
                     </div>
@@ -279,7 +283,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
             </div>
         </div>
     </div>
-
+    <!--  Local Master  -->
     <div class="col-lg-7">
 
         <!-- Master Table -->
@@ -326,48 +330,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
             </div>
         </div>
         <!-- End Master Table -->
-
-        <!-- Start Property Table  -->
-        <div class="box">
-            <div class="box-header">
-                <i class="fa fa-hashtag"></i>
-                <h3 class="box-title"><?= gettext("Properties") ?></h3>
-                <div class="box-tools pull-right">
-                    <?php if (AuthenticationManager::GetCurrentUser()->isEditRecordsEnabled()) { ?>
-                    <button id="add-family-property" type="button" class="btn btn-box-tool hidden"><i
-                            class="fa fa-plus-circle text-blue"></i></button>
-                    <?php } ?>
-
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-
-                <div id="family-property-loading" class="col-xs-12 text-center">
-                    <i class="btn btn-default btn-lrg ajax">
-                        <i class="fa fa-spin fa-refresh"></i>&nbsp; <?= gettext("Loading") ?>
-                    </i>
-                </div>
-
-                <div id="family-property-no-data" class="alert alert-warning hidden">
-                    <i class="fa fa-question-circle fa-fw fa-lg"></i>
-                    <span><?= gettext("No property assignments.") ?></span>
-                </div>
-
-                <table id="family-property-table" class="table table-striped table-bordered data-table hidden"
-                    cellspacing="0" width="80%">
-                    <thead>
-                        <tr>
-                            <th width="50"></th>
-                            <th width="250" class="text-center"><?= gettext("Name") ?></th>
-                            <th class="text-center"><?= gettext("Value") ?></th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-        <!-- End Property Table  -->
 
         <!-- Start Timeline Table -->
         <div class="box">
@@ -448,21 +410,22 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
 
 </div>
 <style>
-    .family-info ul li {
-        /* direction: rtl; */
-        /* float: left; */
-        padding:7px 5px; margin:0;
-        font-size: 15px;
-        font-weight: bold;
-        /* direction: rtl; */
-    }
-    .family-info span{
-        float: right;
-        text-align: right;
-        font-weight: 500;
-        font-size: 14px;
-    }
-  
+.family-info ul li {
+    /* direction: rtl; */
+    /* float: left; */
+    padding: 7px 5px;
+    margin: 0;
+    font-size: 15px;
+    font-weight: bold;
+    /* direction: rtl; */
+}
+
+.family-info span {
+    float: right;
+    text-align: right;
+    font-weight: 500;
+    font-size: 14px;
+}
 </style>
 
 
@@ -517,48 +480,6 @@ $(document).ready(function() {
 });
 </script>
 <!-- Photos end -->
-<div class="modal fade" id="confirm-verify" tabindex="-1" role="dialog" aria-labelledby="confirm-verify-label"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="confirm-verify-label"><?= gettext("Request Family Info Verification") ?>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <b><?= gettext("Select how do you want to request the family information to be verified") ?></b>
-                <p>
-                    <?php if (count($family->getEmails()) > 0) {
-                    ?>
-                <p><?= gettext("You are about to email copy of the family information to the following emails") ?>
-                <ul>
-                    <?php foreach ($family->getEmails() as $tmpEmail) { ?>
-                    <li><?= $tmpEmail ?></li>
-                    <?php } ?>
-                </ul>
-                </p>
-            </div>
-            <?php
-            } ?>
-            <div class="modal-footer text-center">
-                <?php if (count($family->getEmails()) > 0 && !empty(SystemConfig::getValue('sSMTPHost'))) {
-                    ?>
-                <button type="button" id="onlineVerify" class="btn btn-warning warning"><i class="fa fa-envelope"></i>
-                    <?= gettext("Online Verification") ?>
-                </button>
-                <?php
-                } ?>
-                <button type="button" id="verifyURL" class="btn btn-default"><i class="fa fa-chain"></i>
-                    <?= gettext("URL") ?></button>
-                <button type="button" id="verifyDownloadPDF" class="btn btn-info"><i class="fa fa-download"></i>
-                    <?= gettext("PDF") ?></button>
-                <button type="button" id="verifyNow" class="btn btn-success"><i class="fa fa-check"></i>
-                    <?= gettext("Verified In Person") ?>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <?php include SystemURLs::getDocumentRoot() . '/Include/Footer.php'; ?>

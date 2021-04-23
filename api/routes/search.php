@@ -24,13 +24,13 @@ $app->get('/search/{query}', function ($request, $response, $args) {
     $query = $args['query'];
     $resultsArray = [];
     $resultsProviders = [
-        new PersonSearchResultProvider(),
-        new AddressSearchResultProvider(),
         new FamilySearchResultProvider(),
-        new GroupSearchResultProvider(),
-        new FinanceDepositSearchResultProvider(),
-        new FinancePaymentSearchResultProvider(),
-        new CalendarEventSearchResultProvider()
+        new AddressSearchResultProvider(),
+        new PersonSearchResultProvider(),       
+        // new GroupSearchResultProvider(),
+        // new FinanceDepositSearchResultProvider(),
+        // new FinancePaymentSearchResultProvider(),
+        // new CalendarEventSearchResultProvider()
     ];
 
     foreach($resultsProviders as $provider)
