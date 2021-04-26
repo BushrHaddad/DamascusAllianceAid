@@ -342,6 +342,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         case "all_families":    // get all families data    
 
+            $q = "SET collation_connection = 'utf8_unicode_ci'; ";
+            RunQuery($q);
+
             $sMode = $_POST['sMode'];
             // $sMode = "active";
             
@@ -356,7 +359,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
             $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
             $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
-            
             
             // Filtering Searching based on columns search value
             $filtered_search = " (";
@@ -398,8 +400,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             
             }
 
-            // echo $all_fam_q;
-            // exit;
+            echo $all_fam_q;
+            exit;
 
             $d = RunQuery($all_fam_q);
        
