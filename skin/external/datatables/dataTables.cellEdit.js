@@ -81,7 +81,9 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             // Get current page
             var currentPageIndex = table.page.info().page;
             //Redraw table
-            table.page(currentPageIndex).draw(false);
+            // table.page(currentPageIndex).draw(false);
+            console.log("draw commented");
+
         },
         // CANCEL
         cancelEditableCell: function (callingElement) {
@@ -90,7 +92,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             // Set cell to it's original value
             cell.data(cell.data());
             // Redraw table
-            table.draw();
+            // table.draw();
         }
     });
 
@@ -245,7 +247,6 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
             // edited   
             // var $example = $(".js-example-basic-single").select2({    allowClear: true, placeholder: "Search..",});
             // $example.select2("open");
-            console.log('List confirm');
             // input.html = input.html + "</select>&nbsp;<a href='javascript:void(0); onkeyup='if(event.keyCode==37) {$(this).updateEditableCell(this);}' >Confirm</a> <a href='javascript:void(0);' class='" + cancelCss + "' onclick='$(this).cancelEditableCell(this)'>Cancel</a>" + endWrapperHtml;
             input.focus = false;
             break;

@@ -197,13 +197,12 @@ $(document).ready(function() {
     var x = 0; // the number of months that should be back
     var additional_fields = 26; // number of family attributes
     var aid_fields = 2; // number of aid fileds (team_name, cash_name)
-    var team_options, bag_options, sup_options, cash_options;
-    var team_dic, bag_dic, sup_dic, cash_dic;
-
+    var team_options, cash_options;
+    var team_dic, bag_dic;
     var month_ = $("#month_option_id").val();
     var year_ = $("#year_option_id").val();
-
     var prev_ = Number($("#prev_month_count_id").val());
+    var filtering_options = [];
 
     function _parse(obj) {
         parsed = [];
@@ -211,7 +210,6 @@ $(document).ready(function() {
             parsed.push({
                 "value": obj[index]['name'],
                 "display": obj[index]['name']
-                // "value_id": obj[index]['id']
             })
 
         }
@@ -226,34 +224,47 @@ $(document).ready(function() {
         return parsed;
     }
 
-    function getVarsCallBack(response) {
-        var json = JSON.parse(response);
-
-        team_options = _parse(json['all_teams']);
-        cash_options = _parse(json['all_cash']);
-        // bag_options = _parse(json['all_bags']);
-        // sup_options = _parse(json['all_suppliments']);
-
-        team_dic = _dic(json['all_teams']);
-        cash_dic = _dic(json['all_cash']);
-        // bag_dic = _dic(json['all_bags']);
-        // sup_dic = _dic(json['all_suppliments']);
+    function parse_multi_select(object) {
+        parsed = [];
+        parsed.push({
+            value: '^$',
+            label: 'Blank'
+        });
+        for (index = 0; index < object.length; index++) {
+            parsed.push({
+                value: object[index],
+                label: object[index]
+            });
+        }
+        return parsed;
     }
 
-    // get filteration columns description 
-    function get_filtering_options(total_num, multi_select_list) {
+    function get_filtering_options(json, total_num) {
         filtering_options = []
         for (var i = 1; i < total_num; i++) {
-            if (multi_select_list.includes(i) || i >= additional_fields) {
+            if (json[String(i)]) {
                 filtering_options.push({
                     column_number: i,
                     filter_type: 'multi_select',
-                    append_data_to_table_data: 'before',
-                    data: [{
-                        value: '^$',
-                        label: 'Empty'
-                    }],
                     filter_match_mode: 'regex',
+                    data: parse_multi_select(json[String(i)]),
+                    select_type: 'select2',
+                    select_type_options: {
+                        width: '200px'
+                    }
+                });
+            } else if (i >= additional_fields) {
+                var name = "";
+                if (i % 2 == 0) {
+                    name = "teams";
+                } else {
+                    name = "cash";
+                }
+                filtering_options.push({
+                    column_number: i,
+                    filter_type: 'multi_select',
+                    filter_match_mode: 'regex',
+                    data: parse_multi_select(json[name]),
                     select_type: 'select2',
                     select_type_options: {
                         width: '200px'
@@ -271,9 +282,162 @@ $(document).ready(function() {
         }
         return filtering_options;
     }
-    var filtering_options = get_filtering_options(additional_fields + (prev_ * aid_fields), [3, 10, 11, 15, 19,
-        20, 23
-    ]);
+
+    function getVarsCallBack(response) {
+        var json = JSON.parse(response);
+        team_options = _parse(json['all_teams']);
+        cash_options = _parse(json['all_cash']);
+
+        team_dic = _dic(json['all_teams']);
+        cash_dic = _dic(json['all_cash']);
+        // now get multi select filtering options 
+        filtering_options = get_filtering_options(json, additional_fields + (prev_ * aid_fields));
+    }
+
+    var oldExportAction = function(self, e, dt, button, config) {
+        if (button[0].className.indexOf('buttons-excel') >= 0) {
+            if ($.fn.dataTable.ext.buttons.excelHtml5.available(dt, config)) {
+                $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config);
+            } else {
+                $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+            }
+        } else if (button[0].className.indexOf('buttons-print') >= 0) {
+            $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+        }
+    };
+
+    var newExportAction = function(e, dt, button, config) {
+        var self = this;
+        var oldStart = dt.settings()[0]._iDisplayStart;
+
+        dt.one('preXhr', function(e, s, data) {
+            // Just this once, load all data from the server...
+            data.start = 0;
+            data.length = 2147483647;
+
+            dt.one('preDraw', function(e, settings) {
+                // Call the original action function 
+                oldExportAction(self, e, dt, button, config);
+
+                dt.one('preXhr', function(e, s, data) {
+                    // DataTables thinks the first item displayed is index 0, but we're not drawing that.
+                    // Set the property to what it was before exporting.
+                    settings._iDisplayStart = oldStart;
+                    data.start = oldStart;
+                });
+
+                // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+                setTimeout(dt.ajax.reload, 0);
+
+                // Prevent rendering of the full data to the DOM
+                return false;
+            });
+        });
+
+        // Requery the server with the new one-time export settings
+        dt.ajax.reload();
+    };
+
+    var columns = [{
+            data: "id",
+            title: 'Action',
+            wrap: true,
+            "render": function(item) {
+                var path_view = window.CRM.root + '/v2/family/' + item;
+                var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
+                    item + '';
+                return '<div> <a href=' + path_view +
+                    '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +
+                    path_edit +
+                    '><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a> </div>';
+            },
+        },
+        {
+            data: "id"
+        },
+        {
+            data: "old_id"
+        },
+        {
+            data: "p"
+        },
+        {
+            data: "main_name"
+        },
+        {
+            data: "main_id"
+        },
+        {
+            data: "partner_name"
+        },
+        {
+            data: "partner_id"
+        },
+        {
+            data: "address1"
+        },
+        {
+            data: "address2"
+        },
+        {
+            data: "city"
+        },
+        {
+            data: "state"
+        },
+        {
+            data: "home_phone"
+        },
+        {
+            data: "aid_phone"
+        },
+        {
+            data: "mobile_phone"
+        },
+        {
+            data: "status"
+        },
+        {
+            data: "aid_note"
+        },
+        {
+            data: "general_note"
+        },
+        {
+            data: "team_note"
+        },
+        {
+            data: "ref"
+        },
+        {
+            data: "membership_status"
+        },
+        {
+            data: "members_num"
+        },
+        {
+            data: "children"
+        },
+        {
+            data: "no_money"
+        },
+        {
+            data: "other_notes"
+        },
+        {
+            data: "verifying_question"
+        }
+    ];
+
+    for (var i = 1; i <= prev_; i++) {
+        columns.push({
+            data: 'team_name' + i,
+        });
+        columns.push({
+            data: 'cash_name' + i,
+        });
+    }
+
 
     // get options
     $.ajax({
@@ -281,131 +445,26 @@ $(document).ready(function() {
         url: "/churchcrm/PostRedirect.php",
         type: "POST",
         data: {
-            post_name: "get_vars",
+            post_name: "get_global_vars",
         },
         success: function(response) {
             getVarsCallBack(response);
-            var columns = [{
-                    data: "id",
-                    title: 'Action',
-                    wrap: true,
-                    "render": function(item) {
-                        var path_view = window.CRM.root + '/v2/family/' + item;
-                        var path_edit = window.CRM.root + '/FamilyEditor.php?FamilyID=' +
-                            item + '';
-                        return '<div> <a href=' + path_view +
-                            '><span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i><i class="fa fa-search-plus fa-stack-1x fa-inverse"></i></span></a> <a href=' +
-                            path_edit +
-                            '><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-pencil fa-stack-1x fa-inverse"></i></span></a> </div>';
-                    },
-                },
-                {
-                    data: "id"
-                },
-                {
-                    data: "old_id"
-                },
-                {
-                    data: "p"
-                },
-                {
-                    data: "main_name"
-                },
-                {
-                    data: "main_id"
-                },
-                {
-                    data: "partner_name"
-                },
-                {
-                    data: "partner_id"
-                },
-                {
-                    data: "address1"
-                },
-                {
-                    data: "address2"
-                },
-                {
-                    data: "city"
-                },
-                {
-                    data: "state"
-                },
-                {
-                    data: "home_phone"
-                },
-                {
-                    data: "aid_phone"
-                },
-                {
-                    data: "mobile_phone"
-                },
-                {
-                    data: "status"
-                },
-                {
-                    data: "aid_note"
-                },
-                {
-                    data: "general_note"
-                },
-                {
-                    data: "team_note"
-                },
-                {
-                    data: "ref"
-                },
-                {
-                    data: "membership_status"
-                },
-                {
-                    data: "members_num"
-                },
-                {
-                    data: "children"
-                },
-                {
-                    data: "no_money"
-                },
-                {
-                    data: "other_notes"
-                },
-                {
-                    data: "question"
-                }
-            ];
-
-            for (var i = 1; i <= prev_; i++) {
-                columns.push({
-                    data: 'team_name' + i,
-                });
-                columns.push({
-                    data: 'cash_name' + i,
-                });
-            }
-
             destroyTable();
             table = $('#example').DataTable({
-                // "iDisplayLength": 5,
-                "bJQueryUI": true,
                 "bStateSave": true,
+                select: true,
                 destroy: true,
-                // "bProcessing": true,
-                // "sAjaxSource": 'entrys_table_source',
-                // "bSort": false,
+                "serverSide": true,
+                "pageLength": 5,
+                processing: true,
                 // responsive: true,
-                // orderCellsTop: true,
-                "scrollX": true,
-                // paging: false,
-                // scrollY: 200,
+                // deferRender: true,
+                // deferRender: true,
+                // scrollY: 300,
+                // scrollCollapse: true,
+                // scroller: true,
                 keys: true,
-                // "type": "POST",
-                // 'processing': true,
-                // 'serverSide': true,
-                // 'serverMethod': 'post',
-                // "bLengthChange": true,
-                // "iDisplayLength": 10,
+                scrollX: true,
 
                 'ajax': {
                     "type": "POST",
@@ -420,12 +479,6 @@ $(document).ready(function() {
                 'columns': columns,
                 dom: 'Bfrtip',
                 buttons: [{
-                        extend: 'copyHtml5',
-                        exportOptions: {
-                            columns: [0, ':visible'],
-                        }
-                    },
-                    {
                         extend: 'excelHtml5',
                         exportOptions: {
                             columns: ':visible',
@@ -441,29 +494,9 @@ $(document).ready(function() {
                                     return newdata;
                                 }
                             }
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: ':visible',
-                            format: {
-                                header: function(data, row, column, node) {
-                                    var newdata = data;
-
-                                    newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                    newdata = newdata.replace(/<div.*?<\/div>/gi,
-                                        '');
-                                    newdata = newdata.replace(/<\/div.*?<\/div>/gi,
-                                        '');
-                                    return newdata;
-                                }
-                            }
                         },
-                        orientation: 'landscape',
-
+                        action: newExportAction
                     },
-
                     'colvis'
                 ]
             });
@@ -537,6 +570,7 @@ $(document).ready(function() {
 
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {
         // todo: update individual cell instead of sending multiple value onUpdate() or onInsert() 
+        // console.log(updatedRow.data());
         var row = updatedCell[0][0]['row'];
         var col = updatedCell[0][0]['column'];
         col = col - (additional_fields); // the number of added field for family (should be subtracted)
@@ -567,7 +601,7 @@ $(document).ready(function() {
             type: "POST",
             data: {
                 post_name: "edit_global_master",
-                family_id: updatedRow.data().fam_id,
+                family_id: updatedRow.data().id,
                 month_id: month_,
                 year_id: year_,
                 team_id: team_dic[team_name],

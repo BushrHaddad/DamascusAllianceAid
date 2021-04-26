@@ -368,7 +368,7 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
         type: "POST",
         // datatype: "text",
         data: {
-            post_name: "get_vars",
+            post_name: "get_local_vars",
         },
 
         success: function(response) {

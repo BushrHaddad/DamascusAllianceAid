@@ -163,8 +163,11 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 <a href="<?= SystemURLs::getRootPath() ?>/PersonEditor.php">
                     <button type="button" class="btn btn-success">Add New Person</button>
                 </a>
-                <a href="<?= SystemURLs::getRootPath() ?>/FamilyEditor.php" <button type="button"
+                <a href="<?= SystemURLs::getRootPath() ?>/FamilyEditor.php"> <button type="button"
                     class="btn btn-success">Add New Family</button>
+                </a>
+                <a href="<?= SystemURLs::getRootPath() ?>/FamilyImportFromExcel.php"> <button type="button"
+                    class="btn btn-success">Import Family Data from Excel</button>
                 </a>
             </div>
         </div>
