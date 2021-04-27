@@ -215,32 +215,33 @@ function get_master_data($ids, $year_id, $month_id, $prev, $start, $rowperpage){
     
     while ($row = mysqli_fetch_array($records)) {
         $all_data[] = array( 
-            "id" => $row['id'],
-            "old_id" => $row['old_id'],
-            "p" => $row['p'],
-            "address1" => $row['address1'],
-            "address2" => $row['address2'],
-            "city" => $row['city'],
-            "state" => $row['state'],
-            "home_phone" => $row['home_phone'],
-            "aid_phone" => $row['aid_phone'],
-            "mobile_phone" => $row['mobile_phone'],
-            "status" => $row['status'],
-            "aid_note" => $row['aid_note'],
-            "general_note" => $row['general_note'],
-            "team_note" => $row['team_note'],
-            "ref" => $row['ref'],
-            "membership_status" => $row['membership_status'],
-            "members_num" => $row['members_num'],
-            "children" => $row['children'],
-            "poverty_rate" => $row['poverty_rate'],
-            "main_name" => $row['main_name'],
-            "partner_name" => $row['partner_name'],
-            "main_id" => $row['main_id'],
-            "partner_id" => $row['partner_id'],
-            "no_money" => $row['no_money'],
-            "other_notes" => $row['other_notes'],
-            "verifying_question" => $row['verifying_question']  
+            "0" => $row['id'],
+            "1" => $row['id'],
+            "2" => $row['old_id'],
+            "3" => $row['p'],
+            "4" => $row['main_name'],
+            "5" => $row['main_id'],
+            "6" => $row['partner_name'],
+            "7" => $row['partner_id'],
+            "8" => $row['poverty_rate'],
+            "9" => $row['address1'],
+            "10" => $row['address2'],
+            "11" => $row['city'],
+            "12" => $row['state'],
+            "13" => $row['home_phone'],
+            "14" => $row['aid_phone'],
+            "15" => $row['mobile_phone'],
+            "16" => $row['status'],
+            "17" => $row['aid_note'],
+            "18" => $row['general_note'],
+            "19" => $row['team_note'],
+            "20" => $row['ref'],
+            "21" => $row['membership_status'],
+            "22" => $row['members_num'],
+            "23" => $row['children'],
+            "24" => $row['no_money'],
+            "25" => $row['other_notes'],
+            "26" => $row['verifying_question'],
         );
     }
     
@@ -364,8 +365,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $filtered_search = " (";
             $searchQuery = " (";
 
-            for($i=1; $i<26; $i++){
-                $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
+            for($i=1; $i<=26; $i++){
+                $col_name = $_POST['columns'][$i]['name'];  // the name of this column 
                 $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
                 $col_search_regex = $_POST['columns'][$i]['search']['regex'];
                 if($col_search_regex == "true"){
@@ -399,38 +400,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
             
             }
+            // echo $all_fam_q;
+            // exit;
 
             $d = RunQuery($all_fam_q);
+
        
             $all_data = array();
             while ($row = mysqli_fetch_array($d)) {
                 $all_data[] = array( 
-                    "id" => $row['id'],
-                    "old_id" => $row['old_id'],
-                    "p" => $row['p'],
-                    "address1" => $row['address1'],
-                    "address2" => $row['address2'],
-                    "city" => $row['city'],
-                    "state" => $row['state'],
-                    "home_phone" => $row['home_phone'],
-                    "aid_phone" => $row['aid_phone'],
-                    "mobile_phone" => $row['mobile_phone'],
-                    "status" => $row['status'],
-                    "aid_note" => $row['aid_note'],
-                    "general_note" => $row['general_note'],
-                    "team_note" => $row['team_note'],
-                    "ref" => $row['ref'],
-                    "membership_status" => $row['membership_status'],
-                    "members_num" => $row['members_num'],
-                    "children" => $row['children'],
-                    "poverty_rate" => $row['poverty_rate'],
-                    "main_name" => $row['main_name'],
-                    "partner_name" => $row['partner_name'],
-                    "main_id" => $row['main_id'],
-                    "partner_id" => $row['partner_id'],
-                    "no_money" => $row['no_money'],
-                    "other_notes" => $row['other_notes'],
-                    "verifying_question" => $row['verifying_question']  
+                    "1" => $row['id'],
+                    "2" => $row['old_id'],
+                    "3" => $row['p'],
+                    "4" => $row['main_name'],
+                    "5" => $row['main_id'],
+                    "6" => $row['partner_name'],
+                    "7" => $row['partner_id'],
+                    "8" => $row['poverty_rate'],
+                    "9" => $row['address1'],
+                    "10" => $row['address2'],
+                    "11" => $row['city'],
+                    "12" => $row['state'],
+                    "13" => $row['home_phone'],
+                    "14" => $row['aid_phone'],
+                    "15" => $row['mobile_phone'],
+                    "16" => $row['status'],
+                    "17" => $row['aid_note'],
+                    "18" => $row['general_note'],
+                    "19" => $row['team_note'],
+                    "20" => $row['ref'],
+                    "21" => $row['membership_status'],
+                    "22" => $row['members_num'],
+                    "23" => $row['children'],
+                    "24" => $row['no_money'],
+                    "25" => $row['other_notes'],
+                    "26" => $row['verifying_question']  
                 );
             }
 
@@ -484,9 +488,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $filtered_search = " (";
             $searchQuery = " (";
- 
-            for($i=1; $i<26; $i++){
-                $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
+
+            for($i=1; $i<=26; $i++){
+                $col_name = $_POST['columns'][$i]['name'];  // the name of this column 
                 $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
                 $col_search_regex = $_POST['columns'][$i]['search']['regex'];
                 if($col_search_regex == "true"){
@@ -515,7 +519,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $all_data[] = $row[0];
             }
             // concatenate family data with prev-months 
-            $count = 26 ;
+            $count = 27 ;
             for($i=1;$i<=$prev;$i++){
                 // calculate month_id and year_id except the first one 
                 if ($month_id == 1 && $i != 1) {
@@ -548,7 +552,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     from master_general_view as v
                     INNER JOIN master_global as t on (t.month_$month_id = v.master_id) 
                     where t.year_id = $year_id $team_search_string  $cash_search_string; ";
-            
+
                 $records = RunQuery($query);
                 while ($row = mysqli_fetch_array($records) ) {
                     $data[] = $row[0];
@@ -729,12 +733,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 'all_cash' =>  _get('master_teams'),
                 'all_teams' => _get('master_cash'),    
                 '3' => get_filtering_options('p', 'families_view'),
-                '10' => get_filtering_options('city', 'families_view'),
-                '11' => get_filtering_options('state', 'families_view'),
-                '15' => get_filtering_options('status', 'families_view'),
-                '19' => get_filtering_options('ref', 'families_view'),
-                '20' => get_filtering_options('membership_status', 'families_view'),
-                '23' => get_filtering_options('no_money', 'families_view'),
+                '8' => get_filtering_options('poverty_rate', 'families_view'),
+                '11' => get_filtering_options('city', 'families_view'),
+                '12' => get_filtering_options('state', 'families_view'),
+                '16' => get_filtering_options('status', 'families_view'),
+                '20' => get_filtering_options('ref', 'families_view'),
+                '21' => get_filtering_options('membership_status', 'families_view'),
+                '24' => get_filtering_options('no_money', 'families_view'),
+                                // todo: get those from one query
                 'teams' => get_filtering_options('name', 'master_teams'),
                 'cash' => get_filtering_options('name', 'master_cash')
             );
@@ -747,12 +753,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             // get all of those from one query
             $response = array(
                 '3' => get_filtering_options('p', 'families_view'),
-                '10' => get_filtering_options('city', 'families_view'),
-                '11' => get_filtering_options('state', 'families_view'),
-                '15' => get_filtering_options('status', 'families_view'),
-                '19' => get_filtering_options('ref', 'families_view'),
-                '20' => get_filtering_options('membership_status', 'families_view'),
-                '23' => get_filtering_options('no_money', 'families_view')
+                '8' => get_filtering_options('poverty_rate', 'families_view'),
+                '11' => get_filtering_options('city', 'families_view'),
+                '12' => get_filtering_options('state', 'families_view'),
+                '16' => get_filtering_options('status', 'families_view'),
+                '20' => get_filtering_options('ref', 'families_view'),
+                '21' => get_filtering_options('membership_status', 'families_view'),
+                '24' => get_filtering_options('no_money', 'families_view')
             );
             echo json_encode($response);
             break;

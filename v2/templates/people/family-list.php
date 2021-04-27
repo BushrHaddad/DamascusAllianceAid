@@ -54,8 +54,8 @@ $(document).ready(function() {
 
     var sMode = '<?php echo $sMode; ?>';
     var columns = [{
-            data: "id",
-            title: 'Action',
+            name: "id",
+            data: "1",
             wrap: true,
             "render": function(item) {
                 var path_view = window.CRM.root + '/v2/family/' + item;
@@ -68,79 +68,108 @@ $(document).ready(function() {
             },
         },
         {
-            data: "id"
+            name: "id",
+            data: "1"
         },
         {
-            data: "old_id"
+            name: "old_id",
+            data: "2"
         },
         {
-            data: "p"
+            name: "p",
+            data: "3"
         },
         {
-            data: "main_name"
+            name: "main_name",
+            data: "4"
         },
         {
-            data: "main_id"
+            name: "main_id",
+            data: "5"
         },
         {
-            data: "partner_name"
+            name: "partner_name",
+            data: "6"
         },
         {
-            data: "partner_id"
+            name: "partner_id",
+            data: "7"
         },
         {
-            data: "address1"
+            name: "poverty_rate",
+            data: "8"
         },
         {
-            data: "address2"
+            name: "address1",
+            data: "9"
         },
         {
-            data: "city"
+            name: "address2",
+            data: "10"
         },
         {
-            data: "state"
+            name: "city",
+            data: "11"
         },
         {
-            data: "home_phone"
+            name: "state",
+            data: "12"
         },
         {
-            data: "aid_phone"
+            name: "home_phone",
+            data: "13"
         },
         {
-            data: "mobile_phone"
+            name: "aid_phone",
+            data: "14"
         },
         {
-            data: "status"
+            name: "mobile_phone",
+            data: "15"
         },
         {
-            data: "aid_note"
+            name: "status",
+            data: "16"
         },
         {
-            data: "general_note"
+            name: "aid_note",
+            data: "17"
         },
         {
-            data: "team_note"
+            name: "general_note",
+            data: "18"
         },
         {
-            data: "ref"
+            name: "team_note",
+            data: "19"
         },
         {
-            data: "membership_status"
+            name: "ref",
+            data: "20"
         },
         {
-            data: "members_num"
+            name: "membership_status",
+            data: "21"
         },
         {
-            data: "children"
+            name: "members_num",
+            data: "22"
         },
         {
-            data: "no_money"
+            name: "children",
+            data: "23"
         },
         {
-            data: "other_notes"
+            name: "no_money",
+            data: "24"
         },
         {
-            data: "verifying_question"
+            name: "other_notes",
+            data: "25"
+        },
+        {
+            name: "verifying_question",
+            data: "26"
         }
     ];
 
@@ -148,7 +177,11 @@ $(document).ready(function() {
         parsed = [];
         parsed.push({
             value: '^$',
-            label: 'Blank'
+            label: 'Empty'
+        });
+        parsed.push({
+            value: '(.)+',
+            label: 'Not Empty'
         });
         for (index = 0; index < object.length; index++) {
             parsed.push({
@@ -163,8 +196,8 @@ $(document).ready(function() {
     function get_filtering_options(response, total_num) {
         filtering_options = []
         var json = JSON.parse(response);
-        for (var i = 1; i < total_num; i++) {
-            if (json[String(i)] || i == 3) {
+        for (var i = 1; i <= total_num; i++) {
+            if (json[String(i)]) {
                 console.log(json[String(i)]);
                 filtering_options.push({
                     column_number: i,
@@ -237,7 +270,7 @@ $(document).ready(function() {
     // get options
     $.ajax({
 
-        url: "/churchcrm/PostRedirect.php",
+        url: "/churchcrm/PostRedirect_Filteration.php",
         type: "POST",
         data: {
             post_name: "get_filtering_options",

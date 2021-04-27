@@ -242,48 +242,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             break;
 
         case "all_families":
-            
-            // $draw = $_POST['draw'];
-            // $sMode = $_POST['sMode'];
-
-            // $start = $_POST['start'];
-            // $rowperpage = $_POST['length']; // Rows display per page
-      
-            // Overall Searching
-            // $searchValue = $_POST['search']['value']; // Search value
-        
-            // Ordering 
-            // $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
-            // $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
-            // $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
-            
-            
-            // Filtering Searching based on columns search value
-            // $filtered_search = " (";
-            // $searchQuery = " (";
-
-            // for($i=1; $i<24; $i++){
-            //     $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
-            //     // $col_search_able = (Binary)$_POST['columns'][$i]['search']['searchable'];  // the search value enterned for this column
-            //     // if ($col_search_value != ''){
-            //         $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
-            //         // $filtered_search = $filtered_search . " and (". $col_name. " like '%".$col_search_value."%' ) ";
-            //         if ($i==1){
-            //             $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
-            //             $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
-            //         }
-            //         else{   
-            //             $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-            //             $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
-            //         }
-            //     // }
-              
-            // }
-            // $filtered_search = $filtered_search." )";
-            // $searchQuery = $searchQuery." )";
-            // $rowperpage = 5;
-            // where 1 and $searchQuery and $filtered_search 
-            // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+         
             $all_fam_q = "SELECT * from `families_view`; ";
             
             if($sMode == "active"){
@@ -325,16 +284,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     "partner_id" => $row['partner_id'],
                     "no_money" => $row['no_money'],
                     "other_notes" => $row['other_notes'],
-                    "question" => $row['verifying_question']  
+                    "question" => $row['verifying_question'],
                 );
             }
             
             ## Total number of records without filtering
-            $sel = "SELECT count(*) as allcount from `families_view`;";
-            $records = RunQuery($sel);
-            while ($row = mysqli_fetch_array($records)) {
-                $totalRecords = $row['allcount'];
-            }
+            // $sel = "SELECT count(*) as allcount from `families_view`;";
+            // $records = RunQuery($sel);
+            // while ($row = mysqli_fetch_array($records)) {
+            //     $totalRecords = $row['allcount'];
+            // }
 
             ## Total number of records with filtering
             // $sel = "SELECT count(*) as allcount from `families_view`  where 1 and $searchQuery and $filtered_search  ;";
@@ -357,7 +316,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
      
             $month_id = $_POST['month_id'];
             $year_id = $_POST['year_id'];
-            $prev = $_POST['prev'];
+            $prev = $_POST['prev'];        
 
             $all_data = array();
             $query = "SELECT v.master_id, t.fam_id, v.bag_name, v.cash_name, v.sup_name, v.team_name from 
@@ -374,6 +333,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $all_fam_q = "SELECT * from `families_view` where id=$id;";
                 $d = RunQuery($all_fam_q);
                 $row = mysqli_fetch_array($d);
+                // the end of family view query
 
                 $all_data[] = array( 
                     "id" => $row['id'],
@@ -404,8 +364,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     "question" => $row['verifying_question'],
                     "master_id"=>$master_row['master_id'],
                     "fam_id"=>$master_row['fam_id'],
+                    "bag_name1"=>$master_row['bag_name'],
                     "cash_name1"=>$master_row['cash_name'],
-                    "team_name1"=>$master_row['team_name']
+                    "sup_name1"=>$master_row['sup_name'],
+                    "team_name1"=>$master_row['team_name'],
                 );
             }
             
@@ -434,7 +396,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 while ($row = mysqli_fetch_array($empRecords) ) {
                     $data[] = array( 
                         "bag_name$i"=>$row['bag_name'],
-                        "cash_name$i"=>$row['cash_name']
+                        "cash_name$i"=>$row['cash_name'],
+                        "sup_name$i"=>$row['sup_name'],
+                        "team_name$i"=>$row['team_name'],
                     );
                 }
                 $count=0;
@@ -445,6 +409,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 $all_data=$new;
             }
+
+
+            // echo json_encode($all_data);
+            // break;
+
             $response = array(
                 "aaData" => $all_data
             );

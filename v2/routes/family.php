@@ -14,8 +14,9 @@ use Slim\Http\Response;
 use Slim\Views\PhpRenderer;
 use ChurchCRM\Utils\RedirectUtils;
 
-
+// Server-Side
 $app->group('/family', function () {
+    
     $this->get('','listFamilies');
     $this->get('/','listFamilies');
     $this->get('/master','getGlobalMaster');
@@ -24,7 +25,18 @@ $app->group('/family', function () {
     $this->get('/{id}', 'viewFamily');
 });
 
+// Client-Side
+$app->group('/local_family', function () {
+    $this->get('','listFamiliesLocally');
+    $this->get('/','listFamiliesLocally');
+    $this->get('/master','getGlobalMasterLocally');
+    $this->post('/master','postGlobalMasterLocally');
+    $this->get('/not-found', 'viewFamilyNotFound');
+    $this->get('/{id}', 'viewFamily');
+});
 
+
+// get id, name from $table
 function _get($table){ 
 
     $sSQL = "SELECT  `id`, `name` FROM $table ";
@@ -39,13 +51,13 @@ function _get($table){
     return $data;  
 }
 
+$family_attributes = ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
+'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+"Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"];
+
+// Server-Side: get master-list
 function getGlobalMaster(Request $request, Response $response, array $args){
     $renderer = new PhpRenderer('templates/people/');
-    $sMode = 'Active';
-    // // Filter received user input as needed
-    if (isset($_GET['mode'])) {
-        $sMode = InputUtils::LegacyFilterInput($_GET['mode']);
-    }
 
     $_years = _get('master_dates_year');
     $_months = _get('master_dates_months');
@@ -55,23 +67,17 @@ function getGlobalMaster(Request $request, Response $response, array $args){
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
         'all_years' => $_years,
-        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id',
-                                'Address', 'Address2', 'Region', 'State', 'Home Phone',
-                                'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
-                                'General Note', "Team Note", "Ref", "Membership status",
-                                "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
+        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
       ];
 
     return $renderer->render($response, 'master-list.php', $pageArgs);
 }
 
-function postGlobalMaster(Request $request, Response $response, array $args){
+// Local-Side: get master-list
+function getGlobalMasterLocally(Request $request, Response $response, array $args){
     $renderer = new PhpRenderer('templates/people/');
-    $sMode = 'Active';
-    // Filter received user input as needed
-    if (isset($_GET['mode'])) {
-        $sMode = InputUtils::LegacyFilterInput($_GET['mode']);
-    }
 
     $_years = _get('master_dates_year');
     $_months = _get('master_dates_months');
@@ -81,22 +87,61 @@ function postGlobalMaster(Request $request, Response $response, array $args){
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
         'all_years' => $_years,
-        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id',
-                'Address', 'Address2', 'Region', 'State', 'Home Phone',
-                'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
-                'General Note', "Team Note", "Ref", "Membership status",
-                "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
+        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+      ];
+
+    return $renderer->render($response, 'master-list_local.php', $pageArgs);
+}
+
+// Server-Side: post master-list
+function postGlobalMaster(Request $request, Response $response, array $args){
+    $renderer = new PhpRenderer('templates/people/');
+
+    $_years = _get('master_dates_year');
+    $_months = _get('master_dates_months');
+
+    $pageArgs = [
+        'sMode' => $sMode,
+        'sRootPath' => SystemURLs::getRootPath(),
+        'all_months' => $_months,
+        'all_years' => $_years,
+        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
+        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
         'request' => (object)$request->getParsedBody()
       ];
 
     return $renderer->render($response, 'master-list.php', $pageArgs);
 }
 
+// Local-Side: post master-list
+function postGlobalMasterLocally(Request $request, Response $response, array $args){
+    $renderer = new PhpRenderer('templates/people/');
+    $_years = _get('master_dates_year');
+    $_months = _get('master_dates_months');
+
+    $pageArgs = [
+        'sMode' => $sMode,
+        'sRootPath' => SystemURLs::getRootPath(),
+        'all_months' => $_months,
+        'all_years' => $_years,
+        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
+        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+        'request' => (object)$request->getParsedBody()
+      ];
+
+    return $renderer->render($response, 'master-list_local.php', $pageArgs);
+}
+
+// Server-Side: family List
 function listFamilies(Request $request, Response $response, array $args)
 {
+    
   $renderer = new PhpRenderer('templates/people/');
-//   $sMode = 'Active';
-  // Filter received user input as needed
+
   if (isset($_GET['mode'])) {
       $sMode = InputUtils::LegacyFilterInput($_GET['mode']);
   }
@@ -104,27 +149,32 @@ function listFamilies(Request $request, Response $response, array $args)
   $pageArgs = [
     'sMode' => $sMode,
     'sRootPath' => SystemURLs::getRootPath(),
-    'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id',
-                            'Address', 'Address2', 'Region', 'State', 'Home Phone',
-                            'Aid Phone', 'Mobile Phone','Status', 'Aid Notes',
-                            'General Note', "Team Note", "Ref", "Membership status",
-                            "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+    'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
+    'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+    "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"]
     ];
 
   return $renderer->render($response, 'family-list.php', $pageArgs);
 }
 
-function viewFamilyNotFound(Request $request, Response $response, array $args)
+// Local-Side: family list
+function listFamiliesLocally(Request $request, Response $response, array $args)
 {
-  $renderer = new PhpRenderer('templates/common/');
+  $renderer = new PhpRenderer('templates/people/');
+
+  if (isset($_GET['mode'])) {
+      $sMode = InputUtils::LegacyFilterInput($_GET['mode']);
+  }
 
   $pageArgs = [
-        'sRootPath' => SystemURLs::getRootPath(),
-        'memberType' => "Family",
-        'id' => $request->getParam("id")
+    'sMode' => $sMode,
+    'sRootPath' => SystemURLs::getRootPath(),
+    'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
+    'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+    "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
     ];
 
-    return $renderer->render($response, 'not-found-view.php', $pageArgs);
+  return $renderer->render($response, 'family-list_local.php', $pageArgs);
 }
 
 function viewFamily(Request $request, Response $response, array $args)
@@ -164,14 +214,8 @@ function viewFamily(Request $request, Response $response, array $args)
             }
         }
     }
-    
-    // $_bags = _get('master_bags');
-    // $_cash = _get('master_cash');
-    $_years = _get('master_dates_year');
-    // $_months = _get('master_dates_months');
-    // $_teams = _get('master_teams');
-    // $_visiting = _get('master_visiting');
 
+    $_years = _get('master_dates_year');
   
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
@@ -184,5 +228,18 @@ function viewFamily(Request $request, Response $response, array $args)
     // echo "Hello wolrd";
 
     return $renderer->render($response, 'family-view.php', $pageArgs);
-
 }
+
+function viewFamilyNotFound(Request $request, Response $response, array $args)
+{
+  $renderer = new PhpRenderer('templates/common/');
+
+  $pageArgs = [
+        'sRootPath' => SystemURLs::getRootPath(),
+        'memberType' => "Family",
+        'id' => $request->getParam("id")
+    ];
+
+    return $renderer->render($response, 'not-found-view.php', $pageArgs);
+}
+
