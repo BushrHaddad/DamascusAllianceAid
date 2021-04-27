@@ -263,7 +263,7 @@ $(document).ready(function() {
                 scrollX: true,
                 "ajax": {
                     type: "POST",
-                    url: '/churchcrm/PostRedirect.php',
+                    url: '/churchcrm/PostRedirect_Filteration.php',
                     data: function(d) {
                         d.post_name = "all_families",
                             d.sMode = sMode
