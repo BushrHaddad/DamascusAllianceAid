@@ -400,9 +400,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             
             }
 
-            echo $all_fam_q;
-            exit;
-
             $d = RunQuery($all_fam_q);
        
             $all_data = array();
@@ -482,10 +479,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $prev = $_POST['prev'];
             $month_id = $m_id;
             $year_id = $y_id;
-            
-
-            $q = "SET collation_connection = 'utf8mb4_bin'; ";
-            RunQuery($q);
 
             $filtered_search = " (";
             $searchQuery = " (";
@@ -728,8 +721,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             break;
 
         case "get_global_vars":
-            $q = "SET collation_connection = 'utf8mb4_bin'; ";
-            RunQuery($q);
             $_teams = _get('master_teams');
             $_cash = _get('master_cash');
  
