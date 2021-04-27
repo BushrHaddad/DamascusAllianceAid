@@ -239,8 +239,8 @@ $(document).ready(function() {
     // get filteration columns description 
     function get_filtering_options(total_num, multi_select_list) {
         filtering_options = []
-        for (var i = 1; i < total_num; i++) {
-            if (multi_select_list.includes(i) || i >= additional_fields) {
+        for (var i = 1; i <= total_num; i++) {
+            if (multi_select_list.includes(i) || i > additional_fields) {
                 filtering_options.push({
                     column_number: i,
                     filter_type: 'multi_select',
@@ -270,12 +270,13 @@ $(document).ready(function() {
         }
         return filtering_options;
     }
-    var filtering_options = get_filtering_options(additional_fields + (prev_ * 4), [3, 10, 11, 15, 19, 20, 23]);
+    var filtering_options = get_filtering_options(additional_fields + (prev_ * 4), [3, 8, 11, 12, 16, 20, 21,
+        24]);
 
     // get options
     $.ajax({
 
-        url: "/churchcrm/PostRedirectLocal.php",
+        url: "/churchcrm/PostRedirect.php",
         type: "POST",
         data: {
             post_name: "get_vars",
@@ -316,6 +317,9 @@ $(document).ready(function() {
                 },
                 {
                     data: "partner_id"
+                },
+                {
+                    data: "poverty_rate"
                 },
                 {
                     data: "address1"
@@ -391,35 +395,19 @@ $(document).ready(function() {
             // var table = $('#example').DataTable({});
 
             destroyTable();
-            // $('#example tfoot th').each(function() {
-            //     var title = $(this).text();
-            //     $(this).html('<input type="text" placeholder="' + title + '" />');
-            // });
 
             table = $('#example').DataTable({
                 // "iDisplayLength": 10,
                 "bJQueryUI": true,
                 "bStateSave": true,
                 destroy: true,
-                // "bProcessing": true,
-                // "sAjaxSource": 'entrys_table_source',
-                // "bSort": false,
-                // responsive: true,
-                // orderCellsTop: true,
                 "scrollX": true,
                 // paging: false,
                 // scrollY: 200,
                 keys: true,
-                // "type": "POST",
-                // 'processing': true,
-                // 'serverSide': true,
-                // 'serverMethod': 'post',
-                // "bLengthChange": true,
-                // "iDisplayLength": 10,
-
                 'ajax': {
                     "type": "POST",
-                    'url': '/churchcrm/PostRedirectLocal.php',
+                    'url': '/churchcrm/PostRedirect.php',
                     'data': function(d) {
                         d.post_name = "global_master",
                             d.month_id = month_,
@@ -453,27 +441,6 @@ $(document).ready(function() {
                             }
                         }
                     },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: ':visible',
-                            format: {
-                                header: function(data, row, column, node) {
-                                    var newdata = data;
-
-                                    newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                    newdata = newdata.replace(/<div.*?<\/div>/gi,
-                                        '');
-                                    newdata = newdata.replace(/<\/div.*?<\/div>/gi,
-                                        '');
-                                    return newdata;
-                                }
-                            }
-                        },
-                        orientation: 'landscape',
-
-                    },
-
                     'colvis'
                 ]
             });
@@ -573,7 +540,7 @@ $(document).ready(function() {
 
         $.ajax({
 
-            url: "/churchcrm/PostRedirectLocal.php",
+            url: "/churchcrm/PostRedirect.php",
             type: "POST",
             data: {
                 post_name: "edit_local_master",

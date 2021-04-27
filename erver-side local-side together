@@ -1,0 +1,101 @@
+[33mcommit a3f84bbc7c6aedf5b89994cf04168f6a64fbda22[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 27 18:09:38 2021 +0300
+
+    adding server-side local-side together
+
+[33mcommit ef46537d87cb9f17578332f20e46ea2ed13ea3f6[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 27 11:08:23 2021 +0300
+
+    change the way I fetch all_count and all_count_filtering
+
+[33mcommit 0f77afaf5435f85683ba31107b56866d43ace903[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 27 03:05:55 2021 +0300
+
+    Server Done 27-Apr-2021
+
+[33mcommit 29be4c623092f9adf6f28440c658496147f75de8[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 27 02:51:28 2021 +0300
+
+    Server side done 27-Apr-2021
+
+[33mcommit 8270e02b878082d398a8cf25e1954acbd55eaaa8[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 27 01:52:48 2021 +0300
+
+    Server side Done23-Apr-2021
+
+[33mcommit da4f434311994cacd602999cecc17cd5cbc0c416[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 27 00:56:02 2021 +0300
+
+    Server-side done without optimization27-Apr-2021
+
+[33mcommit 1f76db0a5032781ad7c49b16db6ed3d7b7d70471[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Fri Apr 23 03:32:11 2021 +0300
+
+    23-Apr-2021
+
+[33mcommit d5506eabe00bc792a93bdc7cc6484ffce9926554[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Fri Apr 23 03:08:20 2021 +0300
+
+    23-Apr-2021
+
+[33mcommit 6fd4a4b92de0106cb348b651588cd42cc31f0ccc[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Sun Apr 18 22:33:13 2021 +0300
+
+    Restoring and Backing up Database
+
+[33mcommit 2e3c3ecdbef33db31175ea5293b266fb1997b753[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Sun Apr 18 02:44:31 2021 +0300
+
+    Multi select Filtering
+
+[33mcommit c109e32997d83ccc7c76e61db28ef5f4baf24031[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 13 15:28:34 2021 +0300
+
+    last changes to cell edit
+
+[33mcommit 5e68f0043939da8fc8986882913cb4cac6b24384[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Sun Apr 11 01:06:07 2021 +0300
+
+    reporting is done
+
+[33mcommit 9e587bf53c8e4f501d7740a3e0615f9f3568f014[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Sat Apr 10 01:13:30 2021 +0300
+
+    exporting is done
+
+[33mcommit a45d57f121c9fa5e99e985c8fe7ae35ada9f3704[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Thu Apr 8 15:41:27 2021 +0300
+
+    data transferred
+
+[33mcommit 85cf276217ab9c214324b586d542897adb631a15[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Tue Apr 6 15:19:14 2021 +0300
+
+    6-Apr-2021
+
+[33mcommit 16fba1f35f7f9d0752422813e5dd786226e0fcc1[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Sat Apr 3 13:31:01 2021 +0300
+
+    Family List Done
+
+[33mcommit fa7ce7ab4efa0c132ee03befdf77b64840df12f2[m
+Author: Bushr Haddad <bushr.haddad@gmail.com>
+Date:   Sat Apr 3 11:55:52 2021 +0300
+
+    Family-list server-side

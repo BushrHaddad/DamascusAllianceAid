@@ -363,23 +363,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Filtering Searching based on columns search value
             $filtered_search = " (";
-            $searchQuery = " (";
+            $searchQuery = " ( 1";
 
             for($i=1; $i<=26; $i++){
                 $col_name = $_POST['columns'][$i]['name'];  // the name of this column 
                 $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
                 $col_search_regex = $_POST['columns'][$i]['search']['regex'];
                 if($col_search_regex == "true"){
-                    $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
+                    // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
                     $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '$col_search_value' ) ";
                 }
                 else{
                     if ($i==1){
-                        $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
+                        // $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
                         $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
                     }
                     else{
-                        $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
+                        // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
                         $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
                     }
                 }
@@ -487,23 +487,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $year_id = $y_id;
 
             $filtered_search = " (";
-            $searchQuery = " (";
+            $searchQuery = " ( 1";
 
             for($i=1; $i<=26; $i++){
                 $col_name = $_POST['columns'][$i]['name'];  // the name of this column 
                 $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
                 $col_search_regex = $_POST['columns'][$i]['search']['regex'];
                 if($col_search_regex == "true"){
-                    $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
+                    // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
                     $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '$col_search_value' ) ";
                 }
                 else{
                     if ($i==1){
-                        $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
+                        // $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
                         $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
                     }
                     else{
-                        $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
+                        // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
                         $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
                     }
                 }

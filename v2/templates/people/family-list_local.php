@@ -15,11 +15,13 @@ $sPageTitle =ucfirst($sMode). ' ' . 'Family List';
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 /* @var $families ObjectCollection */
 ?>
-<div class="pull-right">
-    <a class="btn btn-success" role="button" href="<?= SystemURLs::getRootPath()?>/FamilyEditor.php">
-        <span class="fa fa-plus" aria-hidden="true"></span> Add Family</a>
+<div class="container-fluid">
+    <div class="row">
+        <input id="ClearFilters" type="button" class="btn btn-default" value="Reset Filters"><BR><BR>
+        <a class="pull-right btn btn-success" role="button" href="<?= SystemURLs::getRootPath()?>/FamilyEditor.php">
+            <span class="fa fa-plus"></span> Add Family</a>
+    </div>
 </div>
-
 <div class="box">
     <div class="box-body">
         <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
@@ -148,8 +150,8 @@ $(document).ready(function() {
     // get filteration columns description 
     function get_filtering_options(total_num, multi_select_list) {
         filtering_options = []
-        for (var i = 1; i <=total_num; i++) {
-            if (multi_select_list.includes(i) ) {
+        for (var i = 1; i <= total_num; i++) {
+            if (multi_select_list.includes(i)) {
                 filtering_options.push({
                     column_number: i,
                     filter_type: 'multi_select',
@@ -179,7 +181,7 @@ $(document).ready(function() {
         }
         return filtering_options;
     }
-    var filtering_options = get_filtering_options(26, [3, 8, 10, 11, 15, 19, 20, 23]);
+    var filtering_options = get_filtering_options(26, [3, 8, 11, 12, 16, 20, 21, 24]);
 
 
     var table = $('#example').DataTable({
@@ -191,7 +193,7 @@ $(document).ready(function() {
         scrollX: true,
         "ajax": {
             type: "POST",
-            url: '/churchcrm/PostRedirectLocal.php',
+            url: '/churchcrm/PostRedirect.php',
             data: function(d) {
                 d.post_name = "all_families",
                     d.sMode = sMode
@@ -220,30 +222,14 @@ $(document).ready(function() {
                     }
                 }
             },
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: ':visible',
-                    format: {
-                        header: function(data, row, column, node) {
-                            var newdata = data;
-
-                            newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                            newdata = newdata.replace(/<div.*?<\/div>/gi,
-                                '');
-                            newdata = newdata.replace(/<\/div.*?<\/div>/gi,
-                                '');
-                            return newdata;
-                        }
-                    }
-                },
-                orientation: 'landscape',
-            },
             'colvis'
         ],
         "columns": columns
     });
 
+    $("#ClearFilters").click(function() {
+        yadcf.exResetAllFilters(table);
+    });
     // Multi select Filteration
     yadcf.init(table, filtering_options);
 

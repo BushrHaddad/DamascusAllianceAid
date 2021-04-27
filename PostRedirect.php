@@ -14,11 +14,6 @@ require 'Include/Functions.php';
 use ChurchCRM\Utils\InputUtils;
 use ChurchCRM\Utils\RedirectUtils;
 use ChurchCRM\Authentication\AuthenticationManager;
-header('Access-Control-Allow-Origin:*');
-
-header('Access-Control-Allow-Methods: GET, POST');
-
-header("Access-Control-Allow-Headers: X-Requested-With");
 
 
 function insert_into_global($criteria){
@@ -191,100 +186,6 @@ function _get($table){
     return $data;
 }
 
-function get_filtering_options($column, $table){
-    $sSQL = "SELECT  Distinct $column FROM $table WHERE $column IS NOT NULL; ";
-    $rsOpps = RunQuery($sSQL);
-    $data= array();
-    while($row = mysqli_fetch_array($rsOpps))
-    {
-        $data[] = $row[0];
-    }
-    return $data;
-}
-
-function get_master_data($ids, $year_id, $month_id, $prev, $start, $rowperpage){
-    $all_data = array();
-    if(empty($ids)){
-        return $all_data;
-    }
-    // todo: get a sublist from the original array
-    $query = "SELECT * from `families_view` where id IN (" . implode(',', array_map('intval', $ids)) . ")
-        ORDER BY id limit $start, $rowperpage";
-
-    $records = RunQuery($query);
-    
-    while ($row = mysqli_fetch_array($records)) {
-        $all_data[] = array( 
-            "id" => $row['id'],
-            "old_id" => $row['old_id'],
-            "p" => $row['p'],
-            "address1" => $row['address1'],
-            "address2" => $row['address2'],
-            "city" => $row['city'],
-            "state" => $row['state'],
-            "home_phone" => $row['home_phone'],
-            "aid_phone" => $row['aid_phone'],
-            "mobile_phone" => $row['mobile_phone'],
-            "status" => $row['status'],
-            "aid_note" => $row['aid_note'],
-            "general_note" => $row['general_note'],
-            "team_note" => $row['team_note'],
-            "ref" => $row['ref'],
-            "membership_status" => $row['membership_status'],
-            "members_num" => $row['members_num'],
-            "children" => $row['children'],
-            "poverty_rate" => $row['poverty_rate'],
-            "main_name" => $row['main_name'],
-            "partner_name" => $row['partner_name'],
-            "main_id" => $row['main_id'],
-            "partner_id" => $row['partner_id'],
-            "no_money" => $row['no_money'],
-            "other_notes" => $row['other_notes'],
-            "verifying_question" => $row['verifying_question']  
-        );
-    }
-    
-    for($i=1;$i<=$prev;$i++){
-        // calculate month_id and year_id except the first one 
-        if ($month_id == 1 && $i != 1) {
-            $month_id = 12;
-            $year_id = $year_id - 1;
-            if ($year_id == 0) {
-                $year_id = 1;
-                $month_id = 1;
-            }
-        } else if($i != 1){
-            $month_id = $month_id - 1;
-        }
-
-        $query = "SELECT t.fam_id, v.team_name, v.cash_name
-            from master_general_view as v
-            INNER JOIN master_global as t on (t.month_$month_id = v.master_id) 
-            where t.year_id = $year_id  and t.fam_id IN (" . implode(',', array_map('intval', $ids)) . ")
-            ORDER BY t.fam_id  limit $start, $rowperpage ";
-
-        // echo $query;
-        $records = RunQuery($query);
-        $data = array();
-        while ($row = mysqli_fetch_array($records) ) {
-            $data[] = array( 
-                "team_name$i"=>$row['team_name'],
-                "cash_name$i"=>$row['cash_name']
-            );
-        }
-        $count=0;
-        $new=array();
-        foreach($all_data as $d){
-            $new[] = array_merge($d,$data[$count]);
-            $count++;
-        }
-        $all_data=$new;
-    }
-    
-    
-    return $all_data;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $post_name = $_POST['post_name'];
@@ -305,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     switch($post_name){
 
-        case "local_master":    // get family local master using (family_id, year_id)
+        case "local_master":     // get family local master using (family_id, year_id)
             
             $data = [];
             $val1 = (int)$_POST['year_id'];
@@ -340,64 +241,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             echo json_encode($data);
             break;
 
-        case "all_families":    // get all families data    
-
-            $q = "SET collation_connection = 'utf8_unicode_ci'; ";
-            RunQuery($q);
-
-            $sMode = $_POST['sMode'];
-            // $sMode = "active";
+        case "all_families":
+         
+            $all_fam_q = "SELECT * from `families_view`; ";
             
-            $draw = $_POST['draw'];
-            $start = $_POST['start'];
-            $rowperpage = $_POST['length']; // Rows display per page
-      
-            // Overall Searching
-            $searchValue = $_POST['search']['value']; // Search value
-        
-            // Ordering 
-            $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
-            $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
-            $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
-            
-            // Filtering Searching based on columns search value
-            $filtered_search = " (";
-            $searchQuery = " (";
-
-            for($i=1; $i<26; $i++){
-                $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
-                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
-                $col_search_regex = $_POST['columns'][$i]['search']['regex'];
-                if($col_search_regex == "true"){
-                    $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                    $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '$col_search_value' ) ";
-                }
-                else{
-                    if ($i==1){
-                        $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
-                    }
-                    else{
-                        $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
-                    }
-                }
-            }
-
-
-
-            $filtered_search = $filtered_search." )";
-            $searchQuery = $searchQuery." )";
-            $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-
             if($sMode == "active"){
-            
-                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+                // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+                $all_fam_q = "SELECT * from `families_view`  where status='active'; ";
 
             }elseif($sMode == "inactive"){
-            
-                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-            
+                // $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+                $all_fam_q = "SELECT * from `families_view`  where status='cancelled'; ";
             }
 
             $d = RunQuery($all_fam_q);
@@ -430,150 +284,127 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     "partner_id" => $row['partner_id'],
                     "no_money" => $row['no_money'],
                     "other_notes" => $row['other_notes'],
-                    "verifying_question" => $row['verifying_question']  
+                    "question" => $row['verifying_question'],
                 );
             }
-    
-            ## Total number of records without filtering
-            $sel = "SELECT count(*) as allcount from `families_view`;";
-            $records = RunQuery($sel);
-            while ($row = mysqli_fetch_array($records)) {
-                $totalRecords = $row['allcount'];
-            }
-
-            ## Total number of records with filtering
-            $sel = "SELECT count(*) as allcount from `families_view`  where 1 and $searchQuery and $filtered_search  ;";
-            $records = RunQuery($sel);
-            while ($row = mysqli_fetch_array($records)) {
-                $totalRecordwithFilter = $row['allcount'];
-            }
-            
             $response = array(
-                "draw" => intval($draw),
-                "iTotalRecords" => $totalRecords,
-                "iTotalDisplayRecords" => $totalRecordwithFilter,
+                // "draw" => intval($draw),
+                // "iTotalRecords" => $totalRecords,
+                // "iTotalDisplayRecords" => $totalRecords,
                 "aaData" => $all_data,
-            );
-
+                );
+    
             echo json_encode($response);
             break;
         
         case "global_master":  
+     
+            $month_id = $_POST['month_id'];
+            $year_id = $_POST['year_id'];
+            $prev = $_POST['prev'];        
 
-            $draw = $_POST['draw'];
-            $start = $_POST['start'];
-            $rowperpage = $_POST['length']; // Rows display per page
-      
-            // Overall Searching
-            $searchValue = $_POST['search']['value']; // Search value
-        
-            // Ordering 
-            $columnIndex = $_POST['order'][0]['column']; // The index of the column that we must sort according to
-            $columnSortOrder = $_POST['order'][0]['dir']; // The kind of sorting: Asc, Desc
-            $columnName = $_POST['columns'][$columnIndex]['data']; // The name of the column that need to be sorted according to
-            
-
-            $m_id = $_POST['month_id'];
-            $y_id = $_POST['year_id'];
-            
-            $prev = $_POST['prev'];
-            $month_id = $m_id;
-            $year_id = $y_id;
-
-            $filtered_search = " (";
-            $searchQuery = " (";
- 
-            for($i=1; $i<26; $i++){
-                $col_name = $_POST['columns'][$i]['data'];  // the name of this column 
-                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
-                $col_search_regex = $_POST['columns'][$i]['search']['regex'];
-                if($col_search_regex == "true"){
-                    $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                    $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '$col_search_value' ) ";
-                }
-                else{
-                    if ($i==1){
-                        $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
-                    }
-                    else{
-                        $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
-                    }
-                }
-            }
-
-            $filtered_search = $filtered_search." )";
-            $searchQuery = $searchQuery." )";
-
-            $query = "SELECT id from `families_view`  where 1 and $searchQuery and $filtered_search; ";
             $all_data = array();
-            $records = RunQuery($query);
-            while ($row = mysqli_fetch_array($records) ) {
-                $all_data[] = $row[0];
+            $query = "SELECT v.master_id, t.fam_id, v.bag_name, v.cash_name, v.sup_name, v.team_name from 
+            master_general_view as v
+            INNER JOIN 
+            master_global as t
+            on t.month_$month_id = v.master_id
+            where t.year_id = $year_id ";
+
+            $empRecords = RunQuery($query);
+            while ($master_row = mysqli_fetch_array($empRecords) ) {
+                $id = $master_row['fam_id'];
+                // family view query
+                $all_fam_q = "SELECT * from `families_view` where id=$id;";
+                $d = RunQuery($all_fam_q);
+                $row = mysqli_fetch_array($d);
+
+                $all_data[] = array( 
+                    "id" => $row['id'],
+                    "old_id" => $row['old_id'],
+                    "p" => $row['p'],
+                    "address1" => $row['address1'],
+                    "address2" => $row['address2'],
+                    "city" => $row['city'],
+                    "state" => $row['state'],
+                    "home_phone" => $row['home_phone'],
+                    "aid_phone" => $row['aid_phone'],
+                    "mobile_phone" => $row['mobile_phone'],
+                    "status" => $row['status'],
+                    "aid_note" => $row['aid_note'],
+                    "general_note" => $row['general_note'],
+                    "team_note" => $row['team_note'],
+                    "ref" => $row['ref'],
+                    "membership_status" => $row['membership_status'],
+                    "members_num" => $row['members_num'],
+                    "children" => $row['children'],
+                    "poverty_rate" => $row['poverty_rate'],
+                    "main_name" => $row['main_name'],
+                    "partner_name" => $row['partner_name'],
+                    "main_id" => $row['main_id'],
+                    "partner_id" => $row['partner_id'],
+                    "no_money" => $row['no_money'],
+                    "other_notes" => $row['other_notes'],
+                    "question" => $row['verifying_question'],
+                    "master_id"=>$master_row['master_id'],
+                    "fam_id"=>$master_row['fam_id'],
+                    "bag_name1"=>$master_row['bag_name'],
+                    "cash_name1"=>$master_row['cash_name'],
+                    "sup_name1"=>$master_row['sup_name'],
+                    "team_name1"=>$master_row['team_name'],
+                );
             }
+            
             // concatenate family data with prev-months 
-            $count = 26 ;
-            for($i=1;$i<=$prev;$i++){
-                // calculate month_id and year_id except the first one 
-                if ($month_id == 1 && $i != 1) {
+            for($i=2;$i<=$prev;$i++){
+                if ($month_id == 1) {
                     $month_id = 12;
                     $year_id = $year_id - 1;
                     if ($year_id == 0) {
                         $year_id = 1;
                         $month_id = 1;
                     }
-                } else if($i != 1){
+                } else {
                     $month_id = $month_id - 1;
                 }
-                $team_col_search_regex = $_POST['columns'][$count]['search']['regex'];
-                $team_col_search_value = $_POST['columns'][$count]['search']['value'];
-                $count++;
-                $cash_col_search_regex = $_POST['columns'][$count]['search']['regex'];
-                $cash_col_search_value = $_POST['columns'][$count]['search']['value'];
-                $count++;
-                $team_search_string = " and (1)";
-                $cash_search_string = " and (1)";
-                if($team_col_search_regex == "true"){
-                    $team_search_string = " and IFNULL(team_name, '') REGEXP  '$team_col_search_value'";
-                }
-                if($cash_col_search_regex == "true"){
-                    $cash_search_string = " and IFNULL(cash_name, '') REGEXP  '$cash_col_search_value'";
-                }
-                
+
                 $data = array();
-                $query = "SELECT t.fam_id 
-                    from master_general_view as v
-                    INNER JOIN master_global as t on (t.month_$month_id = v.master_id) 
-                    where t.year_id = $year_id $team_search_string  $cash_search_string; ";
-            
-                $records = RunQuery($query);
-                while ($row = mysqli_fetch_array($records) ) {
-                    $data[] = $row[0];
+                $query = "SELECT v.master_id, t.fam_id, v.bag_name, v.cash_name, v.sup_name, v.team_name from 
+                master_general_view as v
+                INNER JOIN 
+                master_global as t
+                on t.month_$month_id = v.master_id
+                where t.year_id = $year_id ";
+    
+                $empRecords = RunQuery($query);
+                while ($row = mysqli_fetch_array($empRecords) ) {
+                    $data[] = array( 
+                        "bag_name$i"=>$row['bag_name'],
+                        "cash_name$i"=>$row['cash_name'],
+                        "sup_name$i"=>$row['sup_name'],
+                        "team_name$i"=>$row['team_name'],
+                    );
                 }
-                // now interset this $data with $all_data;
-                $all_data = array_intersect($all_data, $data);
-            }
-            $totalRecords = 0;
-            ## Total number of records without filtering
-            $sel = "SELECT count(*) as allcount from `families_view`;";
-            $records = RunQuery($sel);
-            while ($row = mysqli_fetch_array($records)) {
-                $totalRecords = $row['allcount'];
+                $count=0;
+                $new=array();
+                foreach($all_data as $d){
+                    $new[] = array_merge($d,$data[$count]);
+                    $count++;
+                }
+                $all_data=$new;
             }
 
 
+            // echo json_encode($all_data);
+            // break;
 
             $response = array(
-                "draw" => intval($draw),
-                "iTotalRecords" => $totalRecords,
-                "iTotalDisplayRecords" => count($all_data),
-                "aaData" => get_master_data($all_data, $y_id, $m_id, $prev, $start, $rowperpage),
+                "aaData" => $all_data
             );
-
             echo json_encode($response);
             break;
-        
+
+
         case "new_comp": // add New Component (New Year, Cash, Bag, or  Team)
             // move_data_global();
 
@@ -651,114 +482,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 break;    
             }
        
-        case "edit_global_master": 
-
-            $family_id = (int)$_POST['family_id']; // the family id 
-            $month_id = (int)$_POST['month_id']; // the month id 
-            $year_id = (int)$_POST['year_id'];// the year id
-
-            $check_q= "SELECT month_$month_id from master_global where  year_id =  $year_id  AND fam_id =  $family_id ;";
-            $row = mysqli_fetch_array(RunQuery($check_q));
-            $found = $row[0];
-
-            if ($year_id<=0){
-                break;
-            }
-            // Updated values 
-            $team_id = (int)$_POST['team_id']; 
-            $cash_id = (int)$_POST['cash_id'];
-            
-            // if this month is found for this family
-            if($found != -1){
-                $sSQL = "UPDATE `master_family_master` SET 
-                        team_id     =   $team_id,
-                        cash_id     =   $cash_id
-                            WHERE  year_id     = $year_id  AND 
-                                month_id    = $month_id AND
-                                family_id   = $family_id ;";
-
-                RunQuery($sSQL);
-                echo $sSQL;
-                break;
-            }
-            else{ 
-                
-                $sSQL = "INSERT INTO `master_family_master` ( year_id, month_id,
-                                                            team_id, cash_id, family_id )
-                        VALUES ($year_id, $month_id, $team_id, $cash_id, $family_id);";
-
-                RunQuery($sSQL);
-                // get the mfm here
-                $q = "SELECT id FROM `master_family_master` WHERE `family_id` = $family_id and `year_id` = $year_id and `month_id`  = $month_id;" ;
-                $row = mysqli_fetch_array(RunQuery($q));
-                $mfm = $row[0];
-
-                // how to get the id of the new inserted row in master_family_master
-                $q = "UPDATE `master_global` SET 
-                        month_$month_id      =  $mfm
-                        WHERE  year_id       =  $year_id  AND 
-                                fam_id       =  $family_id ;";
-                                
-                RunQuery($q);
-                break;    
-            }
-            echo "updating done";
-          
-        case "get_local_vars":  // get the option for teams, bags, suppliments and other.
-            
+        case "get_vars":  // get the option for teams, bags, suppliments and other.
             $_teams = _get('master_teams');
             $_cash = _get('master_cash');
             $_bags = _get('master_bags');
             $_suppliments = _get('master_suppliments');
             
-            $data = Array(
-                'all_bags' => $_bags,
-                'all_cash' => $_cash,
-                'all_suppliments' =>  $_suppliments, 
-                'all_teams' => $_teams,
-            );
+            $data = Array('all_bags' => $_bags, 'all_cash' => $_cash, 'all_suppliments' =>  $_suppliments, 
+            'all_teams' => $_teams);
+
             echo json_encode($data);
             break;
-
-        case "get_global_vars":
-            $_teams = _get('master_teams');
-            $_cash = _get('master_cash');
- 
-            $data = Array(
-                'all_cash' => $_cash,
-                'all_teams' => $_teams,
-                // todo: get all of those from one query;
-                
-                '3' => get_filtering_options('p', 'families_view'),
-                '10' => get_filtering_options('city', 'families_view'),
-                '11' => get_filtering_options('state', 'families_view'),
-                '15' => get_filtering_options('status', 'families_view'),
-                '19' => get_filtering_options('ref', 'families_view'),
-                '20' => get_filtering_options('membership_status', 'families_view'),
-                '23' => get_filtering_options('no_money', 'families_view'),
-                // todo: get those from one query
-                'teams' => get_filtering_options('name', 'master_teams'),
-                'cash' => get_filtering_options('name', 'master_cash')
-            );
-            echo json_encode($data);
-            break;
-            
-
-        case "get_filtering_options":
-
-            // get all of those from one query
-            $response = array(
-                '3' => get_filtering_options('p', 'families_view'),
-                '10' => get_filtering_options('city', 'families_view'),
-                '11' => get_filtering_options('state', 'families_view'),
-                '15' => get_filtering_options('status', 'families_view'),
-                '19' => get_filtering_options('ref', 'families_view'),
-                '20' => get_filtering_options('membership_status', 'families_view'),
-                '23' => get_filtering_options('no_money', 'families_view')
-            );
-            echo json_encode($response);
-            break;
-
             
         default:
             break;
