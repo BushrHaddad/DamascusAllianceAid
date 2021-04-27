@@ -69,7 +69,7 @@ function cashReport(Request $request, Response $response, array $args){
 
     $query = "SELECT family_id, cash_name, team_name FROM master_general_view where month_name = '$month_name' 
         AND year_name = '$year_name'
-        AND cash_name is not NULL ; ";
+        AND  length(cash_name) > 1 ; ";
 
     $result = RunQuery($query);
     $data= array();
