@@ -186,6 +186,17 @@ function _get($table){
     return $data;
 }
 
+function get_filtering_options($column, $table){
+    $sSQL = "SELECT  Distinct $column FROM $table WHERE $column IS NOT NULL; ";
+    $rsOpps = RunQuery($sSQL);
+    $data= array();
+    while($row = mysqli_fetch_array($rsOpps))
+    {
+        $data[] = $row[0];
+    }
+    return $data;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $post_name = $_POST['post_name'];
@@ -403,101 +414,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             );
             echo json_encode($response);
             break;
-
-
-        case "new_comp": // add New Component (New Year, Cash, Bag, or  Team)
-            // move_data_global();
-
-            $table = $_POST['table']; // desired table
-            $name = $_POST['name']; // name
-            $desc = $_POST['desc']; // description for this new input
-            
-            $sSQL = "INSERT INTO $table (`name`, `description`)
-                VALUES ( '$name', '$desc' );";
-   
-            RunQuery($sSQL);
-            if($table == "master_dates_year") // if this new component is year
-            {
-                insert_into_global("new_year");  // insert into master_global this year for all users
-            }
-            header('Location: /churchcrm/v2/newcomponent'); // redirect to churchcrm/v2/newcomponent
-            exit();
-            break;
-    
+           
         case "edit_local_master": 
-
-            $family_id = (int)$_POST['family_id']; // the family id 
-            $month_id = (int)$_POST['month_id']; // the month id 
-            $year_id = (int)$_POST['year_id'];// the year id
-
-            $check_q= "SELECT month_$month_id from master_global where  year_id =  $year_id  AND fam_id =  $family_id ;";
-            $row = mysqli_fetch_array(RunQuery($check_q));
-            $found = $row[0];
-
-            if ($year_id<=0){
-                break;
-            }
-            // Updated values 
-            $team_id = (int)$_POST['team_id']; 
-            $cash_id = (int)$_POST['cash_id'];
-            $bag_id = (int)$_POST['bag_id'];  
-            $sup_id = (int)$_POST['sup_id']; 
-            
-            // if this month is found for this family
-            if($found != -1){
-                $sSQL = "UPDATE `master_family_master` SET 
-                        team_id     =   $team_id,
-                        cash_id     =   $cash_id,
-                        bag_id      =   $bag_id,
-                        sup_id      =   $sup_id
-                        
-                         WHERE  year_id     = $year_id  AND 
-                                month_id    = $month_id AND
-                                family_id   = $family_id ;";
-
-                RunQuery($sSQL);
-                echo $sSQL;
-                break;
-            }
-            else{ 
+    
+                $family_id = (int)$_POST['family_id']; // the family id 
+                $month_id = (int)$_POST['month_id']; // the month id 
+                $year_id = (int)$_POST['year_id'];// the year id
+    
+                $check_q= "SELECT month_$month_id from master_global where  year_id =  $year_id  AND fam_id =  $family_id ;";
+                $row = mysqli_fetch_array(RunQuery($check_q));
+                $found = $row[0];
+    
+                if ($year_id<=0){
+                    break;
+                }
+                // Updated values 
+                $team_id = (int)$_POST['team_id']; 
+                $cash_id = (int)$_POST['cash_id'];
+                $bag_id = (int)$_POST['bag_id'];  
+                $sup_id = (int)$_POST['sup_id']; 
                 
-                $sSQL = "INSERT INTO `master_family_master` ( year_id, month_id,
-                                                         team_id, cash_id, bag_id, sup_id, family_id )
-                        VALUES ($year_id, $month_id, $team_id,
-                             $cash_id, $bag_id, $sup_id, $family_id);";
-
-                RunQuery($sSQL);
-                // get the mfm here
-                $q = "SELECT id FROM `master_family_master` WHERE `family_id` = $family_id and `year_id` = $year_id and `month_id`  = $month_id;" ;
-                $row = mysqli_fetch_array(RunQuery($q));
-                $mfm = $row[0];
-
-                // how to get the id of the new inserted row in master_family_master
-                $q = "UPDATE `master_global` SET 
-                        month_$month_id      =  $mfm
-                        WHERE  year_id       =  $year_id  AND 
-                                fam_id       =  $family_id ;";
-                                
-                RunQuery($q);
-                break;    
-            }
-       
-        case "get_vars":  // get the option for teams, bags, suppliments and other.
-            $_teams = _get('master_teams');
-            $_cash = _get('master_cash');
-            $_bags = _get('master_bags');
-            $_suppliments = _get('master_suppliments');
-            
-            $data = Array('all_bags' => $_bags, 'all_cash' => $_cash, 'all_suppliments' =>  $_suppliments, 
-            'all_teams' => $_teams);
-
-            echo json_encode($data);
-            break;
-            
+                // if this month is found for this family
+                if($found != -1){
+                    $sSQL = "UPDATE `master_family_master` SET 
+                            team_id     =   $team_id,
+                            cash_id     =   $cash_id,
+                            bag_id      =   $bag_id,
+                            sup_id      =   $sup_id
+                            
+                             WHERE  year_id     = $year_id  AND 
+                                    month_id    = $month_id AND
+                                    family_id   = $family_id ;";
+    
+                    RunQuery($sSQL);
+                    echo $sSQL;
+                    break;
+                }
+                else{ 
+                    
+                    $sSQL = "INSERT INTO `master_family_master` ( year_id, month_id,
+                                                             team_id, cash_id, bag_id, sup_id, family_id )
+                            VALUES ($year_id, $month_id, $team_id,
+                                 $cash_id, $bag_id, $sup_id, $family_id);";
+    
+                    RunQuery($sSQL);
+                    // get the mfm here
+                    $q = "SELECT id FROM `master_family_master` WHERE `family_id` = $family_id and `year_id` = $year_id and `month_id`  = $month_id;" ;
+                    $row = mysqli_fetch_array(RunQuery($q));
+                    $mfm = $row[0];
+    
+                    // how to get the id of the new inserted row in master_family_master
+                    $q = "UPDATE `master_global` SET 
+                            month_$month_id      =  $mfm
+                            WHERE  year_id       =  $year_id  AND 
+                                    fam_id       =  $family_id ;";
+                                    
+                    RunQuery($q);
+                    break;    
+                }
+           
         default:
-            break;
+                break;
+    
     }
-
 }
 
 ?>

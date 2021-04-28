@@ -276,10 +276,10 @@ $(document).ready(function() {
     // get options
     $.ajax({
 
-        url: "/churchcrm/PostRedirect.php",
+        url: "/churchcrm/PostRedirect_Filteration.php",
         type: "POST",
         data: {
-            post_name: "get_vars",
+            post_name: "get_global_vars",
         },
         success: function(response) {
             getVarsCallBack(response);
@@ -407,7 +407,7 @@ $(document).ready(function() {
                 keys: true,
                 'ajax': {
                     "type": "POST",
-                    'url': '/churchcrm/PostRedirect.php',
+                    'url': '/churchcrm/PostRedirect_Filteration.php',
                     'data': function(d) {
                         d.post_name = "global_master",
                             d.month_id = month_,
@@ -540,7 +540,7 @@ $(document).ready(function() {
 
         $.ajax({
 
-            url: "/churchcrm/PostRedirect.php",
+            url: "/churchcrm/PostRedirect_Filteration.php",
             type: "POST",
             data: {
                 post_name: "edit_local_master",

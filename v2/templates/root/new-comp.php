@@ -101,7 +101,7 @@ while($row = mysqli_fetch_array($rsOpps))
 
                 <?php } ?>
                 <tr>
-                    <form method="post"  action="<?= SystemURLs::getRootPath()?>/PostRedirect.php">
+                    <form method="post"  action="<?= SystemURLs::getRootPath()?>/PostRedirect_Filteration.php">
                         <td><input type="submit" class="btn btn-primary" value="Add New"></td>
                         <td><textarea name="name" rows='1' cols="30%" value=" "></textarea></td>
                         <input type="hidden" name="post_name" value="new_comp"></input>

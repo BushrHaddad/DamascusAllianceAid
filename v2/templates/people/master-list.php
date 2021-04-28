@@ -195,7 +195,7 @@ $(document).ready(function() {
     'use strict';
 
     var x = 0; // the number of months that should be back
-    var additional_fields = 27; // number of family attributes
+    var additional_fields = 26; // number of family attributes
     var aid_fields = 2; // number of aid fileds (team_name, cash_name)
     var team_options, cash_options;
     var team_dic, bag_dic;
@@ -245,7 +245,7 @@ $(document).ready(function() {
 
     function get_filtering_options(json, total_num) {
         filtering_options = []
-        for (var i = 1; i < total_num; i++) {
+        for (var i = 1; i <= total_num; i++) {
             if (json[String(i)]) {
                 filtering_options.push({
                     column_number: i,
@@ -259,12 +259,12 @@ $(document).ready(function() {
                 });
                 // after the additional Fields which are 26 fileds... ther's gonna be team, cash, team, cash 
                 // do team is gonna take odd index and cash even indexes
-            } else if (i >= additional_fields) {
+            } else if (i > additional_fields) {
                 var name = "";
-                if (i % 2 == 0) {
-                    name = "cash";
-                } else {
+                if (i % 2 == 1) {
                     name = "teams";
+                } else {
+                    name = "cash";
                 }
                 filtering_options.push({
                     column_number: i,
@@ -548,7 +548,8 @@ $(document).ready(function() {
             var edits = [];
             var nums = [];
             var current_idx = 0;
-            for (var i = 0; i < (prev_ * aid_fields); i++) {
+
+            for (var i = 1; i <= (prev_ * aid_fields); i++) {
                 current_idx = i + additional_fields;
                 nums.push(current_idx);
                 if (i % aid_fields == 0) {
@@ -634,7 +635,7 @@ $(document).ready(function() {
 
         $.ajax({
 
-            url: "/churchcrm/PostRedirect.php",
+            url: "/churchcrm/PostRedirect_Filteration.php",
             type: "POST",
             data: {
                 post_name: "edit_global_master",

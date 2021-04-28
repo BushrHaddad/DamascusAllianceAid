@@ -364,7 +364,7 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
 
     $.ajax({
 
-        url: "/churchcrm/PostRedirect.php",
+        url: "/churchcrm/PostRedirect_Filteration.php",
         type: "POST",
         // datatype: "text",
         data: {
@@ -393,7 +393,7 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
 
         var year_value = $("#year_status").val();
         $.ajax({
-            url: "/churchcrm/PostRedirect.php",
+            url: "/churchcrm/PostRedirect_Filteration.php",
             type: "POST",
             data: {
                 year_id: year_value,
@@ -493,7 +493,7 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {
         $.ajax({
 
-            url: "/churchcrm/PostRedirect.php",
+            url: "/churchcrm/PostRedirect_Filteration.php",
             type: "POST",
             data: {
                 post_name: "edit_local_master",

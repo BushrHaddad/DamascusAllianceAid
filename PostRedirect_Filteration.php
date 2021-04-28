@@ -1,7 +1,7 @@
 <?php
 /*******************************************************************************
  *
- *  filename    : PostRedirect.php
+ *  filename    : PostRedirect_Filteration.php
  *  Author      : Bushr Haddad
  *  Description : Process the cusomized datatables configuration, this file is responsible of processing local_master and global_master databales
  *                Process the inline editing of master tables.
@@ -723,6 +723,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 'all_suppliments' =>  $_suppliments, 
                 'all_teams' => $_teams,
             );
+        
             echo json_encode($data);
             break;
 
