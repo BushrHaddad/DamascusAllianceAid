@@ -731,8 +731,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $data = Array(
                 // todo: master_teams and master_cash can be not added
-                'all_cash' =>  _get('master_teams'),
-                'all_teams' => _get('master_cash'),    
+                'all_cash' =>  _get('master_cash'),
+                'all_teams' => _get('master_teams'),    
                 '3' => get_filtering_options('p', 'families_view'),
                 '8' => get_filtering_options('poverty_rate', 'families_view'),
                 '11' => get_filtering_options('city', 'families_view'),

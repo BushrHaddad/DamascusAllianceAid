@@ -1,30 +1,5 @@
 <?php
 
-/****************************************************************
-    // Update 
-    
-    UPDATE family_fam SET fam_Name='family name test1',fam_Address1='jhjk',fam_Address2='hjk',fam_City='hjkhkjh',
-    fam_State='',fam_Zip='',fam_Latitude='0',fam_Longitude='0',fam_Country='AF',fam_HomePhone='(345) 678-3456',
-    fam_WorkPhone='(456) 745-6756 x76767',fam_CellPhone='(345) 678-9345',fam_Email='',fam_WeddingDate=NULL,
-    fam_Envelope='0',fam_DateLastEdited='20210303234156',fam_EditedBy = 1,fam_SendNewsLetter = 'FALSE',
-    fam_OkToCanvass = 'TRUE', fam_Canvasser = '0' WHERE fam_ID = 7
-    REPLACE INTO family_custom SET c9 = 'Main-Name', c11 = 'Main National Id', c10 = 'Partner Name',
-    c12 = 'Partner Id', c2 = 'Additional Info', c1 = 'Address Additional Info', c3 = 'Team Info', c4 = '1',
-    c7 = 'Children', c6 = '9', c8 = 'Poverty Rate hjhkhkhk', c5 = '1', fam_ID = 7
-***************************************************************************
-    // Insert New
-    INSERT INTO family_fam ( fam_Name, fam_Address1, fam_Address2, fam_City, fam_State, fam_Zip, fam_Country,
-    fam_HomePhone, fam_WorkPhone, fam_CellPhone, fam_Email, fam_WeddingDate, fam_DateEntered, fam_EnteredBy,
-    fam_SendNewsLetter, fam_OkToCanvass, fam_Canvasser, fam_Latitude, fam_Longitude, fam_Envelope) 
-    VALUES ('Name','test','test','test','','','AF','','','','',NULL,'20210303234740',1,'FALSE','TRUE','0','0','0','0')
-      
-    REPLACE INTO family_custom SET c9 = 'test', c11 = 'test', c10 = 'test', c12 = 'test', c2 = 'test', c1 = 'test',
-     c3 = 'test', c4 = '1', c7 = 'test', c6 = '7', c8 = 'test', c5 = NULL, fam_ID = 52
-    // Get the master view table
-    // for month_id, year_id
-    // for all user 
-    
-******************************************************************/
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
 
@@ -110,9 +85,12 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 </div>
 
+<!-- Reset Filter -->
 <div class="container-fluid">
     <input id="ClearFilters" type="button" class="btn btn-default" value="Reset Filters"><BR><BR>
 </div>
+
+<!-- Master Table -->
 <div class="box">
     <div class="box-body">
         <table id="example" class="display table table-striped table-bordered data-table" cellspacing="0"
@@ -191,19 +169,22 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
+
     var table = $('#example').DataTable({});
     'use strict';
 
     var x = 0; // the number of months that should be back
     var additional_fields = 26; // number of family attributes
     var aid_fields = 2; // number of aid fileds (team_name, cash_name)
+    
     var team_options, cash_options;
     var team_dic, bag_dic;
-    var month_ = $("#month_option_id").val();
-    var year_ = $("#year_option_id").val();
-    var prev_ = Number($("#prev_month_count_id").val());
-    var filtering_options = [];
+    var month_ = $("#month_option_id").val(); //  our current month
+    var year_ = $("#year_option_id").val(); // our current year
+    var prev_ = Number($("#prev_month_count_id").val()); // how much we should go back
 
+    var filtering_options = [];
+    // should be moved to a shared code 
     function _parse(obj) {
         parsed = [];
         for (index = 0; index < obj.length; index++) {
@@ -243,9 +224,9 @@ $(document).ready(function() {
         return parsed;
     }
 
-    function get_filtering_options(json, total_num) {
+    function get_filtering_options(json, total_fields_num) {
         filtering_options = []
-        for (var i = 1; i <= total_num; i++) {
+        for (var i = 1; i <= total_fields_num; i++) {
             if (json[String(i)]) {
                 filtering_options.push({
                     column_number: i,
@@ -261,9 +242,9 @@ $(document).ready(function() {
                 // do team is gonna take odd index and cash even indexes
             } else if (i > additional_fields) {
                 var name = "";
-                if (i % 2 == 1) {
+                if (i % 2 == 1) { // 27, 29, 31 
                     name = "teams";
-                } else {
+                } else { // 28, 30, 32
                     name = "cash";
                 }
                 filtering_options.push({
@@ -298,8 +279,10 @@ $(document).ready(function() {
         cash_dic = _dic(json['all_cash']);
         // now get multi select filtering options 
         filtering_options = get_filtering_options(json, additional_fields + (prev_ * aid_fields));
+
     }
 
+    //***************************** Custom Exporting, implemeted to process with Server-Side ************************** */
     var oldExportAction = function(self, e, dt, button, config) {
         if (button[0].className.indexOf('buttons-excel') >= 0) {
             if ($.fn.dataTable.ext.buttons.excelHtml5.available(dt, config)) {
@@ -344,6 +327,7 @@ $(document).ready(function() {
         dt.ajax.reload();
     };
 
+    //***************************** Columns for Master Datatable ************************** */
     var columns = [
         {
             name: "id",
@@ -474,6 +458,7 @@ $(document).ready(function() {
         });
     }
 
+    //******************* Ajax call for get global vars, filtering options, and cell options ******************** */ 
 
     // get options
     $.ajax({
@@ -538,7 +523,7 @@ $(document).ready(function() {
                 ]
             });
 
-            // reset all filters  
+            // Reset all filters  
             $("#ClearFilters").click(function() {
                 yadcf.exResetAllFilters(table);
             });
@@ -552,13 +537,13 @@ $(document).ready(function() {
             for (var i = 1; i <= (prev_ * aid_fields); i++) {
                 current_idx = i + additional_fields;
                 nums.push(current_idx);
-                if (i % aid_fields == 0) {
+                if (i % aid_fields == 1) {
                     edits.push({
                         "column": current_idx,
                         "type": "list",
                         "options": team_options,
                     });
-                } else if (i % aid_fields == 1) {
+                } else if (i % aid_fields == 0) {
                     edits.push({
                         "column": current_idx,
                         "type": "list",
@@ -611,9 +596,11 @@ $(document).ready(function() {
         // console.log(updatedRow.data());
         var row = updatedCell[0][0]['row'];
         var col = updatedCell[0][0]['column'];
+        console.log(col);
+        
         col = col - (additional_fields); // the number of added field for family (should be subtracted)
+        col--;
         var p = parseInt((col / aid_fields));
-
         for (var i = 0; i < p; i++) {
             if (month_ == 1) {
                 month_ = 12;
@@ -627,19 +614,20 @@ $(document).ready(function() {
             }
         }
 
-        var team_col_idx = p * aid_fields + (additional_fields);
-        var cash_col_idx = p * aid_fields + (additional_fields + 1);
+        var team_col_idx = p * aid_fields + (additional_fields+1);
+        var cash_col_idx = p * aid_fields + (additional_fields+2);
 
         var team_name = table.cell(row, team_col_idx).data();
         var cash_name = table.cell(row, cash_col_idx).data();
 
+        fam_id = table.cell(row, 0).data();
         $.ajax({
 
             url: "/churchcrm/PostRedirect_Filteration.php",
             type: "POST",
             data: {
                 post_name: "edit_global_master",
-                family_id: updatedRow.data().id,
+                family_id: fam_id,
                 month_id: month_,
                 year_id: year_,
                 team_id: team_dic[team_name],
