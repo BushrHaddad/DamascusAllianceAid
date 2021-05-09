@@ -362,6 +362,7 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
         return parsed;
     }
 
+    // get component options 
     $.ajax({
 
         url: "/churchcrm/PostRedirect_Filteration.php",
@@ -382,6 +383,9 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
             cash_dic = _dic(json['all_cash']);
             bag_dic = _dic(json['all_bags']);
             sup_dic = _dic(json['all_suppliments']);
+
+            // build table for year 2014 which have id: 1
+            build_table_on_year("1");
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error on get Ajax request ");
@@ -389,9 +393,90 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
         }
     });
 
-    $("#year_status").change(function() {
+    // Init family master table based on the results obtained for a specific year
+    function init_family_master_table(obj){
+        table = $('#example').DataTable()
+        destroyTable();
+        var json = JSON.parse(obj);
+        table = $('#example').DataTable({
+            destroy: true,
+            "bSort": false,
+            keys: true,
+            data: json,
+            columns: [{
+                    data: "found",
+                    "visible": false,
+                },
+                {
+                    data: "month_id",
+                    "visible": false,
+                },
+                {
+                    data: "month_name"
+                },
+                {
+                    data: "team_name"
+                },
+                {
+                    data: "cash_name"
+                },
+                {
+                    data: "bag_name"
+                },
+                {
+                    data: "sup_name"
+                }
+            ]
+        });
 
-        var year_value = $("#year_status").val();
+        // make this table editable
+        table.MakeCellsEditable({
+            "onUpdate": myCallbackFunction,
+            "inputCss": 'js-example-basic-single',
+            "columns": [0, 1, 2, 3, 4, 5, 6],
+            "confirmationButton": { // could also be true
+                "confirmCss": 'my-confirm-class',
+                "cancelCss": 'my-cancel-class'
+            },
+            "inputTypes": [{
+                    "column": 0,
+                    "type": "text",
+                },
+                {
+                    "column": 1,
+                    "type": "text",
+                },
+                {
+                    "column": 2,
+                    "type": "list",
+                    "options": null
+                },
+                {
+                    "column": 3,
+                    "type": "list",
+                    "options": team_options
+                },
+                {
+                    "column": 4,
+                    "type": "list",
+                    "options": cash_options
+                },
+                {
+                    "column": 5,
+                    "type": "list",
+                    "options": bag_options
+                },
+                {
+                    "column": 6,
+                    "type": "list",
+                    "options": sup_options
+                },
+            ]
+        });
+    }
+
+    // get family master data for a specific year
+    function build_table_on_year(year_value){
         $.ajax({
             url: "/churchcrm/PostRedirect_Filteration.php",
             type: "POST",
@@ -400,94 +485,17 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
                 post_name: "local_master",
                 family_id: window.CRM.currentFamily
             },
-
             success: function(obj) {
-                table = $('#example').DataTable()
-                destroyTable();
-                var json = JSON.parse(obj);
-
-                table = $('#example').DataTable({
-                    destroy: true,
-                    "bSort": false,
-                    keys: true,
-
-                    data: json,
-                    //  dataType: 'json',    
-                    columns: [{
-                            data: "found",
-                            "visible": false,
-                        },
-                        {
-                            data: "month_id",
-                            "visible": false,
-                        },
-                        {
-                            data: "month_name"
-                        },
-                        {
-                            data: "team_name"
-                        },
-                        {
-                            data: "cash_name"
-                        },
-                        {
-                            data: "bag_name"
-                        },
-                        {
-                            data: "sup_name"
-                        }
-
-                    ]
-                });
-
-
-                table.MakeCellsEditable({
-                    "onUpdate": myCallbackFunction,
-                    "inputCss": 'js-example-basic-single',
-                    "columns": [0, 1, 2, 3, 4, 5, 6],
-                    "confirmationButton": { // could also be true
-                        "confirmCss": 'my-confirm-class',
-                        "cancelCss": 'my-cancel-class'
-                    },
-                    "inputTypes": [{
-                            "column": 0,
-                            "type": "text",
-                        },
-                        {
-                            "column": 1,
-                            "type": "text",
-                        },
-                        {
-                            "column": 2,
-                            "type": "list",
-                            "options": null
-                        },
-                        {
-                            "column": 3,
-                            "type": "list",
-                            "options": team_options
-                        },
-                        {
-                            "column": 4,
-                            "type": "list",
-                            "options": cash_options
-                        },
-                        {
-                            "column": 5,
-                            "type": "list",
-                            "options": bag_options
-                        },
-                        {
-                            "column": 6,
-                            "type": "list",
-                            "options": sup_options
-                        },
-                    ]
-                });
-
+                init_family_master_table(obj);
             }
-
         });
+    }
+
+    // On change year status
+    $("#year_status").change(function() {
+        var year_value = $("#year_status").val();
+        build_table_on_year(year_value);
+        
     });
 
     function myCallbackFunction(updatedCell, updatedRow, oldValue) {

@@ -161,7 +161,8 @@ function teamReport(Request $request, Response $response, array $args){
         }
 
         $row1 = array(
-            $family_id. "<br /><br />". "مع.م <input type='checkbox'><br />بدون.م <input type='checkbox'>",
+            $family_id. "<br /><br /> مع.م <input type='checkbox'><br /> بدون.م <input type='checkbox'> __/__/__",
+            // "<div><table class='table' ><th>Hcdsncdjsjcjdsjcljslcjljdlsello</th><th>hello</th></table> </div>",
             $fam_row['verifying_question'],
             $fam_row['main_name']. " <br />". $fam_row['partner_name'],
             $fam_row['main_id']. " <br />". $fam_row['partner_id'],

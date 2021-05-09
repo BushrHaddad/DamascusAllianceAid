@@ -31,7 +31,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
 
 
 <div id="family-deactivated" class="alert alert-warning hide">
-    <strong><?= gettext("This Family is Deactivated") ?> </strong>
+    <strong>This Family is Deactivated</strong>
 </div>
 
 <div class="row family-info">
@@ -54,17 +54,17 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                                 class="img-responsive profile-user-img profile-family-img" />
                             <div class="after">
                                 <div class="buttons">
-                                    <a id="view-larger-image-btn" href="#" title="<?= gettext("View Photo") ?>">
+                                    <a id="view-larger-image-btn" href="#" title="View Photo">
                                         <i class="fa fa-search-plus"></i>
                                     </a>
                                     <?php if (AuthenticationManager::GetCurrentUser()->isEditRecordsEnabled()): ?>
                                     &nbsp;
                                     <a href="#" data-toggle="modal" data-target="#upload-image"
-                                        title="<?= gettext("Upload Photo") ?>">
+                                        title="Upload Photo">
                                         <i class="fa fa-camera"></i>
                                     </a>&nbsp;
                                     <a href="#" data-toggle="modal" data-target="#confirm-delete-image"
-                                        title="<?= gettext("Delete Photo") ?>">
+                                        title="Delete Photo">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                     <?php endif; ?>
@@ -82,14 +82,14 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                     <br />
                     <div class="text-center">
                         <a class="btn btn-app" id="lastFamily"><i
-                                class="fa fa-hand-o-left"></i><?= gettext('Previous Family') ?></a>
+                                class="fa fa-hand-o-left"></i>Previous Family</a>
 
                         <a class="btn btn-app btn-danger" role="button"
                             href="<?= SystemURLs::getRootPath()?>/v2/family"><i
-                                class="fa fa-list-ul"></i><?= gettext('Family List') ?></a>
+                                class="fa fa-list-ul"></i>Family List</a>
 
                         <a class="btn btn-app" role="button" id="nextFamily"><i
-                                class="fa fa-hand-o-right"></i><?= gettext('Next Family') ?> </a>
+                                class="fa fa-hand-o-right"></i>Next Family</a>
                     </div>
                     <hr />
                     <a class="btn btn-app bg-olive"
@@ -188,7 +188,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                 <div class="box">
                     <div class="box-header">
                         <i class="fa fa-group"></i>
-                        <h3 class="box-title"><?= gettext("Family Members") ?></h3>
+                        <h3 class="box-title">Family Members</h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                     class="fa fa-minus"></i>
@@ -243,29 +243,29 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                                             <?php }
                                                 if (!empty($person->getWorkPhone())) { ?>
                                             <i class="fa fa-fw fa-briefcase"
-                                                title="<?= gettext("Work Phone") ?>"></i>(W)
+                                                title="Work Phone"></i>(W)
                                             <?= $person->getWorkPhone() ?>
                                             <br />
                                             <?php }
                                                 if (!empty($person->getCellPhone())) { ?>
-                                            <i class="fa fa-fw fa-mobile" title="<?= gettext("Mobile Phone") ?>"></i>(M)
+                                            <i class="fa fa-fw fa-mobile" title="Mobile Phone"></i>(M)
                                             <?= $person->getCellPhone() ?>
                                             <br />
                                             <?php }
                                                 if (!empty($person->getEmail())) { ?>
-                                            <i class="fa fa-fw fa-envelope" title="<?= gettext("Email") ?>"></i>(H)
+                                            <i class="fa fa-fw fa-envelope" title="Email"></i>(H)
                                             <?= $person->getEmail() ?>
                                             <br />
                                             <?php }
                                                 if (!empty($person->getWorkEmail())) { ?>
                                             <i class="fa fa-fw fa-envelope-o"
-                                                title="<?= gettext("Work Email") ?>"></i>(W)
+                                                title="Work Email"></i>(W)
                                             <?= $person->getWorkEmail() ?>
                                             <br />
                                             <?php }
                                                 $formatedBirthday = $person->getFormattedBirthDate();
                                                 if ($formatedBirthday) {?>
-                                            <i class="fa fa-fw fa-birthday-cake" title="<?= gettext("Birthday") ?>"></i>
+                                            <i class="fa fa-fw fa-birthday-cake" title="Birthday"></i>
                                             <?= $formatedBirthday ?> <?= $person->getAge()?>
                                             </i>
                                             <?php } ?>
@@ -291,7 +291,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
 
             <div class="box-header">
                 <i class="fa fa-history"></i>
-                <h3 class="box-title"><?= gettext("Master Table") ?></h3>
+                <h3 class="box-title">Master Table</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -301,14 +301,13 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                 <div class="form-group">
                     <label>Choose a Year:</label>
                     <select id="year_status" class="form-control" name="c5">
-                        <option selected="">--------------------</option>
-                        <?php
-                         foreach ($all_years as $year){
-                        ?>
+                        <?php foreach ($all_years as $year){?>
+                        <?php if($year['name'] == "2014"){  ?>
+                        <option selected = "" value=<?= $year['id'] ?>><?= $year['name'] ?></option>
+                        <?php  }  else{  ?>
                         <option value=<?= $year['id'] ?>><?= $year['name'] ?></option>
-                        <?php
-                        }
-                        ?>
+                        
+                        <?php } }?>
                     </select>
                 </div>
                 <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"
@@ -335,7 +334,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
         <div class="box">
             <div class="box-header">
                 <i class="fa fa-history"></i>
-                <h3 class="box-title"><?= gettext("Timeline") ?></h3>
+                <h3 class="box-title">Timeline</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -375,7 +374,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                                 <i class="fa fa-clock-o"></i> <?= $item['datetime'] ?></span>
                             <?php if ($item['slim']) { ?>
                             <h4 class="timeline-header">
-                                <?= $item['text'] ?> <?= gettext($item['header']) ?>
+                                <?= $item['text'] ?> <?=$item['header'] ?>
                             </h4>
                             <?php } else { ?>
                             <h3 class="timeline-header">
@@ -385,7 +384,7 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                                 <?php
                                         } else {
                                             ?>
-                                <?= gettext($item['header']) ?>
+                                <?= $item['header'] ?>
                                 <?php
                                         } ?>
                             </h3>
@@ -443,19 +442,19 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="delete-Image-label"><?= gettext("Confirm Delete") ?></h4>
+                <h4 class="modal-title" id="delete-Image-label">Confirm Delete</h4>
             </div>
 
             <div class="modal-body">
-                <p><?= gettext("You are about to delete the profile photo, this procedure is irreversible.") ?></p>
+                <p>You are about to delete the profile photo, this procedure is irreversible.</p>
 
-                <p><?= gettext("Do you want to proceed?") ?></p>
+                <p>Do you want to proceed?</p>
             </div>
 
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><?= gettext("Cancel") ?></button>
-                <button class="btn btn-danger danger" id="deletePhoto"><?= gettext("Delete") ?></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger danger" id="deletePhoto">Delete</button>
 
             </div>
         </div>

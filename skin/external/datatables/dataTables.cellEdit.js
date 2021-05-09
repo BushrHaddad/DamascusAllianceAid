@@ -39,9 +39,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             // Update
             var newValue = inputField.val();
             if (!newValue && ((settings.allowNulls) && settings.allowNulls != true)) {
-                // If columns specified
-                console.log('inside if');
-
+                
                 if (settings.allowNulls.columns) {
                     // If current column allows nulls
                     if (settings.allowNulls.columns.indexOf(columnIndex) > -1) {
@@ -82,7 +80,6 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             var currentPageIndex = table.page.info().page;
             //Redraw table
             // table.page(currentPageIndex).draw(false);
-            console.log("draw commented");
 
         },
         // CANCEL
@@ -91,8 +88,6 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
             var cell = table.cell($(callingElement).parents('td, th'));
             // Set cell to it's original value
             cell.data(cell.data());
-            // Redraw table
-            // table.draw();
         }
     });
 
@@ -120,11 +115,6 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
 
                     if (!$(myCell).find('input').length && !$(myCell).find('select').length && !$(myCell).find('textarea').length) {
                         var input = getInputHtml(currentColumnIndex, settings, oldValue);
-                        // Edited here
-                        // var $example = $(".js-example-basic-single").select2({ 
-                        //     allowClear: true,
-                        //     placeholder: "Search..",});
-                        // $example.select2("open");
                         $(myCell).html(input.html);
                         // necessary for showing js-example-basic-single
                         var $example = $(".js-example-basic-single").select2({    
@@ -225,11 +215,6 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
                 }
             });
             input.html = input.html + "</select>" + endWrapperHtml;
-            // Edited
-            // var $example = $(".js-example-basic-single").select2({    allowClear: true,
-            //     placeholder: "Search..",});
-            // $example.select2("open");
-            console.log('list');
             input.focus = false;
             break;
 
