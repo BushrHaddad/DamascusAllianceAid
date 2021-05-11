@@ -53,7 +53,7 @@ function _get($table){
 
 $family_attributes = ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
 'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
-"Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"];
+"Team Note", "Ref", "Membership status", "Members Number", "Children", "Financial Support", "Other Notes", "Question"];
 
 // Server-Side: get master-list
 function getGlobalMaster(Request $request, Response $response, array $args){
@@ -67,9 +67,10 @@ function getGlobalMaster(Request $request, Response $response, array $args){
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
         'all_years' => $_years,
-        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
-        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
-        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate", "State", "Region",
+        'Address1','Address2', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Financial Support", "Other Notes", "Question"],
+ 
       ];
 
     return $renderer->render($response, 'master-list.php', $pageArgs);
@@ -87,9 +88,9 @@ function getGlobalMasterLocally(Request $request, Response $response, array $arg
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
         'all_years' => $_years,
-        'familyAttributes' => ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
-        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
-        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate", "State", "Region",
+        'Address1','Address2', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Financial Support", "Other Notes", "Question"],
       ];
 
     return $renderer->render($response, 'master-list_local.php', $pageArgs);
@@ -107,9 +108,9 @@ function postGlobalMaster(Request $request, Response $response, array $args){
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
         'all_years' => $_years,
-        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
-        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
-        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate", "State", "Region",
+        'Address1','Address2', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Financial Support", "Other Notes", "Question"],
         'request' => (object)$request->getParsedBody()
       ];
 
@@ -127,10 +128,10 @@ function postGlobalMasterLocally(Request $request, Response $response, array $ar
         'sRootPath' => SystemURLs::getRootPath(),
         'all_months' => $_months,
         'all_years' => $_years,
-        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
-        'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
-        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
-        'request' => (object)$request->getParsedBody()
+        'request' => (object)$request->getParsedBody(),
+        'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate", "State", "Region",
+        'Address1','Address2', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Financial Support", "Other Notes", "Question"],
       ];
 
     return $renderer->render($response, 'master-list_local.php', $pageArgs);
@@ -149,9 +150,9 @@ function listFamilies(Request $request, Response $response, array $args)
   $pageArgs = [
     'sMode' => $sMode,
     'sRootPath' => SystemURLs::getRootPath(),
-    'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
-    'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
-    "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"]
+    'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate", "State", "Region",
+        'Address1','Address2', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+        "Team Note", "Ref", "Membership status", "Members Number", "Children", "Financial Support", "Other Notes", "Question"],
     ];
 
   return $renderer->render($response, 'family-list.php', $pageArgs);
@@ -169,9 +170,10 @@ function listFamiliesLocally(Request $request, Response $response, array $args)
   $pageArgs = [
     'sMode' => $sMode,
     'sRootPath' => SystemURLs::getRootPath(),
-    'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate",
-    'Address','Address2', 'Region', 'State', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
-    "Team Note", "Ref", "Membership status", "Members Number", "Children", "Without Money", "Other Notes", "Question"],
+    'familyAttributes' =>  ['Action','Id','Old Id','p','Main Name', 'Main Id', 'Partner Name', 'Partner Id', "Rate", "State", "Region",
+    'Address1','Address2', 'Home Phone', 'Aid Phone', 'Mobile Phone','Status', 'Aid Notes', 'General Note', 
+    "Team Note", "Ref", "Membership status", "Members Number", "Children", "Financial Support", "Other Notes", "Question"],
+
     ];
 
   return $renderer->render($response, 'family-list_local.php', $pageArgs);

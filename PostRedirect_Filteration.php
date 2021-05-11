@@ -347,7 +347,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             // RunQuery($q);
 
             $sMode = $_POST['sMode'];
-            // $sMode = "active";
             
             $draw = $_POST['draw'];
             $start = $_POST['start'];
@@ -364,6 +363,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             // Filtering Searching based on columns search value
             $filtered_search = " (";
             $searchQuery = " ( 1";
+            $activeQuery = "( 1";
+
 
             for($i=1; $i<=26; $i++){
                 $col_name = $_POST['columns'][$i]['name'];  // the name of this column 
@@ -385,23 +386,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
             }
 
+            if($sMode == "active"){
+                $activeQuery =  $activeQuery. " and status='active' ";
 
+            }elseif($sMode == "inactive"){
+                $activeQuery =  $activeQuery. " and status='cancelled' ";
+            }
 
             $filtered_search = $filtered_search." )";
             $searchQuery = $searchQuery." )";
-            $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
+            $activeQuery = $activeQuery. " )";
 
-            if($sMode == "active"){
-            
-                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='active' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
 
-            }elseif($sMode == "inactive"){
-            
-                $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and status='cancelled' ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-            
-            }
-            // echo $all_fam_q;
-            // exit;
+            $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and $activeQuery ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
 
             $d = RunQuery($all_fam_q);
 
@@ -446,7 +443,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $q = "SELECT * from ( 
                 (SELECT COUNT(*) as all_count from families_view) t1 
                     INNER JOIN 
-                (SELECT COUNT(*) as filtered_count from families_view where 1 and $searchQuery and $filtered_search ) t2
+                (SELECT COUNT(*) as filtered_count from families_view where 1 and $searchQuery and $filtered_search and $activeQuery) t2
             ); ";
             
             $records = RunQuery($q);
@@ -735,8 +732,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 'all_teams' => _get('master_teams'),    
                 '3' => get_filtering_options('p', 'families_view'),
                 '8' => get_filtering_options('poverty_rate', 'families_view'),
-                '11' => get_filtering_options('city', 'families_view'),
-                '12' => get_filtering_options('state', 'families_view'),
+                '9' => get_filtering_options('state', 'families_view'),
+                '10' => get_filtering_options('city', 'families_view'),
                 '16' => get_filtering_options('status', 'families_view'),
                 '20' => get_filtering_options('ref', 'families_view'),
                 '21' => get_filtering_options('membership_status', 'families_view'),
@@ -755,8 +752,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $response = array(
                 '3' => get_filtering_options('p', 'families_view'),
                 '8' => get_filtering_options('poverty_rate', 'families_view'),
-                '11' => get_filtering_options('city', 'families_view'),
-                '12' => get_filtering_options('state', 'families_view'),
+                '9' => get_filtering_options('state', 'families_view'),
+                '10' => get_filtering_options('city', 'families_view'),
                 '16' => get_filtering_options('status', 'families_view'),
                 '20' => get_filtering_options('ref', 'families_view'),
                 '21' => get_filtering_options('membership_status', 'families_view'),

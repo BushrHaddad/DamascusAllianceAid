@@ -67,7 +67,7 @@ function cashReport(Request $request, Response $response, array $args){
     $month_name = $request->getParams()['month'];
     $year_name = $request->getParams()['year'];
 
-    $query = "SELECT family_id, cash_name, team_name FROM master_general_view where month_name = '$month_name' 
+    $query = "SELECT Distinct family_id, cash_name, team_name FROM master_general_view where month_name = '$month_name' 
         AND year_name = '$year_name'
         AND  length(cash_name) > 1 ; ";
 
@@ -89,8 +89,8 @@ function cashReport(Request $request, Response $response, array $args){
             $family_id,
             $row['cash_name'],
             $row['team_name'],
-            $fam_row['main_name'] . " <br />". $fam_row['partner_name'],
-            $fam_row['main_id'] . " <br />". $fam_row['partner_id'],
+            $fam_row['main_name']. " <br />". $fam_row['partner_name'],
+            $fam_row['main_id']. " <br />". $fam_row['partner_id'],
             $fam_row['home_phone']. " <br />". $fam_row['aid_phone']. " <br />". $fam_row['mobile_phone'],
             $fam_row['address2']." <br />".$fam_row['address1']." <br />".$fam_row['city']." <br />".$fam_row['state'],
             $fam_row['poverty_rate'],
@@ -105,7 +105,8 @@ function cashReport(Request $request, Response $response, array $args){
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => "Cash Report",
-        'attributes' => ['تسلسل','مالية','فريق الزيارة','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة', 'عدد الأفراد',
+        'attributes' => ['تسلسل','مالية','فريق الزيارة','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة'
+        , "عدد أفراد العائلة". "<hr style=' margin:0 !important;'>" ."الأولاد",
                         'ملاحظات الفريق'],
         'results' => $data,
         'team_name' => "تقرير مالية",
@@ -124,7 +125,7 @@ function teamReport(Request $request, Response $response, array $args){
     $year_name = $request->getParams()['year'];
     $team_name = (String)$request->getParams()['team'];
     
-    $query = "SELECT family_id, cash_name FROM master_general_view where
+    $query = "SELECT Distinct family_id, cash_name FROM master_general_view where
              month_name = '$month_name' AND year_name = '$year_name' AND team_name = '$team_name';";
     
     // echo $query;
@@ -161,8 +162,7 @@ function teamReport(Request $request, Response $response, array $args){
         }
 
         $row1 = array(
-            $family_id. "<br /><br /> مع.م <input type='checkbox'><br /> بدون.م <input type='checkbox'> __/__/__",
-            // "<div><table class='table' ><th>Hcdsncdjsjcjdsjcljslcjljdlsello</th><th>hello</th></table> </div>",
+            $family_id. "<br /> مع.م&nbsp&nbsp&nbsp<input type='checkbox'><br /> بدون.م <input type='checkbox'> ___/___",
             $fam_row['verifying_question'],
             $fam_row['main_name']. " <br />". $fam_row['partner_name'],
             $fam_row['main_id']. " <br />". $fam_row['partner_id'],
@@ -182,14 +182,13 @@ function teamReport(Request $request, Response $response, array $args){
     $pageArgs = [
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => "Team Report",
-        'attributes' => ['استلام','استفسار','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة', 'عدد الأفراد',
+        'attributes' => [' استلام','استفسار','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة'
+        , "عدد أفراد العائلة". "<hr style=' margin:0 !important;'>" ."الأولاد",
                         'ملاحظات عامة', 'ملاحظات الفريق'],
         'results' => $data,
         'team_name' => $team_name,
         'year_name' => $year_name,
         'month_name' => $month_name,
-
     ];
     return $renderer->render($response, 'report.php', $pageArgs);
-
 }

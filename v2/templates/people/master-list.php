@@ -376,20 +376,20 @@ $(document).ready(function() {
             data: "8"
         },
         {
-            name: "address1",
-            data: "9"
-        },
-        {
-            name: "address2",
-            data: "10"
+            name: "state",
+            data: "12"
         },
         {
             name: "city",
             data: "11"
         },
         {
-            name: "state",
-            data: "12"
+            name: "address1",
+            data: "9"
+        },
+        {
+            name: "address2",
+            data: "10"
         },
         {
             name: "home_phone",

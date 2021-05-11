@@ -74,8 +74,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     td:nth-child(1),
     th:nth-child(8),
     td:nth-child(8) {
-        width: 35px;
-        max-width: 35px;
+        width: 40px;
+        max-width: 40px;
+        font-size: 16px;
+        font-weight: bold;
         white-space: pre-line;
     }
 
@@ -89,7 +91,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     table.dataTable td:nth-child(2) {
         width: 80px;
         max-width: 80px;
-        word-break: break-all;
+        
+        /* word-break: break-all; */
         white-space: pre-line;
     }
 
@@ -104,7 +107,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     td:nth-child(5) {
         width: 125px;
         max-width: 125px;
-        word-break: break-all;
+        /* word-break: break-all; */
         white-space: pre-line;
     }
 
@@ -120,7 +123,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     table.dataTable td:nth-child(9) {
         width: 80px;
         max-width: 80px;
-        word-break: break-all;
+        /* word-break: break-all; */
         font-size: 12px;
     }
 

@@ -13,8 +13,8 @@ use ChurchCRM\FamilyCustomMasterQuery;
 use ChurchCRM\FamilyCustomQuery;
 
 
-//Set the page title
-$sPageTitle =  "عائلة: ". $family->getName() ;
+
+$sPageTitle =  "عائلة: ". $family->getName();
 include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 $curYear = (new DateTime)->format("Y");
@@ -41,8 +41,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
             <div>
                 <div class="box box-primary">
                     <div class="box-header">
-                        <i class="fa fa-info"></i>
-                        <h3 class="box-title"><?= $family->getName() ?></h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool edit-family"><i class="fa fa-edit"></i>
                             </button>
@@ -174,8 +172,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             </li>
                             <?php
                             }
-
-
                             ?>
                         </ul>
                     </div>
@@ -392,8 +388,6 @@ window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
                             <div class="timeline-body">
                                 <pre><?= $item['text'] ?></pre>
                             </div>
-
-
 
                             <?php } ?>
                         </div>

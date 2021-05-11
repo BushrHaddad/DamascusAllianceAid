@@ -111,17 +111,17 @@ function insert_into_global($criteria){
                 $col_name="month_".$i;
                 $insert_query = $insert_query.", ".$col_name;
         
-                $query = "SELECT `id` from `master_family_master` where `month_id` = $i and `year_id` = $year_id and `family_id` = $fam_id";
-                $rsOpps2 = RunQuery($query);
+                // $query = "SELECT `id` from `master_family_master` where `month_id` = $i and `year_id` = $year_id and `family_id` = $fam_id";
+                // $rsOpps2 = RunQuery($query);
 
-                if(mysqli_num_rows($rsOpps2) > 0){
-                    while($row2 = mysqli_fetch_array($rsOpps2)){
-                        $result[$i] = $row2[0];
-                    }
-                }
-                else{
+                // if(mysqli_num_rows($rsOpps2) > 0){
+                //     while($row2 = mysqli_fetch_array($rsOpps2)){
+                //         $result[$i] = $row2[0];
+                //     }
+                // }
+                // else{
                     $result[$i] = -1;
-                }
+                // }
       
             }
             $insert_query = $insert_query.", year_id) VALUES ( $fam_id";
@@ -314,15 +314,15 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
     //If no errors, then let's update...
     if (!$bErrorFlag) {
         // Format the phone numbers before we store them
-        if (!$bNoFormat_HomePhone) {
-            $sHomePhone = CollapsePhoneNumber($sHomePhone, $sCountry);
-        }
-        if (!$bNoFormat_WorkPhone) {
-            $sWorkPhone = CollapsePhoneNumber($sWorkPhone, $sCountry);
-        }
-        if (!$bNoFormat_CellPhone) {
-            $sCellPhone = CollapsePhoneNumber($sCellPhone, $sCountry);
-        }
+        // if (!$bNoFormat_HomePhone) {
+        //     $sHomePhone = CollapsePhoneNumber($sHomePhone, $sCountry);
+        // }
+        // if (!$bNoFormat_WorkPhone) {
+        //     $sWorkPhone = CollapsePhoneNumber($sWorkPhone, $sCountry);
+        // }
+        // if (!$bNoFormat_CellPhone) {
+        //     $sCellPhone = CollapsePhoneNumber($sCellPhone, $sCountry);
+        // }
 
         //Write the base SQL depending on the Action
         if ($bSendNewsLetter) {
@@ -527,6 +527,7 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
             $family->createTimeLineNote('edit');
         }
 
+
         // Update the custom person fields.
         if ($numCustomFields > 0) {
             $sSQL = 'REPLACE INTO family_custom SET ';
@@ -589,9 +590,9 @@ if (isset($_POST['FamilySubmit']) || isset($_POST['FamilySubmitAndAdd'])) {
         $nLongitude = $fam_Longitude;
 
         // Expand the phone number
-        $sHomePhone = ExpandPhoneNumber($sHomePhone, $sCountry, $bNoFormat_HomePhone);
-        $sWorkPhone = ExpandPhoneNumber($sWorkPhone, $sCountry, $bNoFormat_WorkPhone);
-        $sCellPhone = ExpandPhoneNumber($sCellPhone, $sCountry, $bNoFormat_CellPhone);
+        // $sHomePhone = ExpandPhoneNumber($sHomePhone, $sCountry, $bNoFormat_HomePhone);
+        // $sWorkPhone = ExpandPhoneNumber($sWorkPhone, $sCountry, $bNoFormat_WorkPhone);
+        // $sCellPhone = ExpandPhoneNumber($sCellPhone, $sCountry, $bNoFormat_CellPhone);
 
         $sSQL = 'SELECT * FROM family_custom WHERE fam_ID = '.$iFamilyID;
         $rsCustomData = RunQuery($sSQL);
