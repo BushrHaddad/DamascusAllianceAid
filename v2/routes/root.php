@@ -106,7 +106,7 @@ function cashReport(Request $request, Response $response, array $args){
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => "Cash Report",
         'attributes' => ['تسلسل','مالية','فريق الزيارة','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة'
-        , "عدد أفراد العائلة". "<hr style=' margin:0 !important;'>" ."الأولاد",
+        , "أفراد العائلة". "<hr style=' margin:0 !important;'>" ."الأولاد",
                         'ملاحظات الفريق'],
         'results' => $data,
         'team_name' => "تقرير مالية",
@@ -124,6 +124,8 @@ function teamReport(Request $request, Response $response, array $args){
     $month_name = $request->getParams()['month'];
     $year_name = $request->getParams()['year'];
     $team_name = (String)$request->getParams()['team'];
+    $repeating_text = (String)$request->getParams()['text'];
+
     
     $query = "SELECT Distinct family_id, cash_name FROM master_general_view where
              month_name = '$month_name' AND year_name = '$year_name' AND team_name = '$team_name';";
@@ -162,7 +164,7 @@ function teamReport(Request $request, Response $response, array $args){
         }
 
         $row1 = array(
-            $family_id. "<br /> مع.م&nbsp&nbsp&nbsp<input type='checkbox'><br /> بدون.م <input type='checkbox'> ___/___",
+            $family_id. "<br /> مع.م&nbsp&nbsp&nbsp<input type='checkbox'><br /> بدون.م <input type='checkbox'> <br /><br /> ___/___",
             $fam_row['verifying_question'],
             $fam_row['main_name']. " <br />". $fam_row['partner_name'],
             $fam_row['main_id']. " <br />". $fam_row['partner_id'],
@@ -170,7 +172,7 @@ function teamReport(Request $request, Response $response, array $args){
             $fam_row['city']. $address1 .$address2,
             $fam_row['poverty_rate'],
             $fam_row['ref'],
-            "<h3 style='font-size: 22px;'> ".$fam_row['members_num']. "</h3>". $children,
+            "<h3 style='font-size: 18px;'> ".$fam_row['members_num']. "</h3>". $children,
             $fam_row['general_note'],
             $fam_row['team_note'],
         );
@@ -183,12 +185,13 @@ function teamReport(Request $request, Response $response, array $args){
         'sRootPath' => SystemURLs::getRootPath(),
         'sPageTitle' => "Team Report",
         'attributes' => [' استلام','استفسار','الاسم','الرقم الوطني','أرقام الهواتف', 'العنوان', 'التقييم','الحالة'
-        , "عدد أفراد العائلة". "<hr style=' margin:0 !important;'>" ."الأولاد",
+        , "أفراد العائلة". "<hr style=' margin:0 !important;'>" ."الأولاد",
                         'ملاحظات عامة', 'ملاحظات الفريق'],
         'results' => $data,
         'team_name' => $team_name,
         'year_name' => $year_name,
         'month_name' => $month_name,
+        'repeating_text' => $repeating_text,
     ];
     return $renderer->render($response, 'report.php', $pageArgs);
 }

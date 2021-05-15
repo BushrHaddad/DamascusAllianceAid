@@ -145,6 +145,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                             ?>
                             </select>
                         </div>
+
                     </div>
                     <a id= "team_reports_link" href="" class="small-box-footer">
                     Generate Team Report  <i class="fa fa-arrow-circle-right"></i>                </div>

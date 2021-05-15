@@ -16,14 +16,22 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 <link rel="stylesheet" type="text/css" 
     href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
 
+<!-- Team and Cash Report Adjustment -->
+<link rel="stylesheet" type="text/css"
+      href="<?= SystemURLs::getRootPath() ?>/skin/team-cash-report.css">
 
-<div class="btn-group">
+
+<!-- <div class="btn-group">
     <a
         href="<?= SystemURLs::getRootPath() ?>/r2/koolreport_2021/examples/reports/ex_2/index.php?month=<?=$_GET['month']?>&year=<?=$_GET['year']?>&team=<?=$_GET['team']?>">
         <button type="button" class="btn btn-success">Make Report</button>
     </a>
 
-</div>
+</div> -->
+
+<input style="text-align: center;line-height: 35px;" size="80" type="search" id="repeating_text" placeholder="لتكرار نص معيَن، الرجاء كتابته ومن ثم الضغط على الزر الأيمن لحفظه">
+<button type="button" id = "repeating_text_button" class="btn btn-success">Repeat this!</button>
+<br/><br/>
 
 <div class="box">
     <div class="box-body">
@@ -55,98 +63,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         </table>
     </div>
     </div<>
-    <style>
-    div.dataTables_wrapper {
-        direction: rtl;
-    }
-
-    table.dataTable td {
-        font-size: 13px;
-        vertical-align: middle;
-    }
-
-    table.dataTable th {
-        font-size: 16px;
-        vertical-align: middle;
-        text-align: center;
-    }
-
-
-    table.dataTable th:nth-child(1),
-    td:nth-child(1),
-    th:nth-child(8),
-    td:nth-child(8) {
-        width: 40px;
-        max-width: 40px;
-        font-size: 16px;
-        font-weight: bold;
-        white-space: pre-line;
-    }
-
-    table.dataTable td:nth-child(7) {
-        width: 20px;
-        max-width: 20px;
-        white-space: pre-line;
-    }
-    /* align vertically the th */
-    table.dataTable th:not(:nth-child(9)), td:not(:nth-child(9)){
-        vertical-align: middle;     
-    }
-
-
-    table.dataTable td:nth-child(2) {
-        width: 80px;
-        max-width: 80px;
-        
-        /* word-break: break-all; */
-        white-space: pre-line;
-    }
-
-    table.dataTable th:nth-child(3),
-    td:nth-child(3) {
-        width: 190px;
-        max-width: 190px;
-
-    }
-
-    table.dataTable td:nth-child(4),
-    td:nth-child(5) {
-        width: 125px;
-        max-width: 125px;
-        /* word-break: break-all; */
-        white-space: pre-line;
-    }
-
-    table.dataTable td:nth-child(6),
-    td:nth-child(10),
-    td:nth-child(11) {
-        width: 150px;
-        max-width: 150px;
-        font-size: 12px;
-        white-space: pre-line;
-    }
-
-    table.dataTable td:nth-child(9) {
-        width: 80px;
-        max-width: 80px;
-        font-size: 12px;
-    }
-
-    @media print {
-
-        html,
-        body {
-            height: auto;
-        }
-
-        .dt-print-table,
-        .dt-print-table thead,
-        .dt-print-table th,
-        .dt-print-table tr {
-            border: 0 none !important;
-        }
-    }
-    </style>
 
     <script nonce="<?= SystemURLs::getCSPNonce() ?>">
     $(document).ready(function() {
@@ -154,13 +70,20 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         var year_name = '<?php echo $year_name; ?>';
         var month_name = '<?php echo $month_name; ?>';
         var team_name = '<?php echo $team_name; ?>';
-        var my_title = "<div class='row'><div class='col-md-6'><p>" + team_name +
-            "</p></div><div class='col-md-6'><p>" + month_name + " - " + year_name + "</p></div></div>";
+        var repeating_text = '<?php echo $repeating_text; ?>';
+        $("#repeating_text").val(repeating_text);
+        var my_title = "  <div> <div style='clear:both'> <h2 style='float: left'>" + month_name + " - " + year_name + "</h2><h2 style='float: right'>" + team_name +"</h2> </div><p> "+ repeating_text+ "</p> </div>";
 
         $('#example tfoot th').each(function() {
             var title = $(this).text();
             $(this).html('<input type="text" placeholder="' + title + '" />');
         });
+
+        $('#repeating_text_button').click(function() {
+            var repeating_text = $("#repeating_text").val();
+            window.location = window.location.href + "&text="+repeating_text;
+        });
+
 
         $('#example').dataTable({
             scrollX: true,
@@ -179,7 +102,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 },
                 {
                     extend: 'print',
-                    autoPrint: false,
+                    autoPrint: true,
                     exportOptions: {
                         columns: ':visible',
                         stripHtml: false
@@ -198,16 +121,14 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     // },
                     // messageTop: 'This print was produced using the Print button for DataTables',
                     repeatingHead: {
-                        // logo: 'https://www.google.co.in/logos/doodles/2018/world-cup-2018-day-22-5384495837478912-s.png',
-                        // logoStyle: '',
                         title: my_title,
                     },
                     customize: function(win) {
                         $(win.document.body).css('direction', 'rtl');
-                        $(win.document.body).find('tr:nth-child(odd) td').each(function(
-                            index) {
-                            $(this).css('background-color', '#D0D0D0');
-                        });
+                        // $(win.document.body).find('tr:nth-child(odd) td').each(function(
+                        //     index) {
+                        //     $(this).css('background-color', '#D0D0D0');
+                        // });
                         $(win.document.body).find('h1').css('text-align', 'center');
                     },
                     orientation: 'landscape',

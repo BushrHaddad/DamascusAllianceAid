@@ -403,6 +403,7 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
             "bSort": false,
             keys: true,
             data: json,
+            processing: true, 
             columns: [{
                     data: "found",
                     "visible": false,
