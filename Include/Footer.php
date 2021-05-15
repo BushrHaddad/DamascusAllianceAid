@@ -72,13 +72,7 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 <!-- ./wrapper -->
 </div><!-- ./wrapper -->
 
-<!-- Bootstrap 3.3.5 -->
- 
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script> 
- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script> -->
-
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/datatables.min.css"/> 
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/datatables.min.css"/>  -->
  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/datatables.min.js"></script>
 
 <!--  Before removing jquery -->
@@ -89,7 +83,7 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/bootstrap/bootstrap.min.js"></script>
 <!-- 5 Open and closing menu-->
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/adminlte/adminlte.min.js"></script>
-<!-- 6  for masking the input fields found in family and person views -->
+<!-- 6  for making the input fields found in family and person views -->
 <script src="<?= SystemURLs::getRootPath() ?>/skin/external/inputmask/jquery.inputmask.min.js"></script>
 <!-- 7 -->
 <!-- <script src="<?= SystemURLs::getRootPath() ?>/skin/external/inputmask/inputmask.binding.js"></script> -->

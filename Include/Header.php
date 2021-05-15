@@ -2,19 +2,11 @@
 
 use ChurchCRM\Authentication\AuthenticationManager;
 use ChurchCRM\Authentication\AuthenticationProviders\LocalAuthentication;
-use ChurchCRM\dto\Cart;
+// use ChurchCRM\dto\Cart;
 use ChurchCRM\dto\SystemConfig;
 use ChurchCRM\dto\SystemURLs;
-use ChurchCRM\Service\TaskService;
 use ChurchCRM\view\MenuRenderer;
 
-$taskService = new TaskService();
-
-header("Access-Control-Allow-Origin:*");
-
-// header('Access-Control-Allow-Methods: GET, POST');
-// 
-// header("Access-Control-Allow-Headers: X-Requested-With");
 
 //
 // Turn ON output buffering
@@ -56,7 +48,7 @@ $MenuFirst = 1;
       <span class="logo-mini"><b>C</b>RM</span>
       <!-- logo for regular state and mobile devices -->
       <?php
-      $headerHTML = '<b>Church</b>CRM';
+      $headerHTML = '<b>Alliance</b>Aid';
       $sHeader = SystemConfig::getValue("sHeader");
       if (!empty($sHeader)) {
           $headerHTML = html_entity_decode($sHeader, ENT_QUOTES);
@@ -97,14 +89,7 @@ $MenuFirst = 1;
                     </li>
                 </ul>
             </li>
-            <!-- Cart Functions: style can be found in dropdown.less -->
-            <li id="CartBlock" class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="<?= gettext('Your Cart') ?>">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span id="iconCount" class="label label-success"><?= Cart::CountPeople() ?></span>
-                </a>
-                <ul class="dropdown-menu" id="cart-dropdown-menu"></ul>
-            </li>
+           
 
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -117,9 +102,7 @@ $MenuFirst = 1;
               <li class="user-header" id="yourElement" style="height:auto">
                 <table border=0 width="100%">
                 <tr style="border-bottom: 1pt solid white;">
-                <td valign="middle" width=110>
-                  <img width="80" src="<?= SystemURLs::getRootPath()?>/api/person/<?= AuthenticationManager::GetCurrentUser()->getPersonId() ?>/thumbnail" class="initials-image img-circle no-border" alt="User Image">
-                </td>
+                <td valign="middle" width=110></td>
                 <td valign="middle" align="left" >
                   <a href="<?= SystemURLs::getRootPath()?>/PersonView.php?PersonID=<?= AuthenticationManager::GetCurrentUser()->getPersonId() ?>" class="item_link">
                       <p ><i class="fa fa-home"></i> <?= gettext("Profile") ?></p></a>
@@ -144,43 +127,7 @@ $MenuFirst = 1;
               </li>
             </ul>
           </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" id="dropdown-toggle" data-toggle="dropdown" title="<?= gettext('Help & Support') ?>">
-              <i class="fa fa-support"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="hidden-xxs">
-                <a href="<?= SystemURLs::getSupportURL() ?>" target="_blank" title="<?= gettext('Help & Manual') ?>">
-                  <i class="fa fa-question-circle"></i> <?= gettext('Help & Manual') ?>
-                </a>
-              </li>
-              <li class="hidden-xxs">
-                <a href="#" data-toggle="modal" data-target="#IssueReportModal" title="<?= gettext('Report an issue') ?>">
-                  <i class="fa fa-bug"></i> <?= gettext('Report an issue') ?>
-                </a>
-              </li>
-              <li class="hidden-xxs">
-                <a href="https://gitter.im/ChurchCRM/CRM" target="_blank" title="<?= gettext('Developer Chat') ?>">
-                  <i class="fa fa-commenting-o"></i> <?= gettext('Developer Chat') ?>
-                </a>
-              </li>
-              <li class="hidden-xxs">
-                <a href="https://github.com/ChurchCRM/CRM/wiki/Contributing" target="_blank" title="<?= gettext('Contributing') ?>">
-                  <i class="fa fa-github"></i> <?= gettext('Contributing') ?>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <?php
-          $tasks = $taskService->getCurrentUserTasks();
-          $taskSize = count($tasks);
-          ?>
-          <li class="dropdown settings-dropdown">
-            <a href="#" data-toggle="control-sidebar" title="<?= gettext('Your tasks') ?>">
-              <i class="fa fa-tasks"></i>
-              <span class="label label-danger"><?= $taskSize ?></span>
-            </a>
-          </li>
+
         </ul>
       </div>
     </nav>

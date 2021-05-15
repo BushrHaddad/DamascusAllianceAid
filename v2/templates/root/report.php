@@ -13,7 +13,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 ?>
 
 
-<link rel="stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css" 
     href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
 
 
@@ -62,10 +62,12 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
     table.dataTable td {
         font-size: 13px;
+        vertical-align: middle;
     }
 
     table.dataTable th {
         font-size: 16px;
+        vertical-align: middle;
         text-align: center;
     }
 
@@ -85,6 +87,10 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
         width: 20px;
         max-width: 20px;
         white-space: pre-line;
+    }
+    /* align vertically the th */
+    table.dataTable th:not(:nth-child(9)), td:not(:nth-child(9)){
+        vertical-align: middle;     
     }
 
 
@@ -123,7 +129,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
     table.dataTable td:nth-child(9) {
         width: 80px;
         max-width: 80px;
-        /* word-break: break-all; */
         font-size: 12px;
     }
 
@@ -217,9 +222,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     $('input', this.footer()).on('keyup change clear',
                         function() {
                             if (that.search() !== this.value) {
-                                that.search(this.value)
-                                    .draw(); // search on adding new character
-
+                                that.search(this.value).draw();
                             }
                         });
                 });
@@ -228,8 +231,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
     });
     </script>
-
-
     <?php
 require SystemURLs::getDocumentRoot() .  '/Include/Footer.php';
 ?>

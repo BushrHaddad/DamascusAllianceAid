@@ -170,7 +170,7 @@ function teamReport(Request $request, Response $response, array $args){
             $fam_row['city']. $address1 .$address2,
             $fam_row['poverty_rate'],
             $fam_row['ref'],
-            $fam_row['members_num']. $children,
+            "<h3 style='font-size: 22px;'> ".$fam_row['members_num']. "</h3>". $children,
             $fam_row['general_note'],
             $fam_row['team_note'],
         );

@@ -26,8 +26,8 @@ $app->get('/search/{query}', function ($request, $response, $args) {
     $resultsProviders = [
         new FamilySearchResultProvider(),
         new AddressSearchResultProvider(),
-        new PersonSearchResultProvider(),       
-        // new GroupSearchResultProvider(),
+        new PersonSearchResultProvider(),    
+        // new GroupSearchResultProvider(), 
         // new FinanceDepositSearchResultProvider(),
         // new FinancePaymentSearchResultProvider(),
         // new CalendarEventSearchResultProvider()

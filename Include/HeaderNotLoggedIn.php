@@ -25,7 +25,7 @@ if (SystemConfig::debugEnabled()) {
     <!-- jQuery JS -->
     <script src="<?= SystemURLs::getRootPath() ?>/skin/external/jquery/jquery.min.js"></script>
 
-    <title>ChurchCRM: <?= $sPageTitle ?></title>
+    <title>AllianceAid: <?= $sPageTitle ?></title>
 
 </head>
 
