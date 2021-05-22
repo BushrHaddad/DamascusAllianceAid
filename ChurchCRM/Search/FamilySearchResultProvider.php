@@ -35,7 +35,7 @@ class FamilySearchResultProvider extends BaseSearchResultProvider  {
         try {
             $families = FamilyQuery::create()->
             filterById($SearchQuery, Criteria::EQUAL)->
-            _or()->filterByName("%$SearchQuery%", Criteria::LIKE)->
+            // _or()->filterByName("%$SearchQuery%", Criteria::LIKE)->
             _or()->filterByHomePhone("%$SearchQuery%", Criteria::LIKE)->
             _or()->filterByEmail("%$SearchQuery%", Criteria::LIKE)->
             _or()->filterByCellPhone("%$SearchQuery%", Criteria::LIKE)->

@@ -218,6 +218,7 @@ $(document).ready(function() {
             var table = $('#example').DataTable({
                 // "bJQueryUI": true,
                 "bStateSave": true,
+                colReorder: true,
                 select: true,
                 destroy: true,
                 "serverSide": true,

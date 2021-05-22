@@ -392,6 +392,7 @@ $(document).ready(function() {
             destroyTable();
             table = $('#example').DataTable({
                 "bStateSave": true,
+                colReorder: true,
                 select: true,
                 destroy: true,
                 "serverSide": true,

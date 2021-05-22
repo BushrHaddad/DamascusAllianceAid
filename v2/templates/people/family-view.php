@@ -26,16 +26,14 @@ window.CRM.currentFamily = <?= $family->getId() ?>;
 window.CRM.currentFamilyName = "<?= $family->getName() ?>";
 window.CRM.currentActive = <?= $family->isActive() ? "true" : "false" ?>;
 window.CRM.currentFamilyView = 2;
-window.CRM.plugin.mailchimp = <?= $mailchimp->isActive()? "true" : "false" ?>;
 </script>
 
 
-<div id="family-deactivated" class="alert alert-warning hide">
+<div id="family-deactivated" class="alert alert-danger hide">
     <strong>This Family is Deactivated</strong>
 </div>
 
 <div class="row family-info">
-
     <div class="col-lg-5">
         <div class="row">
             <div>
