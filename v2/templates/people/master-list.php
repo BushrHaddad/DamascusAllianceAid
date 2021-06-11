@@ -391,7 +391,7 @@ $(document).ready(function() {
             getVarsCallBack(response);
             destroyTable();
             table = $('#example').DataTable({
-                "bStateSave": true,
+                // "bStateSave": true,
                 colReorder: true,
                 select: true,
                 destroy: true,

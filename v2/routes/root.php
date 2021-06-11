@@ -67,7 +67,7 @@ function cashReport(Request $request, Response $response, array $args){
     $month_name = $request->getParams()['month'];
     $year_name = $request->getParams()['year'];
 
-    $query = "SELECT Distinct family_id, cash_name, team_name FROM master_general_view where month_name = '$month_name' 
+    $query = "SELECT  family_id, cash_name, team_name FROM master_general_view where month_name = '$month_name' 
         AND year_name = '$year_name'
         AND  length(cash_name) > 1 ; ";
 
@@ -127,7 +127,7 @@ function teamReport(Request $request, Response $response, array $args){
     $repeating_text = (String)$request->getParams()['text'];
 
     
-    $query = "SELECT Distinct family_id, cash_name FROM master_general_view where
+    $query = "SELECT family_id, cash_name FROM master_general_view where
              month_name = '$month_name' AND year_name = '$year_name' AND team_name = '$team_name';";
     
     // echo $query;

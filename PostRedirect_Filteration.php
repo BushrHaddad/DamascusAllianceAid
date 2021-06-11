@@ -88,7 +88,7 @@ function move_data($family_id, $month_id, $year_id, $name){
     // if this month is found for this family
     if($found != -1){
         $sSQL = "UPDATE `master_family_master` SET 
-                    cash_id             =   $name
+                    team_id             =   $name
                     WHERE   year_id     = $year_id  AND 
                             month_id    = $month_id AND
                             family_id   = $family_id ;";
@@ -101,7 +101,7 @@ function move_data($family_id, $month_id, $year_id, $name){
     else{ 
         
         $sSQL = "INSERT INTO `master_family_master` ( year_id, month_id,
-                                                    cash_id, family_id )
+                                                    team_id, family_id )
                 VALUES ($year_id, $month_id, $name, $family_id);";
 
         RunQuery($sSQL);
@@ -125,15 +125,15 @@ function move_data($family_id, $month_id, $year_id, $name){
 
 function move_data_global(){
 
-    for($i=1; $i<=12; $i++){
-        echo $i;
+    for($i=1; $i<=5; $i++){
+        // echo $i;
         if($i<=9){
-            $query = "SELECT `ID Name`, `kash2014-0$i` from `p2_1` ";
+            $query = "SELECT `ID from 17`, `2020-mony-0$i` from `p2` ";
         }
         else{
-            $query = "SELECT `ID Name`,  `kash2014-$i` from `p2_1` ";    
+            $query = "SELECT `ID from 17`, `2020-mony-$i` from `p2` ";    
         }
-        // $query = "SELECT `ID Name`,  `kash2014-$i` from `p2_1` ";    
+        // $query = "SELECT `Number Person`,  `2019-team-$i` from `p2_1` ";    
 
         $rsOpps = RunQuery($query);
         while($row = mysqli_fetch_array($rsOpps))
@@ -145,31 +145,45 @@ function move_data_global(){
             $id = $xax[0]; // fam_ID
             $name = $row[1]; //  value
             if($name!=NULL && $id!= NULL){ // if there is a value here 
-                // if($name == 1){
-                    // fam_id, $month_id, $year_id, $value 
-                    // $value = (int)$name + 42;
-                    // move_data($id, $i, 4, $value);
-                    // move_data($id, $i, 1, 1);
-                // }
-                if($name == 20000){
-                    move_data($id, $i, 1, 5);
-                }
-                elseif($name == 15000){
-                    move_data($id, $i, 1, 4);
-                }
-                elseif($name == 10000){
-                    move_data($id, $i, 1, 3);
-                }
-                elseif($name == 8000){
-                    move_data($id, $i, 1, 2);
-                }   
-                elseif($name == 5000){
-                    move_data($id, $i, 1, 1);
+                if((int)$name == 22){
+                    echo "22";
+                    $value = 65;
                 }
                 else{
-                    echo " Cash: ";
-                    echo $name;
+                    $value = (int)$name + 42;
                 }
+                // if($name == 1){
+                // $value = (int)$name;
+                // fam_id, $month_id, $year_id, $value  
+                // 6: 2019               
+                // 7: 2020               
+                // 8: 2021               
+                move_data($id, $i, 8, $value);
+                // move_data($id, $i, 1, 1);
+                // }
+                // if($name == 1){
+                //     move_data($id, $i, 8, 1);
+                // }
+
+                // if($name == 20000){
+                //     move_data($id, $i, 8, 5);
+                // }
+                // elseif($name == 15000){
+                //     move_data($id, $i, 8, 4);
+                // }
+                // elseif($name == 10000){
+                //     move_data($id, $i, 8, 3);
+                // }
+                // elseif($name == 8000){
+                //     move_data($id, $i, 8, 2);
+                // }   
+                // elseif($name == 5000){
+                //     move_data($id, $i, 8, 1);
+                // }
+                // else{
+                //     echo " Cash: ";
+                //     echo $name;
+                // }
             }
         }
     }
@@ -399,7 +413,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
             $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and $activeQuery ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-
+            // echo $all_fam_q;
+            // exit;
             $d = RunQuery($all_fam_q);
 
        
@@ -488,20 +503,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             for($i=1; $i<=26; $i++){
                 $col_name = $_POST['columns'][$i]['name'];  // the name of this column 
-                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
+                $col_search_value = $_POST['columns'][$i]['search']['value']; 
+                // the search value enterned for this column
                 $col_search_regex = $_POST['columns'][$i]['search']['regex'];
-                if($col_search_regex == "true"){
-                    // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                    $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '$col_search_value' ) ";
+                // todo >> error 
+                if ($i==1){
+                    if($col_search_regex == "true"){
+                        $filtered_search = $filtered_search . " (IFNULL($col_name, '') REGEXP  '^($col_search_value)' ) ";
+                    }
+                    else{
+                        // $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
+                        $filtered_search = $filtered_search . " (IFNULL($col_name, '') like '".$col_search_value."%' ) ";
+                    }
                 }
                 else{
-                    if ($i==1){
-                        // $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
+                    if($col_search_regex == "true"){
+                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '^($col_search_value)' ) ";
                     }
                     else{
                         // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
+                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '".$col_search_value."%' ) ";            
                     }
                 }
             }
@@ -510,8 +531,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $searchQuery = $searchQuery." )";
 
             $query = "SELECT id from `families_view`  where 1 and $searchQuery and $filtered_search; ";
+            // catch exception from Query
+            try{
+                $records = RunQuery($query);
+            }        
+            catch(Exception $e){
+                echo $query;
+                exit;
+            }
+            
             $all_data = array();
-            $records = RunQuery($query);
             while ($row = mysqli_fetch_array($records) ) {
                 $all_data[] = $row[0];
             }
@@ -538,10 +567,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $team_search_string = " and (1)";
                 $cash_search_string = " and (1)";
                 if($team_col_search_regex == "true"){
-                    $team_search_string = " and IFNULL(team_name, '') REGEXP  '$team_col_search_value'";
+                    $team_search_string = " and IFNULL(team_name, '') REGEXP  '^($team_col_search_value)'";
                 }
                 if($cash_col_search_regex == "true"){
-                    $cash_search_string = " and IFNULL(cash_name, '') REGEXP  '$cash_col_search_value'";
+                    $cash_search_string = " and IFNULL(cash_name, '') REGEXP  '^($cash_col_search_value)'";
                 }
                 
                 $data = array();
@@ -761,8 +790,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             );
             echo json_encode($response);
             break;
+        
+        case "move_data":
+            move_data_global();
 
-            
         default:
             break;
     }
