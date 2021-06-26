@@ -13,7 +13,7 @@ use ChurchCRM\FamilyCustomQuery;
 
 //Set the page title
 $sPageTitle = "Master Table";
-$year_id=1;
+$year_id=-1;
 $month_id=1;
 $prev_month=1;
 
@@ -35,16 +35,19 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 <select id="year_option_id" class="select2-master form-control" name="year_id"
                     onchange="this.form.submit()">
                     <?php
-                         foreach ($all_years as $year){
-                            if($year['id']==$year_id){
+                    if($year_id == -1){
+                        $year_id = count($all_years)-1;
+                    }
+                        for($i=0; $i<count($all_years); $i++){
+                            if($all_years[$i]['id']== $year_id){
                     ?>
-                    <option value=<?= $year['id'] ?> selected=""><?= $year['name'] ?></option>
+                    <option value=<?= $all_years[$i]['id'] ?> selected=""><?= $all_years[$i]['name'] ?></option>
                     <?php
                              }
-                             else if($year['id']!=0){
-                    ?>
-                    <option value=<?= $year['id'] ?>><?= $year['name'] ?></option>
-                    <?php
+                             else if ($all_years[$i]['id']!=0 ){
+                                 ?>
+                                 <option value=<?=$all_years[$i]['id'] ?>><?= $all_years[$i]['name'] ?></option>
+                                <?php
                              }
                         }
                     ?>
@@ -170,6 +173,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
+
+    var hello = false;
 
     var table = $('#example').DataTable({});
     'use strict';
@@ -379,191 +384,232 @@ $(document).ready(function() {
     //******************* Ajax call for get global vars, filtering options, and cell options ******************** */ 
 
     // get options
-    $.ajax({
-
-        url: "/churchcrm/PostRedirect_Filteration.php",
-        type: "POST",
-        data: {
-            post_name: "get_global_vars",
-        },
-        success: function(response) {
-
-            getVarsCallBack(response);
-            destroyTable();
-            table = $('#example').DataTable({
-                // "bStateSave": true,
-                colReorder: true,
-                select: true,
-                destroy: true,
-                "serverSide": true,
-                "pageLength": 5,
-                processing: true,
-                keys: true,
-                scrollX: true,
-                'ajax': {
-                    "type": "POST",
-                    'url': '/churchcrm/PostRedirect_Filteration.php',
-                    'data': function(d) {
-                        d.post_name = "global_master",
-                            d.month_id = month_,
-                            d.year_id = year_,
-                            d.prev = prev_
-                    }
-                },
-                'columns': columns,
-                dom: 'Bfrtip',
-                buttons: [{
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: ':visible',
-                            format: {
-                                header: function(data, row, column, node) {
-                                    var newdata = data;
-
-                                    newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                    newdata = newdata.replace(/<div.*?<\/div>/gi,
-                                        '');
-                                    newdata = newdata.replace(/<\/div.*?<\/div>/gi,
-                                        '');
-                                    return newdata;
-                                }
-                            }
-                        },
-                        action: newExportAction
-                    },
-                    'colvis'
-                ]
-            });
-
-            // Reset all filters  
-            $("#ClearFilters").click(function() {
-                yadcf.exResetAllFilters(table);
-            });
-
-            yadcf.init(table, filtering_options);
-
-            var edits = [];
-            var nums = [];
-            var current_idx = 0;
-
-            for (var i = 1; i <= (prev_ * aid_fields); i++) {
-                current_idx = i + additional_fields;
-                nums.push(current_idx);
-                if (i % aid_fields == 1) {
-                    edits.push({
-                        "column": current_idx,
-                        "type": "list",
-                        "options": team_options,
-                    });
-                } else if (i % aid_fields == 0) {
-                    edits.push({
-                        "column": current_idx,
-                        "type": "list",
-                        "options": cash_options,
-                    });
-                }
-                // else if (i % aid_fields == 2) {
-                //     edits.push({
-                //         "column": current_idx,
-                //         "type": "list",
-                //         "options": bag_options,
-                //     });
-                // } else if (i % aid_fields == 3) {
-                //     edits.push({
-                //         "column": current_idx,
-                //         "type": "list",
-                //         "options": sup_options,
-                //     });
-                // }
-            }
-
-            // inline editing
-            table.MakeCellsEditable({
-                "onUpdate": myCallbackFunction,
-                "inputCss": 'js-example-basic-single',
-                "columns": nums,
-                "confirmationButton": {
-                    "confirmCss": 'my-confirm-class',
-                    "cancelCss": 'my-cancel-class'
-                },
-                "inputTypes": edits
-
-            });
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("Error on get Ajax request ");
-        }
-    });
-
-
-    $('#prev_month_button_id').click(function() {
-        var p = Number($("#prev_month_count_id").val());
-        $("#prev_month_count_id").val(p + 1);
-    });
-
-
-    function myCallbackFunction(updatedCell, updatedRow, oldValue) {
-        // todo: update individual cell instead of sending multiple value onUpdate() or onInsert() 
-        // console.log(updatedRow.data());
-        var row = updatedCell[0][0]['row'];
-        var col = updatedCell[0][0]['column'];
-        console.log(col);
-        
-        col = col - (additional_fields); // the number of added field for family (should be subtracted)
-        col--;
-        var p = parseInt((col / aid_fields));
-        for (var i = 0; i < p; i++) {
-            if (month_ == 1) {
-                month_ = 12;
-                if (year_ == 1) {
-                    year_ = 1;
-                    month_ = 1;
-                }
-                year_--;
-            } else {
-                month_--;
-            }
-        }
-
-        var team_col_idx = p * aid_fields + (additional_fields+1);
-        var cash_col_idx = p * aid_fields + (additional_fields+2);
-
-        var team_name = table.cell(row, team_col_idx).data();
-        var cash_name = table.cell(row, cash_col_idx).data();
-
-        fam_id = table.cell(row, 0).data();
         $.ajax({
 
             url: "/churchcrm/PostRedirect_Filteration.php",
             type: "POST",
             data: {
-                post_name: "edit_global_master",
-                family_id: fam_id,
-                month_id: month_,
-                year_id: year_,
-                team_id: team_dic[team_name],
-                cash_id: cash_dic[cash_name]
+                post_name: "get_global_vars",
             },
 
             success: function(response) {
-                console.log('Edited Correctly');
+
+                getVarsCallBack(response);
+                destroyTable();
+                table = $('#example').DataTable({
+                    "bStateSave": true,
+                    // colReorder: true,
+                    // paging: false,
+                    // select: true,
+                    // destroy: true,
+                    "serverSide": true,
+                    "pageLength": 5,
+                    processing: true,
+                    keys: true,
+                    scrollX: true,
+                    // scrollY:        "200px",
+                    // paging:         false,
+                    'ajax': {
+                        "type": "POST",
+                        'url': '/churchcrm/PostRedirect_Filteration.php',
+                        'data': function(d) {
+                            d.post_name = "global_master",
+                                d.month_id = month_,
+                                d.year_id = year_,
+                                d.prev = prev_
+                        }
+                    },
+                    'columns': columns,
+                    dom: 'Bfrtip',
+                    buttons: [{
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':visible',
+                                format: {
+                                    header: function(data, row, column, node) {
+                                        var newdata = data;
+
+                                        newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                        newdata = newdata.replace(/<div.*?<\/div>/gi,
+                                            '');
+                                        newdata = newdata.replace(/<\/div.*?<\/div>/gi,
+                                            '');
+                                        return newdata;
+                                    }
+                                }
+                            },
+                            action: newExportAction
+                        },
+                        'colvis'
+                    ],
+                    // "initComplete": function(settings, json) {
+                    //     // var reponse = JSON.parse(json);
+                    //     var reset =  json['reset'];
+                    //     // if(reset == true){
+                    //         alert("now reset to 0");
+                    //     // }
+                    // }
+                });
+
+                table.on( 'draw', function (settings, json) {
+                    
+                    var reset = json['json']['reset'];
+                    if(reset == true && hello==false){
+                        // alert("reset is true");
+                        hello = true;
+
+                        // table.page("first");
+                        // table.draw();
+                    }
+                    if(reset == false){
+                        hello = false;
+                    }
+
+                } );
+
+                // Reset all filters  
+                $("#ClearFilters").click(function() {
+                    yadcf.exResetAllFilters(table);
+                });
+
+                yadcf.init(table, filtering_options);
+
+                var edits = [];
+                var nums = [];
+                var current_idx = 0;
+
+                for (var i = 1; i <= (prev_ * aid_fields); i++) {
+                    current_idx = i + additional_fields;
+                    nums.push(current_idx);
+                    if (i % aid_fields == 1) {
+                        edits.push({
+                            "column": current_idx,
+                            "type": "list",
+                            "options": team_options,
+                        });
+                    } else if (i % aid_fields == 0) {
+                        edits.push({
+                            "column": current_idx,
+                            "type": "list",
+                            "options": cash_options,
+                        });
+                    }
+                    // else if (i % aid_fields == 2) {
+                    //     edits.push({
+                    //         "column": current_idx,
+                    //         "type": "list",
+                    //         "options": bag_options,
+                    //     });
+                    // } else if (i % aid_fields == 3) {
+                    //     edits.push({
+                    //         "column": current_idx,
+                    //         "type": "list",
+                    //         "options": sup_options,
+                    //     });
+                    // }
+                }
+
+                // inline editing
+                table.MakeCellsEditable({
+                    "onUpdate": myCallbackFunction,
+                    "inputCss": 'js-example-basic-single',
+                    "columns": nums,
+                    "confirmationButton": {
+                        "confirmCss": 'my-confirm-class',
+                        "cancelCss": 'my-cancel-class'
+                    },
+                    "inputTypes": edits
+
+                });
+
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
+                console.log("Error on get Ajax request ");
+                }
             }
+        );
+
+        $('#prev_month_button_id').click(function() {
+            var p = Number($("#prev_month_count_id").val());
+            $("#prev_month_count_id").val(p + 1);
         });
-    }
 
-    function destroyTable() {
-        if ($.fn.DataTable.isDataTable('#example')) {
-            table.destroy();
-            table.MakeCellsEditable("destroy");
+        function myCallbackFunction(updatedCell, updatedRow, oldValue) {
+            // todo: update individual cell instead of sending multiple value onUpdate() or onInsert() 
+            // console.log(updatedRow.data());
+            try{
+                var row = updatedCell[0][0]['row'];
+            var col = updatedCell[0][0]['column'];
+            console.log(col);
+            
+            col = col - (additional_fields); // the number of added field for family (should be subtracted)
+            col--;
+            var p = parseInt((col / aid_fields));
+            for (var i = 0; i < p; i++) {
+                if (month_ == 1) {
+                    month_ = 12;
+                    if (year_ == 1) {
+                        year_ = 1;
+                        month_ = 1;
+                    }
+                    year_--;
+                } else {
+                    month_--;
+                }
+            }
+
+            var team_col_idx = p * aid_fields + (additional_fields+1);
+            var cash_col_idx = p * aid_fields + (additional_fields+2);
+
+            var team_name = table.cell(row, team_col_idx).data();
+            var cash_name = table.cell(row, cash_col_idx).data();
+
+            fam_id = table.cell(row, 0).data();
+            $.ajax({
+
+                url: "/churchcrm/PostRedirect_Filteration.php",
+                type: "POST",
+                data: {
+                    post_name: "edit_global_master",
+                    family_id: fam_id,
+                    month_id: month_,
+                    year_id: year_,
+                    team_id: team_dic[team_name],
+                    cash_id: cash_dic[cash_name]
+                },
+
+                success: function(response) {
+                    console.log('Edited Correctly');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
+            }
+            catch(err){
+                console.log("error inside myCallbackFunction");
+                console.log(err);
+            }
+
         }
-    }
 
-    $('.select2-master').select2();
+        function destroyTable() {
+            try{
+                if ($.fn.DataTable.isDataTable('#example')) {
+                table.destroy();
+                table.MakeCellsEditable("destroy");
+            }
+            }
+            catch(err){
+                console.log("error inside destroy table");
+                console.log(err);
+            }
 
+        }
+
+        $('.select2-master').select2();
+    
 });
 </script>
 

@@ -385,7 +385,9 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
             sup_dic = _dic(json['all_suppliments']);
 
             // build table for year 2014 which have id: 1
-            build_table_on_year("1");
+            var year_value = $("#year_status").val();
+
+            build_table_on_year(year_value);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error on get Ajax request ");
@@ -520,7 +522,6 @@ var team_dic, bag_dic, sup_dic, cash_dic; // dics to lookup for the id of each o
                 updatedRow.data().found = true;
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                // todo: show error alert
                 console.log(textStatus, errorThrown);
                 alert('Error, Please reload the page');
             }

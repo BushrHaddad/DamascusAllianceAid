@@ -37,12 +37,12 @@ $("document").ready(function(){
     });
     $(".multiSearch").on("select2:select",function (e) { window.location.href= e.params.data.uri;});
 
-    window.onkeyup = function(e){
-      // listen for "?" keypress for quick access to the select2 search box.
-      if (e.shiftKey && e.keyCode == 191) {
-        $('.multiSearch').select2("open");
-      }
-    };
+    // window.onkeyup = function(e){
+    //   // listen for "?" keypress for quick access to the select2 search box.
+    //   if (e.shiftKey && e.keyCode == 191) {
+    //     $('.multiSearch').select2("open");
+    //   }
+    // };
 
     // window.CRM.system.runTimerJobs();
 

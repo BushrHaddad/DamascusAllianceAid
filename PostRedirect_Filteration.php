@@ -216,7 +216,12 @@ function get_filtering_options($column, $table){
     return $data;
 }
 
-function get_master_data($ids, $year_id, $month_id, $prev, $start, $rowperpage){
+function get_master_data($ids, $year_id, $month_id, $prev, $start, $rowperpage, $total_display_records){
+
+    if($start >= $total_display_records){
+        $start=1;
+    }
+
     $all_data = array();
     if(empty($ids)){
         return $all_data;
@@ -296,7 +301,6 @@ function get_master_data($ids, $year_id, $month_id, $prev, $start, $rowperpage){
         $all_data=$new;
     }
     
-    
     return $all_data;
 }
 
@@ -304,18 +308,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $post_name = $_POST['post_name'];
     $months= [];
-    $months[1]="January";
-    $months[2]="Febraury";
-    $months[3]="March";
-    $months[4]="April";
-    $months[5]="May";
-    $months[6]="June";
-    $months[7]="July";
-    $months[8]="August";
-    $months[9]="September";
-    $months[10]="October";
-    $months[11]="November";
-    $months[12]="December";
+    $months[1] = "January";
+    $months[2] = "Febraury";
+    $months[3] = "March";
+    $months[4] = "April";
+    $months[5] = "May";
+    $months[6] = "June";
+    $months[7] = "July";
+    $months[8] = "August";
+    $months[9] = "September";
+    $months[10] = "October";
+    $months[11] = "November";
+    $months[12] = "December";
 
 
     switch($post_name){
@@ -379,30 +383,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $searchQuery = " ( 1";
             $activeQuery = "( 1";
 
-
-            for($i=1; $i<=26; $i++){
-                $col_name = $_POST['columns'][$i]['name'];  // the name of this column 
-                $col_search_value = $_POST['columns'][$i]['search']['value'];  // the search value enterned for this column
+            for($i=1; $i<=26; $i++)
+            {
+                $col_name = $_POST['columns'][$i]['name'];  // the name of this column
+                $col_search_value = $_POST['columns'][$i]['search']['value']; 
+                // the search value enterned for this column
                 $col_search_regex = $_POST['columns'][$i]['search']['regex'];
-                if($col_search_regex == "true"){
-                    // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                    $filtered_search = $filtered_search . " and (IFNULL($col_name, '') REGEXP  '$col_search_value' ) ";
-                }
-                else{
-                    if ($i==1){
-                        // $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . "( IFNULL($col_name, '') like '%".$col_search_value."%' ) ";
+                // todo >> error 
+                if ($i==1)
+                {
+                    if($col_search_regex == "true")
+                    {
+                        $filtered_search = $filtered_search . " (IFNULL($col_name, '') REGEXP  '^($col_search_value)' ) ";
                     }
-                    else{
+                    else
+                    {
+                        // $searchQuery = $searchQuery . "( IFNULL($col_name, '') like '%".$searchValue."%' ) ";
+                        $filtered_search = $filtered_search . " (IFNULL($col_name, '') like '".$col_search_value."%' ) ";
+                    }
+                }
+                else
+                {
+                    if($col_search_regex == "true")
+                    {
+                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '')  REGEXP  '^($col_search_value)' ) ";
+                    }
+                    else
+                    {
                         // $searchQuery = $searchQuery . " or (IFNULL($col_name, '')  like '%".$searchValue."%' ) ";
-                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '%".$col_search_value."%' ) ";            
+                        $filtered_search = $filtered_search . " and (IFNULL($col_name, '') like '".$col_search_value."%' ) ";            
                     }
                 }
             }
-
+            
             if($sMode == "active"){
                 $activeQuery =  $activeQuery. " and status='active' ";
-
             }elseif($sMode == "inactive"){
                 $activeQuery =  $activeQuery. " and status='cancelled' ";
             }
@@ -413,9 +428,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
             $all_fam_q = "SELECT * from `families_view`  where 1 and $searchQuery and $filtered_search and $activeQuery ORDER BY $columnName  $columnSortOrder LIMIT $start, $rowperpage;   ";
-            // echo $all_fam_q;
-            // exit;
-            $d = RunQuery($all_fam_q);
+            try{
+                $d = RunQuery($all_fam_q);
+            }
+            catch(Exception $e){
+
+                echo $all_fam_q;
+                exit;
+            }
 
        
             $all_data = array();
@@ -465,7 +485,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $row = mysqli_fetch_array($records);
             $totalRecords = $row['all_count'];
             $totalRecordwithFilter = $row['filtered_count'];
-            
             $response = array(
                 "draw" => intval($draw),
                 "iTotalRecords" => $totalRecords,
@@ -594,13 +613,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $totalRecords = $row['allcount'];
             }
 
-
-
+            $total_display_records = count($all_data);
+            $reset= false;
+            if($start >= $total_display_records && $start!=0 ){
+                $start = 0;
+                $reset = true;
+            }
             $response = array(
                 "draw" => intval($draw),
                 "iTotalRecords" => $totalRecords,
-                "iTotalDisplayRecords" => count($all_data),
-                "aaData" => get_master_data($all_data, $y_id, $m_id, $prev, $start, $rowperpage),
+                "iTotalDisplayRecords" => $total_display_records,
+                "aaData" => get_master_data($all_data, $y_id, $m_id, $prev, $start, $rowperpage, $total_display_records),
+                "reset" => $reset,
             );
 
             echo json_encode($response);

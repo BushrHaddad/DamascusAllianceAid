@@ -69,12 +69,12 @@ $isAdmin = AuthenticationManager::GetCurrentUser()->isAdmin();
 <!-- This div must placed right after the sidebar for it to work-->
 <div class="control-sidebar-bg"></div>
 </div>
+
 <!-- ./wrapper -->
 </div><!-- ./wrapper -->
 
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/datatables.min.css"/>  -->
- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/cr-1.5.3/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/datatables.min.js"></script>
-
+ <script type="text/javascript" src="https://cdn.datatables.net/v/dt/cr-1.5.3/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/sc-2.0.4/datatables.min.js"></script>
+ 
 <!--  Before removing jquery -->
  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/datatables.min.css"/>  -->
  <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/kt-2.6.1/r-2.2.7/sl-1.3.3/datatables.min.js"></script> -->

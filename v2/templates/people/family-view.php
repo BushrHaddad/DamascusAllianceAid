@@ -295,13 +295,21 @@ window.CRM.currentFamilyView = 2;
                 <div class="form-group">
                     <label>Choose a Year:</label>
                     <select id="year_status" class="form-control" name="c5">
-                        <?php foreach ($all_years as $year){?>
-                        <?php if($year['name'] == "2014"){  ?>
-                        <option selected = "" value=<?= $year['id'] ?>><?= $year['name'] ?></option>
-                        <?php  }  else{  ?>
-                        <option value=<?= $year['id'] ?>><?= $year['name'] ?></option>
-                        
-                        <?php } }?>
+                       
+
+                        <?php for($i=0; $i<count($all_years); $i++){
+                            if($all_years[$i]['id'] == (count($all_years)-1)){
+                            ?>
+                            <option value=<?= $all_years[$i]['id'] ?> selected=""><?= $all_years[$i]['name'] ?></option>
+                            <?php
+                             }
+                             else{
+                                 ?>
+                                 <option value=<?=$all_years[$i]['id'] ?>><?= $all_years[$i]['name'] ?></option>
+                                <?php
+                             }
+                        }?>
+
                     </select>
                 </div>
                 <table id="example" class="table table-striped table-bordered data-table" cellspacing="0"

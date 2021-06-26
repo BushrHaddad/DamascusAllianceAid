@@ -26,70 +26,80 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
 
     var td_cell = null;
     var currentColumnIndex = 0;
-    jQuery.fn.extend({
-        // UPDATE
-        updateEditableCell: function (callingElement) {
-            // Need to redeclare table here for situations where we have more than one datatable on the page. See issue6 on github
-            var table = $(callingElement).closest("table").DataTable().table();
-            var row = table.row($(callingElement).parents('tr'));
-            var cell = table.cell($(callingElement).parents('td, th'));
-            var columnIndex = cell.index().column;
-            var inputField =getInputField(callingElement);
-
-            // Update
-            var newValue = inputField.val();
-            if (!newValue && ((settings.allowNulls) && settings.allowNulls != true)) {
-                
-                if (settings.allowNulls.columns) {
-                    // If current column allows nulls
-                    if (settings.allowNulls.columns.indexOf(columnIndex) > -1) {
+    try{
+        jQuery.fn.extend({
+            // UPDATE
+            updateEditableCell: function (callingElement) {
+                // Need to redeclare table here for situations where we have more than one datatable on the page. See issue6 on github
+                var table = $(callingElement).closest("table").DataTable().table();
+                var row = table.row($(callingElement).parents('tr'));
+                var cell = table.cell($(callingElement).parents('td, th'));
+                var columnIndex = cell.index().column;
+                var inputField =getInputField(callingElement);
+    
+                // Update
+                var newValue = inputField.val();
+                if (!newValue && ((settings.allowNulls) && settings.allowNulls != true)) {
+                    
+                    if (settings.allowNulls.columns) {
+                        // If current column allows nulls
+                        if (settings.allowNulls.columns.indexOf(columnIndex) > -1) {
+                            _update(newValue);
+                        } else {
+                            _addValidationCss();
+                        }
+                        // No columns allow null
+                    } else if (!newValue) {
+                        _addValidationCss();
+                    }
+                    //All columns allow null
+                } else if (newValue && settings.onValidate) {
+                    if (settings.onValidate(cell, row, newValue)) {
                         _update(newValue);
                     } else {
                         _addValidationCss();
                     }
-                    // No columns allow null
-                } else if (!newValue) {
-                    _addValidationCss();
                 }
-                //All columns allow null
-            } else if (newValue && settings.onValidate) {
-                if (settings.onValidate(cell, row, newValue)) {
+                else {
                     _update(newValue);
-                } else {
-                    _addValidationCss();
                 }
-            }
-            else {
-                _update(newValue);
-            }
-            function _addValidationCss() {
-                // Show validation error
-                if (settings.allowNulls.errorClass) {
-                    $(inputField).addClass(settings.allowNulls.errorClass);
-                } else {
-                    $(inputField).css({ "border": "red solid 1px" });
+                function _addValidationCss() {
+                    // Show validation error
+                    if (settings.allowNulls.errorClass) {
+                        $(inputField).addClass(settings.allowNulls.errorClass);
+                    } else {
+                        $(inputField).css({ "border": "red solid 1px" });
+                    }
                 }
+                function _update(newValue) {
+                    var oldValue = cell.data();
+                    cell.data(newValue);
+                    //Return cell & row.
+                    settings.onUpdate(cell, row, oldValue);
+                }
+                // Get current page
+                var currentPageIndex = table.page.info().page;
+                console.log(currentPageIndex);
+                //Redraw table
+                // table.page(currentPageIndex).draw(true);
+    
+            },
+            // CANCEL
+            cancelEditableCell: function (callingElement) {
+                var table = $(callingElement.closest("table")).DataTable().table();
+                var cell = table.cell($(callingElement).parents('td, th'));
+                // Set cell to it's original value
+                cell.data(cell.data());
             }
-            function _update(newValue) {
-                var oldValue = cell.data();
-                cell.data(newValue);
-                //Return cell & row.
-                settings.onUpdate(cell, row, oldValue);
-            }
-            // Get current page
-            var currentPageIndex = table.page.info().page;
-            //Redraw table
-            // table.page(currentPageIndex).draw(false);
+        });
 
-        },
-        // CANCEL
-        cancelEditableCell: function (callingElement) {
-            var table = $(callingElement.closest("table")).DataTable().table();
-            var cell = table.cell($(callingElement).parents('td, th'));
-            // Set cell to it's original value
-            cell.data(cell.data());
-        }
-    });
+    }
+    catch(err){
+        console.log('first error');
+        console.log(err);
+
+    }
+
 
     // Destroy
     if (settings === "destroy") {
@@ -97,17 +107,20 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
         table = null;
     }
 
-
+    console.log("hell world");
     if(table != null){
         table.on( 'key', function ( e, datatable, key, cell, originalEvent ) {
+
         })
         .on( 'key-focus', function ( e, datatable, cell ) {
+            
             if(cell!=null){
 
                 var myCell = cell.node(); 
                 // $(myCell).addClass('selected');
                 var currentColumnIndex = cell.index().column;
-                if ((settings.columns && settings.columns.indexOf(currentColumnIndex) > -1) || (!settings.columns)) {
+                if ((settings.columns && settings.columns.indexOf(currentColumnIndex) > -1) || (!settings.columns))
+                {
                     // console.log(myCell);
                     // myCell.addClass('')
                     var oldValue = cell.data();
@@ -121,18 +134,27 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                             allowClear: true,
                             placeholder: "Search..",});
                         $example.select2("open");
-                        if (input.focus) {
+                        if (input.focus) 
+                        {
                             $('#ejbeatycelledit').focus();
                         }
                     }
                 }
             }
-         })
-         .on( 'key-blur', function ( e, datatable, cell ) {
-            cell.data(cell.data());
-        } );
+
+        })
+        .on( 'key-blur', function ( e, datatable, cell ) {
+            try{
+                cell.data(cell.data());
+
+            }catch(err){
+                console.log("error here");
+                console.log(err);
+            }
+        });
     }
 
+    
     // if (table != null) {
     //     // On cell click
     //     $(table.body()).on('click', 'td', function () {
