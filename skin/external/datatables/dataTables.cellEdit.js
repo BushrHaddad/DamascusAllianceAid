@@ -79,7 +79,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                 }
                 // Get current page
                 var currentPageIndex = table.page.info().page;
-                console.log(currentPageIndex);
+                // console.log(currentPageIndex);
                 //Redraw table
                 // table.page(currentPageIndex).draw(true);
     
@@ -120,15 +120,12 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                 var currentColumnIndex = cell.index().column;
                 if ((settings.columns && settings.columns.indexOf(currentColumnIndex) > -1) || (!settings.columns))
                 {
-                    // console.log(myCell);
-                    // myCell.addClass('')
                     var oldValue = cell.data();
                     oldValue = sanitizeCellValue(oldValue);
 
                     if (!$(myCell).find('input').length && !$(myCell).find('select').length && !$(myCell).find('textarea').length) {
                         var input = getInputHtml(currentColumnIndex, settings, oldValue);
                         $(myCell).html(input.html);
-                        console.log(currentColumnIndex);
                         if(currentColumnIndex>26 || currentColumnIndex<7){
                             // necessary for showing js-example-basic-single
                             var $example = $(".js-example-basic-single").select2({    
@@ -141,7 +138,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                         {
                             // cell.data(cell.data());
 
-                            console.log('input.focus');
+                            // console.log('input.focus');
                             // $('#ejbeatycelledit').focus();
                         }
                     }

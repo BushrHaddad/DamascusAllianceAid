@@ -241,16 +241,15 @@ $(document).ready(function() {
                         exportOptions: {
                             columns: ':visible',
                             format: {
-                                header: function(data, row, column, node) {
-                                    var newdata = data;
-
-                                    newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                    newdata = newdata.replace(/<div.*?<\/div>/gi,
-                                        '');
-                                    newdata = newdata.replace(/<\/div.*?<\/div>/gi,
-                                        '');
-                                    return newdata;
-                                }
+                                    header: function(data, row, column, node) {
+                                        var newdata = data;
+                                        // newdata = newdatat.substring(newdata.indexOf("inline-block")+15,newdata.indexOf("<span")); 
+                                        newdata = newdata.split('<')[0]; 
+                                        // newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                        // newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                                        // newdata = newdata.replace(/<\/div.*?<\/div>/gi,'');
+                                        return newdata;
+                                    }
                             }
                         },
                         action: newExportAction
