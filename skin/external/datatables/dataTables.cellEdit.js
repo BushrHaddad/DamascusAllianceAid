@@ -97,7 +97,6 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
     catch(err){
         console.log('first error');
         console.log(err);
-
     }
 
 
@@ -107,7 +106,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
         table = null;
     }
 
-    console.log("hell world");
+
     if(table != null){
         table.on( 'key', function ( e, datatable, key, cell, originalEvent ) {
 
@@ -129,14 +128,21 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                     if (!$(myCell).find('input').length && !$(myCell).find('select').length && !$(myCell).find('textarea').length) {
                         var input = getInputHtml(currentColumnIndex, settings, oldValue);
                         $(myCell).html(input.html);
-                        // necessary for showing js-example-basic-single
-                        var $example = $(".js-example-basic-single").select2({    
-                            allowClear: true,
-                            placeholder: "Search..",});
-                        $example.select2("open");
+                        console.log(currentColumnIndex);
+                        if(currentColumnIndex>26 || currentColumnIndex<7){
+                            // necessary for showing js-example-basic-single
+                            var $example = $(".js-example-basic-single").select2({    
+                                allowClear: true,
+                                placeholder: "Search..",});
+                            $example.select2("open");
+                        }
+                       
                         if (input.focus) 
                         {
-                            $('#ejbeatycelledit').focus();
+                            // cell.data(cell.data());
+
+                            console.log('input.focus');
+                            // $('#ejbeatycelledit').focus();
                         }
                     }
                 }
@@ -148,8 +154,7 @@ jQuery.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {
                 cell.data(cell.data());
 
             }catch(err){
-                console.log("error here");
-                console.log(err);
+                console.log("ُError on Key-blur");
             }
         });
     }
@@ -226,19 +231,20 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
         inputType = inputType + "-confirm";
     }
     switch (inputType) {
-        case "list":
-            input.html = startWrapperHtml + "<select style='width: 80%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this)' onChange='$(this).updateEditableCell(this);' >";
-            $.each(inputSetting.options, function (index, option) {
-                if (oldValue == option.value) {
-                   input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
-                } else {
-                   input.html = input.html + "<option value='" + option.value + "' >" + option.display + "</option>"
+        // case "list":
+        //     console.log('list');
+        //     input.html = startWrapperHtml + "<select style='width: 80%' id='ejbeatycelledit' class='" + inputCss + "' onfocusout='$(this).updateEditableCell(this)' onChange='$(this).updateEditableCell(this);' >";
+        //     $.each(inputSetting.options, function (index, option) {
+        //         if (oldValue == option.value) {
+        //            input.html = input.html + "<option value='" + option.value + "' selected>" + option.display + "</option>"
+        //         } else {
+        //            input.html = input.html + "<option value='" + option.value + "' >" + option.display + "</option>"
 
-                }
-            });
-            input.html = input.html + "</select>" + endWrapperHtml;
-            input.focus = false;
-            break;
+        //         }
+        //     });
+        //     input.html = input.html + "</select>" + endWrapperHtml;
+        //     input.focus = false;
+        //     break;
 
         case "list-confirm": // List w/ confirm
             // console.log(inputSetting.options.length);
@@ -251,9 +257,6 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
 
                 }
             });
-            // edited   
-            // var $example = $(".js-example-basic-single").select2({    allowClear: true, placeholder: "Search..",});
-            // $example.select2("open");
             // input.html = input.html + "</select>&nbsp;<a href='javascript:void(0); onkeyup='if(event.keyCode==37) {$(this).updateEditableCell(this);}' >Confirm</a> <a href='javascript:void(0);' class='" + cancelCss + "' onclick='$(this).cancelEditableCell(this)'>Cancel</a>" + endWrapperHtml;
             input.focus = false;
             break;
@@ -283,6 +286,7 @@ function getInputHtml(currentColumnIndex, settings, oldValue) {
 	        break;
         case "text-confirm": // text input w/ confirm
             input.html = startWrapperHtml + "<input id='ejbeatycelledit' class='" + inputCss + "' value='"+oldValue+"'" + (listenToKeys ? " onkeyup='if(event.keyCode==13) {$(this).updateEditableCell(this);} else if (event.keyCode===27) {$(this).cancelEditableCell(this);}'" : "") + "></input> &nbsp;<a href='javascript:void(0);' class='" + confirmCss + "' onclick='$(this).updateEditableCell(this)'>Confirm</a> <a href='javascript:void(0);' class='" + cancelCss + "' onclick='$(this).cancelEditableCell(this)'>Cancel</a>" + endWrapperHtml;
+            input.focus = false;
             break;
         case "undefined-confirm": // text input w/ confirm
             input.html = startWrapperHtml + "<input id='ejbeatycelledit' class='" + inputCss + "' value='" + oldValue + "'" + (listenToKeys ? " onkeyup='if(event.keyCode==13) {$(this).updateEditableCell(this);} else if (event.keyCode===27) {$(this).cancelEditableCell(this);}'" : "") + "></input>&nbsp;<a href='javascript:void(0);' class='" + confirmCss + "' onclick='$(this).updateEditableCell(this)'>Confirm</a> <a href='javascript:void(0);' class='" + cancelCss + "' onclick='$(this).cancelEditableCell(this)'>Cancel</a>" + endWrapperHtml;

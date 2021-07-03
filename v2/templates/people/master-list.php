@@ -35,6 +35,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 <select id="year_option_id" class="select2-master form-control" name="year_id"
                     onchange="this.form.submit()">
                     <?php
+                    // $year_id: show the last year
                     if($year_id == -1){
                         $year_id = count($all_years)-1;
                     }
@@ -61,7 +62,8 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                 <select id="month_option_id" class="select2-master form-control" name="month_id"
                     onchange="this.form.submit()">
                     <?php
-                         foreach ($all_months as $month){
+                        // todo: show the current month
+                        foreach ($all_months as $month){
                             if($month['id']==$month_id){
                     ?>
                     <option value=<?= $month['id'] ?> selected=""><?= $month['name'] ?></option>
@@ -127,7 +129,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
                     <!-- <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th> -->
-                    <?php } ?>
+                <?php } ?>
                 </tr>
             </thead>
             <tbody>
@@ -162,7 +164,7 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
                     <th><?= $month_name ?>-<?= $year_name ?> (Cash)</th>
                     <!-- <th><?= $month_name ?>-<?= $year_name ?> (Bag)</th>
                     <th><?= $month_name ?>-<?= $year_name ?> (Sup)</th> -->
-                    <?php } ?>
+                <?php } ?>
                 </tr>
             </tfoot>
         </table>
@@ -173,8 +175,6 @@ include SystemURLs::getDocumentRoot() . '/Include/Header.php';
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
 $(document).ready(function() {
-
-    var hello = false;
 
     var table = $('#example').DataTable({});
     'use strict';
@@ -295,16 +295,8 @@ $(document).ready(function() {
             data: "7"
         },
         {
-            name: "poverty_rate",
+            name: "other_notes",
             data: "8"
-        },
-        {
-            name: "state",
-            data: "12"
-        },
-        {
-            name: "city",
-            data: "11"
         },
         {
             name: "address1",
@@ -313,6 +305,14 @@ $(document).ready(function() {
         {
             name: "address2",
             data: "10"
+        },
+        {
+            name: "city",
+            data: "11"
+        },
+        {
+            name: "state",
+            data: "12"
         },
         {
             name: "home_phone",
@@ -363,7 +363,7 @@ $(document).ready(function() {
             data: "24"
         },
         {
-            name: "other_notes",
+            name: "poverty_rate",
             data: "25"
         },
         {
@@ -398,7 +398,7 @@ $(document).ready(function() {
                 destroyTable();
                 table = $('#example').DataTable({
                     "bStateSave": true,
-                    // colReorder: true,
+                    colReorder: true,
                     // paging: false,
                     // select: true,
                     // destroy: true,
@@ -428,12 +428,11 @@ $(document).ready(function() {
                                 format: {
                                     header: function(data, row, column, node) {
                                         var newdata = data;
-
-                                        newdata = newdata.replace(/<.*?<\/*?>/gi, '');
-                                        newdata = newdata.replace(/<div.*?<\/div>/gi,
-                                            '');
-                                        newdata = newdata.replace(/<\/div.*?<\/div>/gi,
-                                            '');
+                                        // newdata = newdatat.substring(newdata.indexOf("inline-block")+15,newdata.indexOf("<span")); 
+                                        newdata = newdata.split('<')[0]; 
+                                        // newdata = newdata.replace(/<.*?<\/*?>/gi, '');
+                                        // newdata = newdata.replace(/<div.*?<\/div>/gi, '');
+                                        // newdata = newdata.replace(/<\/div.*?<\/div>/gi,'');
                                         return newdata;
                                     }
                                 }
@@ -441,31 +440,8 @@ $(document).ready(function() {
                             action: newExportAction
                         },
                         'colvis'
-                    ],
-                    // "initComplete": function(settings, json) {
-                    //     // var reponse = JSON.parse(json);
-                    //     var reset =  json['reset'];
-                    //     // if(reset == true){
-                    //         alert("now reset to 0");
-                    //     // }
-                    // }
+                    ]
                 });
-
-                table.on( 'draw', function (settings, json) {
-                    
-                    var reset = json['json']['reset'];
-                    if(reset == true && hello==false){
-                        // alert("reset is true");
-                        hello = true;
-
-                        // table.page("first");
-                        // table.draw();
-                    }
-                    if(reset == false){
-                        hello = false;
-                    }
-
-                } );
 
                 // Reset all filters  
                 $("#ClearFilters").click(function() {
@@ -477,17 +453,31 @@ $(document).ready(function() {
                 var edits = [];
                 var nums = [];
                 var current_idx = 0;
+                //////////////////////////////// todo
+                nums.push(additional_fields-1); // poverty rate
+                nums.push(additional_fields); // verifying Question
+                edits.push({
+                            "column": additional_fields-1,
+                            "type": "text",
+                            "options": null,
+                });
+                edits.push({
+                            "column": additional_fields,
+                            "type": "text",
+                            "options": null,
+                });
+                ///////////////////////////////// todo
 
                 for (var i = 1; i <= (prev_ * aid_fields); i++) {
                     current_idx = i + additional_fields;
                     nums.push(current_idx);
-                    if (i % aid_fields == 1) {
+                    if (i % aid_fields == 1) { // team options: odd number
                         edits.push({
                             "column": current_idx,
                             "type": "list",
                             "options": team_options,
                         });
-                    } else if (i % aid_fields == 0) {
+                    } else if (i % aid_fields == 0) { // cash_options: even number
                         edits.push({
                             "column": current_idx,
                             "type": "list",
@@ -537,54 +527,70 @@ $(document).ready(function() {
         function myCallbackFunction(updatedCell, updatedRow, oldValue) {
             // todo: update individual cell instead of sending multiple value onUpdate() or onInsert() 
             // console.log(updatedRow.data());
+            var newData = updatedCell.data(); // newData 
+            var row = updatedCell[0][0]['row']; // updatedCell.row()
+            var col = updatedCell[0][0]['column']; // updatedCell.col()
+            fam_id = table.cell(row, 0).data(); // fam_id 
+            month_ = $("#month_option_id").val(); //  our current month
+            year_ = $("#year_option_id").val(); // our current year
+
             try{
-                var row = updatedCell[0][0]['row'];
-            var col = updatedCell[0][0]['column'];
-            console.log(col);
+                if(col == 26){
+                    // Verifying Question
+                    update_table_for(fam_id, "c16", newData);
+                    return ; 
+                }
+                else if(col == 25){
+                    update_table_for(fam_id, "c8", newData);
+                    // Poverty Evaluation
+                    return ; 
+                }
             
-            col = col - (additional_fields); // the number of added field for family (should be subtracted)
-            col--;
-            var p = parseInt((col / aid_fields));
-            for (var i = 0; i < p; i++) {
-                if (month_ == 1) {
-                    month_ = 12;
-                    if (year_ == 1) {
-                        year_ = 1;
-                        month_ = 1;
+                col = col - (additional_fields); // the number of added field for family (should be subtracted)
+                col--;
+                var p = parseInt((col / aid_fields));
+                for (var i = 0; i < p; i++) {
+                    if (month_ == 1) {
+                        month_ = 12;
+                        if (year_ == 1) {
+                            year_ = 1;
+                            month_ = 1;
+                        }
+                        year_--;
+                    } else {
+                        month_--;
                     }
-                    year_--;
-                } else {
-                    month_--;
                 }
-            }
 
-            var team_col_idx = p * aid_fields + (additional_fields+1);
-            var cash_col_idx = p * aid_fields + (additional_fields+2);
+                var team_col_idx = p * aid_fields + (additional_fields+1);
+                var cash_col_idx = p * aid_fields + (additional_fields+2);
 
-            var team_name = table.cell(row, team_col_idx).data();
-            var cash_name = table.cell(row, cash_col_idx).data();
+                var team_name = table.cell(row, team_col_idx).data();
+                var cash_name = table.cell(row, cash_col_idx).data();
 
-            fam_id = table.cell(row, 0).data();
-            $.ajax({
+                $.ajax({
 
-                url: "/churchcrm/PostRedirect_Filteration.php",
-                type: "POST",
-                data: {
-                    post_name: "edit_global_master",
-                    family_id: fam_id,
-                    month_id: month_,
-                    year_id: year_,
-                    team_id: team_dic[team_name],
-                    cash_id: cash_dic[cash_name]
-                },
+                    url: "/churchcrm/PostRedirect_Filteration.php",
+                    type: "POST",
+                    data: {
+                        post_name: "edit_global_master",
+                        family_id: fam_id,
+                        month_id: month_,
+                        year_id: year_,
+                        team_id: team_dic[team_name],
+                        cash_id: cash_dic[cash_name]
+                    },
 
-                success: function(response) {
-                    console.log('Edited Correctly');
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                }
-            });
+                    success: function(response) {
+                        console.log('Edited Correctly');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+
+                month_ = $("#month_option_id").val(); //  our current month
+                year_ = $("#year_option_id").val(); // our current year
 
             }
             catch(err){
@@ -609,6 +615,26 @@ $(document).ready(function() {
         }
 
         $('.select2-master').select2();
+
+        function update_table_for(fam_id, column_name, value){
+            $.ajax({
+
+                url: "/churchcrm/PostRedirect_Filteration.php",
+                type: "POST",
+                data: {
+                    post_name: "inline_family_editor",
+                    family_id: fam_id,
+                    column_name: column_name,
+                    value: value
+                },
+                success: function(response) {
+                    console.log('Edited Correctly');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        }
     
 });
 </script>

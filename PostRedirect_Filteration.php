@@ -242,7 +242,7 @@ function get_master_data($ids, $year_id, $month_id, $prev, $start, $rowperpage, 
             "5" => $row['main_id'],
             "6" => $row['partner_name'],
             "7" => $row['partner_id'],
-            "8" => $row['poverty_rate'],
+            "8" => $row['other_notes'],
             "9" => $row['address1'],
             "10" => $row['address2'],
             "11" => $row['city'],
@@ -259,7 +259,7 @@ function get_master_data($ids, $year_id, $month_id, $prev, $start, $rowperpage, 
             "22" => $row['members_num'],
             "23" => $row['children'],
             "24" => $row['no_money'],
-            "25" => $row['other_notes'],
+            "25" => $row['poverty_rate'],
             "26" => $row['verifying_question'],
         );
     }
@@ -759,8 +759,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 break;    
             }
             echo "updating done";
-          
-        case "get_local_vars":  // get the option for teams, bags, suppliments and other.
+            
+            case "inline_family_editor":
+                $family_id = (int)$_POST['family_id']; // the family id 
+                $column_name = (string) $_POST['column_name'];
+                $value = (string) $_POST['value'];
+
+                $q = "UPDATE `family_custom` SET 
+                $column_name      =  '$value'
+                WHERE fam_ID       =  $family_id ;";
+
+                echo $q;
+                RunQuery($q);
+                break;    
+
+        
+            case "get_local_vars":  // get the option for teams, bags, suppliments and other.
             
             $_teams = _get('master_teams');
             $_cash = _get('master_cash');
@@ -777,20 +791,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             echo json_encode($data);
             break;
 
-        case "get_global_vars":
+        
+            case "get_global_vars":
 
             $data = Array(
                 // todo: master_teams and master_cash can be not added
                 'all_cash' =>  _get('master_cash'),
                 'all_teams' => _get('master_teams'),    
                 '3' => get_filtering_options('p', 'families_view'),
-                '8' => get_filtering_options('poverty_rate', 'families_view'),
-                '9' => get_filtering_options('state', 'families_view'),
-                '10' => get_filtering_options('city', 'families_view'),
+                '11' => get_filtering_options('city', 'families_view'),
+                '12' => get_filtering_options('state', 'families_view'),
                 '16' => get_filtering_options('status', 'families_view'),
                 '20' => get_filtering_options('ref', 'families_view'),
                 '21' => get_filtering_options('membership_status', 'families_view'),
                 '24' => get_filtering_options('no_money', 'families_view'),
+                '25' => get_filtering_options('poverty_rate', 'families_view'),
                                 // todo: get those from one query
                 'teams' => get_filtering_options('name', 'master_teams'),
                 'cash' => get_filtering_options('name', 'master_cash')
